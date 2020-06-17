@@ -1,20 +1,20 @@
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
-type User = {
+interface RegisterUser {
   email: string;
   password: string;
   repeatPassword: string;
-};
+}
 
 function SignUpPage() {
   const {
     register, errors, handleSubmit, watch,
-  } = useForm<User>();
-  const password = useRef<User['password']>();
+  } = useForm<RegisterUser>();
+  const password = useRef<RegisterUser['password']>();
   password.current = watch('password', '');
 
-  const onSubmit = async (data: User): Promise<void> => {
+  const onSubmit = async (data: RegisterUser): Promise<void> => {
     console.log(data);
   };
 
@@ -58,7 +58,7 @@ function SignUpPage() {
         />
         {errors.repeatPassword && <p>{errors.repeatPassword.message}</p>}
 
-        <input type="submit" onClick={handleSubmit(onSubmit)} value="Register user" />
+        <button type="submit" onClick={handleSubmit(onSubmit)}>Register</button>
       </form>
     </div>
   );

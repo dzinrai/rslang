@@ -1,14 +1,14 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
-type User = {
+interface LoginUser {
   email: string;
   password: string;
-};
+}
 
 function LoginPage() {
-  const { register, errors, handleSubmit } = useForm<User>();
-  const onSubmit = async (data: User): Promise<void> => {
+  const { register, errors, handleSubmit } = useForm<LoginUser>();
+  const onSubmit = async (data: LoginUser): Promise<void> => {
     console.log(JSON.stringify(data));
   };
 
@@ -43,7 +43,7 @@ function LoginPage() {
         />
         {errors.password && <p>{errors.password.message}</p>}
 
-        <input type="submit" onClick={handleSubmit(onSubmit)} value="Login" />
+        <button type="submit" onClick={handleSubmit(onSubmit)}>Login</button>
       </form>
     </div>
   );
