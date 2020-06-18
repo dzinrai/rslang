@@ -30,11 +30,13 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        <header className="App-header">
-          <Link to="/auth">Auth Page</Link>
-          {routes}
+      <div className="app">
+        <header className="app-header">
+          <Link to="/auth"><h1>RS LANG</h1></Link>
         </header>
+        <main className="app-main">
+          {routes}
+        </main>
       </div>
     </Router>
   );
