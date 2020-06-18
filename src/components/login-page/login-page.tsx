@@ -1,5 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { ReactComponent as WaveVector } from '../../img/vector-1.svg';
+import './login-page.css';
 
 interface LoginUser {
   email: string;
@@ -13,11 +15,13 @@ function LoginPage() {
   };
 
   return (
-    <div>
+    <div className="container">
       <form onSubmit={(e) => e.preventDefault()}>
-        <span>Email</span>
+        <span className="label">Email address</span>
         <input
+          className="input"
           name="email"
+          placeholder="Email address"
           ref={register({
             required: 'Email is required',
             pattern: {
@@ -26,12 +30,14 @@ function LoginPage() {
             },
           })}
         />
-        {errors.email && <p>{errors.email.message}</p>}
+        {errors.email && <p className="error-msg">{errors.email.message}</p>}
 
-        <span>Password</span>
+        <span className="label">Password</span>
         <input
+          className="input"
           name="password"
           type="password"
+          placeholder="Password"
           ref={register({
             required: 'You must specify a password',
             minLength: {
@@ -41,10 +47,11 @@ function LoginPage() {
             pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
           })}
         />
-        {errors.password && <p>{errors.password.message}</p>}
+        {errors.password && <p className="error-msg">{errors.password.message}</p>}
 
-        <button type="submit" onClick={handleSubmit(onSubmit)}>Login</button>
+        <button className="btn btn-filled" type="submit" onClick={handleSubmit(onSubmit)}>Login</button>
       </form>
+      <WaveVector className="vector-login-wave" />
     </div>
   );
 };
