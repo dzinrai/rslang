@@ -1,0 +1,84 @@
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    margin: 20px 0 0;
+    overflow: hidden;
+    max-height: 684px;
+}
+.container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    max-width: 321px;
+    margin: 58px auto;
+}
+.vector-auth-present {
+    margin: 0 20px 20px 0;
+    padding: 0;
+}
+.error-msg {
+    padding: 8px 0 8px;
+    margin: 0;
+    color: #8C8C8C;
+    font-size: .9rem;
+}
+.btn {
+    width: 285px;
+    height: 58px;
+    max-height: 58px;
+    margin: 64px auto 0;
+    padding: 12px 0 16px 0;
+    border-radius: 30px;
+    border: 2px solid #1958DB;
+    color: #1958DB;
+    background-color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .2s;
+}
+.btn-filled {
+    background-color: #1958DB;
+    color: #ffffff;
+}
+.btn:hover {
+    border-color: transparent;
+    background-color: #ffffff;
+    color: #1958DB;
+    box-shadow: 1px 1px 4px 4px rgb(148, 148, 148);
+}
+.vector-signup-wave {
+    position: absolute;
+    z-index: 0;
+    top: 150px;
+    right: -80px;
+}
+@media (min-width: 1400px) {
+    .container {
+        max-height: 864px;
+    }
+    .vector-signup-wave {
+        top: 230px;
+    }
+}
+@media (max-width: 1200px) {
+    .vector-signup-wave {
+        top: 150px;
+    }
+}
+.bg-title {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 43px;
+    top: 450px;
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: #FF645F;
+    opacity: .25;
+}
