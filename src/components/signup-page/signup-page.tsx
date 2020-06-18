@@ -1,21 +1,31 @@
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
+import createUser from '../../services/create-user';
+
 interface RegisterUser {
   email: string;
   password: string;
   repeatPassword: string;
 }
 
-function SignUpPage() {
+type PropType = {
+  isSignUp: any,
+};
+
+const SignUpPage: React.FC<{ isSignUp: any }> = ({ isSignUp }: PropType) => {
   const {
     register, errors, handleSubmit, watch,
   } = useForm<RegisterUser>();
   const password = useRef<RegisterUser['password']>();
+
   password.current = watch('password', '');
 
   const onSubmit = async (data: RegisterUser): Promise<void> => {
-    console.log(data);
+    const test: any = await createUser(data);
+    console.log('test: ', test);
+
+    isSignUp();
   };
 
   return (
@@ -62,6 +72,6 @@ function SignUpPage() {
       </form>
     </div>
   );
-}
+};
 
 export default SignUpPage;

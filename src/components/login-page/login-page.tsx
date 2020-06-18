@@ -47,6 +47,6 @@ function LoginPage() {
       </form>
     </div>
   );
-}
+};
 
 export default LoginPage;

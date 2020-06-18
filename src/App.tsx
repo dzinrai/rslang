@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import {
   BrowserRouter as Router,
@@ -12,7 +12,13 @@ import LoginPage from './components/login-page';
 import SignUpPage from './components/signup-page';
 
 function App() {
-  const routes: any = (
+  const [isSignUp, setIsSignUp] = useState(false);
+
+  function isRegistred(): void {
+    setIsSignUp(!isSignUp);
+  }
+
+  let routes: React.ReactNode = (
     <Switch>
       <Route path="/auth">
         <AuthPage />
@@ -21,12 +27,22 @@ function App() {
         <LoginPage />
       </Route>
       <Route path="/signup">
-        <SignUpPage />
+        <SignUpPage isSignUp={() => isRegistred()} />
       </Route>
       <Route exact path="/" />
       <Redirect to="/" />
     </Switch>
   );
+
+  if (isSignUp) {
+    routes = (
+      <Switch>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+      </Switch>
+    );
+  }
 
   return (
     <Router>
