@@ -51,10 +51,13 @@
   position: absolute;
   transform: rotate(-90deg);
   right: -157px;
+  z-index: -1;
 }
 
 .image {
   position: absolute;
-  right: 0;
+  transform: scale(1.9);
+  right: 156px;
   bottom: 0;
+  z-index: -1;
 }
