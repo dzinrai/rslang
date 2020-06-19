@@ -8,18 +8,20 @@ import SignUpPage from '../components/signup-page';
 function AppRouter() {
   return <div className="App">
     <header className="App-header" > </header>
-    <Switch>
-      <Route path="/auth">
-        <AuthPage />
-      </Route>
-      <Route path="/login">
-        <LoginPage />
-      </Route>
-      <Route path="/signup">
-        <SignUpPage />
-      </Route>
-      <Redirect to="/" />
-    </Switch>
+    <main className="app-main">
+      <Switch>
+        <Route path="/auth">
+          <AuthPage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/signup">
+          <SignUpPage />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    </main>
   </div>
 
 }
