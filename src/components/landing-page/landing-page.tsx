@@ -1,8 +1,8 @@
 import React from 'react';
-import WelcomePage from './welcome-page/welcome-page';
+import Welcome from './welcome/welcome';
 
 function LandingPage() {
-  return <WelcomePage />;
+  return <Welcome />;
 }
 
 export default LandingPage;

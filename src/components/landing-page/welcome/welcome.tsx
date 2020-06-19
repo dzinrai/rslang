@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './welcome-page.module.css';
+import styles from './welcome.module.css';
 import { ReactComponent as Logo } from '../../../img/logo.svg';
 import { ReactComponent as Gradient } from '../../../img/gradient.svg';
 import { ReactComponent as WelcomeImage } from '../../../img/layer-2.svg';
 
-function WelcomePage() {
+function Welcome() {
   return (
     <div className={styles.container}>
       <h1>
@@ -22,4 +22,4 @@ function WelcomePage() {
   );
 }
 
-export default WelcomePage;
+export default Welcome;

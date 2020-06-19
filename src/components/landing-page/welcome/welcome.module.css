@@ -1,9 +1,10 @@
 .container {
-  padding: 44px 0 0 83px;
+  padding: 44px 10px 180px 83px;
   display: grid;
   grid-template-rows: auto 1fr;
   grid-template-columns: minmax(auto, 320px) minmax(auto, 268px) 1fr;
   position: relative;
+  overflow: hidden;
 }
 
 .logo {
@@ -58,6 +59,6 @@
   position: absolute;
   transform: scale(1.9);
   right: 156px;
-  bottom: 0;
+  bottom: 235px;
   z-index: -1;
 }
