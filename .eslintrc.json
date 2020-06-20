@@ -39,7 +39,6 @@
   "rules": {
     "linebreak-style": [
       "error",
-      "unix",
       "windows"
     ],
     "react/jsx-filename-extension": [
