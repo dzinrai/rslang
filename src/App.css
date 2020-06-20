@@ -40,3 +40,7 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.menu-container .active {
+  background: #ECF5F8;
+}
