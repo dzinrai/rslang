@@ -3,6 +3,10 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  background-image: url('../../../img/IPhone.png');
+  background-repeat: no-repeat;
+  background-position-y: 52%;
+  background-position-x: 12%;
 }
 
 .title {
