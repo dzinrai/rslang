@@ -17,10 +17,9 @@ const LoginPage: React.FC = () => {
   const history = useHistory();
   const { authorize } = useContext(Context);
   const onSubmit = async (data: LoginUser): Promise<void> => {
-    loginUser(data).then((res) => {
+    loginUser(data).then(() => {
       history.push('/');
       authorize();
-      return res;
     });
   };
 

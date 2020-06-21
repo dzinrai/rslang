@@ -27,6 +27,7 @@
     margin: 0;
     color: #8C8C8C;
     font-size: .9rem;
+    text-align: left;
 }
 
 .btn {
@@ -91,4 +92,26 @@
     font-weight: bold;
     color: #FF645F;
     opacity: .25;
+}
+
+.label {
+    font-size: .9rem;
+    color: #262626;
+    padding: 20px 0 4px 0;
+    text-align: left;
+}
+
+.input {
+    height: 22px;
+    max-height: 40px;
+    margin: 0;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #D9D9D9;
+    font-size: 1rem;
+}
+
+.input::placeholder {
+    color: #BFBFBF;
+    font-family: 'Montserrat', sans-serif;
 }
