@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { ReactComponent as WaveVector } from '../../img/vector-1.svg';
 import './signup-page.css';
 
 import createUser from '../../services/create-user';
+import loginUser from '../../services/login-user';
+import Context from '../../context/context';
 
 interface RegisterUser {
   email: string;
@@ -11,23 +14,21 @@ interface RegisterUser {
   repeatPassword: string;
 }
 
-type PropType = {
-  isSignUp: any,
-};
-
-const SignUpPage: React.FC<{ isSignUp: any }> = ({ isSignUp }: PropType) => {
+const SignUpPage: React.FC = () => {
   const {
     register, errors, handleSubmit, watch,
   } = useForm<RegisterUser>();
   const password = useRef<RegisterUser['password']>();
+  const history = useHistory();
+  const { authorize } = useContext(Context);
 
   password.current = watch('password', '');
 
   const onSubmit = async (data: RegisterUser): Promise<void> => {
-    const test: any = await createUser(data);
-    console.log('test: ', test);
-
-    isSignUp();
+    createUser(data).then(() => loginUser(data)).then(() => {
+      history.push('/');
+      authorize();
+    });
   };
 
   return (
@@ -40,6 +41,10 @@ const SignUpPage: React.FC<{ isSignUp: any }> = ({ isSignUp }: PropType) => {
           placeholder="Email address"
           ref={register({
             required: 'Email is required',
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              message: 'invalid email address',
+            },
           })}
         />
         {errors.email && <p className="error-msg">{errors.email.message}</p>}

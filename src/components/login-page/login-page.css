@@ -6,6 +6,7 @@
     overflow: hidden;
     max-height: 684px;
 }
+
 .container form {
     display: flex;
     flex-direction: column;
@@ -15,22 +16,26 @@
     max-width: 321px;
     margin: 58px auto;
 }
+
 .vector-auth-present {
     margin: 0 20px 20px 0;
     padding: 0;
 }
+
 .error-msg {
     padding: 8px 0 8px;
     margin: 0;
     color: #8C8C8C;
     font-size: .9rem;
 }
+
 .vector-login-wave {
     position: absolute;
     z-index: 0;
     top: 150px;
     right: -80px;
 }
+
 @media (min-width: 1400px) {
     .container {
         max-height: 864px;
@@ -39,11 +44,13 @@
         top: 230px;
     }
 }
+
 @media (max-width: 1200px) {
     .vector-login-wave {
         top: 150px;
     }
 }
+
 .bg-title {
     display: flex;
     flex-direction: column;

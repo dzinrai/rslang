@@ -13,18 +13,21 @@ const createUser = async (user: User) => {
     body: JSON.stringify(user),
   });
 
-  console.log('rawResponse: ', rawResponse);
-
   if (rawResponse.status === 417) {
-    return { error: 'Already registred!' };
+    throw new Error('Already registered!');
   }
 
   if (rawResponse.status === 422) {
-    return { error: 'Incorrect e-mail or password' };
+    throw new Error('Incorrect e-mail or password');
+  }
+
+  if (!rawResponse.ok) {
+    throw new Error('Something wrong!');
   }
 
   const content = await rawResponse.json();
-  console.log('content: ', content);
+
+  localStorage.setItem('userId', content.id);
 
   return content;
 };

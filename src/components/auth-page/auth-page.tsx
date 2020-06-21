@@ -2,18 +2,19 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as AuthVector1 } from '../../img/layer-2.svg';
 import { ReactComponent as WaveVector } from '../../img/vector-1.svg';
-import './auth-page.css';
+import style from './auth-page.module.css';
 
 function AuthPage() {
   const history = useHistory();
+  const btnClasses = `${style.btn} ${style.btnFilled}`;
 
   return (
-    <div className="container">
-      <div className="auth-container">
-        <AuthVector1 className="vector-auth-present" />
+    <div className={style.container}>
+      <div className={style.authContainer}>
+        <AuthVector1 className={style.vectorAuthPresent} />
 
         <button
-          className="btn btn-filled"
+          className={btnClasses}
           type="button"
           onClick={() => {
             history.push('/signup');
@@ -23,7 +24,7 @@ function AuthPage() {
         </button>
 
         <button
-          className="btn"
+          className={style.btn}
           type="button"
           onClick={() => {
             history.push('/login');
@@ -33,12 +34,12 @@ function AuthPage() {
         </button>
 
       </div>
-      <span className="bg-title">
+      <span className={style.bgTitle}>
         <span>Online</span>
         <span>English</span>
         <span>portal</span>
       </span>
-      <WaveVector className="vector-auth-wave" />
+      <WaveVector className={style.vectorAuthWave} />
     </div>
   );
 }

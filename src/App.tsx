@@ -10,15 +10,11 @@ import {
 import AuthPage from './components/auth-page';
 import LoginPage from './components/login-page';
 import SignUpPage from './components/signup-page';
+import Context from './context/context';
 
 function App() {
-  const [isSignUp, setIsSignUp] = useState(false);
-
-  function isRegistred(): void {
-    setIsSignUp(!isSignUp);
-  }
-
-  let routes: React.ReactNode = (
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const routes: React.ReactNode = (
     <Switch>
       <Route path="/auth">
         <AuthPage />
@@ -27,34 +23,33 @@ function App() {
         <LoginPage />
       </Route>
       <Route path="/signup">
-        <SignUpPage isSignUp={() => isRegistred()} />
+        <SignUpPage />
       </Route>
       <Route exact path="/" />
       <Redirect to="/" />
     </Switch>
   );
 
-  if (isSignUp) {
-    routes = (
-      <Switch>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-      </Switch>
-    );
+  function authorize() {
+    if (!isAuthorized) {
+      setIsAuthorized(!isAuthorized);
+    }
   }
 
   return (
     <Router>
-      <div className="app">
-        <header className="app-header">
-          <Link to="/auth"><h1>RS LANG</h1></Link>
-        </header>
-        <main className="app-main">
-          {routes}
-        </main>
-      </div>
+      <Context.Provider value={{ authorize }}>
+        <div className="app">
+          <header className="app-header">
+            <Link to="/auth"><h1>RS LANG</h1></Link>
+          </header>
+          <main className="app-main">
+            {routes}
+          </main>
+        </div>
+      </Context.Provider>
     </Router>
+
   );
 }
 
