@@ -1,0 +1,58 @@
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* bottom: 0;
+    right: 0; */
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    background: #FAFAFA url('../../img/gradient-main-page.svg') no-repeat 100% 100% fixed;
+    }
+    
+    .container {
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+    }
+    
+    .progressAndWord {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 85px;
+    margin-bottom: 20px;
+    margin-top: 100px;
+    }
+    
+    .toDoAndPlan {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    /* height: 515px; */
+    }
+    
+    @media (max-width: 1035px) {
+    .toDoAndPlan {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 90px;
+    }
+    
+    .progressAndWord {
+    flex-direction: column;
+    align-items: center;
+    }
+}
+    
+    
+    .plan {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 0;
+    } 
+    
