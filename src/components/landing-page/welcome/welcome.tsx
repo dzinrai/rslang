@@ -11,9 +11,9 @@ function Welcome() {
         <Logo />
         <span className={styles.logo}>RS LANG</span>
       </h1>
-      <p className={styles.title}>
+      <h2 className={styles.title}>
         App for learning English
-      </p>
+      </h2>
       <p className={styles.text}>with interval repetition and mini-games</p>
       <button type="button" className={styles.button}>Get Started</button>
       <Gradient className={styles.gradient} />
