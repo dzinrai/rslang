@@ -1,9 +1,10 @@
 .lastWord {
-    height: 80px;
+    height: 90px;
     width: 247px;
     display: flex;
     flex-direction: column;
     color: #2A2873;
+    font-family: Montserrat, sans-serif;
 }
 
 .top {
@@ -25,7 +26,8 @@
 }
 
 .transcription {
-    padding: 3px;
+    padding-top: 3px;
+    padding-left: 3px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -36,6 +38,7 @@
 .word {
     font-size: 14px;
     font-weight: 500;
+    line-height: 1;
 }
 
 .translation {
