@@ -31,5 +31,18 @@
     width: 329px;
     height:512px;
     display: block;
-    margin: 0 auto;
+    margin-right: 100px;
+    /* margin: 0 auto; */
+}
+
+@media (max-width: 1200px) {
+    .actions_container {
+    margin-right: 70px;
+    }
+}
+
+@media (max-width: 1035px) {
+    .actions_container {
+    margin-right: 0;
+    }
 }

@@ -1,12 +1,26 @@
 .gameContainer {
-    width: 250px;
-    height: 310px;
+    width: 310px;
+    height: 390px;
     padding: 40px 30px;
-    border: 1px solid gray;
     border-radius: 7px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    font-family: Montserrat, sans-serif;
+    background-color: #fff;
+    transition: box-shadow .2s linear;
+}
+
+@media (max-width: 639px) {
+    .gameContainer {
+        margin-bottom: 20px;
+    }
+}
+
+
+.gameContainer:hover {
+    box-shadow: -2px 6px 16px rgba(133, 133, 133, 0.21);
+    cursor: pointer;
 }
 
 .gameText {
@@ -22,4 +36,8 @@
     color: #FF645F;
     text-align: right;
     margin-bottom: 10px;
+}
+
+.gameImg {
+    align-self: center;
 }

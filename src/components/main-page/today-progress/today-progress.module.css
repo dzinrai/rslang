@@ -1,13 +1,14 @@
 .today_progress_container {
-    position: absolute;
+    /* position: absolute; */
     width: 780px;
     height: 63px;
-    left: 44px;
-    top: 117px;
+    /* left: 44px;
+    top: 117px; */
     background: rgba(255, 202, 202, 0.36);
-    opacity: 0.7;
+    /* opacity: 0.7; */
     border-radius: 8px;
 }
+
 .lamp_img{
     position: relative;
     left: 320px;
@@ -57,4 +58,16 @@
     position: relative;
     left: 370px;
     bottom: 90px;
+}
+
+@media (max-width: 1035px) {
+    .today_progress_container {
+        width: 90%;
+    }
+    .level {
+        left: 295px;
+    }
+    .lamp_img {
+        left: 245px;
+    }
 }
