@@ -5,6 +5,7 @@
   grid-template-columns: minmax(auto, 320px) minmax(auto, 268px) 1fr;
   position: relative;
   overflow: hidden;
+  z-index: 0;
 }
 
 .logo {
