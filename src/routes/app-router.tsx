@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import AuthPage from '../components/auth-page';
 import LoginPage from '../components/login-page';
 import SignUpPage from '../components/signup-page';
+import LearnWordsPage from '../components/learn-words-page/learn-words-page';
 
 function AppRouter() {
   return (
@@ -19,6 +20,9 @@ function AppRouter() {
           </Route>
           <Route path="/signup">
             <SignUpPage />
+            </Route>
+            <Route path="/learn-words">
+            <LearnWordsPage />
           </Route>
           <Redirect to="/" />
         </Switch>
