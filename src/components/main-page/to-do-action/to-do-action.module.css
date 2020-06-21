@@ -1,0 +1,35 @@
+.btn {
+    background: #1958DB;
+    border-radius: 60px;
+    width: 250px;
+    height: 47px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btn_default {
+    color: #1958DB;
+    background: #FFFFFF;
+    border: 1px solid #1958DB;
+    box-sizing: border-box;
+}
+.btn_container{
+    display: block;
+    padding: 50px;
+}
+.actions_container{
+    background: #FFFFFF;
+    box-shadow: -2px 6px 16px rgba(133, 133, 133, 0.21);
+    border-radius: 5px;
+    width: 329px;
+    height:512px;
+    display: block;
+    margin: 0 auto;
+}
