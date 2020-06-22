@@ -1,0 +1,65 @@
+.container {
+  padding: 44px 10px 180px 83px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: minmax(auto, 320px) minmax(auto, 268px) 1fr;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.logo {
+  display: block;
+  font-weight: bold;
+  font-size: 36px;
+  color: #1958DB
+}
+
+.title {
+  padding-top: 150px;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 78px;
+  color: #FF645F;
+  margin-bottom: 25px;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.text {
+  font-size: 22px;
+  line-height: 27px;
+  color: #FF645F;
+  margin-bottom: 90px;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.button {
+  padding: 14px 27px;
+  border: none;
+  border-radius: 30px;
+  background-color: #1958DB;
+  font-weight: bold;
+  font-size: 24px;
+  color: #FFFFFF;
+  cursor: pointer;
+
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.gradient {
+  position: absolute;
+  transform: rotate(-90deg);
+  right: -157px;
+  z-index: -1;
+}
+
+.image {
+  position: absolute;
+  transform: scale(1.9);
+  right: 156px;
+  bottom: 235px;
+  z-index: -1;
+}
