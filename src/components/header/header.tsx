@@ -17,6 +17,7 @@ import IMG_GAMES from '../../img/menuIcons/puzzle.svg'
 import IMG_ABOUT_US from '../../img/menuIcons/aboutUs.svg'
 import { ILink } from './interface'
 const pathArray: Array<ILink> = [
+
     {path: '/library', name: 'Library', image: IMG_LIBRARY},
     {path: '/statistic', name: 'Statistic', image: IMG_STATISTIC},
     {path: '/mini-games', name: 'Mini Games', image: IMG_GAMES},
