@@ -1,0 +1,15 @@
+.container {
+  padding: 146px 85px 200px;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 48px;
+  color: #FF645F;
+  margin-bottom: 146px;
+}
+
+.advantagesContainer {
+  display: flex;
+  justify-content: space-around;
+}
