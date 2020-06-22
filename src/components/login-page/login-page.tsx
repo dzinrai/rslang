@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
-import { ReactComponent as WaveVector } from '../../img/vector-1.svg';
 import loginUser from '../../services/login-user';
 import Context from '../../context/context';
 import styles from './login-page.module.css';
@@ -59,7 +58,10 @@ const LoginPage: React.FC = () => {
           Login
         </Button>
       </form>
-      <WaveVector className={styles.vectorLoginWave} />
+      <span className={styles.bgTitle}>
+        <span>Welcome</span>
+        <span>Back</span>
+      </span>
     </div>
   );
 };

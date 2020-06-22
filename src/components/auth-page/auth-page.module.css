@@ -7,6 +7,21 @@
     max-height: 684px;
 }
 
+.container::before {
+    content: '';
+    width: 912px;
+    height: 640px;
+    position: absolute;
+    right: -160px;
+    top: 20px;
+    z-index: 0;
+    display: block;
+    background: linear-gradient(210deg, rgba(17,148,200,1) 0%, rgba(25,88,219,1) 22%, rgba(255,100,95,1) 84%, rgba(255,100,95,1) 100%);
+    mask-image: url(../../img/waveVector1.svg);
+    mask-repeat: no-repeat;
+    mask-position: 0 0;
+}
+
 .authContainer {
     display: flex;
     flex-direction: column;
@@ -56,22 +71,39 @@
     box-shadow: 1px 1px 4px 4px rgb(148, 148, 148);
 }
 
-.vectorAuthWave {
-    position: absolute;
-    z-index: 0;
-    top: 233px;
-    right: -160px;
-}
-
 @media (min-width: 1200px) {
     .container {
-        max-height: 864px;
+        max-height: 851px;
+    }
+    .container::before {
+        top: 25vh;
     }
 }
 
 @media (max-width: 1200px) {
-    .vectorAuthWave {
-        top: 145px;
+    .container::before {
+        top: 60px;
+        right: -15vw;
+    }
+}
+
+@media (max-width: 1020px) {
+    .container::before {
+        top: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container::before {
+        top: 60px;
+        right: -60vw;
+    }
+    .container .bgTitle {
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+        left: 10px;
+        top: 67vh;
+        text-shadow: 1px 1px #ffffff;
     }
 }
 

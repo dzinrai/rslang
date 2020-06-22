@@ -7,12 +7,27 @@
     max-height: 684px;
 }
 
+.container::before {
+    content: '';
+    width: 912px;
+    height: 640px;
+    position: absolute;
+    right: -80px;
+    top: 110px;
+    z-index: 0;
+    display: block;
+    background: linear-gradient(210deg, rgba(17,148,200,1) 0%, rgba(25,88,219,1) 22%, rgba(255,100,95,1) 84%, rgba(255,100,95,1) 100%);
+    mask-image: url(../../img/waveVector1.svg);
+    mask-repeat: no-repeat;
+    mask-position: 0 0;
+}
+
 .container form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     max-width: 321px;
     margin: 58px auto;
 }
@@ -60,25 +75,39 @@
     box-shadow: 1px 1px 4px 4px rgb(148, 148, 148);
 }
 
-.vectorSignupWave {
-    position: absolute;
-    z-index: 0;
-    top: 150px;
-    right: -80px;
-}
-
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
     .container {
-        max-height: 864px;
+        max-height: 851px;
     }
-    .vector-signup-wave {
-        top: 230px;
+    .container::before {
+        top: 25vh;
     }
 }
 
 @media (max-width: 1200px) {
-    .vector-signup-wave {
-        top: 150px;
+    .container::before {
+        top: 60px;
+        right: -15vw;
+    }
+}
+
+@media (max-width: 1020px) {
+    .container::before {
+        top: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container::before {
+        top: 60px;
+        right: -60vw;
+    }
+    .container .bgTitle {
+        font-size: 2.5rem;
+        line-height: 2.5rem;
+        left: 10px;
+        top: 54vh;
+        text-shadow: 1px 1px #ffffff;
     }
 }
 
@@ -86,13 +115,29 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 43px;
-    top: 450px;
+    left: 23px;
+    top: 340px;
     font-size: 3.5rem;
     line-height: 3.5rem;
     font-weight: bold;
     color: #FF645F;
-    opacity: .25;
+    text-align: left;
+}
+.bgTitle span {
+    position: relative;
+    z-index: 1;
+}
+.bgTitle::after {
+    content: '';
+    width: 288px;
+    height: 395px;
+    position: relative;
+    top: -20px;
+    z-index: 0;
+    display: block;
+    background-image: url(../../img/getStarted.png);
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 .label {

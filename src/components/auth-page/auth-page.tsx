@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ReactComponent as AuthVector1 } from '../../img/layer-2.svg';
-import { ReactComponent as WaveVector } from '../../img/vector-1.svg';
 import style from './auth-page.module.css';
 
 function AuthPage() {
@@ -39,7 +38,6 @@ function AuthPage() {
         <span>English</span>
         <span>portal</span>
       </span>
-      <WaveVector className={style.vectorAuthWave} />
     </div>
   );
 }

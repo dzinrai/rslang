@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
 import { useForm } from 'react-hook-form';
-import { ReactComponent as WaveVector } from '../../img/vector-1.svg';
 import styles from './signup-page.module.css';
 
 import createUser from '../../services/create-user';
@@ -92,7 +91,10 @@ const SignUpPage: React.FC = () => {
           Sign Up
         </Button>
       </form>
-      <WaveVector className={styles.vectorSignupWave} />
+      <span className={styles.bgTitle}>
+        <span>Get</span>
+        <span>Started</span>
+      </span>
     </div>
   );
 };
