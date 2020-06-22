@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-// import styles from './learn-words.module.css';
+import styles from './learn-words.module.css';
 import { storeWords } from '../../context/contextWords';
 import getWords from '../../services/getWords';
 import LibraryWord from './library-word';
@@ -25,9 +25,9 @@ function LearnWords() {
   // рендерю LibraryWord только с index для наглядности использования потом контекстного stateWords
   // правильнее просто прокинуть ему элемент word
   return (
-    <div>
-      <div>Levels of word learning</div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.difficulties}>Levels of word learning</div>
+      <div className={styles.libraryColumn}>
         {words.length > 0 && words.map((word: any, i: number) => (
           <LibraryWord
             key={word.id}

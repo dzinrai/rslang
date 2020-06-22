@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { storeWords } from '../../context/contextWords';
-// import styles from './learn-words.module.css';
+import styles from './library-word.module.css';
+
 interface LibraryWordProps {
   index: number;
 }
@@ -13,9 +14,9 @@ function LibraryWord({ index }: LibraryWordProps) {
   if (!word) return null;
 
   return (
-    <div className="">
+    <div className={styles.libraryLine}>
       <span>{`${word.word} (${word.wordTranslate}): `}</span>
-      <img className="" src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} alt={word.word} />
+      <img className={styles.wordImage} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} alt={word.word} />
       <span dangerouslySetInnerHTML={{ __html: word.textExample }} />
     </div>
   );
