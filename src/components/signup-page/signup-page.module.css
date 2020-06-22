@@ -17,12 +17,12 @@
     margin: 58px auto;
 }
 
-.vector-auth-present {
+.vectorAuthPresent {
     margin: 0 20px 20px 0;
     padding: 0;
 }
 
-.error-msg {
+.errorMsg {
     padding: 8px 0 8px;
     margin: 0;
     color: #8C8C8C;
@@ -48,7 +48,7 @@
     transition: all .2s;
 }
 
-.btn-filled {
+.btnFilled {
     background-color: #1958DB;
     color: #ffffff;
 }
@@ -60,7 +60,7 @@
     box-shadow: 1px 1px 4px 4px rgb(148, 148, 148);
 }
 
-.vector-signup-wave {
+.vectorSignupWave {
     position: absolute;
     z-index: 0;
     top: 150px;
@@ -82,27 +82,28 @@
     }
 }
 
-.bg-title {
+.bgTitle {
     display: flex;
     flex-direction: column;
     position: absolute;
     left: 43px;
     top: 450px;
     font-size: 3.5rem;
+    line-height: 3.5rem;
     font-weight: bold;
     color: #FF645F;
     opacity: .25;
 }
 
 .label {
-    font-size: .9rem;
+    font-size: 1rem;
+    font-weight: lighter;
     color: #262626;
     padding: 20px 0 4px 0;
     text-align: left;
 }
 
-.input {
-    height: 22px;
+.inputForm {
     max-height: 40px;
     margin: 0;
     padding: 8px 12px;
@@ -111,7 +112,37 @@
     font-size: 1rem;
 }
 
-.input::placeholder {
+.inputForm::placeholder {
     color: #BFBFBF;
     font-family: 'Montserrat', sans-serif;
+}
+
+.btn {
+    width: 285px;
+    height: 58px;
+    max-height: 58px;
+    margin: 64px auto 0;
+    padding: 12px 0 16px 0;
+    border-radius: 30px;
+    border: 2px solid #1958DB;
+    color: #1958DB;
+    background-color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.btnFilled {
+    background-color: #1958DB;
+    color: #ffffff;
+}
+
+.btn:hover {
+    border-color: transparent;
+    background-color: #ffffff;
+    color: #1958DB;
+    box-shadow: 1px 1px 4px 4px rgb(148, 148, 148);
 }

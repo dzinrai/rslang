@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-
+import { Button } from 'antd';
+import 'antd/dist/antd.css';
 import { ReactComponent as WaveVector } from '../../img/vector-1.svg';
 import loginUser from '../../services/login-user';
 import Context from '../../context/context';
-import './login-page.css';
+import styles from './login-page.module.css';
 
 interface LoginUser {
   email: string;
@@ -24,22 +25,22 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <form onSubmit={(e) => e.preventDefault()}>
-        <span className="label">Email address</span>
+        <span className={styles.label}>Email address</span>
         <input
-          className="input"
+          className={styles.inputForm}
           name="email"
           placeholder="Email address"
           ref={register({
             required: 'Email is required',
           })}
         />
-        {errors.email && <p className="error-msg">{errors.email.message}</p>}
+        {errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>}
 
-        <span className="label">Password</span>
+        <span className={styles.label}>Password</span>
         <input
-          className="input"
+          className={styles.inputForm}
           name="password"
           type="password"
           placeholder="Password"
@@ -49,9 +50,16 @@ const LoginPage: React.FC = () => {
         />
         {errors.password && <p className="error-msg">{errors.password.message}</p>}
 
-        <button className="btn btn-filled" type="submit" onClick={handleSubmit(onSubmit)}>Login</button>
+        <Button
+          className={`${styles.btn} ${styles.btnFilled}`}
+          shape="round"
+          onClick={handleSubmit(onSubmit)}
+          value="large"
+        >
+          Login
+        </Button>
       </form>
-      <WaveVector className="vector-login-wave" />
+      <WaveVector className={styles.vectorLoginWave} />
     </div>
   );
 };

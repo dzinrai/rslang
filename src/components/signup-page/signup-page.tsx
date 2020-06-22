@@ -1,8 +1,10 @@
 import React, { useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Button } from 'antd';
+import 'antd/dist/antd.css';
 import { useForm } from 'react-hook-form';
 import { ReactComponent as WaveVector } from '../../img/vector-1.svg';
-import './signup-page.css';
+import styles from './signup-page.module.css';
 
 import createUser from '../../services/create-user';
 import loginUser from '../../services/login-user';
@@ -32,11 +34,11 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       <form onSubmit={(e) => e.preventDefault()} autoComplete="off">
-        <span className="label">Email address</span>
+        <span className={styles.label}>Email address</span>
         <input
-          className="input"
+          className={styles.inputForm}
           name="email"
           placeholder="Email address"
           ref={register({
@@ -47,11 +49,11 @@ const SignUpPage: React.FC = () => {
             },
           })}
         />
-        {errors.email && <p className="error-msg">{errors.email.message}</p>}
+        {errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>}
 
-        <span className="label">Password</span>
+        <span className={styles.label}>Password</span>
         <input
-          className="input"
+          className={styles.inputForm}
           name="password"
           type="password"
           placeholder="Password"
@@ -67,11 +69,11 @@ const SignUpPage: React.FC = () => {
             },
           })}
         />
-        {errors.password && <p className="error-msg">{errors.password.message}</p>}
+        {errors.password && <p className={styles.errorMsg}>{errors.password.message}</p>}
 
-        <span className="label">Repeat Password</span>
+        <span className={styles.label}>Repeat Password</span>
         <input
-          className="input"
+          className={styles.inputForm}
           name="repeatPassword"
           type="password"
           placeholder="Repeat Password"
@@ -79,17 +81,18 @@ const SignUpPage: React.FC = () => {
             validate: (value) => value === password.current || 'The passwords do not match',
           })}
         />
-        {errors.repeatPassword && <p className="error-msg">{errors.repeatPassword.message}</p>}
-
-        <button
-          className="btn btn-filled"
-          type="button"
+        {errors.repeatPassword
+        && <p className={styles.errorMsg}>{errors.repeatPassword.message}</p>}
+        <Button
+          className={`${styles.btn} ${styles.btnFilled}`}
+          shape="round"
           onClick={handleSubmit(onSubmit)}
+          value="large"
         >
           Sign Up
-        </button>
+        </Button>
       </form>
-      <WaveVector className="vector-signup-wave" />
+      <WaveVector className={styles.vectorSignupWave} />
     </div>
   );
 };
