@@ -7,7 +7,7 @@ import styles from './signup-page.module.css';
 
 import createUser from '../../services/create-user';
 import loginUser from '../../services/login-user';
-import Context from '../../context/context';
+import Context from '../../context/contextUser';
 
 interface RegisterUser {
   email: string;
