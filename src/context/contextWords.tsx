@@ -4,7 +4,8 @@ const initialState = {
   words: ['word1'],
 };
 
-const ContextWords = createContext<any>(undefined);
+const storeWords = createContext<any>(undefined);
+const { Provider } = storeWords;
 export type Props = {
     children: any;
 };
@@ -24,10 +25,10 @@ const WordsProvider = ({ children }: Props) => {
   }, initialState);
 
   return (
-    <ContextWords.Provider value={{ state, dispatch }}>
+    <Provider value={{ state, dispatch }}>
       {children}
-    </ContextWords.Provider>
+    </Provider>
   );
 };
 
-export { ContextWords, WordsProvider };
+export { storeWords, WordsProvider };

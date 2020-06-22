@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 // import styles from './learn-words.module.css';
-import { ContextWords } from '../../context/contextWords';
+import { storeWords } from '../../context/contextWords';
 import getWords from '../../services/getWords';
 import LibraryWord from './library-word';
 
 function LearnWords() {
-  const wordsState = useContext(ContextWords);
+  const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
   // const stateWords = wordsState.state;
 
@@ -19,6 +19,7 @@ function LearnWords() {
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
     };
     preloadWords();
+    // eslint-disable-next-line
   }, []);
 
   // рендерю LibraryWord только с index для наглядности использования потом контекстного stateWords

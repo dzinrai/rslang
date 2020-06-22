@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
-import { ContextWords } from '../../context/contextWords';
+import { storeWords } from '../../context/contextWords';
 // import styles from './learn-words.module.css';
 interface LibraryWordProps {
   index: number;
 }
 
 function LibraryWord({ index }: LibraryWordProps) {
-  const wordsState = useContext(ContextWords);
+  const wordsState = useContext(storeWords);
   const stateWords = wordsState.state;
   const word = stateWords.words ? stateWords.words[index] : null;
 
