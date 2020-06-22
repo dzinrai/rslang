@@ -17,11 +17,12 @@ import IMG_GAMES from '../../img/menuIcons/puzzle.svg'
 import IMG_ABOUT_US from '../../img/menuIcons/aboutUs.svg'
 import { ILink } from './interface'
 const pathArray: Array<ILink> = [
-    {path: 'library', name: 'Library', image: IMG_LIBRARY},
-    {path: 'statistic', name: 'Statistic', image: IMG_STATISTIC},
-    {path: 'mini-games', name: 'Mini Games', image: IMG_GAMES},
-    {path: 'settings', name: 'Settings', image: IMG_SETTINGS},
-    {path: 'about-us', name: 'About Us', image: IMG_ABOUT_US}];
+
+    {path: '/library', name: 'Library', image: IMG_LIBRARY},
+    {path: '/statistic', name: 'Statistic', image: IMG_STATISTIC},
+    {path: '/mini-games', name: 'Mini Games', image: IMG_GAMES},
+    {path: '/settings', name: 'Settings', image: IMG_SETTINGS},
+    {path: '/about-us', name: 'About Us', image: IMG_ABOUT_US}];
 
 
 const Header: React.FC = () => {
@@ -36,7 +37,7 @@ const Header: React.FC = () => {
     return (
         <>
             <div className={styles.headerContainer}>
-                <NavLink to='main-page'><img src={Logo} alt="Logo"/></NavLink>
+                <NavLink to='/main-page'><img src={Logo} alt="Logo"/></NavLink>
                 <div className={menuButtonStyle} onClick={toggleMenu}>
                     <span> </span>
                     <span> </span>
