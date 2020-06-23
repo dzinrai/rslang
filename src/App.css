@@ -33,3 +33,20 @@ body {
 .menu-container .active {
   background: #ECF5F8;
 }
+
+.app-main {
+  overflow: hidden;
+  height: calc(100vh - 100px);
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1958db;
+}

@@ -6,13 +6,14 @@ import { ILink } from './interface';
 
 interface LinkProps {
     link: ILink[]
+    toggleMenu: () => void
 }
 
-const MenuLink: React.FC<LinkProps> = ({ link }) => (
+const MenuLink: React.FC<LinkProps> = ({ link, toggleMenu }) => (
   <ul>
     {link.map((item, index) => (
       <li key={index}>
-        <NavLink className={styles.link} to={item.path}>
+        <NavLink className={styles.link} to={item.path} onClick={toggleMenu}>
           <img src={item!.image} alt="" />
           {' '}
           <span>

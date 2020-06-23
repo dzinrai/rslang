@@ -46,7 +46,7 @@ const Header: React.FC = () => {
       <div className={`${menuContainerStyle} menu-container`}>
         <div className={styles.menuScreenBackground} onClick={toggleMenu}> </div>
         <div className={styles.menuBlock}>
-          <MenuLink link={pathArray} />
+          <MenuLink link={pathArray} toggleMenu={toggleMenu} />
           <div className={styles.btnLogOut}>
             Log Out
           </div>
