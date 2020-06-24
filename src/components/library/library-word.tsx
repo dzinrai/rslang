@@ -32,7 +32,7 @@ function LibraryWord({ index }: LibraryWordProps) {
         <div className={styles.transcriptAndRate}>
           <span className={styles.transcript}>
             <Ear />
-            {`[${word.word}]`}
+            {word.transcription}
           </span>
           <WordRate rate={word.group + 1} wordId={word.id} />
         </div>
