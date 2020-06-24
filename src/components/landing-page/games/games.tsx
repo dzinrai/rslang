@@ -13,11 +13,11 @@ function Games() {
   return (
     <div className={styles.container}>
       <Game text="Improves speech and pronunciation" Image={Megaphone} caption="Speak IT" />
-      <Game text="Improve a reaction when you guess words in hurry mode" Image={Lion} caption="Savannah" isEven />
+      <Game text="Improve a reaction when you guess words in hurry mode" Image={Lion} caption="Savannah" />
       <Game text="Allows you to improve listening comprehension of English" Image={Calling} caption="Audio Call" />
-      <Game text="You need to quickly decide the correct one is the translation of the word" Image={Sprinter} caption="Sprint" isEven />
+      <Game text="You need to quickly decide the correct one is the translation of the word" Image={Sprinter} caption="Sprint" />
       <Game text="Build a sentence from words. Effective exercise to understand the structure of sentences" Image={Puzzle} caption="English Puzzle" />
-      <Game text="Surprise" Image={Surprise} caption="Special OwnGame" isEven />
+      <Game text="Surprise" Image={Surprise} caption="Special OwnGame" />
     </div>
   );
 }
