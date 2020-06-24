@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    margin: 20px auto;
+    max-width: 70%;
+}
+
+.difficulties {
+    max-width: 100px;
+    margin-right: 10px;
+}
+
+.libraryColumn {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: left;
+}

@@ -17,6 +17,7 @@ import IMG_GAMES from '../../img/menuIcons/puzzle.svg';
 import IMG_ABOUT_US from '../../img/menuIcons/aboutUs.svg';
 // eslint-disable-next-line no-unused-vars
 import { ILink } from './interface';
+
 const pathArray: Array<ILink> = [
   { path: 'library', name: 'Library', image: IMG_LIBRARY },
   { path: 'statistic', name: 'Statistic', image: IMG_STATISTIC },
@@ -26,8 +27,8 @@ const pathArray: Array<ILink> = [
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState<Boolean>(false);
-  const [menuButtonStyle, menuContainerStyle] = [`${styles.menuButton} 
-      ${isOpen && styles.active}`, `${styles.menuContainer} 
+  const [menuButtonStyle, menuContainerStyle] = [`${styles.menuButton}
+      ${isOpen && styles.active}`, `${styles.menuContainer}
       ${isOpen && styles.active}`];
 
   const toggleMenu = () => {

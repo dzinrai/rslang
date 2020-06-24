@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
 import loginUser from '../../services/login-user';
-import Context from '../../context/context';
+import Context from '../../context/contextUser';
 import styles from './login-page.module.css';
 
 interface LoginUser {

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import MainRouter from './routes/main-router';
-import Context from './context/context';
+import ContextUser from './context/contextUser';
+import { WordsProvider } from './context/contextWords';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -15,9 +16,11 @@ function App() {
 
   return (
     <Router>
-      <Context.Provider value={{ authorize }}>
-        <MainRouter />
-      </Context.Provider>
+      <ContextUser.Provider value={{ authorize }}>
+        <WordsProvider>
+          <MainRouter />
+        </WordsProvider>
+      </ContextUser.Provider>
     </Router>
   );
 }
