@@ -20,7 +20,7 @@ const LoginPage: React.FC = () => {
   const onSubmit = async (data: LoginUser): Promise<void> => {
     loginUser(data)
       .then(() => {
-        history.push('/');
+        history.push('/main-page');
         authorize();
       }).catch((err) => {
         setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);

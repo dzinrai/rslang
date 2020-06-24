@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './learn-words.module.css';
 import { storeWords } from '../../context/contextWords';
 import getWords from '../../services/getWords';
-import LibraryWord from './library-word';
-import WordRate from './word-rate';
+import LibraryWord from './learn-word';
 
 function LearnWords() {
   const wordsState = useContext(storeWords);
@@ -23,31 +22,7 @@ function LearnWords() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.difficulties}>
-        <span>Levels of word learning:</span>
-        <div className={styles.diffContainer}>
-          <div className={styles.diffLevel}>
-            <WordRate rate={5} wordId="" />
-            You studied that word very well
-          </div>
-          <div className={styles.diffLevel}>
-            <WordRate rate={4} wordId="" />
-            We almost did, but it&apos;s not accurate
-          </div>
-          <div className={styles.diffLevel}>
-            <WordRate rate={3} wordId="" />
-            You&apos;re in the process of remembering that word
-          </div>
-          <div className={styles.diffLevel}>
-            <WordRate rate={2} wordId="" />
-            Go and memorize that word immediately
-          </div>
-          <div className={styles.diffLevel}>
-            <WordRate rate={1} wordId="" />
-            The new word! (Urgent training!)
-          </div>
-        </div>
-      </div>
+      <div className={styles.difficulties}>Levels of word learning</div>
       <div className={styles.libraryColumn}>
         {words.length > 0 && words.map((word: any, i: number) => (
           <LibraryWord

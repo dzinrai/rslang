@@ -14,7 +14,7 @@
 }
 
 .menuButton {
-    z-index: 2;
+    z-index: 11;
     position: relative;
     width: 54px;
     height: 40px;
@@ -64,7 +64,7 @@
 }
 
 .menuContainer {
-    z-index: 1;
+    z-index: 10;
     display: none;
     grid-template-columns: 1fr 320px;
     position: fixed;
