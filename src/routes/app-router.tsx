@@ -9,7 +9,6 @@ import LoginPage from '../components/login-page';
 import SignUpPage from '../components/signup-page';
 import MainPage from '../components/main-page/main-page';
 import LearnWords from '../components/learn-words/learn-words';
-// import LearnWords from '../components/learn-words-page';
 
 function AppRouter() {
   const landingPath = useLocation();
