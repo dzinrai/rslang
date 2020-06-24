@@ -14,7 +14,7 @@ const createUser = async (user: User) => {
   });
 
   if (rawResponse.status === 417) {
-    throw new Error('Already registered!');
+    throw new Error('Already registered');
   }
 
   if (rawResponse.status === 422) {

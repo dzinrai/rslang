@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
@@ -16,11 +16,15 @@ const LoginPage: React.FC = () => {
   const { register, errors, handleSubmit } = useForm<LoginUser>();
   const history = useHistory();
   const { authorize } = useContext(Context);
+  const [errorMessage, setErrorMessage] = useState<React.ReactNode>(null);
   const onSubmit = async (data: LoginUser): Promise<void> => {
-    loginUser(data).then(() => {
-      history.push('/main-page');
-      authorize();
-    });
+    loginUser(data)
+      .then(() => {
+        history.push('/');
+        authorize();
+      }).catch((err) => {
+        setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);
+      });
   };
 
   return (
@@ -35,7 +39,8 @@ const LoginPage: React.FC = () => {
             required: 'Email is required',
           })}
         />
-        {errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>}
+        {errorMessage
+          || (errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>)}
 
         <span className={styles.label}>Password</span>
         <input
@@ -47,7 +52,7 @@ const LoginPage: React.FC = () => {
             required: 'You must specify a password',
           })}
         />
-        {errors.password && <p className="error-msg">{errors.password.message}</p>}
+        {errors.password && <p className={styles.errorMsg}>{errors.password.message}</p>}
 
         <Button
           className={`${styles.btn} ${styles.btnFilled}`}
