@@ -4,7 +4,6 @@ import Adaptive from './adaptive/adaptive';
 import Advantages from './advantages/advantages';
 import Progress from './progress/progress';
 import Games from './games/games';
-import AboutUs from './about-us/about-us';
 
 import styles from './landing-page.module.css';
 
@@ -16,7 +15,6 @@ function LandingPage() {
       <Advantages />
       <Progress />
       <Games />
-      <AboutUs />
     </div>
   );
 }
