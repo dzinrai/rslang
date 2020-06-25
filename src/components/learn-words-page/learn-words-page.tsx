@@ -1,10 +1,8 @@
 import React from 'react';
 
 function LearnWordsPage(){
-    return(
-        <>
-        </>
+    return (
+        <></>    
     )
 }
-
 export default LearnWordsPage;
