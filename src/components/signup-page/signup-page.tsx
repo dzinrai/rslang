@@ -1,5 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button } from 'antd';
+import 'antd/dist/antd.css';
 import { useForm } from 'react-hook-form';
+import styles from './signup-page.module.css';
+
+import createUser from '../../services/create-user';
+import loginUser from '../../services/login-user';
+import Context from '../../context/contextUser';
 
 interface RegisterUser {
   email: string;
@@ -7,33 +15,54 @@ interface RegisterUser {
   repeatPassword: string;
 }
 
-function SignUpPage() {
+const SignUpPage: React.FC = () => {
   const {
     register, errors, handleSubmit, watch,
   } = useForm<RegisterUser>();
   const password = useRef<RegisterUser['password']>();
+  const history = useHistory();
+  const { authorize } = useContext(Context);
+  const [errorMessage, setErrorMessage] = useState<React.ReactNode>(null);
+
   password.current = watch('password', '');
 
   const onSubmit = async (data: RegisterUser): Promise<void> => {
-    console.log(data);
+    createUser(data)
+      .then(() => loginUser(data))
+      .then(() => {
+        history.push('/');
+        authorize();
+      })
+      .catch((err) => {
+        setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);
+      });
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <form onSubmit={(e) => e.preventDefault()} autoComplete="off">
-        <span>Email</span>
+        <span className={styles.label}>Email address</span>
         <input
+          className={styles.inputForm}
           name="email"
+          placeholder="Email address"
           ref={register({
             required: 'Email is required',
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              message: 'invalid email address',
+            },
           })}
         />
-        {errors.email && <p>{errors.email.message}</p>}
+        {errorMessage
+          || (errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>)}
 
-        <span>Password</span>
+        <span className={styles.label}>Password</span>
         <input
+          className={styles.inputForm}
           name="password"
           type="password"
+          placeholder="Password"
           ref={register({
             required: 'You must specify a password',
             minLength: {
@@ -46,22 +75,35 @@ function SignUpPage() {
             },
           })}
         />
-        {errors.password && <p>{errors.password.message}</p>}
+        {errors.password && <p className={styles.errorMsg}>{errors.password.message}</p>}
 
-        <span>Repeat password</span>
+        <span className={styles.label}>Repeat Password</span>
         <input
+          className={styles.inputForm}
           name="repeatPassword"
           type="password"
+          placeholder="Repeat Password"
           ref={register({
             validate: (value) => value === password.current || 'The passwords do not match',
           })}
         />
-        {errors.repeatPassword && <p>{errors.repeatPassword.message}</p>}
-
-        <button type="submit" onClick={handleSubmit(onSubmit)}>Register</button>
+        {errors.repeatPassword
+          && <p className={styles.errorMsg}>{errors.repeatPassword.message}</p>}
+        <Button
+          className={`${styles.btn} ${styles.btnFilled}`}
+          shape="round"
+          onClick={handleSubmit(onSubmit)}
+          value="large"
+        >
+          Sign Up
+        </Button>
       </form>
+      <span className={styles.bgTitle}>
+        <span>Get</span>
+        <span>Started</span>
+      </span>
     </div>
   );
-}
+};
 
 export default SignUpPage;

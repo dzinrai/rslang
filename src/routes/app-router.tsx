@@ -1,15 +1,21 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import {
+  Switch, Route, Redirect, useLocation,
+} from 'react-router-dom';
+import Header from '../components/header/header';
 
 import AuthPage from '../components/auth-page';
 import LoginPage from '../components/login-page';
 import SignUpPage from '../components/signup-page';
-import LearnWordsPage from '../components/learn-words-page/learn-words-page';
+import MainPage from '../components/main-page/main-page';
+import LearnWords from '../components/learn-words/learn-words';
+import Library from '../components/library/library';
 
 function AppRouter() {
+  const landingPath = useLocation();
   return (
     <div className="App">
-      <header className="App-header"> </header>
+      {landingPath.pathname !== '/' ? <Header /> : null}
       <main className="app-main">
         <Switch>
           <Route path="/auth">
@@ -21,8 +27,14 @@ function AppRouter() {
           <Route path="/signup">
             <SignUpPage />
             </Route>
-            <Route path="/learn-words">
-            <LearnWordsPage />
+          <Route path="/main-page">
+            <MainPage />
+          </Route>
+          <Route path="/learn-words">
+            <LearnWords />
+          </Route>
+          <Route path="/library">
+            <Library />
           </Route>
           <Redirect to="/" />
         </Switch>

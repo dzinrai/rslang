@@ -1,0 +1,15 @@
+.wordImage {
+    max-width: 100px;
+}
+
+.libraryLine {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.libraryLine > * {
+    flex: 0 0 33%;
+}

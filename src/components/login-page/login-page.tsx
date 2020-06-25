@@ -1,52 +1,74 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
+import { Button } from 'antd';
+import 'antd/dist/antd.css';
+import loginUser from '../../services/login-user';
+import Context from '../../context/contextUser';
+import styles from './login-page.module.css';
 
 interface LoginUser {
   email: string;
   password: string;
 }
 
-function LoginPage() {
+const LoginPage: React.FC = () => {
   const { register, errors, handleSubmit } = useForm<LoginUser>();
+  const history = useHistory();
+  const { authorize } = useContext(Context);
+  const [errorMessage, setErrorMessage] = useState<React.ReactNode>(null);
   const onSubmit = async (data: LoginUser): Promise<void> => {
-    console.log(JSON.stringify(data));
+    loginUser(data)
+      .then(() => {
+        history.push('/main-page');
+        authorize();
+      }).catch((err) => {
+        setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);
+      });
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <form onSubmit={(e) => e.preventDefault()}>
-        <span>Email</span>
+        <span className={styles.label}>Email address</span>
         <input
+          className={styles.inputForm}
           name="email"
+          placeholder="Email address"
           ref={register({
             required: 'Email is required',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-              message: 'invalid email address',
-            },
           })}
         />
-        {errors.email && <p>{errors.email.message}</p>}
+        {errorMessage
+          || (errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>)}
 
-        <span>Password</span>
+        <span className={styles.label}>Password</span>
         <input
+          className={styles.inputForm}
           name="password"
           type="password"
+          placeholder="Password"
           ref={register({
             required: 'You must specify a password',
-            minLength: {
-              value: 8,
-              message: 'Password must have at least 8 characters',
-            },
-            pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/,
           })}
         />
-        {errors.password && <p>{errors.password.message}</p>}
+        {errors.password && <p className={styles.errorMsg}>{errors.password.message}</p>}
 
-        <button type="submit" onClick={handleSubmit(onSubmit)}>Login</button>
+        <Button
+          className={`${styles.btn} ${styles.btnFilled}`}
+          shape="round"
+          onClick={handleSubmit(onSubmit)}
+          value="large"
+        >
+          Login
+        </Button>
       </form>
+      <span className={styles.bgTitle}>
+        <span>Welcome</span>
+        <span>Back</span>
+      </span>
     </div>
   );
-}
+};
 
 export default LoginPage;
