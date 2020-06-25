@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { storeWords } from '../../context/contextWords';
-import styles from './library-word.module.css';
+import styles from './learn-word.module.css';
 
 interface LibraryWordProps {
   index: number;

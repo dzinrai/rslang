@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './learn-words.module.css';
 import { storeWords } from '../../context/contextWords';
 import getWords from '../../services/getWords';
-import LibraryWord from './library-word';
+import LibraryWord from './learn-word';
 
 function LearnWords() {
   const wordsState = useContext(storeWords);

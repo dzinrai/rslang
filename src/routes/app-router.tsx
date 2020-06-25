@@ -9,6 +9,7 @@ import LoginPage from '../components/login-page';
 import SignUpPage from '../components/signup-page';
 import MainPage from '../components/main-page/main-page';
 import LearnWords from '../components/learn-words/learn-words';
+import Library from '../components/library/library';
 
 function AppRouter() {
   const landingPath = useLocation();
@@ -31,6 +32,9 @@ function AppRouter() {
           </Route>
           <Route path="/learn-words">
             <LearnWords />
+          </Route>
+          <Route path="/library">
+            <Library />
           </Route>
           <Redirect to="/" />
         </Switch>
