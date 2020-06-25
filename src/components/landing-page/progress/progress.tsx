@@ -4,9 +4,9 @@ import styles from './progress.module.css';
 function Progress() {
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Adaptive design</h2>
-      <p className={styles.text}>You can improve your skills</p>
-      <p className={styles.text}>anywhere & anywhen</p>
+      <h2 className={styles.title}>Track your progress</h2>
+      <p className={styles.text}>Statistics graphs help you track your</p>
+      <p className={styles.text}>progress and motivate you rise higher</p>
     </div>
   );
 }
