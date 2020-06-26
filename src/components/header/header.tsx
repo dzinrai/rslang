@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // @ts-ignore
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styles from './header.module.css';
 // @ts-ignore
 import Logo from '../../img/HeaderLogo.svg';
@@ -26,6 +26,9 @@ const pathArray: Array<ILink> = [
   { path: 'about-us', name: 'About Us', image: IMG_ABOUT_US }];
 
 const Header: React.FC = () => {
+  const path = useLocation();
+  const noMenu = ['/auth', '/login', '/signup'];
+  const isMenuShow = !noMenu.includes(path.pathname);
   const [isOpen, setIsOpen] = useState<Boolean>(false);
   const [menuButtonStyle, menuContainerStyle] = [`${styles.menuButton}
       ${isOpen && styles.active}`, `${styles.menuContainer}
@@ -38,12 +41,17 @@ const Header: React.FC = () => {
     <>
       <div className={styles.headerContainer}>
         <NavLink to="main-page"><img src={Logo} alt="Logo" /></NavLink>
-        <div className={menuButtonStyle} onClick={toggleMenu}>
-          <span> </span>
-          <span> </span>
-          <span> </span>
-        </div>
+        {isMenuShow
+          && (
+          <div className={menuButtonStyle} onClick={toggleMenu}>
+            <span> </span>
+            <span> </span>
+            <span> </span>
+          </div>
+          )}
       </div>
+      {isMenuShow
+      && (
       <div className={`${menuContainerStyle} menu-container`}>
         <div className={styles.menuScreenBackground} onClick={toggleMenu}> </div>
         <div className={styles.menuBlock}>
@@ -53,6 +61,7 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
+      )}
     </>
   );
 };
