@@ -1,0 +1,140 @@
+@value colors: '../../css/colors.module.css';
+
+@value blue, darkBlue, transparentDarkBlue from colors;
+
+
+.headerContainer {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: space-between;
+    padding: 21px 35px;
+    background: #FBFBFB;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+    overflow-x: hidden;
+}
+
+.menuButton {
+    z-index: 11;
+    position: relative;
+    width: 54px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.menuButton span {
+    position: absolute;
+    background: blue;
+    right: 0;
+    height: 8px;
+    transition: .2s linear;
+}
+
+.menuButton span:first-child {
+    top: 0;
+    width: 100%;
+}
+
+.menuButton.active span:first-child {
+    top: 16px;
+    width: 100%;
+    transform: rotate(-45deg);
+}
+
+.menuButton span:nth-child(2) {
+    top: 16px;
+    width: 85%;
+}
+
+.menuButton.active span:nth-child(2) {
+    top: 16px;
+    width: 100%;
+    transform: rotate(45deg);
+}
+
+.menuButton span:last-child {
+    top: 31px;
+    width: 65%;
+}
+
+.menuButton.active span:last-child {
+    top: 16px;
+    width: 100%;
+    transform: rotate(-45deg);
+    visibility: hidden;
+}
+
+.menuContainer {
+    z-index: 10;
+    display: none;
+    grid-template-columns: 1fr 320px;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+}
+
+.menuContainer.active {
+    display: grid;
+}
+
+.menuScreenBackground {
+    background: rgba(255, 255, 255, 0.13);
+}
+
+.menuBlock {
+    display: grid;
+    justify-self: end;
+    align-items: center;
+    align-content: start;
+    padding-top: 150px;
+    justify-items: start;
+    background: #FFFFFF;
+    box-shadow: -15px 15px 16px rgba(185, 185, 185, 0.42);
+    min-width: 100%;
+    width: fit-content;
+}
+
+.menuContainer.active .menuBlock {
+    animation: slideLeft .3s linear;
+}
+
+@keyframes slideLeft {
+    from {
+        margin-right: -99%;
+    }
+    to {
+        margin-right: 0;
+    }
+}
+
+.link {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    align-items: center;
+    justify-items: start;
+    grid-column-gap: 25px;
+    column-gap: 15px;
+    padding: 25px 0 25px 33px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-transform: capitalize;
+    text-decoration: none;
+    color: blue;
+}
+
+.btnLogOut {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    font-weight: bold;
+    font-size: 12px;
+    color: darkBlue;
+    border: 1px solid transparentDarkBlue;
+    box-sizing: border-box;
+    border-radius: 30px;
+    padding: 6px 15px;
+    cursor: pointer;
+}
