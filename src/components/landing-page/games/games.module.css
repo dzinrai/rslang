@@ -6,3 +6,15 @@
   grid-column-gap: 20px;
   justify-content: center;
 }
+
+@media screen and (max-width: 992px){
+  .container {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media screen and (max-width: 768px){
+  .container {
+    grid-template-columns: repeat(1, auto);
+  }
+}

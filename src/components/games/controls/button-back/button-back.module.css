@@ -1,5 +1,6 @@
 
 .button {
+    z-index: 5;
     border: 1px solid #1958DB;
     box-sizing: border-box;
     border-radius: 60px;

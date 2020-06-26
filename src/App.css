@@ -35,7 +35,7 @@ body {
 }
 
 .app-main {
-  overflow: hidden;
+  overflow-x: hidden;
   height: calc(100vh - 100px);
 }
 
@@ -49,4 +49,9 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: #1958db;
+}
+
+.disable {
+  opacity: .4;
+  transition: .5s ease-in-out;
 }
