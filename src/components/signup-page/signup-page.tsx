@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
@@ -7,7 +7,7 @@ import styles from './signup-page.module.css';
 
 import createUser from '../../services/create-user';
 import loginUser from '../../services/login-user';
-import Context from '../../context/context';
+import Context from '../../context/contextUser';
 
 interface RegisterUser {
   email: string;
@@ -22,14 +22,20 @@ const SignUpPage: React.FC = () => {
   const password = useRef<RegisterUser['password']>();
   const history = useHistory();
   const { authorize } = useContext(Context);
+  const [errorMessage, setErrorMessage] = useState<React.ReactNode>(null);
 
   password.current = watch('password', '');
 
   const onSubmit = async (data: RegisterUser): Promise<void> => {
-    createUser(data).then(() => loginUser(data)).then(() => {
-      history.push('/');
-      authorize();
-    });
+    createUser(data)
+      .then(() => loginUser(data))
+      .then(() => {
+        history.push('/');
+        authorize();
+      })
+      .catch((err) => {
+        setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);
+      });
   };
 
   return (
@@ -48,7 +54,8 @@ const SignUpPage: React.FC = () => {
             },
           })}
         />
-        {errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>}
+        {errorMessage
+          || (errors.email && <p className={styles.errorMsg}>{errors.email.message}</p>)}
 
         <span className={styles.label}>Password</span>
         <input
@@ -81,7 +88,7 @@ const SignUpPage: React.FC = () => {
           })}
         />
         {errors.repeatPassword
-        && <p className={styles.errorMsg}>{errors.repeatPassword.message}</p>}
+          && <p className={styles.errorMsg}>{errors.repeatPassword.message}</p>}
         <Button
           className={`${styles.btn} ${styles.btnFilled}`}
           shape="round"

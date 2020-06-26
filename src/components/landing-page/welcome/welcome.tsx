@@ -10,7 +10,7 @@ function Welcome() {
 
   return (
     <div className={styles.container}>
-      <h1>
+      <h1 className={styles.header}>
         <Logo />
         <span className={styles.logo}>RS LANG</span>
       </h1>

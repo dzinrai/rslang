@@ -9,6 +9,11 @@
   max-width: 380px;
   box-sizing: border-box;
   transition: .2s linear;
+  color: #0086B5;
+}
+
+.container:nth-child(even) {
+  color: #FF645F;
 }
 
 .container:hover {
@@ -35,11 +40,11 @@
   font-weight: 800;
   font-size: 36px;
   line-height: 44px;
-  color: #0086B5;
   text-align: right;
   max-width: 181px;
 }
 
 .captionEven {
   color: #FF645F;
+  margin-bottom: 0;
 }
