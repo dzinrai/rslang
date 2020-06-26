@@ -40,7 +40,7 @@ const Header: React.FC = () => {
   return (
     <>
       <div className={styles.headerContainer}>
-        <NavLink to="main-page"><img src={Logo} alt="Logo" /></NavLink>
+        <NavLink to={isMenuShow ? 'main-page' : '/'}><img src={Logo} alt="Logo" /></NavLink>
         {isMenuShow
           && (
           <div className={menuButtonStyle} onClick={toggleMenu}>
