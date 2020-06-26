@@ -1,0 +1,194 @@
+.mainContainer {
+    padding-bottom: 175px;
+}
+
+
+.waveContainer {
+    position: relative;
+    width: 360px;
+    height: 232px;
+    margin: 60px auto;
+}
+
+.waveContainer.animate  div {
+    animation: updown 2s linear infinite;
+}
+.waveContainer div {
+    position: absolute;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+}
+
+.waveContainer div:nth-child(1) {
+    background-image: url("./../../../img/gamesImages/Vector (1).svg");
+    animation-delay:.075s;
+    animation-duration: .65s;
+    right: -10px;
+}
+.waveContainer div:nth-child(2) {
+    background-image: url("./../../../img/gamesImages/Vector (2).svg");
+    animation-delay:.10s;
+    animation-duration: .75s;
+}
+.waveContainer div:nth-child(3) {
+    background-image: url("./../../../img/gamesImages/Vector (3).svg");
+    animation-delay:.125s;
+    animation-duration: .75s;
+    right: 7px;
+}
+.waveContainer div:nth-child(4) {
+    background-image: url("./../../../img/gamesImages/Vector (4).svg");
+    animation-delay:.15s;
+    animation-duration: .85s;
+    right: 14px;
+}
+.waveContainer div:nth-child(5) {
+    background-image: url("./../../../img/gamesImages/Vector-5.svg");
+    animation-delay:.145s;
+    animation-duration: .95s;
+    right: 35px;
+}
+.waveContainer div:nth-child(6) {
+    background-image: url("./../../../img/gamesImages/Vector-6.svg");
+    animation-delay:.145s;
+    animation-duration: .95s;
+    right: 24px;
+}
+.waveContainer div:nth-child(7) {
+    background-image: url("./../../../img/gamesImages/Vector-7.svg");
+    animation-delay:.145s;
+    animation-duration: .95s;
+    right: 30px;
+}
+.waveContainer div:nth-child(8) {
+    background-image: url("./../../../img/gamesImages/Vector-8.svg");
+    animation-delay:.145s;
+    animation-duration: .95s;
+    right: 40px;
+}
+.waveContainer div:nth-child(9) {
+    background-image: url("./../../../img/gamesImages/Vector-9.svg");
+    animation-delay:.145s;
+    animation-duration: .95s;
+    right: 45px;
+}
+
+@keyframes updown {
+    0% {
+        transform: scaleY(.9);
+    }
+
+    50% {
+        transform: scaleY(1);
+        opacity: .6;
+    }
+
+    100% {
+        transform: scaleY(.9);
+    }
+}
+
+
+.wordElement {
+    display: grid;
+    justify-items: center;
+    background: #EDEDED;
+    border-radius: 5px;
+    padding: 10px 5px;
+}
+
+.wordTitle {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 35px;
+    text-align: center;
+    color: #211F60;
+    text-transform: capitalize;
+}
+
+.wordTranscription {
+    font-weight: 300;
+    font-size: 10px;
+    text-align: center;
+    color: #263655;
+    background-image: url("./../../../img/earListen.svg");
+    padding-left: 10px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+.wordsContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 250px);
+    justify-content: center;
+    padding: 0 40px;
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+@media screen and (max-width: 1100px) {
+    .wordsContainer {
+        grid-template-columns: repeat(3, 250px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wordsContainer {
+        grid-template-columns: repeat(2, 250px);
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .wordsContainer {
+        grid-template-columns: repeat(1, 250px);
+    }
+}
+
+.speakBlock {
+    background-image: url("./../../../img/gamesImages/microphone.svg");
+    background-position: left;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    border-bottom: 1px solid rgba(18, 148, 200, 0.18);
+    height: 30px;
+    max-width: 50%;
+    margin: 0 auto 30px auto;
+}
+
+.btnResults {
+    background: #1194C8;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    padding: 8px 35px;
+    cursor: pointer;
+}
+
+.correctWords {
+    font-weight: 800;
+    font-size: 96px;
+    text-align: right;
+    color: #263655;
+}
+.correctWords span {
+    font-weight: 500;
+    font-size: 18px;
+    margin-left: -10px;
+}
+
+.footerButtons {
+    position: absolute;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    bottom: 0;
+    padding: 0 30px;
+    width: 100%;
+    background-color: #fafafa;
+}
