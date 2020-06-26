@@ -67,6 +67,9 @@
 
 .mistake {
     color: salmon;
+    opacity: 0.75;
+    transition: opacity 1s;
+    transition-delay: 1s;
 }
 
 .restOfSentence {

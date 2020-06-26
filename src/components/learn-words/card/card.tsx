@@ -5,47 +5,58 @@ import SentenceWithInput from '../sentence-with-input/sentence-with-input';
 import SoundIndicator from '../sound-indicator/sound-indicator';
 import WordInfo from '../word-info/word-info';
 import MoveDeleteWord from '../move-delete-word/move-delete-word';
+import { storeWords } from '../../../context/contextWords';
 
-interface TestWord {
-  word: string,
-  translation: string,
-  transcription: string,
-  image: string,
-  sentenceExample: string,
-  sentenceMeaning: string,
-  sentenceExampleTrans: string,
-  sentenceMeaningTrans: string
+// interface TestWord {
+//   word: string,
+//   wordTranslate: string,
+//   transcription: string,
+//   image: string,
+//   textExample: string,
+//   textMeaning: string,
+//   textExampleTranslate: string,
+//   textMeaningTranslate: string
+// }
+
+interface CardProps {
+  index: number
 }
 
-function Card(props: TestWord) {
-  const { word, translation, transcription, image, sentenceExample, 
-    sentenceMeaning, sentenceExampleTrans, sentenceMeaningTrans } = props
+function Card({ index }: CardProps) {
+
+  const wordsState = useContext(storeWords);
+  const stateWords = wordsState.state;
+  const curword = stateWords.words ? stateWords.words[index] : null;
+  console.log(curword)
+
+  // const { word, wordTranslate, transcription, image, textExample, 
+  //   textMeaning, textExampleTranslate, textMeaningTranslate } = curword
 
   return (
     <div className={styles.cardContainer}>
       <div className={styles.sentenceImg}>
-        <div className={styles.sentenseTranslation}>
+        <div className={styles.sentensewordTranslate}>
           <div className={styles.mainSentenceContainer}>
             <WordProgressIndicator />
-            <SentenceWithInput word={word} />
+            <SentenceWithInput word={curword.word} />
             <SoundIndicator />
           </div>
           <div className={styles.wordTranscriptionContainer}>
-            <span className={styles.translation}>
-              {translation}
+            <span className={styles.wordTranslate}>
+              {curword.wordTranslate}
             </span>
             <span className={styles.transcription}>
-              {transcription}
+              {curword.transcription}
             </span>
           </div>
         </div>
         <div className={styles.imageMoveDelete}>
-          <img src={image} width='195' height='150'></img>
+          <img src={curword.image} width='195' height='150'></img>
           <MoveDeleteWord />
         </div>
       </div>
-      <WordInfo word={word} sentenceExample={sentenceExample} sentenceMeaning={sentenceMeaning} 
-      sentenceExampleTrans={sentenceExampleTrans} sentenceMeaningTrans={sentenceMeaningTrans} />
+      <WordInfo word={curword.word} textExample={curword.textExample} textMeaning={curword.textMeaning} 
+      textExampleTranslate={curword.textExampleTranslate} textMeaningTranslate={curword.textMeaningTranslate} />
     </div>
   )
 }

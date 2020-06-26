@@ -5,8 +5,8 @@ interface Word {
   word: string
 }
 
-function SentenceWithInput(props: Word){
-  const { word } = props
+function SentenceWithInput({ word }: Word){
+  // const { word } = props
   const [indexes, setIndexes] = useState(Array())
 
     function checkWord(e: any) {
@@ -37,7 +37,7 @@ function SentenceWithInput(props: Word){
         <div className={styles.sentenceContainer}>
           <span className={styles.inputContainer}>
             <span className={styles.background}>
-              {word.split('').map(el => <span>{el}</span>)}
+              {word.split('').map(el => <span className={styles.hidden}>{el}</span>)}
             </span>
             <span className={styles.wordContainer}>
             {word.split('').map((el, i) => 
