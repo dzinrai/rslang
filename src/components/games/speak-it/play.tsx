@@ -6,7 +6,7 @@ import {storeWords} from "../../../context/contextWords";
 import getWords from "../../../services/getWords";
 import SpeakMode from './speak-mode'
 import defaultImage from './../../../img/megaphone.svg'
-
+declare const window: any;
 const URL_CONTENT = 'https://raw.githubusercontent.com/dzinrai/rslang-data/master/'
 
 export default () => {
@@ -56,13 +56,15 @@ export default () => {
         <>
             <ButtonBack/>
             <div className={styles.mainContainer}>
-                {isPlayMode ? <SpeakMode
+                {isPlayMode ?
+                   <> {window.webkitSpeechRecognition ?
+                       <SpeakMode
                            correctWords={correctWords}
                            wordRef={wordRef}
                            setCorrectWords={setCorrectWords}
                            words={words}
                            URL_CONTENT={URL_CONTENT}
-                /> :
+                /> : 'Sorry, your browser does not support this game, use GoogleChrome 25+ version' }</> :
                     <div className={styles.imageContainer}>
                         <img src={currentWord.image ? URL_CONTENT + currentWord.image : defaultImage} alt=""/>
                         <span>{currentWord.wordTranslate ? currentWord.wordTranslate : ''}</span>
