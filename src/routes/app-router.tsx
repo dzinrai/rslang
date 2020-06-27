@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Switch, Route, Redirect, useLocation,
+  Switch, Route, Redirect,
 } from 'react-router-dom';
 import Header from '../components/header/header';
 
@@ -15,7 +15,6 @@ import GamesPage from '../components/games/page-mini-games';
 import SpeakIt from '../components/games/speak-it/start-page';
 
 function AppRouter() {
-  const landingPath = useLocation();
   return (
     <div className="App">
      <Header/>

@@ -1,106 +1,94 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useEffect, useState, useRef, useContext} from "react";
 import ButtonBack from '../controls/button-back/button-back';
 import styles from './play.module.css';
 import Modal from './modal-window'
+import {storeWords} from "../../../context/contextWords";
+import getWords from "../../../services/getWords";
+import SpeakMode from './speak-mode'
+import defaultImage from './../../../img/megaphone.svg'
 
-declare const window: any;
+const URL_CONTENT = 'https://raw.githubusercontent.com/dzinrai/rslang-data/master/'
+
 export default () => {
-    const words = [
-        {word: 'adventure', transcription: '[ədvéntʃər]'},
-        {word: 'capital', transcription: '[ədvéntʃər]'},
-        {word: 'approach', transcription: '[ədvéntʃər]'},
-        {word: 'chemical', transcription: '[ədvéntʃər]'},
-        {word: 'laboratory', transcription: '[ədvéntʃər]'},
-        {word: 'mood', transcription: '[ədvéntʃər]'},
-        {word: 'evil', transcription: '[ədvéntʃər]'},
-        {word: 'carefully', transcription: '[ədvéntʃər]'},
-    ]
-
-    const wordRef = useRef<any>([])
+    const wordsState = useContext(storeWords);
+    const dispatchWords = wordsState.dispatch;
+    const [words, setWords] = useState<any>([]);
+    const [page, setPage] = useState(1);
+    const [isPlayMode, setIsPlayMode] = useState(true);
+    const preloadWords = async (page : number) => {
+        const wordsFromBackend = await getWords({ page, group: 0 });
+        setWords(wordsFromBackend);
+        console.log(wordsFromBackend)
+        dispatchWords({ type: 'setWords', value: wordsFromBackend });
+    };
     useEffect(() => {
-        startListen()
         wordRef.current = new Array(words.length)
-        recognition.interimResults = true;
-        recognition.addEventListener('end', recognition.start)
-        return () => {
-            console.log('endss')
-            recognition.removeEventListener('end', recognition.start);
-            recognition.stop()
-        }
-    }, [])
-
-    const [isSpeak, setIsSpeak] = useState(false)
-    const [sayWord, setSayWord] = useState('')
+        preloadWords(page);
+    }, []);
+    const wordRef = useRef<any>([])
     const [correctWords, setCorrectWords] = useState<any>([])
     const [isResultsOpen, setIsResultsOpen] = useState(false)
-    const styleWave =
-        `${styles.waveContainer} ${isSpeak && styles.animate}`
-    let recognition = new window.webkitSpeechRecognition();
-    let transcriptArray = []
-    let transcript = ''
-    const speechResult = (event: any) => {
-        transcriptArray = Array.from(event.results).map((result: any) => result[0]).map(result => result.transcript)
-        transcript = transcriptArray.join().toLowerCase()
-        setSayWord(transcript)
-        wordRef.current.map((item: any) => {
-            if ((item && item.dataset.word === transcript) && !item.classList.contains('disable')) {
-                item.classList.add('disable')
-                const newArray = correctWords
-                newArray.push(transcript)
-                setCorrectWords(newArray)
-            }
-        })
+    const [currentWord, setCurrentWord] = useState<any>({})
+    const sayWord = (word : any) => {
+        setCurrentWord(word)
+        const newSound = new Audio(URL_CONTENT + word.audio)
+        newSound.play()
     }
-    let startListen = () => {
-        recognition.start()
-        recognition.addEventListener('result', speechResult)
-        recognition.addEventListener('soundstart', () => {
-            setIsSpeak(true)
-        })
-        recognition.addEventListener('end', () => {
-            setIsSpeak(false)
-        })
-    }
-
     const toggleModal = () => {
         isResultsOpen ? setIsResultsOpen(false) : setIsResultsOpen(true)
+        if (isPlayMode) setIsPlayMode(false)
     }
-
     const newGame = () => {
-        // todo
+        setPage(page + 1)
+        setCorrectWords([])
+        wordRef.current.map((item: any) => {
+            item.classList.remove('disable')
+        })
+        preloadWords(page + 1);
+        toggleModal()
+        setIsPlayMode(true)
+    }
+    const toggleMode = () => {
+        isPlayMode ? setIsPlayMode(false) : setIsPlayMode(true)
     }
 
     return (
         <>
             <ButtonBack/>
             <div className={styles.mainContainer}>
-                <div className={styleWave}>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                <div className={styles.speakBlock}>
-                    {sayWord}
-                </div>
-                <div className={styles.wordsContainer}>
-                    {words.map((word, index: any) => <div
+                {isPlayMode ? <SpeakMode
+                           correctWords={correctWords}
+                           wordRef={wordRef}
+                           setCorrectWords={setCorrectWords}
+                           words={words}
+                           URL_CONTENT={URL_CONTENT}
+                /> :
+                    <div className={styles.imageContainer}>
+                        <img src={currentWord.image ? URL_CONTENT + currentWord.image : defaultImage} alt=""/>
+                        <span>{currentWord.wordTranslate ? currentWord.wordTranslate : ''}</span>
+                    </div>
+                }
+                <div className={`${styles.wordsContainer} ${!isPlayMode && styles.clickable}`}>
+                    {words.map((word : any, index: any) => <div
                         key={index}
                         className={styles.wordElement}
                         ref={el => wordRef.current[index] = el}
                         data-word={word.word}
+                        data-id={index}
+                        data-img={word.image}
+                        data-translate={word.wordTranslate}
+                        onClick={() => !isPlayMode ? sayWord(word) : null}
                     >
                         <span className={styles.wordTitle}>{word.word}</span>
                         <p className={styles.wordTranscription}>{word.transcription}</p>
                     </div>)}</div>
                 <div className={styles.footerButtons}>
-                    <div className={styles.correctWords}> {correctWords.length} <span>correct words</span></div>
+
+                    <div onClick={toggleMode} className={styles.btnSwitchMode}>
+                        {isPlayMode ? <>Switch to train mode</> : <> Switch to play mode </>}
+                    </div>
                     <div onClick={toggleModal} className={styles.btnResults}>Results</div>
+
                 </div>
             </div>
 
@@ -110,6 +98,7 @@ export default () => {
                 toggleModal={toggleModal}
                 correctWords={correctWords}
                 words={words}
+                URL_CONTENT={URL_CONTENT}
             />
 
         </>

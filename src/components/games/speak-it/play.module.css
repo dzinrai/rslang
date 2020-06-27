@@ -121,30 +121,14 @@
 
 .wordsContainer {
     display: grid;
-    grid-template-columns: repeat(4, 250px);
+    grid-template-columns: repeat(5, 250px);
     justify-content: center;
     padding: 0 40px;
     column-gap: 20px;
     row-gap: 20px;
 }
 
-@media screen and (max-width: 1100px) {
-    .wordsContainer {
-        grid-template-columns: repeat(3, 250px);
-    }
-}
 
-@media screen and (max-width: 768px) {
-    .wordsContainer {
-        grid-template-columns: repeat(2, 250px);
-    }
-}
-
-@media screen and (max-width: 570px) {
-    .wordsContainer {
-        grid-template-columns: repeat(1, 250px);
-    }
-}
 
 .speakBlock {
     background-image: url("./../../../img/gamesImages/microphone.svg");
@@ -169,7 +153,23 @@
     cursor: pointer;
 }
 
+.btnSwitchMode {
+    border-radius: 50px;
+    color: #1194C8;
+    border: 1px solid #1194C8;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    padding: 8px 35px;
+    cursor: pointer;
+}
+
 .correctWords {
+    z-index: 4;
+    position: absolute;
+    bottom: -10px;
+    left: 40px;
     font-weight: 800;
     font-size: 96px;
     text-align: right;
@@ -185,10 +185,102 @@
     position: absolute;
     display: grid;
     grid-auto-flow: column;
-    justify-content: space-between;
+    grid-template-columns: 50% 15%;
+    justify-content: end;
+    justify-items: flex-end;
+    padding: 30px 40px;
     align-items: center;
     bottom: 0;
-    padding: 0 30px;
     width: 100%;
     background-color: #fafafa;
+}
+
+.clickable > div:hover{
+    background-color: #e6e5e5;
+}
+.clickable > div{
+    cursor: pointer;
+    opacity: 1;
+}
+
+.imageContainer {
+    display: grid;
+    grid-row-gap: 10px;
+    row-gap: 30px;
+    justify-content: center;
+    margin: 30px;
+}
+
+.resultsBlock > div em{
+    font-weight: lighter;
+}
+
+.resultsBlock > div:not(:last-child){
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.resultsBlock > div{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    column-gap: 20px;
+    padding: 5px 5px 10px 20px;
+    background-image: url("./../../../img/earListen.svg");
+    background-position: left center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.imageStick img {
+    width: 100%;
+}
+
+.imageStick span {
+    background-color: #fafafa;
+}
+
+.imageStick {
+    position: absolute;
+    top: 128px;
+    right: 31px;
+    width: 150px;
+    height: 100px;
+}
+
+@media screen and (max-width: 1350px) {
+    .wordsContainer {
+        grid-template-columns: repeat(4, 250px);
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .wordsContainer {
+        grid-template-columns: repeat(3, 250px);
+    }
+    .footerButtons {
+        grid-template-columns: 50% 20%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wordsContainer {
+        grid-template-columns: repeat(2, 250px);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .footerButtons {
+        grid-template-columns: 100%;
+        grid-auto-flow: row;
+        row-gap: 10px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .wordsContainer {
+        grid-template-columns: repeat(1, 250px);
+    }
+    .footerButtons {
+        padding-bottom: 80px;
+    }
 }
