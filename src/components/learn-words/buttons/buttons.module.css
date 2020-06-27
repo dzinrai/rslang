@@ -1,0 +1,90 @@
+.showResults {
+    display: inline-flex;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 12px;
+    color: #112256;
+    outline: none;
+    font-weight: 300;
+}
+
+.showResults:hover {
+    text-decoration: none;
+}
+
+.levelButtons {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.buttonsInfo {
+    color: #112256;
+    font-weight: 300;
+    font-size: 12px;
+    text-align: center;
+}
+
+.levelButtons>Button {
+    margin: 0 5px;
+    width: 100px;
+}
+.buttonEasy {
+    background: rgba(0, 176, 113, 0.2);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #00B071;
+}
+.buttonEasy:hover{
+    background: rgba(0, 176, 113, 0.4);
+    color: #00B071;
+    text-decoration: none;
+}
+.buttonNormal {
+    background: rgba(43, 121, 230, 0.2);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #2B79E6;
+}
+.buttonNormal:hover{
+    background: rgba(43, 121, 230, 0.4);
+    color: #2B79E6;
+    text-decoration: none;
+}
+
+.buttonHard {
+    background: rgba(255, 46, 0, 0.18);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #FF2E00;
+}
+.buttonHard:hover{
+    background: rgba(255, 46, 0, 0.38); 
+    color: #FF2E00;
+    text-decoration: none;
+}
+
+.buttonsContainer {
+    margin-top: 15px;
+}
+.switchContainer{
+    margin-left: 80%;
+    text-align: left;   
+}
+.switchContainer div {
+    margin-bottom: 10px;
+}
+.switchContainer div span {
+    margin-left: 5px;
+}

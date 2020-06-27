@@ -31,7 +31,7 @@ function SentenceWithInput({ word }: Word){
         e.target.value = '' 
       }
     }
-  
+  if (!word) return null;
     return(
       <>
         <div className={styles.sentenceContainer}>
