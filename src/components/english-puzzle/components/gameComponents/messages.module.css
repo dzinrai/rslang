@@ -1,0 +1,12 @@
+.messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.translation {
+    margin: 0 auto;
+    background-color: #f6f6f6d2;
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-size: 20px;
+}

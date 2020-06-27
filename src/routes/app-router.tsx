@@ -10,6 +10,7 @@ import SignUpPage from '../components/signup-page';
 import MainPage from '../components/main-page/main-page';
 import LearnWords from '../components/learn-words/learn-words';
 import Library from '../components/library/library';
+import EnglishPuzzle from '../components/english-puzzle/english-puzzle';
 
 function AppRouter() {
   const landingPath = useLocation();
@@ -35,6 +36,9 @@ function AppRouter() {
           </Route>
           <Route path="/library">
             <Library />
+          </Route>
+          <Route path="/mini-games/puzzle">
+            <EnglishPuzzle />
           </Route>
           <Redirect to="/" />
         </Switch>

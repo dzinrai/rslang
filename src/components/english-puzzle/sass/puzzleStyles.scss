@@ -1,0 +1,210 @@
+.hidden {
+    position: absolute;
+    visibility: hidden;
+}
+.app_puzzle button {
+    cursor: pointer;
+    border-radius: 4px;
+}
+//
+
+.app__enter {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    button {
+        margin: 0 4px;
+    }
+}
+.app__start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+.btn,
+.bottom__controls button,
+.start__btn {
+    max-height: 100px;
+    margin-top: unset;
+    background: #ec5990;
+    color: white;
+    text-transform: uppercase;
+    border: none;
+    margin-top: 10px;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    cursor: pointer;
+    transition: all .2s;
+}
+.btn:hover,
+.bottom__controls button:hover,
+.start__btn:hover {
+    background: #ffffff;
+    color: #ec5990;
+}
+.btn:active,
+.bottom__controls button:active,
+.start__btn:active {
+    transform: scale(.9);
+}
+.bottom__controls button {
+    padding: 12px 16px;
+    letter-spacing: 0;
+}
+.btn {
+    font-size: 14px;
+    padding: 8px 16px;
+    letter-spacing: 0;
+}
+
+.img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 863px;
+    height: 458px;
+    .paintName {
+        position: absolute;
+        bottom: -30px;
+        color: #ffffff;
+    }
+}
+.appear {
+    animation: appear 2s linear 1;
+}
+.disappear {
+    animation: disappear 1s linear 1;
+}
+
+
+
+.appear {
+    display: flex;
+    justify-content: center;
+}
+.paintName {
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 5px;
+    background-color: #bdbdbd67;
+}
+
+
+.word {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 auto;
+    min-width: 40px;
+    max-height: 44px;
+    padding: 0;
+    margin: 0 1px 0 0;
+    font-size: 24px;
+    background-color: #fbd6d6;
+    border-radius: 3px;
+    color: #000;
+    text-shadow: -2px 0 2px #ffffff, 2px 0 2px #ffffff, 0 2px 2px #ffffff;
+    text-align: center;
+    cursor: pointer;
+    transition: all .1s;
+}
+.word > span {
+    position: relative;
+    display: flex;
+    z-index: 5;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 0 0 0 23px;
+    white-space: nowrap;
+}
+
+.word::before {
+    position: absolute;
+    z-index: 4;
+    width: 27px;
+    height: 32px;
+    background-color: transparent;
+    -webkit-clip-path: url(#my-clip-path);
+    clip-path: url(#my-clip-path);
+    content: '';
+    left: 0;
+}
+.word.dragging::before {
+    display: none;
+}
+.clipped {
+    position: absolute;
+    z-index: 4;
+    right: -23px;
+    width: 24px;
+    height: 30px;
+    background-color: #fbd6d6;
+    -webkit-clip-path: url(#my-clip-path);
+    clip-path: url(#my-clip-path);
+}
+.clipped2 {
+    position: absolute;
+    z-index: 3;
+    right: -25px;
+    width: 25px;
+    height: 34px;
+    background-color: #333333c2;
+    -webkit-clip-path: url(#my-clip-path);
+    clip-path: url(#my-clip-path);
+}
+.word:hover {
+    background-color: #ffffff;
+    color: #ec5990;
+    .clipped {
+        background-color: #ffffff;
+    }
+}
+.textSvg {
+    position: absolute;
+    padding: 0 0 10px 20px;
+}
+.bottom__controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 55px;
+}
+.wrong-word {
+    box-shadow: 1px 0px 2px 2px #d10330;
+}
+.right-word {
+    box-shadow: 2px 0px 2px 2px #04f611;
+}
+.clipped2.wrong-word {
+    background-color: #d10330;
+    box-shadow: none;
+}
+.clipped2.right-word {
+    background-color: #04f610d8;
+    box-shadow: none;
+}
+//anims
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
