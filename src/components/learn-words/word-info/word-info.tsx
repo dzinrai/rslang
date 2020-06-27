@@ -39,6 +39,9 @@ function WordInfo(props: InfoSentences){
   const { word, textExample, textMeaning, textExampleTranslate, textMeaningTranslate,
   audio, audioExample, audioMeaning } = props
 
+  // const correctWord = word.split('').map(el => <span>{el}</span>)
+  // const uncorrectWord = Array(word.length).map(el => <span>_</span>)
+
   const [playing, toggle] = useAudio(`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audio}`);
   console.log(audio)
 
@@ -47,7 +50,6 @@ function WordInfo(props: InfoSentences){
   function showTranslation() {
     setIsTranslation(!isTranslation);
   }
-  
     return(
       <div className={styles.infoContainer}>
 
@@ -62,11 +64,11 @@ function WordInfo(props: InfoSentences){
           <span>_</span>
           <span>_</span>
           “ */}
-          "{isTranslation ? textExampleTranslate : textExample}"
+          "{isTranslation ? textExampleTranslate : (word ? textExample.replace(`<b>${word}</b>`, '___') : null)}"
         </div>
         <div className={styles.meaningContainer}>
           <div className={styles.textMeaning}>
-            {isTranslation ? textMeaningTranslate : textMeaning}
+            {isTranslation ? textMeaningTranslate : (word ? textMeaning.replace(`<i>${word}</i>`, '___') : null)}
           </div>
           <button
             className={styles.switchShowBtn}

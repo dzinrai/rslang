@@ -20,12 +20,15 @@ function SentenceWithInput({ word }: Word){
         } else {
           if (inputWord.length !== word.length) {
             console.log('false')
+            for (let i = 0; i < word.length; i += 1) indexes.push(i)
+            setIndexes(indexes.concat(indexes))
           } else {
             let indexes: any = []
             inputWord.split('').map((el: string, i: number) => {
               if (el !== word[i]) indexes.push(i)
             })
             // console.log(indexes)
+            console.log(indexes)
             setIndexes(indexes.concat(indexes))
           }
         } 
@@ -33,7 +36,7 @@ function SentenceWithInput({ word }: Word){
       }
     }
     if (!word) return null
-    return(
+    return (
       <>
         <div className={styles.sentenceContainer}>
           <span className={styles.inputContainer}>
