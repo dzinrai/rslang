@@ -18,35 +18,28 @@ import getWords from '../../../services/getWords';
 //   }
 
 function CardsSlider(){
-  const wordsState = useContext(storeWords);
-  const dispatchWords = wordsState.dispatch;
+    const wordsState = useContext(storeWords);
+    const dispatchWords = wordsState.dispatch;
 
-  const [words, setWords] = useState([]);
+    const [words, setWords] = useState(Array());
 
-  useEffect(() => {
-    const preloadWords = async () => {
-      const wordsFromBackend = await getWords({ page: 1, group: 0 });
-      setWords(wordsFromBackend);
-      dispatchWords({ type: 'setWords', value: wordsFromBackend });
-    };
-    preloadWords();
-    // eslint-disable-next-line
-  }, []);
+    useEffect(() => {
+        const preloadWords = async () => {
+        const wordsFromBackend = await getWords({ page: 1, group: 0 });
+        setWords(wordsFromBackend);
+        dispatchWords({ type: 'setWords', value: wordsFromBackend });
+        };
+        preloadWords();
+        // eslint-disable-next-line
+    }, []);
 
-  console.log(words)
+    console.log(words)
+    if (words.length === 0) return null
 
-    // const { audio, audioMeaning, audioExample } = curword
-    // console.log(audio)
-    // console.log(audioMeaning)
-    // console.log(audioExample)
-  
-    // const { word, wordTranslate, transcription, image, textExample, 
-    //     textMeaning, textExampleTranslate, textMeaningTranslate } = TestWord
-  
     return(
         // <Card word={word} wordTranslate={wordTranslate} transcription={transcription} image={image} textExample={textExample} 
         // textMeaning={textMeaning} textExampleTranslate={textExampleTranslate} textMeaningTranslate={textMeaningTranslate} />
-        <Card index={0} />
+        <Card key={words[0].id} index={0} />
     )
 }
 

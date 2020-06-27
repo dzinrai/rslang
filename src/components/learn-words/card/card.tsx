@@ -51,12 +51,13 @@ function Card({ index }: CardProps) {
           </div>
         </div>
         <div className={styles.imageMoveDelete}>
-          <img src={curword.image} width='195' height='150'></img>
+          <img style={{borderRadius: '5px'}} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${curword.image}`} width='195' height='150'></img>
           <MoveDeleteWord />
         </div>
       </div>
       <WordInfo word={curword.word} textExample={curword.textExample} textMeaning={curword.textMeaning} 
-      textExampleTranslate={curword.textExampleTranslate} textMeaningTranslate={curword.textMeaningTranslate} />
+      textExampleTranslate={curword.textExampleTranslate} textMeaningTranslate={curword.textMeaningTranslate} 
+      audio={curword.audio} audioExample={curword.audioExample} audioMeaning={curword.audioMeaning}/>
     </div>
   )
 }

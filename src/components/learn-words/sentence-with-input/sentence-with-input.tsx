@@ -16,6 +16,7 @@ function SentenceWithInput({ word }: Word){
         // console.log(inputWord)
         if (inputWord === word) {
           console.log('true')
+          
         } else {
           if (inputWord.length !== word.length) {
             console.log('false')
@@ -31,7 +32,7 @@ function SentenceWithInput({ word }: Word){
         e.target.value = '' 
       }
     }
-  
+    if (!word) return null
     return(
       <>
         <div className={styles.sentenceContainer}>
