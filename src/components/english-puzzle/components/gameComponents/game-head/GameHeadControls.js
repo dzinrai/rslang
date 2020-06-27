@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Hints from './Hints';
-import Select from '../Select';
-import { storeGame } from '../storeGame';
-import nextRound from '../../assets/nextRound';
-import settingsStored from '../../localStorage/settings';
+import Hints from '../hints/Hints';
+import Select from '../../Select';
+import { storeGame } from '../../storeGame';
+import nextRound from '../../../assets/nextRound';
+import settingsStored from '../../../localStorage/settings';
 import styles from './game-head.module.css';
 
 function GameHeadControls() {

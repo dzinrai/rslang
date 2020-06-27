@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Button from '../Button';
-import { storeGame } from '../storeGame';
-import check from '../../assets/check';
-import continueLevel from '../../assets/continueLevel';
-import nextRound from '../../assets/nextRound';
+import Button from '../../Button';
+import { storeGame } from '../../storeGame';
+import check from '../../../assets/check';
+import continueLevel from '../../../assets/continueLevel';
+import nextRound from '../../../assets/nextRound';
+import styles from './bottom-controls.module.css';
 
 function BottomControls(props) {
   const gameState = useContext(storeGame);
@@ -50,7 +51,7 @@ function BottomControls(props) {
 
   return (
 
-    <div className="bottom__controls">
+    <div className={styles.bottomControls}>
       {stateGame.sentenceHasMistake
         && (
         <Button

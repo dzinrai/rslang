@@ -1,9 +1,12 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 import React, {
   useContext, useState, useEffect, useRef,
 } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { storeGame } from '../storeGame';
-import { ItemTypes } from './ItemTypes';
+import { storeGame } from '../../storeGame';
+import { ItemTypes } from '../ItemTypes';
+import styles from './word.module.css';
 
 function Word(props) {
   const gameState = useContext(storeGame);
@@ -11,7 +14,7 @@ function Word(props) {
   const stateGame = gameState.state;
   const rightLength = stateGame.currentSentence.length;
   const [checkClass, setCheckClass] = useState('');
-  const classes = `word ${props.guessWord ? 'guess__word' : ''}`;
+  const classes = `${styles.word} ${props.guessWord ? 'guess__word' : ''}`;
   const [style, setStyle] = useState({});
   const [styleClip, setStyleClip] = useState({});
   const ref = useRef(null);
@@ -47,7 +50,7 @@ function Word(props) {
   }
 
   useEffect(() => {
-    const width = props.value ? props.value.text.length / props.sentenceWidth * 850 : 0;
+    const width = props.value ? ((props.value.text.length / props.sentenceWidth) * 850) : 0;
     let offset = 0;
     if (!props.buildingWord) {
       offset = props.offset ? props.offset[props.sentence.indexOf(props.value)] : 0;
@@ -59,24 +62,24 @@ function Word(props) {
       });
     }
     const offsetWidth = (offset * 850).toFixed(0);
-    const index = !props.guessWord ? props.sentenceIndex : (9 - stateGame.currWordIndex);
-    let styles = {
+    const indexSent = !props.guessWord ? props.sentenceIndex : (9 - stateGame.currWordIndex);
+    let stylesWordBg = {
       width: `${(width).toFixed(1)}px`,
       backgroundImage: `url(${bg.imageSrc})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: '850px 460px',
-      backgroundPosition: `-${offsetWidth}px -${index * 46}px`,
+      backgroundPosition: `-${offsetWidth}px -${indexSent * 46}px`,
     };
     const offsetForCircle = (width + offset * 850) <= 830 ? (width + offset * 850) : 830;
     let stylesClip = {
       backgroundImage: `url(${bg.imageSrc})`,
       backgroundSize: '850px 460px',
-      backgroundPosition: `-${(offsetForCircle).toFixed(0)}px ${-5 + index * -46}px`,
+      backgroundPosition: `-${(offsetForCircle).toFixed(0)}px ${-5 + indexSent * -46}px`,
     };
     if (!stateGame.hints.imageHint && (props.guessWord || props.buildingWord)
-        && (!stateGame.readyToContinue && (props.buildingWord || props.guessWord))) {
-      styles = {
-        ...styles,
+      && (!stateGame.readyToContinue && (props.buildingWord || props.guessWord))) {
+      stylesWordBg = {
+        ...stylesWordBg,
         backgroundImage: 'none',
         backgroundPosition: 'none',
       };
@@ -86,7 +89,7 @@ function Word(props) {
         backgroundPosition: 'none',
       };
     }
-    setStyle(styles);
+    setStyle(stylesWordBg);
     setStyleClip(stylesClip);
   }, [props.value, props.sentenceWidth, props.sentenceIndex, props.guessWord,
     stateGame.currWordIndex, props.offset, props.sentence, stateGame.hints.imageHint,
@@ -94,7 +97,7 @@ function Word(props) {
 
   useEffect(() => {
     if (!props.mistake) setCheckClass('');
-    else setCheckClass(`${props.mistake}-word`);
+    else setCheckClass(`${props.mistake}Word`);
   }, [props.mistake]);
 
   const canDrop = !props.canDrop ? (item, monitor) => {} : undefined;
@@ -169,7 +172,7 @@ function Word(props) {
 
   return (
     <span
-      className={`${classes} ${checkClass} ${isDragging ? 'dragging' : ''}`}
+      className={`${classes} ${styles[checkClass]} ${isDragging ? styles.dragging : ''}`}
       onClick={() => handleClick(props.value)}
       style={{ ...style, opacity }}
       ref={ref}
@@ -179,8 +182,8 @@ function Word(props) {
       <svg className="svg">
         <clipPath id="my-clip-path" clipPathUnits="objectBoundingBox"><path d="M0,0 C1,0,1,1,0,1" /></clipPath>
       </svg>
-      <div className="clipped" style={{ ...styleClip, opacity }} />
-      <div className={`clipped2 ${checkClass}`} style={{ opacity }} />
+      <div className={styles.clipped} style={{ ...styleClip, opacity }} />
+      <div className={`${styles.clipped2} ${styles[checkClass]}`} style={{ opacity }} />
     </span>
   );
 }

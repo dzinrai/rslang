@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useAudioPlayer } from 'react-use-audio-player';
-import Button from '../Button';
-import { storeGame } from '../storeGame';
+import Button from '../../Button';
+import { storeGame } from '../../storeGame';
 import styles from './audio-box.module.css';
 
 function AudioBox(props) {

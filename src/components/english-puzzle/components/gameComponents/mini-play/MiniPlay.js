@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
-import Button from '../Button';
+import Button from '../../Button';
 import styles from './mini-play.module.css';
 
 function MiniPlay(props) {

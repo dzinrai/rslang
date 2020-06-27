@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { storeGame } from '../storeGame';
-import AudioBox from './AudioBox';
-import rawData from '../../assets/rawData';
+import { storeGame } from '../../storeGame';
+import AudioBox from '../audio-box/AudioBox';
+import rawData from '../../../assets/rawData';
 import styles from './messages.module.css';
 
 function Messages() {

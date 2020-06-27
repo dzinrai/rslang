@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
-import { storeGame } from '../storeGame';
-import Word from './Word';
-import { ItemTypes } from './ItemTypes';
+import { storeGame } from '../../storeGame';
+import Word from '../word/Word';
+import { ItemTypes } from '../ItemTypes';
 import styles from './sentence.module.css';
 
 function Sentence(props) {

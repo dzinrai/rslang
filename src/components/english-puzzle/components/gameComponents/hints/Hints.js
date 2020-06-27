@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import Button from '../Button';
-import { storeGame } from '../storeGame';
+import Button from '../../Button';
+import { storeGame } from '../../storeGame';
 import styles from './hints.module.css';
 
 function Hints(props) {

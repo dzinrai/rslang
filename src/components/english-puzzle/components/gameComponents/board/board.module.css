@@ -52,3 +52,45 @@
 .finished .boardLine {
     border-color: transparent;;
 }
+.img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 863px;
+    height: 458px;
+}
+.disappear {
+    animation: disappear 1s linear 1;
+}
+.appear {
+    display: flex;
+    justify-content: center;
+    animation: appear 2s linear 1;
+}
+.paintName {
+    position: absolute;
+    bottom: -30px;
+    color: #ffffff;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 5px;
+    background-color: #bdbdbd67;
+}
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes disappear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

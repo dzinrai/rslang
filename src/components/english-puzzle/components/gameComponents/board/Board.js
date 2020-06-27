@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { storeGame } from '../storeGame';
-import Sentence from './Sentence';
+import { storeGame } from '../../storeGame';
+import Sentence from '../sentence/Sentence';
 import styles from './board.module.css';
 
 function Board() {
@@ -45,14 +45,14 @@ function Board() {
         stateGame.isRoundFinished
         && (
         <div
-          className="img appear"
+          className={`${styles.img} ${styles.appear}`}
           style={{
             backgroundImage: `url(${bg.imageSrc})`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: '863px 460px',
           }}
         >
-          <span className="paintName">
+          <span className={styles.paintName}>
             {`${bg.author} – ${bg.name} ${bg.year}`}
           </span>
         </div>

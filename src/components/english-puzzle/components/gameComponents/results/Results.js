@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { storeGame } from '../storeGame';
-import rawData from '../../assets/rawData';
-import Button from '../Button';
-import nextRound from '../../assets/nextRound';
-import MiniPlay from './MiniPlay';
+import { storeGame } from '../../storeGame';
+import rawData from '../../../assets/rawData';
+import Button from '../../Button';
+import nextRound from '../../../assets/nextRound';
+import MiniPlay from '../mini-play/MiniPlay';
 import styles from './results.module.css';
 
 function Results(props) {

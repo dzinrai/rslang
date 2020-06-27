@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import Button from '../Button';
-import GameHeadControls from './GameHeadControls';
+import GameHeadControls from './game-head/GameHeadControls';
 import { storeGame } from '../storeGame';
-import BottomControls from './BottomControls';
-import Board from './Board';
-import Messages from './Messages';
+import BottomControls from './bottom-controls/BottomControls';
+import Board from './board/Board';
+import Messages from './messages/Messages';
 import preloadRound from '../../assets/preloadRound';
-import Results from './Results';
+import Results from './results/Results';
 import settingsStored from '../../localStorage/settings';
 import bg from '../../img/100.svg';
 import styles from './game-main.module.css';
@@ -35,10 +35,10 @@ function Game() {
   return (
     <div style={{ ...gameStyles }}>
       {!stateGame.isStarted && (
-      <div className="app__start">
+      <div className="puzzle__start">
         <Button
           text="Start"
-          className="start__btn"
+          className={styles.startBtn}
           onClick={() => handleClick({ type: 'start' })}
         />
       </div>
