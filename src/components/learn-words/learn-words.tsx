@@ -39,10 +39,12 @@ function LearnWords() {
   // );
   return (
     <div className={styles.background}>
-    <ProgressIndicator/>
-    <SliderWithCards />
-    <Buttons />
-    <WordsToTraining />
+      <div className={styles.cardContainer}>
+        <ProgressIndicator/>
+        <SliderWithCards />
+        <Buttons />
+        <WordsToTraining />
+      </div>
     </div>
     )
 }

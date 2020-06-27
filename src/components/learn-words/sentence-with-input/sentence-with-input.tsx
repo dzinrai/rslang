@@ -16,7 +16,7 @@ function SentenceWithInput({ word }: Word){
         // console.log(inputWord)
         if (inputWord === word) {
           console.log('true')
-          
+
         } else {
           if (inputWord.length !== word.length) {
             console.log('false')
