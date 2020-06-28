@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './game.module.css';
 
 interface Props {
@@ -6,17 +7,18 @@ interface Props {
   Image: any;
   isEven?: boolean;
   caption: string;
+  path: string
 }
 
 function Game({
-  text, Image, isEven = false, caption,
+  text, Image, isEven = false, caption, path,
 }: Props) {
   return (
-    <div className={styles.container}>
+    <Link to={`/mini-games/${path}`} className={styles.container}>
       <p className={styles.details}>{text}</p>
       <Image className={styles.image} />
       <p className={`${styles.caption} ${isEven ? styles.captionEven : ''}`}>{caption}</p>
-    </div>
+    </Link>
   );
 }
 
