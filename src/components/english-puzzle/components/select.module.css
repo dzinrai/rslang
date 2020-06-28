@@ -2,9 +2,13 @@
     display: inline-block;
     position: relative;
     background-color: #ec5990;
-    border-radius: 5px;
     cursor: pointer;
     margin-right: 8px;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 30px;
+    border: 2px solid #1958DB;
+    color: #1958DB;
+    background-color: #ffffff;
 }
 
 .switch select {
@@ -13,12 +17,12 @@
     width: 53px;
     padding: 4px 5px;
     font-size: 18px;
-    border-radius: 4px;
+    border-radius: 30px;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
-    color: #ffffff;
+    color: #1958DB;
     border: none;
     cursor: pointer;
     font-weight: bold;
@@ -27,7 +31,7 @@
 .switch select:active,
 .switch select:focus {
     background-color: #fbfbfb;
-    color: #ec5990;
+    color: #1958DB;
 }
 .switch svg {
     position: absolute;

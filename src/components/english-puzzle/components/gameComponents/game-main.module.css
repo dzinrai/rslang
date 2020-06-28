@@ -3,6 +3,7 @@
     justify-content: center;
     flex-direction: column;
     width: 60%;
+    min-width: 865px;
     margin: 10px auto 0;
 }
 .startBtn {
@@ -26,4 +27,21 @@
 }
 .startBtn:active {
     transform: scale(.9);
+}
+
+@media (max-width: 1200px) {
+    .gameContainer {
+        width: 70vw;
+    }
+}
+
+@media (max-width: 1020px) {
+    .gameContainer {
+        width: 90vw;
+        min-width: unset;
+    }
+}
+
+@media (max-width: 768px) {
+
 }

@@ -22,6 +22,7 @@ function Word(props) {
   const [index, setIndex] = useState(props.index);
   const { moveWord } = props;
   const [bg, setBg] = useState(false);
+  const presetW = window.innerWidth > 865 ? 850 : window.innerWidth * 0.87;
 
   useEffect(() => {
     setBg(stateGame.roundImage);
@@ -30,6 +31,7 @@ function Word(props) {
   useEffect(() => {
     setIndex(props.index);
   }, [props.index]);
+
   function handleClick(value) {
     if (!props.buildingWord && !props.guessWord) return;
     if (props.buildingWord && stateGame.sentenceHasMistake === false) return;
@@ -50,7 +52,7 @@ function Word(props) {
   }
 
   useEffect(() => {
-    const width = props.value ? ((props.value.text.length / props.sentenceWidth) * 850) : 0;
+    const width = props.value ? ((props.value.text.length / props.sentenceWidth) * presetW) : 0;
     let offset = 0;
     if (!props.buildingWord) {
       offset = props.offset ? props.offset[props.sentence.indexOf(props.value)] : 0;
@@ -61,19 +63,19 @@ function Word(props) {
         }
       });
     }
-    const offsetWidth = (offset * 850).toFixed(0);
+    const offsetWidth = (offset * presetW).toFixed(0);
     const indexSent = !props.guessWord ? props.sentenceIndex : (9 - stateGame.currWordIndex);
     let stylesWordBg = {
       width: `${(width).toFixed(1)}px`,
       backgroundImage: `url(${bg.imageSrc})`,
       backgroundRepeat: 'no-repeat',
-      backgroundSize: '850px 460px',
+      backgroundSize: `${presetW}px 460px`,
       backgroundPosition: `-${offsetWidth}px -${indexSent * 46}px`,
     };
-    const offsetForCircle = (width + offset * 850) <= 830 ? (width + offset * 850) : 830;
+    const offsetForCircle = (width + offset * presetW) <= (presetW - 20) ? (width + offset * presetW) : (presetW - 20);
     let stylesClip = {
       backgroundImage: `url(${bg.imageSrc})`,
-      backgroundSize: '850px 460px',
+      backgroundSize: `${presetW}px 460px`,
       backgroundPosition: `-${(offsetForCircle).toFixed(0)}px ${-5 + indexSent * -46}px`,
     };
     if (!stateGame.hints.imageHint && (props.guessWord || props.buildingWord)

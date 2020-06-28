@@ -11,11 +11,14 @@
     background-color: #fbd6d6;
     border-radius: 3px;
     color: #000;
+    font-family: 'Montserrat', sans-serif;
     text-shadow: -2px 0 2px #ffffff, 2px 0 2px #ffffff, 0 2px 2px #ffffff;
     text-align: center;
     cursor: pointer;
     transition: all .1s;
+    user-select: none;
 }
+
 .word > span {
     position: relative;
     display: flex;
@@ -26,6 +29,11 @@
     width: 100%;
     padding: 0 0 0 29px;
     white-space: nowrap;
+    user-select: none;
+}
+.word span {
+    user-select: none;
+    -moz-user-select: none;
 }
 
 .word::before {
@@ -82,4 +90,28 @@
 .clipped2.rightWord {
     background-color: #04f610d8;
     box-shadow: none;
+}
+
+@media (max-width: 1200px) {
+    .word {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 1020px) {
+    .word {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .word {
+        font-size: .9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .word {
+        font-size: .7rem;
+    }
 }

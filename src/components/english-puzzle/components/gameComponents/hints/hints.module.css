@@ -4,8 +4,8 @@
 }
 .hintBtn {
     opacity: .3;
-    border-radius: 5px;
-    background-color: #ec5990;
+    border-radius: 15px !important;
+    background-color: #1958DB;
     color: #eeecec;
     font-size: 22px;
     width: 55px;
@@ -15,9 +15,9 @@
     margin: 0 4px 0 0;
 }
 .hintBtn:hover {
-    border-radius: 5px;
+    border-radius: 15px;
     background-color: #eeecec;
-    color: #ec5990;
+    color: #1958DB;
     font-size: 24px;
     padding: 3px 10px;
 }

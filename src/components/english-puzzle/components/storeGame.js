@@ -122,6 +122,7 @@ const StateOfGameProvider = ({ children }) => {
           isRoundFinished: false,
           readyToContinue: false,
           isShowResults: false,
+          results: { ...state.results, notKnow: [] },
         };
         return newState;
       case 'finishRound':

@@ -24,6 +24,7 @@ function BottomControls(props) {
       notKnow.push(word);
       dispatchGame({ type: 'saveToResult', value: { notKnow } });
       dispatchGame({ type: 'saveToResult', value: { know: words } });
+      dispatchGame({ type: 'guessSentence', value: [] });
       check(dispatchGame, stateGame, currentSentence);
     } else if (btn.isContinue) {
       if (stateGame.isRoundFinished) {
@@ -52,7 +53,8 @@ function BottomControls(props) {
   return (
 
     <div className={styles.bottomControls}>
-      {stateGame.sentenceHasMistake
+
+      {!showResult && stateGame.sentenceHasMistake !== false
         && (
         <Button
           text="Don't know"
@@ -60,6 +62,7 @@ function BottomControls(props) {
           onClick={() => handleClick({ isDontKnow: true })}
         />
         )}
+
       {stateGame.checkReady
         && (
         <Button
