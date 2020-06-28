@@ -167,6 +167,7 @@
     text-align: center;
     padding: 8px 35px;
     cursor: pointer;
+    border: none;
 }
 
 .correctWords {
