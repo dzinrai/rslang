@@ -8,6 +8,7 @@
     color: #112256;
     outline: none;
     font-weight: 300;
+    margin-bottom: 21px;
 }
 
 .showResults:hover {
@@ -84,11 +85,15 @@
 
 .buttonsContainer {
     margin-top: 15px;
+    position: absolute;
+    bottom: 75px;
 }
 .switchContainer{
-    text-align: left;   
+    text-align: left;
     align-self: flex-end;
-    margin-right: 40px;
+    position: absolute;
+    bottom: 35px;
+    right: 35px;
 }
 .switchContainer div {
     margin-bottom: 10px;

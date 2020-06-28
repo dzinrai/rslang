@@ -10,7 +10,8 @@ interface InfoSentences {
   textMeaningTranslate: string,
   audio: string,
   audioExample: string,
-  audioMeaning: string
+  audioMeaning: string,
+  correct: boolean
 }
 
 const useAudio = (url: string) => {
@@ -37,13 +38,9 @@ const useAudio = (url: string) => {
 
 function WordInfo(props: InfoSentences){
   const { word, textExample, textMeaning, textExampleTranslate, textMeaningTranslate,
-  audio, audioExample, audioMeaning } = props
-
-  // const correctWord = word.split('').map(el => <span>{el}</span>)
-  // const uncorrectWord = Array(word.length).map(el => <span>_</span>)
+  audio, audioExample, audioMeaning, correct } = props
 
   const [playing, toggle] = useAudio(`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audio}`);
-  console.log(audio)
 
   const [isTranslation, setIsTranslation] = useState(false);
 
@@ -58,17 +55,13 @@ function WordInfo(props: InfoSentences){
       </div> */}
 
         <div className={styles.textExample}>
-          {/* “To the south there are high mountains, covered in thick spring<span> </span>
-          <span>_</span>
-          <span>_</span>
-          <span>_</span>
-          <span>_</span>
-          “ */}
-          "{isTranslation ? textExampleTranslate : (word ? textExample.replace(`<b>${word}</b>`, '___') : null)}"
+          "{isTranslation ? textExampleTranslate : (word ? 
+            (correct ? textExample.replace(`<b>${word}</b>`, `${word}`) : textExample.replace(`<b>${word}</b>`, '___')) : null)}"
         </div>
         <div className={styles.meaningContainer}>
           <div className={styles.textMeaning}>
-            {isTranslation ? textMeaningTranslate : (word ? textMeaning.replace(`<i>${word}</i>`, '___') : null)}
+            {isTranslation ? textMeaningTranslate : (word ? 
+            (correct ? textMeaning.replace(`<i>${word}</i>`, `${word}`) : textMeaning.replace(`<i>${word}</i>`, '___')) : null)}
           </div>
           <button
             className={styles.switchShowBtn}

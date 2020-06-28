@@ -2,40 +2,47 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './sentence-with-input.module.css';
 
 interface Word {
-  word: string
+  word: string, 
+  onCorrect: any,
+  setUsersWord: any,
+  usersWord: string,
+  indexes: any,
+  setIndexes: any,
+  setIndex: any
 }
 
-function SentenceWithInput({ word }: Word){
-  // const { word } = props
-  const [indexes, setIndexes] = useState(Array())
-
+function SentenceWithInput({ word, onCorrect, setUsersWord, usersWord, indexes, setIndexes, setIndex }: Word){
     function checkWord(e: any) {
       if (e.keyCode === 13) {
-        let inputWord = e.target.value.toLowerCase()
+        let inputWord = usersWord.toLowerCase().trim()
         setIndexes([])
-        // console.log(inputWord)
         if (inputWord === word) {
           console.log('true')
-
+          onCorrect(true)
         } else {
           if (inputWord.length !== word.length) {
             console.log('false')
-            for (let i = 0; i < word.length; i += 1) indexes.push(i)
+            let indexes: any = []
+            word.split('').map((el: string, i: number) => {
+              if (el !== inputWord[i]) indexes.push(i)
+            })
             setIndexes(indexes.concat(indexes))
           } else {
             let indexes: any = []
             inputWord.split('').map((el: string, i: number) => {
               if (el !== word[i]) indexes.push(i)
             })
-            // console.log(indexes)
             console.log(indexes)
             setIndexes(indexes.concat(indexes))
           }
         } 
-        e.target.value = '' 
+        setUsersWord('')
+        e.target.value = ''
       }
     }
+
     if (!word) return null
+    
     return (
       <>
         <div className={styles.sentenceContainer}>
@@ -50,9 +57,9 @@ function SentenceWithInput({ word }: Word){
             <span className={styles.correct}>{el}</span>
             )}            
             </span>
-            <input className={styles.answerInput} onKeyDown={(e) => checkWord(e)} type="text" name="" id=""/>
+            <input className={styles.answerInput} onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+   setUsersWord(e.target.value)}} onKeyDown={(e: any) => checkWord(e)} type="text" name="" id="inputWord"/>
             </span>
-            {/* <span className={styles.restOfSentence}>falls to the ground</span> */}
         </div>
       </>
     )

@@ -7,30 +7,27 @@ import WordInfo from '../word-info/word-info';
 import MoveDeleteWord from '../move-delete-word/move-delete-word';
 import { storeWords } from '../../../context/contextWords';
 
-// interface TestWord {
-//   word: string,
-//   wordTranslate: string,
-//   transcription: string,
-//   image: string,
-//   textExample: string,
-//   textMeaning: string,
-//   textExampleTranslate: string,
-//   textMeaningTranslate: string
-// }
-
 interface CardProps {
-  index: number
+  word: any,
+  setWord: any,
+  index: number,
+  setIndex: any,
+  onCorrect: any,
+  correct: boolean,
+  setUsersWord: any,
+  usersWord: string,
+  indexes: any,
+  setIndexes: any
 }
 
-function Card({ index }: CardProps) {
+function Card({ word, setWord, index, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes, setIndexes }: CardProps) {
 
-  const wordsState = useContext(storeWords);
-  const stateWords = wordsState.state;
-  const curword = stateWords.words ? stateWords.words[index] : null;
-  console.log(curword)
-
-  // const { word, wordTranslate, transcription, image, textExample, 
-  //   textMeaning, textExampleTranslate, textMeaningTranslate } = curword
+  // const wordsState = useContext(storeWords);
+  // const stateWords = wordsState.state;
+  // console.log(stateWords)
+  // const word = stateWords.words ? stateWords.words[index] : null;
+  // setWord(word)
+  // console.log(word)
 
   return (
     <div className={styles.cardContainer}>
@@ -38,26 +35,27 @@ function Card({ index }: CardProps) {
         <div className={styles.sentensewordTranslate}>
           <div className={styles.mainSentenceContainer}>
             <WordProgressIndicator />
-            <SentenceWithInput word={curword.word} />
+            <SentenceWithInput word={word.word} onCorrect={onCorrect} setUsersWord={setUsersWord} 
+            usersWord={usersWord} indexes={indexes} setIndexes={setIndexes} setIndex={setIndex}/>
             <SoundIndicator />
           </div>
           <div className={styles.wordTranscriptionContainer}>
             <span className={styles.wordTranslate}>
-              {curword.wordTranslate}
+              {word.wordTranslate}
             </span>
             <span className={styles.transcription}>
-              {curword.transcription}
+              {word.transcription}
             </span>
           </div>
         </div>
         <div className={styles.imageMoveDelete}>
-          <img style={{borderRadius: '5px'}} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${curword.image}`} width='195' height='150'></img>
+          <img style={{borderRadius: '5px'}} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} width='195' height='150'></img>
           <MoveDeleteWord />
         </div>
       </div>
-      <WordInfo word={curword.word} textExample={curword.textExample} textMeaning={curword.textMeaning} 
-      textExampleTranslate={curword.textExampleTranslate} textMeaningTranslate={curword.textMeaningTranslate} 
-      audio={curword.audio} audioExample={curword.audioExample} audioMeaning={curword.audioMeaning}/>
+      <WordInfo word={word.word} textExample={word.textExample} textMeaning={word.textMeaning} 
+      textExampleTranslate={word.textExampleTranslate} textMeaningTranslate={word.textMeaningTranslate} 
+      audio={word.audio} audioExample={word.audioExample} audioMeaning={word.audioMeaning} correct={correct}/>
     </div>
   )
 }
