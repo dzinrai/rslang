@@ -111,7 +111,7 @@ const StateOfGameProvider = ({ children }) => {
             ...hint,
           },
         };
-        settingsStored.save('hints', newState.hints);
+        settingsStored.save('puzzle-hints', newState.hints);
         return newState;
       case 'levelUp':
         newState = { ...state, level: action.value };

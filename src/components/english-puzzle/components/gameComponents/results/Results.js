@@ -6,7 +6,7 @@ import nextRound from '../../../assets/nextRound';
 import MiniPlay from '../mini-play/MiniPlay';
 import styles from './results.module.css';
 
-function Results(props) {
+function Results() {
   const gameState = useContext(storeGame);
   const dispatchGame = gameState.dispatch;
   const stateGame = gameState.state;
@@ -30,13 +30,12 @@ function Results(props) {
         <span>{`${bg.author} – ${bg.name} ${bg.year}`}</span>
         <div className="results__dont-know">
           <h4>
-            I don't know
+            I don&apos;t know
             <span className={styles.numberRed}>{stateGame.results.notKnow.length}</span>
           </h4>
-          {stateGame.results.notKnow.map((wordSentence, i) => (
-            <span key={i} className={styles.resultSent}>
+          {stateGame.results.notKnow.map((wordSentence) => (
+            <span className={styles.resultSent}>
               <MiniPlay
-                key={i}
                 src={rawData({ filename: wordSentence.audioExample })}
               />
               <div dangerouslySetInnerHTML={{ __html: wordSentence.textExample }} />
@@ -48,10 +47,9 @@ function Results(props) {
             I know
             <span className={styles.numberGreen}>{stateGame.results.know.length}</span>
           </h4>
-          {stateGame.results.know.map((wordSentence, i) => (
-            <span key={i} className={styles.resultSent}>
+          {stateGame.results.know.map((wordSentence) => (
+            <span className={styles.resultSent}>
               <MiniPlay
-                key={i}
                 src={rawData({ filename: wordSentence.audioExample })}
               />
               <div dangerouslySetInnerHTML={{ __html: wordSentence.textExample }} />

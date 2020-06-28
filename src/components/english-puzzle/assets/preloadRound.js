@@ -22,9 +22,10 @@ async function preloadRound(dispatchGame, stateGame, difficulty, page) {
   let pageN = page;
   if (!pageN) {
     pageN = await makePage(dispatchGame, roundDifficulty);
-    settingsStored.save('page', pageN);
+    settingsStored.save('puzzle-page', pageN);
   } else {
-    makePage(dispatchGame, roundDifficulty); // if page is not set then just get pages count whenever its fall, no need await
+    makePage(dispatchGame, roundDifficulty);
+    // if page is not set then just get pages count whenever its fall, no need await
   }
   let words = await getWords({ page: pageN, group: roundDifficulty - 1 });
   if (Array.isArray(words)) {

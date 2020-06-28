@@ -14,14 +14,16 @@ function GameHeadControls() {
 
   function handleClick(types) {
     if (types.type === 'difficulty') {
-      nextRound(dispatchGame, stateGame, types.value);
+      nextRound(dispatchGame, stateGame, types.value, 1);
     } else if (types.type === 'page') {
       nextRound(dispatchGame, stateGame, stateGame.difficulty, types.value);
     }
-    settingsStored.save(types.type, types.value);
+    settingsStored.save(`puzzle-${types.type}`, types.value);
   }
   useEffect(() => {
-    if (pages.length !== stateGame.pages) setPages(Array(stateGame.pages).fill().map((_, i) => i + 1));
+    if (pages.length !== stateGame.pages) {
+      setPages(Array(stateGame.pages).fill().map((_, i) => i + 1));
+    }
   }, [pages.length, stateGame.pages]);
 
   return (

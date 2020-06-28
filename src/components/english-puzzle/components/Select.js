@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './select.module.css';
 
 function Select(props) {
-  const [value, setValue] = useState(0);
-  const { values } = props;
+  const { value, values, onChange } = props;
+
   function handleChange(e) {
-    const difficulty = parseInt(e.target.value);
-    setValue(difficulty);
-    props.onChange(difficulty);
+    const newValue = parseInt(e.target.value, 10);
+    onChange(newValue);
   }
-  useEffect(() => {
-    if (props.value !== value) setValue(props.value);
-  }, [props.value, value]);
 
   return (
     <div className={styles.switch}>
@@ -21,9 +18,9 @@ function Select(props) {
         onChange={handleChange}
       >
 
-        {values.map((value, i) => (
-          <option key={i} value={value}>
-            {value}
+        {values.length > 0 && values.map((valueT, i) => (
+          <option key={i} value={valueT}>
+            {valueT}
           </option>
         ))}
 

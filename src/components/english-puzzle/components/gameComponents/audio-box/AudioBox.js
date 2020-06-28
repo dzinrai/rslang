@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState, useContext } from 'react';
 import { useAudioPlayer } from 'react-use-audio-player';
 import Button from '../../Button';
 import { storeGame } from '../../storeGame';
 import styles from './audio-box.module.css';
 
-function AudioBox(props) {
+function AudioBox({ src, hideBtn }) {
   const gameState = useContext(storeGame);
   const stateGame = gameState.state;
-  const [sourceSrc, setSourceSrc] = useState(props.src);
+  const [sourceSrc, setSourceSrc] = useState(src);
   const [afterPlay, setAfterPlay] = useState(false);
   const {
     ready, loading, playing, load, play, stop,
@@ -29,9 +30,9 @@ function AudioBox(props) {
     }
   }, [sourceSrc, loading, load, ready]);
   useEffect(() => {
-    setSourceSrc(props.src);
-    if (sourceSrc !== props.src) setAfterPlay(false);
-  }, [props.src, sourceSrc]);
+    setSourceSrc(src);
+    if (sourceSrc !== src) setAfterPlay(false);
+  }, [src, sourceSrc]);
   useEffect(() => {
     if (stateGame.hints.autoAudio && stateGame.readyToContinue && ready && !playing
             && stateGame.sentenceHasMistake === false && !afterPlay) {
@@ -39,11 +40,13 @@ function AudioBox(props) {
       play();
       setAfterPlay(true);
     }
-  }, [afterPlay, play, playing, ready, stateGame.hints.autoAudio, stateGame.readyToContinue, stateGame.sentenceHasMistake, stop]);
+  }, [
+    afterPlay, play, playing, ready, stateGame.hints.autoAudio,
+    stateGame.readyToContinue, stateGame.sentenceHasMistake, stop]);
 
   return (
 
-    <div className={`${styles.audioPlay} ${props.hideBtn ? 'hidden' : ''}`}>
+    <div className={`${styles.audioPlay} ${hideBtn ? 'hidden' : ''}`}>
       <Button
         icon="volume-up"
         className={`${styles.audioBoxBtn} ${loading ? styles.loading : ''} ${playing ? styles.playing : ''}`}

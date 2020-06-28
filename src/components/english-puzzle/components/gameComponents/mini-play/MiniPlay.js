@@ -3,7 +3,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import Button from '../../Button';
 import styles from './mini-play.module.css';
 
-function MiniPlay(props) {
+function MiniPlay({ src }) {
   const [audioElx, setAudioElx] = useState(null);
 
   function handleClick() {
@@ -13,7 +13,7 @@ function MiniPlay(props) {
   return (
     <div className={styles.miniPlay}>
       <ReactAudioPlayer
-        src={props.src}
+        src={src}
         autoPlay={false}
         controls={false}
         ref={(element) => setAudioElx(element)}

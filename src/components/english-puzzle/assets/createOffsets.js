@@ -1,7 +1,7 @@
 function createOffsets(words) {
   const offsets = [];
   const sentences = [];
-  words.forEach((word, i) => {
+  words.forEach((word) => {
     let trimmedWord = word.textExample.replace('<b>', '');
     trimmedWord = trimmedWord.replace('</b>', '');
     const wordsInSentence = trimmedWord.split(' ');

@@ -3,7 +3,7 @@ import Button from '../../Button';
 import { storeGame } from '../../storeGame';
 import styles from './hints.module.css';
 
-function Hints(props) {
+function Hints() {
   const gameState = useContext(storeGame);
   const dispatchGame = gameState.dispatch;
   const stateGame = gameState.state;

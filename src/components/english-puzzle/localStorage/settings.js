@@ -8,12 +8,12 @@ const initialSettings = {
 
 const settingsStored = {
   load() {
-    const difficulty = localStorage.getItem('difficulty');
-    const page = localStorage.getItem('page');
-    const hints = localStorage.getItem('hints');
+    const difficulty = localStorage.getItem('puzzle-difficulty');
+    const page = localStorage.getItem('puzzle-page');
+    const hints = localStorage.getItem('puzzle-hints');
     if (!difficulty || !page || !hints) {
       [...Object.keys(initialSettings)].forEach((setting) => {
-        localStorage.setItem(String(setting), JSON.stringify(initialSettings[setting]));
+        localStorage.setItem(`puzzle-${String(setting)}`, JSON.stringify(initialSettings[setting]));
       });
       return { ...initialSettings };
     } return {

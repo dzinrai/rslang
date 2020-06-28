@@ -6,7 +6,7 @@ import continueLevel from '../../../assets/continueLevel';
 import nextRound from '../../../assets/nextRound';
 import styles from './bottom-controls.module.css';
 
-function BottomControls(props) {
+function BottomControls() {
   const gameState = useContext(storeGame);
   const dispatchGame = gameState.dispatch;
   const stateGame = gameState.state;

@@ -2,26 +2,26 @@ import compareArrays from './compareArrays';
 import compareForMistakes from './compareForMistakes';
 
 function compareSentences(sentence1, sentence2, includePos) {
-  const sentence1_ = [...sentence1];
-  const sentence2_ = [...sentence2];
+  const sent1 = [...sentence1];
+  const sent2 = [...sentence2];
   if (!includePos) {
-    sentence1_.forEach((word, i) => { // [{text: 'blabla', id: 0}] => ['blabla']
-      sentence1_[i] = word.text;
+    sent1.forEach((word, i) => { // [{text: 'blabla', id: 0}] => ['blabla']
+      sent1[i] = word.text;
     });
-    sentence2_.forEach((word, i) => { // [{text: 'blabla', id: 0}] => ['blabla']
-      sentence2_[i] = word.text;
+    sent2.forEach((word, i) => { // [{text: 'blabla', id: 0}] => ['blabla']
+      sent2[i] = word.text;
     });
   } else if (includePos) {
-    sentence1_.forEach((word, i) => { // [{text: 'blabla', id: 0}] => ['blabla']
-      sentence1_[i] = word.text + word.id;
+    sent1.forEach((word, i) => { // [{text: 'blabla', id: 0}] => ['blabla']
+      sent1[i] = word.text + word.id;
     });
-    sentence2_.forEach((word, i) => { // [{text: 'blabla', id: 0}] => ['blabla']
-      sentence2_[i] = word.text + word.id;
+    sent2.forEach((word, i) => { // [{text: 'blabla', id: 0}] => ['blabla']
+      sent2[i] = word.text + word.id;
     });
   }
   return {
-    isSentenceRight: compareArrays(sentence1_, sentence2_),
-    mistakes: compareForMistakes(sentence1_, sentence2_),
+    isSentenceRight: compareArrays(sent1, sent2),
+    mistakes: compareForMistakes(sent1, sent2),
   };
 }
 

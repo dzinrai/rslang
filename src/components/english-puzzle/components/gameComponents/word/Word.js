@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, {
@@ -72,7 +74,8 @@ function Word(props) {
       backgroundSize: `${presetW}px 460px`,
       backgroundPosition: `-${offsetWidth}px -${indexSent * 46}px`,
     };
-    const offsetForCircle = (width + offset * presetW) <= (presetW - 20) ? (width + offset * presetW) : (presetW - 20);
+    const offsetForCircle = (width + offset * presetW) <= (presetW - 20)
+      ? (width + offset * presetW) : (presetW - 20);
     let stylesClip = {
       backgroundImage: `url(${bg.imageSrc})`,
       backgroundSize: `${presetW}px 460px`,
@@ -139,14 +142,13 @@ function Word(props) {
       }
       // Time to actually perform the action
       // console.log(id, index, ref.current.innerHTML,item);
-      console.log(dragIndex, hoverIndex, sentenceIndex);
       moveWord(dragIndex, hoverIndex, sentenceIndex);
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
+      // eslint-disable-next-line no-param-reassign
       item.index = hoverIndex;
-      console.log(item);
     },
     canDrop,
   });
@@ -164,7 +166,6 @@ function Word(props) {
       if (res.changedLine) {
         // console.log(monitor.getDropResult().changedLine);
         // removeWord(item.index);
-        console.log(props.value);
         handleClick(props.value);
       }
     },
