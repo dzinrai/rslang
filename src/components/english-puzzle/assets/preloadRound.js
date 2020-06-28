@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable no-param-reassign */
 import getPages from '../api/getPages';
 import getWords from '../api/getWords';
 import shuffleArray from './shuffleArray';

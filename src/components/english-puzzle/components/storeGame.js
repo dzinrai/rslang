@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable no-shadow */
 /* eslint-disable no-case-declarations */
 /* eslint-disable react/prop-types */
 import React, { createContext, useReducer } from 'react';

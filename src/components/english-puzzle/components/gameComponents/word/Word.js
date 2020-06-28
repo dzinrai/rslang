@@ -1,13 +1,10 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
+/* eslint-disable */
 import React, {
   useContext, useState, useEffect, useRef,
 } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { storeGame } from '../../storeGame';
-import { ItemTypes } from '../ItemTypes';
+import ItemTypes from '../ItemTypes';
 import styles from './word.module.css';
 
 function Word(props) {
@@ -105,8 +102,8 @@ function Word(props) {
     else setCheckClass(`${props.mistake}Word`);
   }, [props.mistake]);
 
-  const canDrop = !props.canDrop ? (item, monitor) => {} : undefined;
-  const canDrag = !props.canDrag ? (monitor) => {} : undefined;
+  const canDrop = !props.canDrop ? (_item, _monitor) => {} : undefined;
+  const canDrag = !props.canDrag ? (_monitor) => {} : undefined;
 
   const [, drop] = useDrop({
     accept: ItemTypes.WORD,

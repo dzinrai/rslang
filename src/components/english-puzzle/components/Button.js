@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable */
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styles from '../sass/puzzleStyles.scss';
 
 function Button({
   className, onClick, value, text, icon, iconClass,

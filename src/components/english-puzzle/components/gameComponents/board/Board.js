@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useContext, useState, useEffect } from 'react';
 import { storeGame } from '../../storeGame';
 import Sentence from '../sentence/Sentence';

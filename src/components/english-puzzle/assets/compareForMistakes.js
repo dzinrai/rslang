@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable consistent-return */
 function compareForMistakes(arr1, arr2) {
   if (arr1.length !== arr2.length) return;
   const res = [];

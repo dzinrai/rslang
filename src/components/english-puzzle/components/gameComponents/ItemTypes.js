@@ -1,3 +1,5 @@
-export const ItemTypes = {
+const ItemTypes = {
   WORD: 'word',
 };
+
+export default ItemTypes;
