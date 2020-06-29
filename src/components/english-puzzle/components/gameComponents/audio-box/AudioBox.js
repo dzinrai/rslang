@@ -5,7 +5,7 @@ import Button from '../../Button';
 import { storeGame } from '../../storeGame';
 import styles from './audio-box.module.css';
 
-function AudioBox({ src, hideBtn }) {
+function AudioBox({ src }) {
   const gameState = useContext(storeGame);
   const stateGame = gameState.state;
   const [sourceSrc, setSourceSrc] = useState(src);
@@ -45,15 +45,13 @@ function AudioBox({ src, hideBtn }) {
     stateGame.readyToContinue, stateGame.sentenceHasMistake, stop]);
 
   return (
-
-    <div className={`${styles.audioPlay} ${hideBtn ? 'hidden' : ''}`}>
+    <>
       <Button
         icon="volume-up"
         className={`${styles.audioBoxBtn} ${loading ? styles.loading : ''} ${playing ? styles.playing : ''}`}
         onClick={() => handleClick()}
       />
-    </div>
-
+    </>
   );
 }
 

@@ -8,15 +8,8 @@ import Messages from './messages/Messages';
 import preloadRound from '../../assets/preloadRound';
 import Results from './results/Results';
 import settingsStored from '../../localStorage/settings';
-import bg from '../../img/100.svg';
 import styles from './game-main.module.css';
-
-const gameStyles = {
-  backgroundImage: `url(${bg})`,
-  backgroundSize: 'cover',
-  height: '100vh',
-  minHeight: '786px',
-};
+import Puzzle from '../../../../img/puzzle.svg';
 
 function Game() {
   const gameState = useContext(storeGame);
@@ -33,14 +26,17 @@ function Game() {
   }
 
   return (
-    <div style={{ ...gameStyles }}>
+    <div className={`${styles.puzzleContainer} ${!stateGame.isStarted ? styles.start : ''}`}>
       {!stateGame.isStarted && (
-      <div className="puzzle__start">
+      <div className={styles.startPuzzle}>
+        <img className={styles.imagePuzzle} src={Puzzle} alt="The man pushing puzzles" />
         <Button
-          text="Start"
+          text="Collect"
           className={styles.startBtn}
           onClick={() => handleClick({ type: 'start' })}
         />
+        <p className={styles.buttonDescription}>Push the button to start</p>
+        <h3 className={styles.gameName}>English Puzzle</h3>
       </div>
       )}
       {stateGame.isStarted && !stateGame.isEnded

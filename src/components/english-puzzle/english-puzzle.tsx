@@ -14,7 +14,7 @@ library.add(faImage, faVolumeUp, faFileAlt, faMusic, faCaretDown);
 
 function EnglishPuzzle() {
   return (
-    <div className="app_puzzle">
+    <div className="appPuzzle">
       <StateOfGameProvider>
         <AudioPlayerProvider>
           <DndProvider backend={HTML5Backend}>

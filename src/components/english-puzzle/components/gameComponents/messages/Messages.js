@@ -20,7 +20,11 @@ function Messages() {
 
     <div className={styles.messages}>
       {(stateGame.hints.audioHint || stateGame.hints.autoAudio)
-        && <AudioBox src={src} hideBtn={stateGame.hints.autoAudio && !stateGame.hints.audioHint} />}
+        && (
+        <div className={`${styles.audioPlay} ${stateGame.hints.autoAudio && !stateGame.hints.audioHint ? 'hidden' : ''}`}>
+          <AudioBox src={src} />
+        </div>
+        )}
       {stateGame.hints.transHint
       && (
       <div className={styles.translation}>
