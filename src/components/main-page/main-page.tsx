@@ -3,7 +3,7 @@ import styles from './main-page.module.css';
 import LastWord from './last-word/last-word';
 import PlanForToday from './plan-for-today/plan-for-today';
 import ToDoAction from './to-do-action/to-do-action';
-import TodayProgress from './today-progress/today-progress';
+import TodayProgress from '../today-progress';
 
 function MainPage() {
   return (

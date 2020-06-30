@@ -8,7 +8,7 @@ interface LinkProps {
   toggleMenu: () => void
 }
 
-const MenuLink: React.FC<LinkProps> = ({ link, toggleMenu }) => (
+const MenuLink: React.FC<LinkProps> = ({ link, toggleMenu }: LinkProps) => (
   <ul>
     {link.map((item) => (
       <li key={item.id}>

@@ -1,19 +1,16 @@
 .today_progress_container {
-    /* position: absolute; */
     width: 760px;
     height: 63px;
-    /* left: 44px;
-    top: 117px; */
     background: rgba(255, 202, 202, 0.36);
-    /* opacity: 0.7; */
     border-radius: 8px;
 }
 
-.lamp_img{
+.lamp_img {
     position: relative;
     left: 320px;
     bottom: 40px;
 }
+
 .user_name {
     font-family: Montserrat;
     max-width: 100px;
@@ -41,7 +38,8 @@
     margin-bottom: 0;
     max-width: 500px;
 }
-.bold_text{
+
+.bold_text {
     font-weight: 600;
     padding-left: 5px;
 }
@@ -52,7 +50,6 @@
     font-weight: bold;
     font-size: 18px;
     line-height: 72px;
-    /* display: flex; */
     align-items: center;
     color: #002755;
     position: relative;
@@ -61,22 +58,22 @@
 }
 
 @media (max-width: 767px) {
-    
     .today_progress_container {
         width: 80%;
     }
     .level {
-        left:30vw;
+        left: 30vw;
     }
     .lamp_img {
         left: 30vw;
     }
 }
+
 @media (max-width: 767px) {
     .lamp_img {
         left: 20vw;
-    } 
-    .today_description{
+    }
+    .today_description {
         display: none;
     }
 }
