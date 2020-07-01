@@ -17,6 +17,7 @@ function LearnWords() {
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
     };
     preloadWords();
+    // eslint-disable-next-line
   }, []);
 
   return (
