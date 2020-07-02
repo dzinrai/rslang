@@ -5,8 +5,11 @@ function Progress() {
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>Track your progress</h2>
-      <p className={styles.text}>Statistics graphs help you track your</p>
-      <p className={styles.text}>progress and motivate you rise higher</p>
+      <p className={styles.text}>
+        Statistics graphs help you track your
+        <br />
+        progress and motivate you rise higher
+      </p>
     </div>
   );
 }
