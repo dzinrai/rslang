@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './word-info.module.css';
 import { ReactComponent as Trans } from '../../../img/btnTranslate.svg';
+import ReactAudioPlayer from 'react-audio-player';
 
 interface InfoSentences {
   word: string,
@@ -14,33 +15,30 @@ interface InfoSentences {
   correct: boolean
 }
 
-const useAudio = (url: string) => {
-  const [audio] = useState(new Audio(url));
-  const [playing, setPlaying] = useState(false);
+// function MiniPlay(props) {
+//   const [audioElx, setAudioElx] = useState(null);
 
-  const toggle = () => setPlaying(!playing);
+//   function handleClick() {
+//     audioElx.audioEl.current.play();
+//   }
 
-  useEffect(() => {
-      playing ? audio.play() : audio.pause();
-    },
-    [playing]
-  );
-
-  useEffect(() => {
-    audio.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, []);
-
-  return [playing, toggle];
-};
-
+//   return (
+//     <div>
+//       <ReactAudioPlayer
+//         src={props.src}
+//         autoPlay={false}
+//         controls={false}
+//         ref={(element) => setAudioElx(element)}
+//       />
+//       <button
+//         onClick={() => handleClick()}
+//       />
+//     </div>
+//   );
+// }
 function WordInfo(props: InfoSentences){
   const { word, textExample, textMeaning, textExampleTranslate, textMeaningTranslate,
   audio, audioExample, audioMeaning, correct } = props
-
-  const [playing, toggle] = useAudio(`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audio}`);
 
   const [isTranslation, setIsTranslation] = useState(false);
 
@@ -49,10 +47,6 @@ function WordInfo(props: InfoSentences){
   }
     return(
       <div className={styles.infoContainer}>
-
-      {/* <div>
-        <button onClick={() => toggle}>{playing ? "Pause" : "Play"}</button>
-      </div> */}
 
         <div className={styles.textExample}>
           "{isTranslation ? textExampleTranslate : (word ? 

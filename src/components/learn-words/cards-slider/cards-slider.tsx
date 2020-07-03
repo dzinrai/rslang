@@ -15,10 +15,20 @@ interface SliderProps {
     setUsersWord: any,
     usersWord: string,
     indexes: any,
-    setIndexes: any
+    setIndexes: any,
+    setAudioWord: any,
+    setAudioExample: any,
+    setAudioMeaning: any,
+    autoplay: boolean,
+    setAutoplay: any,
+    inProp: boolean,
+    setInProp: any,
+    transpAnswer: boolean,
+    setTranspAnswer: any,
   }
 
-function CardsSlider({ word, setWord, index, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes, setIndexes }: SliderProps){
+function CardsSlider({ word, setWord, index, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes, setIndexes,
+    setAudioWord, setAudioExample, setAudioMeaning, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer }: SliderProps){
 
     const wordsState = useContext(storeWords);
     const stateWords = wordsState.state;
@@ -27,6 +37,10 @@ function CardsSlider({ word, setWord, index, setIndex, onCorrect, correct, setUs
     const curword = stateWords.words ? stateWords.words[index] : null;
     setWord(curword)
     console.log(correct)
+
+    setAudioWord(word.audio)
+    setAudioExample(word.audioExample)
+    setAudioMeaning(word.audioMeaning)
   
     // const wordsState = useContext(storeWords);
     // const dispatchWords = wordsState.dispatch;
@@ -49,7 +63,9 @@ function CardsSlider({ word, setWord, index, setIndex, onCorrect, correct, setUs
     return(
         <>
         <Card word={word} setWord={setWord} index={index} setIndex={setIndex} onCorrect={onCorrect} correct={correct} 
-        setUsersWord={setUsersWord} usersWord={usersWord} indexes={indexes} setIndexes={setIndexes} />
+        setUsersWord={setUsersWord} usersWord={usersWord} indexes={indexes} setIndexes={setIndexes} autoplay={autoplay} 
+        setAutoplay={setAutoplay} inProp={inProp} setInProp={setInProp} 
+        transpAnswer={transpAnswer} setTranspAnswer={setTranspAnswer}/>
         </>
     )
 }

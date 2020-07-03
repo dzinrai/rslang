@@ -3,11 +3,15 @@ import styles from './sound-indicator.module.css';
 import soundIndicator from '../../../img/sound-indicator.png'
 import { Checkbox } from 'antd';
 
-function onChange(e: any) {
-  console.log(`checked = ${e.target.checked}`);
+interface SoundIndicatorProps {
+  autoplay: boolean,
+  setAutoplay: any
 }
 
-function SoundIndicator(){
+function SoundIndicator({ autoplay, setAutoplay }: SoundIndicatorProps){
+  function onChange(e: any) {
+    setAutoplay(!autoplay)
+  } 
   
     return (
       <div className={styles.indicatorContainer}>

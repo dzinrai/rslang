@@ -17,10 +17,17 @@ interface CardProps {
   setUsersWord: any,
   usersWord: string,
   indexes: any,
-  setIndexes: any
+  setIndexes: any,
+  autoplay: boolean,
+  setAutoplay: any,
+  inProp: boolean,
+  setInProp: any,
+  transpAnswer: boolean,
+  setTranspAnswer: any,
 }
 
-function Card({ word, setWord, index, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes, setIndexes }: CardProps) {
+function Card({ word, setWord, index, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes, 
+  setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer }: CardProps) {
 
   // const wordsState = useContext(storeWords);
   // const stateWords = wordsState.state;
@@ -35,9 +42,11 @@ function Card({ word, setWord, index, setIndex, onCorrect, correct, setUsersWord
         <div className={styles.sentensewordTranslate}>
           <div className={styles.mainSentenceContainer}>
             <WordProgressIndicator />
-            <SentenceWithInput word={word.word} onCorrect={onCorrect} setUsersWord={setUsersWord} 
-            usersWord={usersWord} indexes={indexes} setIndexes={setIndexes} setIndex={setIndex}/>
-            <SoundIndicator />
+            <SentenceWithInput word={word.word} correct={correct} onCorrect={onCorrect} setUsersWord={setUsersWord} 
+            usersWord={usersWord} indexes={indexes} setIndexes={setIndexes} setIndex={setIndex}
+            inProp={inProp} setInProp={setInProp} 
+            transpAnswer={transpAnswer} setTranspAnswer={setTranspAnswer}/>
+            <SoundIndicator autoplay={autoplay} setAutoplay={setAutoplay}/>
           </div>
           <div className={styles.wordTranscriptionContainer}>
             <span className={styles.wordTranslate}>

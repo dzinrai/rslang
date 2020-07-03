@@ -12,10 +12,18 @@ interface ButtonsProps {
     usersWord: string,
     correct: boolean,
     setIndexes: any,
-    setIndex: any
+    setIndex: any,
+    audioWord: any,
+    audioExample: any,
+    audioMeaning: any,
+    inProp: boolean,
+    setInProp: any,
+    transpAnswer: boolean,
+    setTranspAnswer: any
 }
   
-function Buttons({ word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex }: ButtonsProps) {
+function Buttons({ word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex, 
+    audioWord, audioExample, audioMeaning, inProp, setInProp, transpAnswer, setTranspAnswer }: ButtonsProps) {
     function onChange(checked: boolean) {
         console.log(`switch to ${checked}`);
     }
@@ -26,8 +34,9 @@ function Buttons({ word, onCorrect, setUsersWord, usersWord, correct, setIndexes
         let inputWord = usersWord.toLowerCase().trim()
         setIndexes([])
         if (inputWord === curWord) {
-          console.log('true')
+        //   console.log('true')
           onCorrect(true)
+          setTranspAnswer(false)
         } else {
           if (inputWord.length !== curWord.length) {
             console.log('false')
@@ -36,14 +45,18 @@ function Buttons({ word, onCorrect, setUsersWord, usersWord, correct, setIndexes
               if (el !== inputWord[i]) indexes.push(i)
             })
             setIndexes(indexes.concat(indexes))
+            setInProp(false)
+            setTranspAnswer(true)
           } else {
             let indexes: any = []
             inputWord.split('').map((el: string, i: number) => {
               if (el !== curWord[i]) indexes.push(i)
             })
             // console.log(indexes)
-            console.log(indexes)
+            // console.log(indexes)
             setIndexes(indexes.concat(indexes))
+            setInProp(false)
+            setTranspAnswer(true)
           }
         } 
         setUsersWord('')
@@ -52,6 +65,12 @@ function Buttons({ word, onCorrect, setUsersWord, usersWord, correct, setIndexes
     function difficultyButtonClick() {
         setIndex(); 
         onCorrect(false)
+        setUsersWord('')
+    }
+
+    function showResultsClick() {
+        setUsersWord(word.word)
+        onCorrect(true)
     }
 
     return (
@@ -74,7 +93,8 @@ function Buttons({ word, onCorrect, setUsersWord, usersWord, correct, setIndexes
                     <div>
                         <button
                             className={styles.showResults}
-                            type="button">
+                            type="button"
+                            onClick={() => showResultsClick()}>
                             Show Results
                         </button>
                     </div>
