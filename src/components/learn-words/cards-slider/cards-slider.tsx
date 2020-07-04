@@ -3,7 +3,7 @@ import styles from './cards-slider.module.css';
 import Card from '../card/card';
 import imgSnow from '../../../img/image-snow.png';
 import { storeWords } from '../../../context/contextWords';
-import getWords from '../../../services/getWords';
+import {getWords} from '../../../services/getWords';
 
 interface SliderProps {
     word: any,
