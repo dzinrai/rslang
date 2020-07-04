@@ -7,6 +7,10 @@ import WordInfo from '../word-info/word-info';
 import MoveDeleteWord from '../move-delete-word/move-delete-word';
 import { storeWords } from '../../../context/contextWords';
 
+// interface CardProps {
+//   index: number
+//   curword: Word;
+// }
 interface CardProps {
   word: any,
   setWord: any,

@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './learn-words.module.css';
 import { storeWords } from '../../context/contextWords';
+import {getWordsFromBackend} from '../../services/getWords';
+import  {preloadWords,createUserWord}  from '../../services/createUserWord';
 import getWords from '../../services/getWords';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
@@ -26,6 +28,7 @@ function LearnWords() {
   const [autoplay, setAutoplay] = useState(false)
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false)
+  preloadWords({page:0,group:1, wordsPerExampleSentenceLTE:10, wordsPerPage:10 });
 
   useEffect(() => {
     const preloadWords = async () => {
