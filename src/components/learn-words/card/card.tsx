@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import styles from './card.module.css';
 import WordProgressIndicator from '../word-progress-indicator/word-progress-indicator';
 import SentenceWithInput from '../sentence-with-input/sentence-with-input';
 import SoundIndicator from '../sound-indicator/sound-indicator';
 import WordInfo from '../word-info/word-info';
 import MoveDeleteWord from '../move-delete-word/move-delete-word';
-import { storeWords } from '../../../context/contextWords';
 
 interface CardProps {
   word: any,
@@ -29,14 +28,7 @@ interface CardProps {
 function Card({ word, setWord, index, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes, 
   setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer }: CardProps) {
 
-  // const wordsState = useContext(storeWords);
-  // const stateWords = wordsState.state;
-  // console.log(stateWords)
-  // const word = stateWords.words ? stateWords.words[index] : null;
-  // setWord(word)
-  // console.log(word)
-
-  return (
+    return (
     <div className={styles.cardContainer}>
       <div className={styles.sentenceImg}>
         <div className={styles.sentensewordTranslate}>

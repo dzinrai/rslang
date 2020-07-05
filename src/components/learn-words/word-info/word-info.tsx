@@ -15,27 +15,6 @@ interface InfoSentences {
   correct: boolean
 }
 
-// function MiniPlay(props) {
-//   const [audioElx, setAudioElx] = useState(null);
-
-//   function handleClick() {
-//     audioElx.audioEl.current.play();
-//   }
-
-//   return (
-//     <div>
-//       <ReactAudioPlayer
-//         src={props.src}
-//         autoPlay={false}
-//         controls={false}
-//         ref={(element) => setAudioElx(element)}
-//       />
-//       <button
-//         onClick={() => handleClick()}
-//       />
-//     </div>
-//   );
-// }
 function WordInfo(props: InfoSentences){
   const { word, textExample, textMeaning, textExampleTranslate, textMeaningTranslate,
   audio, audioExample, audioMeaning, correct } = props
@@ -45,17 +24,34 @@ function WordInfo(props: InfoSentences){
   function showTranslation() {
     setIsTranslation(!isTranslation);
   }
+
+  function defineWord(sentence: string) {
+    const firstIndex = sentence.indexOf('<') + 3
+    const lastIndex = (sentence.lastIndexOf('>') - 3)
+    return sentence.slice(firstIndex, lastIndex)
+  }
+
+  function hiddenWord(sentence: string, tag: string) {
+    const word = defineWord(sentence)
+    return sentence.replace(`<${tag}>${word}</${tag}>`, '____')
+  }
+
+  function showedWord(sentence: string, tag: string) {
+    const word = defineWord(sentence)
+    return sentence.replace(`<${tag}>${word}</${tag}>`, `${word}`)
+  }
+
     return(
       <div className={styles.infoContainer}>
 
         <div className={styles.textExample}>
           "{isTranslation ? textExampleTranslate : (word ? 
-            (correct ? textExample.toLowerCase().replace(`<b>${word}</b>`, `${word}`) : textExample.toLowerCase().replace(`<b>${word}</b>`, '___')) : null)}"
+            (correct ? showedWord(textExample, 'b') : hiddenWord(textExample, 'b')) : null)}"
         </div>
         <div className={styles.meaningContainer}>
           <div className={styles.textMeaning}>
             {isTranslation ? textMeaningTranslate : (word ? 
-            (correct ? textMeaning.toLowerCase().replace(`<i>${word}</i>`, `${word}`) : textMeaning.toLowerCase().replace(`<i>${word}</i>`, '___')) : null)}
+            (correct ? showedWord(textMeaning, 'i') : hiddenWord(textMeaning, 'i')) : null)}
           </div>
           <button
             className={styles.switchShowBtn}

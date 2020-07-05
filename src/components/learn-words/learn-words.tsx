@@ -1,20 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './learn-words.module.css';
-import { storeWords } from '../../context/contextWords';
-import { getWords, getWordsFromBackend } from '../../services/getWords';
-import  { preloadWords, createUserWord }  from '../../services/create-user-word';
+import { getWordsFromBackend } from '../../services/getWords';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
-import WordsToTraining from './words-to-training/words-to-training';
-import Card from './card/card'
 import CardsSlider from './cards-slider/cards-slider';
-import ReactAudioPlayer from 'react-audio-player';
 import AudioAutoplay from './audio-autoplay/audio-autoplay'
 
 function LearnWords() {
-  const wordsState = useContext(storeWords);
-  const dispatchWords = wordsState.dispatch;
-
   const [words, setWords] = useState(Array());
   const [word, setWord] = useState('')
   const [correct, setCorrect] = useState(false)
@@ -28,33 +20,12 @@ function LearnWords() {
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false)
 
-  // preloadWords({ page: 1, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10 });
-
-  // useEffect(() => {
-  //   getWordsFromBackend({ aggregatedWordsgroup: 0, wordsPerPage: 10 }).
-  //   then((data)=>{
-  //     setWords(data[0].paginatedResults); 
-  //   })
-  // }, []);
-
   useEffect(() => {
     getWordsFromBackend({ aggregatedWordsgroup: 0, wordsPerPage: 10 }).
     then((data)=>{
       setWords(data[0].paginatedResults); 
-      // dispatchWords({ type: 'setWords', value: data[0].paginatedResults });
     })
   }, []);
-
-  // useEffect(() => {
-  //   const preloadWords = async () => {
-  //     const wordsFromBackend = await getWords({ page: 1, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10 });
-  //     console.log(wordsFromBackend)
-  //     setWords(wordsFromBackend);
-  //     dispatchWords({ type: 'setWords', value: wordsFromBackend });
-  //   };
-  //   preloadWords();
-  //   // eslint-disable-next-line
-  // }, []);
 
   if (words.length === 0) return null
 
@@ -82,7 +53,6 @@ function LearnWords() {
         <Buttons word={word} onCorrect={correctCard} setUsersWord={setUsersWord} usersWord={usersWord} correct={correct} 
         setIndexes={setIndexes} setIndex={newIndex} audioWord={audioWord} audioExample={audioExample} audioMeaning={audioMeaning}
         inProp={inProp} setInProp={newInProp} transpAnswer={transpAnswer} setTranspAnswer={newTranspAnswer}/>
-        <WordsToTraining />
       </div>
     </div>
     )

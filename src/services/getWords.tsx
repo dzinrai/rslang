@@ -30,5 +30,3 @@ export async function getWordsFromBackend({ aggregatedWordsgroup, wordsPerPage }
   const content = await rawResponse.json();
   return content;
 }
-
-// export default { getWords, getWordsFromBackend };

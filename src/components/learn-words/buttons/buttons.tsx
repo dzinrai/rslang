@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import styles from './buttons.module.css';
 import { Button } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
@@ -29,37 +29,35 @@ function Buttons({ word, onCorrect, setUsersWord, usersWord, correct, setIndexes
     }
 
     function checkWord() {
-        console.log(word.word)
-        const curWord = word.word
-        let inputWord = usersWord.toLowerCase().trim()
-        setIndexes([])
-        if (inputWord === curWord) {
-        //   console.log('true')
-          onCorrect(true)
-          setTranspAnswer(false)
-        } else {
-          if (inputWord.length !== curWord.length) {
-            console.log('false')
-            let indexes: any = []
-            curWord.split('').map((el: string, i: number) => {
-              if (el !== inputWord[i]) indexes.push(i)
-            })
-            setIndexes(indexes.concat(indexes))
-            setInProp(false)
-            setTranspAnswer(true)
-          } else {
-            let indexes: any = []
-            inputWord.split('').map((el: string, i: number) => {
-              if (el !== curWord[i]) indexes.push(i)
-            })
-            // console.log(indexes)
-            // console.log(indexes)
-            setIndexes(indexes.concat(indexes))
-            setInProp(false)
-            setTranspAnswer(true)
-          }
-        } 
-        setUsersWord('')
+        if (!correct) {
+            const curWord = word.word
+            let inputWord = usersWord.toLowerCase().trim()
+            setIndexes([])
+            if (inputWord === curWord) {
+              onCorrect(true)
+              setTranspAnswer(false)
+            } else {
+              if (inputWord.length !== curWord.length) {
+                console.log('false')
+                let indexes: any = []
+                curWord.split('').map((el: string, i: number) => {
+                  if (el !== inputWord[i]) indexes.push(i)
+                })
+                setIndexes(indexes.concat(indexes))
+                setInProp(false)
+                setTranspAnswer(true)
+              } else {
+                let indexes: any = []
+                inputWord.split('').map((el: string, i: number) => {
+                  if (el !== curWord[i]) indexes.push(i)
+                })
+                setIndexes(indexes.concat(indexes))
+                setInProp(false)
+                setTranspAnswer(true)
+              }
+            } 
+            setUsersWord('')    
+        }
     }  
 
     function difficultyButtonClick() {

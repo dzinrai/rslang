@@ -24,7 +24,6 @@ interface UserWord {
   }
 }
 
-
 export async function createUserWord({ userId, wordId, word }: WordsSetter) {
 
   console.log(`https://afternoon-falls-25894.herokuapp.com/users/${userId}/words/${wordId}`);

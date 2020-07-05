@@ -1,9 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import styles from './sentence-with-input.module.css';
 import './styles.css'
-import {
-  CSSTransition,
-} from 'react-transition-group';
+import { CSSTransition } from 'react-transition-group';
 
 interface Word {
   word: string, 
@@ -25,16 +23,14 @@ function SentenceWithInput({ word, correct, onCorrect, setUsersWord, usersWord, 
     function checkWord(e: any) {
       setInProp(true)
       setTranspAnswer(false)
-      if (e.keyCode === 13) {
+      if (e.keyCode === 13 && !correct) {
         let inputWord = usersWord.toLowerCase().trim()
         setIndexes([])
         if (inputWord === word) {
-          // console.log('true')
           onCorrect(true)
           setTranspAnswer(false)
         } else {
           if (inputWord.length !== word.length) {
-            // console.log('false')
             let indexes: any = []
             word.split('').map((el: string, i: number) => {
               if (el !== inputWord[i]) indexes.push(i)
@@ -42,7 +38,6 @@ function SentenceWithInput({ word, correct, onCorrect, setUsersWord, usersWord, 
             setIndexes(indexes.concat(indexes))
             setInProp(false)
             setTranspAnswer(true)
-            // console.log(inProp)
           } else {
             let indexes: any = []
             inputWord.split('').map((el: string, i: number) => {
@@ -55,11 +50,6 @@ function SentenceWithInput({ word, correct, onCorrect, setUsersWord, usersWord, 
           }
         } 
         setUsersWord('')
-        // console.log(answer)
-        // console.log(inProp)
-        // setInProp(false)
-        // setTranspAnswer(true)
-        // e.target.value = ''
       }
     }
 
@@ -67,17 +57,6 @@ function SentenceWithInput({ word, correct, onCorrect, setUsersWord, usersWord, 
 
     return (
       <>
-      {/* <button type="button" onClick={() => setInProp(true)}>
-        Click to true
-      </button>
-      <button type="button" onClick={() => setInProp(false)}>
-        Click to false
-      </button> */}
-      {/* <CSSTransition in={inProp} timeout={1000} classNames="my-node">
-        <div>
-          {"I'll receive my-node-* classes"}
-        </div>
-        </CSSTransition> */}
         <div className={styles.sentenceContainer}>
           <span className={styles.inputContainer}>
             <span className={styles.background}>
