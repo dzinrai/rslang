@@ -3,9 +3,10 @@ import styles from './cards-slider.module.css';
 import Card from '../card/card';
 import imgSnow from '../../../img/image-snow.png';
 import { storeWords } from '../../../context/contextWords';
-import getWords from '../../../services/getWords';
+import { getWords } from '../../../services/getWords';
 
 interface SliderProps {
+    words: any,
     word: any,
     setWord: any,
     index: number,
@@ -27,14 +28,15 @@ interface SliderProps {
     setTranspAnswer: any,
   }
 
-function CardsSlider({ word, setWord, index, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes, setIndexes,
+function CardsSlider({ words, word, setWord, index, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes, setIndexes,
     setAudioWord, setAudioExample, setAudioMeaning, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer }: SliderProps){
 
-    const wordsState = useContext(storeWords);
-    const stateWords = wordsState.state;
-    console.log(stateWords)
+    // const wordsState = useContext(storeWords);
+    // const stateWords = wordsState.state;
+    // console.log(stateWords)
 
-    const curword = stateWords.words ? stateWords.words[index] : null;
+    // const curword = stateWords.words ? stateWords.words[index] : null;
+    const curword = words[index]
     setWord(curword)
     console.log(correct)
 

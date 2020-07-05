@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './learn-words.module.css';
 import { storeWords } from '../../context/contextWords';
-import getWords from '../../services/getWords';
+import { getWords, getWordsFromBackend } from '../../services/getWords';
+import  { preloadWords, createUserWord }  from '../../services/create-user-word';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import WordsToTraining from './words-to-training/words-to-training';
@@ -27,15 +28,33 @@ function LearnWords() {
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false)
 
+  // preloadWords({ page: 1, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10 });
+
+  // useEffect(() => {
+  //   getWordsFromBackend({ aggregatedWordsgroup: 0, wordsPerPage: 10 }).
+  //   then((data)=>{
+  //     setWords(data[0].paginatedResults); 
+  //   })
+  // }, []);
+
   useEffect(() => {
-    const preloadWords = async () => {
-      const wordsFromBackend = await getWords({ page: 1, group: 0 });
-      setWords(wordsFromBackend);
-      dispatchWords({ type: 'setWords', value: wordsFromBackend });
-    };
-    preloadWords();
-    // eslint-disable-next-line
+    getWordsFromBackend({ aggregatedWordsgroup: 0, wordsPerPage: 10 }).
+    then((data)=>{
+      setWords(data[0].paginatedResults); 
+      // dispatchWords({ type: 'setWords', value: data[0].paginatedResults });
+    })
   }, []);
+
+  // useEffect(() => {
+  //   const preloadWords = async () => {
+  //     const wordsFromBackend = await getWords({ page: 1, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10 });
+  //     console.log(wordsFromBackend)
+  //     setWords(wordsFromBackend);
+  //     dispatchWords({ type: 'setWords', value: wordsFromBackend });
+  //   };
+  //   preloadWords();
+  //   // eslint-disable-next-line
+  // }, []);
 
   if (words.length === 0) return null
 
@@ -54,7 +73,7 @@ function LearnWords() {
     <div className={styles.background}>
       <div className={styles.cardContainer}>
         <ProgressIndicator/>
-        <CardsSlider word={word} setWord={newWord} index={index} setIndex={newIndex} onCorrect={correctCard} correct={correct} 
+        <CardsSlider words={words} word={word} setWord={newWord} index={index} setIndex={newIndex} onCorrect={correctCard} correct={correct} 
         setUsersWord={newUsersWord} usersWord={usersWord} indexes={indexes} setIndexes={setIndexes} 
         setAudioWord={newAudioWord} setAudioExample={newAudioExample} setAudioMeaning={newAudioMeaning}
         autoplay={autoplay} setAutoplay={controlAutoplay} inProp={inProp} setInProp={newInProp} 

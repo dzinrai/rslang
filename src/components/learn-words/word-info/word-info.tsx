@@ -50,12 +50,12 @@ function WordInfo(props: InfoSentences){
 
         <div className={styles.textExample}>
           "{isTranslation ? textExampleTranslate : (word ? 
-            (correct ? textExample.replace(`<b>${word}</b>`, `${word}`) : textExample.replace(`<b>${word}</b>`, '___')) : null)}"
+            (correct ? textExample.toLowerCase().replace(`<b>${word}</b>`, `${word}`) : textExample.toLowerCase().replace(`<b>${word}</b>`, '___')) : null)}"
         </div>
         <div className={styles.meaningContainer}>
           <div className={styles.textMeaning}>
             {isTranslation ? textMeaningTranslate : (word ? 
-            (correct ? textMeaning.replace(`<i>${word}</i>`, `${word}`) : textMeaning.replace(`<i>${word}</i>`, '___')) : null)}
+            (correct ? textMeaning.toLowerCase().replace(`<i>${word}</i>`, `${word}`) : textMeaning.toLowerCase().replace(`<i>${word}</i>`, '___')) : null)}
           </div>
           <button
             className={styles.switchShowBtn}
