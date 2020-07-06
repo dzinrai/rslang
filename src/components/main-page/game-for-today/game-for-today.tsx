@@ -7,18 +7,18 @@ interface Props {
     title: string
 }
 
-function GameForToday(props: Props) {
+function GameForToday({ boldText, picture, title }: Props) {
   return (
     <div className={styles.gameContainer}>
       <div className={styles.gameText}>
         Learn
         {' '}
-        <span style={{ fontWeight: 600 }}>{props.boldText}</span>
+        <span style={{ fontWeight: 600 }}>{boldText}</span>
         {' '}
         in this game
       </div>
-      <div className={styles.gameImg}><img src={props.picture} alt="" /></div>
-      <div className={styles.gameTitle}>{props.title}</div>
+      <div className={styles.gameImg}><img src={picture} alt="" /></div>
+      <div className={styles.gameTitle}>{title}</div>
     </div>
   );
 }

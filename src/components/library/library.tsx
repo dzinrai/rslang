@@ -13,7 +13,9 @@ function Library() {
 
   useEffect(() => {
     const preloadWords = async () => {
-      const wordsFromBackend = await getWords({ page: 1, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10 });
+      const wordsFromBackend = await getWords({
+        page: 1, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
+      });
       setWords(wordsFromBackend);
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
     };

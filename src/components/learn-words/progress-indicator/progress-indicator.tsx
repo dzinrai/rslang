@@ -1,18 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import styles from './progress-indicator.module.css';
 
-//import { ReactComponent as RainbowLine } from '../../../img/rainbow-line.svg';
-
-
 function ProgressIndicator() {
-    const indWidth = 50
+  const indWidth = 50;
 
-    return (
+  return (
     <div className={styles.indicatorContainer}>
-        <div className={styles.progressIndicator} style={{width: `${indWidth}vw`}}></div>
+      <div className={styles.progressIndicator} style={{ width: `${indWidth}vw` }} />
     </div>
-
-    )
+  );
 }
 
 export default ProgressIndicator;

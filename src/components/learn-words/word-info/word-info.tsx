@@ -1,7 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './word-info.module.css';
 import { ReactComponent as Trans } from '../../../img/btnTranslate.svg';
-import ReactAudioPlayer from 'react-audio-player';
 
 interface InfoSentences {
   word: string,
@@ -15,9 +14,11 @@ interface InfoSentences {
   correct: boolean
 }
 
-function WordInfo(props: InfoSentences){
-  const { word, textExample, textMeaning, textExampleTranslate, textMeaningTranslate,
-  audio, audioExample, audioMeaning, correct } = props
+function WordInfo(props: InfoSentences) {
+  const {
+    word, textExample, textMeaning, textExampleTranslate, textMeaningTranslate,
+    correct,
+  } = props;
 
   const [isTranslation, setIsTranslation] = useState(false);
 
@@ -26,43 +27,43 @@ function WordInfo(props: InfoSentences){
   }
 
   function defineWord(sentence: string) {
-    const firstIndex = sentence.indexOf('<') + 3
-    const lastIndex = (sentence.lastIndexOf('>') - 3)
-    return sentence.slice(firstIndex, lastIndex)
+    const firstIndex = sentence.indexOf('<') + 3;
+    const lastIndex = (sentence.lastIndexOf('>') - 3);
+    return sentence.slice(firstIndex, lastIndex);
   }
 
   function hiddenWord(sentence: string, tag: string) {
-    const word = defineWord(sentence)
-    return sentence.replace(`<${tag}>${word}</${tag}>`, '____')
+    const curWord = defineWord(sentence);
+    return sentence.replace(`<${tag}>${curWord}</${tag}>`, '____');
   }
 
   function showedWord(sentence: string, tag: string) {
-    const word = defineWord(sentence)
-    return sentence.replace(`<${tag}>${word}</${tag}>`, `${word}`)
+    const curWord = defineWord(sentence);
+    return sentence.replace(`<${tag}>${curWord}</${tag}>`, `${curWord}`);
   }
 
-    return(
-      <div className={styles.infoContainer}>
+  return (
+    <div className={styles.infoContainer}>
 
-        <div className={styles.textExample}>
-          "{isTranslation ? textExampleTranslate : (word ? 
-            (correct ? showedWord(textExample, 'b') : hiddenWord(textExample, 'b')) : null)}"
-        </div>
-        <div className={styles.meaningContainer}>
-          <div className={styles.textMeaning}>
-            {isTranslation ? textMeaningTranslate : (word ? 
-            (correct ? showedWord(textMeaning, 'i') : hiddenWord(textMeaning, 'i')) : null)}
-          </div>
-          <button
-            className={styles.switchShowBtn}
-            type="button"
-            onClick={() => showTranslation()}
-          >
-            <Trans />
-          </button>
-        </div>
+      <div className={styles.textExample}>
+        {isTranslation ? textExampleTranslate : (word
+          && (correct ? showedWord(textExample, 'b') : hiddenWord(textExample, 'b')))}
       </div>
-    )
+      <div className={styles.meaningContainer}>
+        <div className={styles.textMeaning}>
+          {isTranslation ? textMeaningTranslate : (word
+            && (correct ? showedWord(textMeaning, 'i') : hiddenWord(textMeaning, 'i')))}
+        </div>
+        <button
+          className={styles.switchShowBtn}
+          type="button"
+          onClick={() => showTranslation()}
+        >
+          <Trans />
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default WordInfo;
