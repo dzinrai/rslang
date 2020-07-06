@@ -7,7 +7,7 @@ interface Props {
   text: string;
 }
 
-export function Advantage({ Image, title, text }: Props) {
+function Advantage({ Image, title, text }: Props) {
   return (
     <div className={styles.container}>
       <Image className={styles.image} />

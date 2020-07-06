@@ -5,6 +5,8 @@
   },
   "extends": [
     "plugin:react/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "airbnb"
   ],
   "globals": {
@@ -21,6 +23,7 @@
   },
   "plugins": [
     "react",
+    "react-hooks",
     "@typescript-eslint"
   ],
   "settings": {
@@ -61,6 +64,7 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "react-hooks/exhaustive-deps": "off"
   }
 }

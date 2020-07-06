@@ -22,6 +22,7 @@ function Library() {
     preloadWords();
     // eslint-disable-next-line
   }, []);
+  console.log(words);
 
   return (
     <div className={styles.container}>
