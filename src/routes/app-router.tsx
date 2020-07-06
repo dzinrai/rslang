@@ -8,6 +8,7 @@ import AuthPage from '../components/auth-page';
 import LoginPage from '../components/login-page';
 import SignUpPage from '../components/signup-page';
 import MainPage from '../components/main-page/main-page';
+import SettingsPage from '../components/settings-page';
 import LearnWords from '../components/learn-words/learn-words';
 import Library from '../components/library/library';
 import GamesPage from '../components/games/page-mini-games';
@@ -31,6 +32,9 @@ function AppRouter() {
           </Route>
           <Route path="/main-page">
             <MainPage />
+          </Route>
+          <Route path="/settings">
+            <SettingsPage />
           </Route>
           <Route path="/learn-words">
             <LearnWords />
