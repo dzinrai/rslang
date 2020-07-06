@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './learn-words.module.css';
 import { getWordsFromBackend } from '../../services/getWords';
-import { getCardsAmount } from '../../services/settings';
+// import { getCardsAmount } from '../../services/settings';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import CardsSlider from './cards-slider/cards-slider';
@@ -22,18 +22,16 @@ function LearnWords() {
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
 
-  const [visible, setVisible] = useState(false);
-  const [loading, setSpiner] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setVisible(true);
-    // getWordsFromBackend()
-    //   .then((data) => {
-    //     setWords(data[0].paginatedResults);
-    //   });
+    // setVisible(true);
+    getWordsFromBackend()
+      .then((data) => {
+        setWords(data[0].paginatedResults);
+      });
   }, []);
-
-  if (words.length === 0) return null;
 
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
@@ -47,51 +45,68 @@ function LearnWords() {
   const newTranspAnswer = (isTranspAnswer: boolean) => setTranspAnswer(isTranspAnswer);
 
 
-  function handleOkFactory(key: string): () => void | Promise<void> {
-    setSpiner(true);
-    return async function (): Promise<void> {
-      const settingsData = await getCardsAmount();
-      const cardsDayAmount = await settingsData.optional.cardsPerDay;
-      const filter = key === 'new' ? {
-        "$or": [
-          { "userWord.optional.newWord": true },
-          { "userWord.optional.newWord": false }
-        ]
-      } : (key === 'complicated' ? {
-        "$or": [
-          { "userWord.difficulty": "hard" },
-          { "userWord.difficulty": "normal" }
-        ]
-      } : '');
-      getWordsFromBackend() //this will be request with params.
-        .then((data) => {
-          setWords(data[0].paginatedResults);
-        })
-        .then(()=>{
-          setSpiner(false);
-          setVisible(false)
-        })
-    }
-  }
+  // function handleOkFactory(key: string): () => void | Promise<void> {
+  //   setLoading(true);
+  //   return async function (): Promise<void> {
+  //     const settingsData = await getCardsAmount();
+  //     // const cardsDayAmount = await settingsData.optional.cardsPerDay;
+  //     const filter = key === 'new' ? {
+  //       "$or": [
+  //         { "userWord.optional.newWord": true },
+  //         { "userWord.optional.newWord": false }
+  //       ]
+  //     } : (key === 'complicated' ? {
+  //       "$or": [
+  //         { "userWord.difficulty": "hard" },
+  //         { "userWord.difficulty": "normal" }
+  //       ]
+  //     } : '');
+  //     getWordsFromBackend() //this will be request with params.
+  //       .then((data) => {
+  //         setWords(data[0].paginatedResults);
+  //       })
+  //       .then(()=>{
+  //         setLoading(false);
+  //         setVisible(false)
+  //       })
+  //   }
+  // }
+
+  function handleCancel() {
+    setVisible(false)
+  };
+
+  function handleOk() {
+    setLoading(true);
+      setTimeout(() => {
+      setLoading(false);
+      setVisible(false)
+    }, 2000);
+};
+
+  if (words.length === 0) return null;
 
   return (
     <div className={styles.background}>
-      <Modal
+      <Modal className={styles.modal}
         visible={visible}
-        title="Before train choose what words you want learning"
-
+        title="Almost everything is ready"
+        centered
+        onCancel={handleCancel}
         footer={[
-          <Button type="primary" loading={loading} onClick={handleOkFactory('new')}>
+        <Button className={styles.modalButtonNew} type="primary" loading={loading} onClick={handleOk}>
             Only new words
             </Button>,
-          <Button type="primary" loading={loading} onClick={handleOkFactory('all')}>
+          <Button className={styles.modalButtonAll} type="primary" loading={loading} onClick={handleOk}>
             All words
             </Button>,
-          <Button type="primary" loading={loading} onClick={handleOkFactory('complicated')}>
+          <Button className={styles.modalButtonDifficult} type="primary" loading={loading} onClick={handleOk}>
             Complicated words
            </Button>,
         ]}
-      ></Modal>
+      >
+      <div>Please, choose which words you want to learn or repeat</div>
+      </Modal>
       <div className={styles.cardContainer}>
         <ProgressIndicator />
         <CardsSlider

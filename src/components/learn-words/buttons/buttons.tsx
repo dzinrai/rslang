@@ -112,7 +112,7 @@ function Buttons({
             </>
           )}
       </div>
-      <div className={styles.switchContainer}>
+      {/* <div className={styles.switchContainer}>
         <div>
           <Switch />
           <span>Only new words</span>
@@ -125,7 +125,7 @@ function Buttons({
           <Switch />
           <span>Difficult words</span>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
