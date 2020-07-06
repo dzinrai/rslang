@@ -26,7 +26,7 @@ function AppRouter() {
           </Route>
           <Route path="/signup">
             <SignUpPage />
-            </Route>
+          </Route>
           <Route path="/main-page">
             <MainPage />
           </Route>

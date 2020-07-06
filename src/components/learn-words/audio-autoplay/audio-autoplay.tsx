@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 
 interface AudioProps {
@@ -7,31 +7,35 @@ interface AudioProps {
     audioMeaning: any
 }
 
-function AudioAutoplay({ audioWord, audioExample, audioMeaning }: AudioProps){
-    const [nextAudio, setNextAudio] = useState(0)
+function AudioAutoplay({ audioWord, audioExample, audioMeaning }: AudioProps) {
+  const [nextAudio, setNextAudio] = useState(0);
 
-    return (
-        <div>
+  return (
+    <div>
+      <ReactAudioPlayer
+        src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audioWord}`}
+        autoPlay
+        controls={false}
+        onEnded={() => setNextAudio(nextAudio + 1)}
+      />
+      {(nextAudio === 1) && (
         <ReactAudioPlayer
-          src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audioWord}`}
-          autoPlay={true}
+          src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audioExample}`}
+          autoPlay
           controls={false}
           onEnded={() => setNextAudio(nextAudio + 1)}
         />
-        {(nextAudio === 1) && <ReactAudioPlayer
-          src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audioExample}`}
-          autoPlay={true}
-          controls={false}
-          onEnded={() => setNextAudio(nextAudio + 1)}
-        />}
-        {(nextAudio === 2) && <ReactAudioPlayer
+      )}
+      {(nextAudio === 2) && (
+        <ReactAudioPlayer
           src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audioMeaning}`}
-          autoPlay={true}
+          autoPlay
           controls={false}
           onEnded={() => setNextAudio(nextAudio - 2)}
-        />}
-        </div>
-    )
+        />
+      )}
+    </div>
+  );
 }
 
-export default AudioAutoplay
+export default AudioAutoplay;
