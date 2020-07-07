@@ -1,4 +1,5 @@
 import React from 'react';
+import checkWord from './check-word'
 import { Button, Switch } from 'antd';
 import { CheckOutlined, HistoryOutlined } from '@ant-design/icons';
 import styles from './buttons.module.css';
@@ -24,30 +25,8 @@ function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex,
   setInProp, setTranspAnswer,
 }: ButtonsProps) {
-  function checkWord() {
-    if (!correct) {
-      const curWord = word.word;
-      const inputWord = usersWord.toLowerCase().trim();
-      setIndexes([]);
-      if (inputWord === curWord) {
-        onCorrect(true);
-        setTranspAnswer(false);
-      } else if (inputWord.length !== curWord.length) {
-        const indexes: any = [];
-        curWord.split('').map((el: string, i: number) => el !== inputWord[i] && indexes.push(i));
-        setIndexes(indexes.concat(indexes));
-        setInProp(false);
-        setTranspAnswer(true);
-      } else {
-        const indexes: any = [];
-        inputWord.split('').map((el: string, i: number) => el !== curWord[i] && indexes.push(i));
-        setIndexes(indexes.concat(indexes));
-        setInProp(false);
-        setTranspAnswer(true);
-      }
-      setUsersWord('');
-    }
-  }
+  const checkProps = { word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex,
+    setInProp, setTranspAnswer }
 
   function difficultyButtonClick() {
     setIndex();
@@ -93,7 +72,7 @@ function Buttons({
           : (
             <>
               <Button
-                onClick={() => checkWord()}
+                onClick={() => checkWord(checkProps)}
                 type="primary"
                 icon={<CheckOutlined />}
                 size="large"

@@ -1,26 +1,27 @@
-function checkWord(e: any, props: any) {
+function checkWord(props: any) {
     const {
-        word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes, 
+        word, correct, onCorrect, setUsersWord, usersWord, setIndexes, 
         setInProp, setTranspAnswer
     } = props
 
     setInProp(true);
     setTranspAnswer(false);
-    if (e.keyCode === 13 && !correct) {
+    if (!correct) {
+      const curWord = word.word;
       const inputWord = usersWord.toLowerCase().trim();
       setIndexes([]);
-      if (inputWord === word) {
+      if (inputWord === curWord) {
         onCorrect(true);
         setTranspAnswer(false);
-      } else if (inputWord.length !== word.length) {
+      } else if (inputWord.length !== curWord.length) {
         const newIndexes: any = [];
-        word.split('').map((el: string, i: number) => (el !== inputWord[i]) && newIndexes.push(i));
+        curWord.split('').map((el: string, i: number) => el !== inputWord[i] && newIndexes.push(i));
         setIndexes(newIndexes);
         setInProp(false);
         setTranspAnswer(true);
       } else {
         const newIndexes: any = [];
-        inputWord.split('').map((el: string, i: number) => (el !== word[i]) && newIndexes.push(i));
+        inputWord.split('').map((el: string, i: number) => el !== curWord[i] && newIndexes.push(i));
         setIndexes(newIndexes);
         setInProp(false);
         setTranspAnswer(true);
@@ -28,5 +29,6 @@ function checkWord(e: any, props: any) {
       setUsersWord('');
     }
 }
+
 
 export default checkWord
