@@ -13,7 +13,7 @@ interface WordsSetter {
   word: UserWord;
 }
 
-interface UserWord {
+export interface UserWord {
   difficulty: 'easy' | 'normal' | 'hard';
   optional: {
     newWord: boolean;
@@ -21,6 +21,8 @@ interface UserWord {
     errors: number;
     repeat: boolean;
     wordId: string;
+    lastView: Date;
+    nextView: Date;
   }
 }
 
@@ -53,7 +55,7 @@ export async function preloadWords({
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, wordId: oneWord.id,
+          newWord: true, views: 0, errors: 0, repeat: false, wordId: oneWord.id, lastView: new Date(), nextView: new Date(),
         },
       },
     });

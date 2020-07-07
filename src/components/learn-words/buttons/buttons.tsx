@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Switch } from 'antd';
+import { Button } from 'antd';
 import { CheckOutlined, HistoryOutlined } from '@ant-design/icons';
 import styles from './buttons.module.css';
 
@@ -35,13 +35,13 @@ function Buttons({
       } else if (inputWord.length !== curWord.length) {
         const indexes: any = [];
         curWord.split('').map((el: string, i: number) => el !== inputWord[i] && indexes.push(i));
-        setIndexes(indexes.concat(indexes));
+        setIndexes(indexes);
         setInProp(false);
         setTranspAnswer(true);
       } else {
         const indexes: any = [];
         inputWord.split('').map((el: string, i: number) => el !== curWord[i] && indexes.push(i));
-        setIndexes(indexes.concat(indexes));
+        setIndexes(indexes);
         setInProp(false);
         setTranspAnswer(true);
       }
@@ -49,7 +49,7 @@ function Buttons({
     }
   }
 
-  function difficultyButtonClick() {
+  function difficultyButtonClick(difficulty:string) {
     setIndex();
     onCorrect(false);
     setUsersWord('');
@@ -69,19 +69,19 @@ function Buttons({
               <div className={styles.buttonsInfo}>Indicate difficulty level</div>
               <div className={styles.levelButtons}>
                 <Button
-                  onClick={() => difficultyButtonClick()}
+                  onClick={() => difficultyButtonClick('hard')}
                   className={styles.buttonHard}
                 >
                   Hard
                 </Button>
                 <Button
-                  onClick={() => difficultyButtonClick()}
+                  onClick={() => difficultyButtonClick('normal')}
                   className={styles.buttonNormal}
                 >
                   Normal
                 </Button>
                 <Button
-                  onClick={() => difficultyButtonClick()}
+                  onClick={() => difficultyButtonClick('easy')}
                   className={styles.buttonEasy}
                 >
                   Easy
@@ -112,20 +112,6 @@ function Buttons({
             </>
           )}
       </div>
-      {/* <div className={styles.switchContainer}>
-        <div>
-          <Switch />
-          <span>Only new words</span>
-        </div>
-        <div>
-          <Switch defaultChecked />
-          <span>All words</span>
-        </div>
-        <div>
-          <Switch />
-          <span>Difficult words</span>
-        </div>
-      </div> */}
     </>
   );
 }
