@@ -17,6 +17,7 @@ export interface UserWord {
   difficulty: 'easy' | 'normal' | 'hard';
   optional: {
     newWord: boolean;
+    active:boolean;
     views: number;
     errors: number;
     repeat: boolean;
@@ -55,7 +56,7 @@ export async function preloadWords({
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, wordId: oneWord.id, lastView: new Date(), nextView: new Date(),
+          newWord: true, views: 0, errors: 0, repeat: false, active:true, wordId: oneWord.id, lastView: new Date(), nextView: new Date(),
         },
       },
     });
