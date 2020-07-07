@@ -25,13 +25,13 @@ function LearnWords() {
   const [visible, setVisible] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    // setVisible(true);
-    getWordsFromBackend()
-      .then((data) => {
-        setWords(data[0].paginatedResults);
-      });
-  }, []);
+  // useEffect(() => {
+  //   // setVisible(true);
+  //   getWordsFromBackend()
+  //     .then((data) => {
+  //       setWords(data[0].paginatedResults);
+  //     });
+  // }, []);
 
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
@@ -78,13 +78,20 @@ function LearnWords() {
 
   function handleOk() {
     setLoading(true);
-      setTimeout(() => {
-      setLoading(false);
+    //   setTimeout(() => {
+    //   setLoading(false);
+    //   setVisible(false)
+    // }, 2000);
+
+    getWordsFromBackend()
+    .then((data) => {
+      setWords(data[0].paginatedResults);
       setVisible(false)
-    }, 2000);
+    });
+
 };
 
-  if (words.length === 0) return null;
+  // if (words.length === 0) return null;
 
   return (
     <div className={styles.background}>
@@ -107,54 +114,55 @@ function LearnWords() {
       >
       <div>Please, choose which words you want to learn or repeat</div>
       </Modal>
-      <div className={styles.cardContainer}>
-        <ProgressIndicator />
-        <CardsSlider
-          words={words}
-          word={word}
-          setWord={newWord}
-          index={index}
-          setIndex={newIndex}
-          onCorrect={correctCard}
-          correct={correct}
-          setUsersWord={newUsersWord}
-          usersWord={usersWord}
-          indexes={indexes}
-          setIndexes={setIndexes}
-          setAudioWord={newAudioWord}
-          setAudioExample={newAudioExample}
-          setAudioMeaning={newAudioMeaning}
-          autoplay={autoplay}
-          setAutoplay={controlAutoplay}
-          inProp={inProp}
-          setInProp={newInProp}
-          transpAnswer={transpAnswer}
-          setTranspAnswer={newTranspAnswer}
-        />
-        {(autoplay && correct) && (
-          <AudioAutoplay
-            audioWord={audioWord}
-            audioExample={audioExample}
-            audioMeaning={audioMeaning}
-          />
-        )}
-        <Buttons
-          word={word}
-          onCorrect={correctCard}
-          setUsersWord={setUsersWord}
-          usersWord={usersWord}
-          correct={correct}
-          setIndexes={setIndexes}
-          setIndex={newIndex}
-          audioWord={audioWord}
-          audioExample={audioExample}
-          audioMeaning={audioMeaning}
-          inProp={inProp}
-          setInProp={newInProp}
-          transpAnswer={transpAnswer}
-          setTranspAnswer={newTranspAnswer}
-        />
-      </div>
+      {words.length !== 0 ? 
+            <div className={styles.cardContainer}>
+            <ProgressIndicator />
+            <CardsSlider
+              words={words}
+              word={word}
+              setWord={newWord}
+              index={index}
+              setIndex={newIndex}
+              onCorrect={correctCard}
+              correct={correct}
+              setUsersWord={newUsersWord}
+              usersWord={usersWord}
+              indexes={indexes}
+              setIndexes={setIndexes}
+              setAudioWord={newAudioWord}
+              setAudioExample={newAudioExample}
+              setAudioMeaning={newAudioMeaning}
+              autoplay={autoplay}
+              setAutoplay={controlAutoplay}
+              inProp={inProp}
+              setInProp={newInProp}
+              transpAnswer={transpAnswer}
+              setTranspAnswer={newTranspAnswer}
+            />
+            {(autoplay && correct) && (
+              <AudioAutoplay
+                audioWord={audioWord}
+                audioExample={audioExample}
+                audioMeaning={audioMeaning}
+              />
+            )}
+            <Buttons
+              word={word}
+              onCorrect={correctCard}
+              setUsersWord={setUsersWord}
+              usersWord={usersWord}
+              correct={correct}
+              setIndexes={setIndexes}
+              setIndex={newIndex}
+              audioWord={audioWord}
+              audioExample={audioExample}
+              audioMeaning={audioMeaning}
+              inProp={inProp}
+              setInProp={newInProp}
+              transpAnswer={transpAnswer}
+              setTranspAnswer={newTranspAnswer}
+            />
+            </div> : null}
     </div>
   );
 }

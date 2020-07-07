@@ -35,13 +35,13 @@ function Buttons({
       } else if (inputWord.length !== curWord.length) {
         const indexes: any = [];
         curWord.split('').map((el: string, i: number) => el !== inputWord[i] && indexes.push(i));
-        setIndexes(indexes.concat(indexes));
+        setIndexes(indexes);
         setInProp(false);
         setTranspAnswer(true);
       } else {
         const indexes: any = [];
         inputWord.split('').map((el: string, i: number) => el !== curWord[i] && indexes.push(i));
-        setIndexes(indexes.concat(indexes));
+        setIndexes(indexes);
         setInProp(false);
         setTranspAnswer(true);
       }
