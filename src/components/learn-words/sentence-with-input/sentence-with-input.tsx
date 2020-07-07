@@ -1,4 +1,5 @@
 import React from 'react';
+import checkWord from './check-word';
 import { CSSTransition } from 'react-transition-group';
 import styles from './sentence-with-input.module.css';
 import './styles.css';
@@ -22,31 +23,9 @@ function SentenceWithInput({
   word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
   inProp, setInProp, transpAnswer, setTranspAnswer,
 }: Word) {
-  function checkWord(e: any) {
-    setInProp(true);
-    setTranspAnswer(false);
-    if (e.keyCode === 13 && !correct) {
-      const inputWord = usersWord.toLowerCase().trim();
-      setIndexes([]);
-      if (inputWord === word) {
-        onCorrect(true);
-        setTranspAnswer(false);
-      } else if (inputWord.length !== word.length) {
-        const newIndexes: any = [];
-        word.split('').map((el: string, i: number) => (el !== inputWord[i]) && newIndexes.push(i));
-        setIndexes(indexes.concat(newIndexes));
-        setInProp(false);
-        setTranspAnswer(true);
-      } else {
-        const newIndexes: any = [];
-        inputWord.split('').map((el: string, i: number) => (el !== word[i]) && newIndexes.push(i));
-        setIndexes(indexes.concat(newIndexes));
-        setInProp(false);
-        setTranspAnswer(true);
-      }
-      setUsersWord('');
-    }
-  }
+
+  const checkProps = { word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes, 
+  setInProp, setTranspAnswer }
 
   if (!word) return null;
 
@@ -88,7 +67,7 @@ function SentenceWithInput({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setUsersWord(e.target.value);
             }}
-            onKeyDown={(e: any) => checkWord(e)}
+            onKeyDown={(e: any) => checkWord(e, checkProps)}
             type="text"
             name=""
             id="inputWord"

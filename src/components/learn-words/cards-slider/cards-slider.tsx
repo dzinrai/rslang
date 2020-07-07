@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '../card/card';
 
 interface SliderProps {
@@ -31,11 +31,12 @@ function CardsSlider({
   inProp, setInProp, transpAnswer, setTranspAnswer,
 }: SliderProps) {
   const curword = words[index];
-  setWord(curword);
-
-  setAudioWord(word.audio);
-  setAudioExample(word.audioExample);
-  setAudioMeaning(word.audioMeaning);
+  useEffect(() => {
+    setWord(curword);
+    setAudioWord(word.audio);
+    setAudioExample(word.audioExample);
+    setAudioMeaning(word.audioMeaning);
+  }, [curword, word, setWord, setAudioWord, setAudioExample, setAudioMeaning]);
 
   return (
     <>
