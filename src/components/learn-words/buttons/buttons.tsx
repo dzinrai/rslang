@@ -1,7 +1,7 @@
 import React from 'react';
-import checkWord from './check-word'
 import { Button, Switch } from 'antd';
 import { CheckOutlined, HistoryOutlined } from '@ant-design/icons';
+import checkWord from './check-word';
 import styles from './buttons.module.css';
 
 interface ButtonsProps {
@@ -25,13 +25,23 @@ function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex,
   setInProp, setTranspAnswer,
 }: ButtonsProps) {
-  const checkProps = { word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex,
-    setInProp, setTranspAnswer }
+  const checkProps = {
+    word,
+    onCorrect,
+    setUsersWord,
+    usersWord,
+    correct,
+    setIndexes,
+    setIndex,
+    setInProp,
+    setTranspAnswer,
+  };
 
   function difficultyButtonClick() {
     setIndex();
     onCorrect(false);
     setUsersWord('');
+    setTranspAnswer(false);
   }
 
   function showResultsClick() {
