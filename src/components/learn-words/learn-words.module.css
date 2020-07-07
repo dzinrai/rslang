@@ -69,3 +69,22 @@ body {
 .diffLevel div {
     margin-bottom: 10px;
 }
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-size: cover;
+    background:  url('../../img/gradient-main-page.svg') no-repeat 100% 100% fixed;
+}
+
+.cardContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 100%;
+    min-height: 100vh;
+}

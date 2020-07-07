@@ -26,7 +26,7 @@ const loginUser = async (user: User) => {
   }
 
   const content = await rawResponse.json();
-  console.log(content);
+
   localStorage.setItem('userId', content.userId);
   localStorage.setItem('userToken', content.token);
 

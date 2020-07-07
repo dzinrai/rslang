@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './library.module.css';
 import { storeWords } from '../../context/contextWords';
-import getWords from '../../services/getWords';
+import { getWords } from '../../services/getWords';
 import LibraryWord from './library-word';
 import WordRate from './word-rate';
 
@@ -13,7 +13,9 @@ function Library() {
 
   useEffect(() => {
     const preloadWords = async () => {
-      const wordsFromBackend = await getWords({ page: 1, group: 0 });
+      const wordsFromBackend = await getWords({
+        page: 1, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
+      });
       setWords(wordsFromBackend);
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
     };
