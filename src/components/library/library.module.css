@@ -69,3 +69,64 @@ body {
 .diffLevel div {
     margin-bottom: 10px;
 }
+
+.libraryColumnTitle {
+    font-size: 1.2rem;
+    margin: 0 5px 0;
+}
+
+.libraryBtnContainer {
+    margin: 0 auto 20px;
+    padding: 0 4px 3px;
+}
+
+.libraryButton {
+    margin: 0 4px;
+    padding: 0 8px 2px;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 2px solid #2b79e66c;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
+    border-radius: 20px;
+    opacity: .8;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all .1s;
+}
+
+.libraryButton.active {
+    opacity: 1;
+    color: #FAFAFA;
+    border-color: #2B79E6;
+    background-color: #2B79E6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.16);
+}
+
+.libraryButton:hover {
+    transform: scale(.95);
+}
+
+.libraryButton:active {
+    transform: scale(.9);
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        max-width: unset;
+        padding: 0 3%;
+    }
+    .difficulties {
+        width: 100%;
+    }
+    .diffContainer {
+        width: 100%;
+        max-width: unset;
+        flex-direction: row;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .diffLevel {
+        margin: 8px 10px 8px;
+    }
+}

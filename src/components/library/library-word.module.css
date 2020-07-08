@@ -205,6 +205,54 @@
     max-height: unset;
     min-height: 100px;
 }
+@media (max-width: 1400px) {
+    .wordBlock {
+        min-width: unset;
+    }
+
+    .wordInfo {
+        min-width: unset;
+    }
+}
+@media (max-width: 1200px) {
+    .wordBlock {
+        flex: 1 0 33%;
+        margin: 0 4px;
+    }
+    .wordInfo {
+        flex: 1 0 33%;
+        margin: 0 4px;
+    }
+}
+@media (max-width: 1020px) {
+    .libraryLine {
+        background-color: #F3F3F3;
+        border-radius: 5px;
+    }
+    .wordBlock {
+        min-width: unset;
+        width: 100%;
+        flex: 1 0 95%;
+        margin: 4px;
+    }
+    .wordImage {
+        max-width: 40%;
+        max-height: unset;
+        height: unset;
+        width: 100%;
+        flex: 1 0 95%;
+        margin: 0 auto;
+    }
+    .wordInfo {
+        min-width: unset;
+        width: 100%;
+        flex: 1 0 95%;
+        margin: 4px;
+    }
+    .trashBtn {
+        margin: 0 auto;
+    }
+}
 
 @keyframes showS {
     0% {

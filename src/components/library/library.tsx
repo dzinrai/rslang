@@ -53,6 +53,12 @@ function Library() {
         </div>
       </div>
       <div className={styles.libraryColumn}>
+        <div className={styles.libraryBtnContainer}>
+          <span className={styles.libraryColumnTitle}>Words:</span>
+          <button className={`${styles.libraryButton} ${styles.active}`} type="button">All</button>
+          <button className={styles.libraryButton} type="button">Hard</button>
+          <button className={styles.libraryButton} type="button">Deleted</button>
+        </div>
         {words.length > 0 && words.map((word: any, i: number) => (
           <LibraryWord
             key={`${word._id}_libraryWord`}
