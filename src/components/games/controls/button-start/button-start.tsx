@@ -13,7 +13,7 @@ export default ({ color, text, StartGameHandler }: Props) => {
   };
 
   return (
-    <button style={style} className={styles.button} onClick={StartGameHandler}>
+    <button style={style} className={styles.button} onClick={StartGameHandler} type="button">
       {text}
     </button>
   );
