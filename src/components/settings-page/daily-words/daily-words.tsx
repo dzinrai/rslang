@@ -9,7 +9,6 @@ const DailyWords: React.FC = () => {
 
   function onChangeWords(value: number) {
     setCountOfDailyWords(value);
-    console.log(value);
   }
 
   function onChangeCards(value: number) {
