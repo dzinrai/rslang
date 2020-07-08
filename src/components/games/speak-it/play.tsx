@@ -27,10 +27,12 @@ export default () => {
     dispatchWords({ type: 'setWords', value: wordsFromBackend });
   };
   const wordRef = useRef<any>([]);
+  /* eslint-disable */
   useEffect(() => {
     wordRef.current = new Array(words.length);
     preloadWords(pageLevel);
   }, []);
+  /* eslint-enable */
   const [correctWords, setCorrectWords] = useState<any>([]);
   const [isResultsOpen, setIsResultsOpen] = useState(false);
   const [currentWord, setCurrentWord] = useState<any>({});

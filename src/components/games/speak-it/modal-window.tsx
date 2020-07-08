@@ -20,6 +20,7 @@ export default ({
     const newSound = new Audio(URL_CONTENT + audio);
     newSound.play();
   };
+  /* eslint-disable */
   useEffect(() => {
     setCorrectWordsList(correctWords.map((indexWord) => (
       <div
@@ -50,7 +51,7 @@ export default ({
         </div>
       )));
   }, [isResultsOpen]);
-
+  /* eslint-enable */
   return (
     <Modal
       title="Results"

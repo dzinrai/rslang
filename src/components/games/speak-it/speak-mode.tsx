@@ -17,6 +17,7 @@ export default ({
   const [isSpeak, setIsSpeak] = useState(false);
   const [sayWord, setSayWord] = useState('');
   const styleWave = `${styles.waveContainer} ${isSpeak && styles.animate}`;
+  /* eslint-disable */
   useEffect(() => {
     // eslint-disable-next-line new-cap
     const recognition = new window.webkitSpeechRecognition();
@@ -57,7 +58,7 @@ export default ({
       recognition.stop();
     };
   }, []);
-
+  /* eslint-enable */
   return (
     <>
       <div className={styleWave}>
