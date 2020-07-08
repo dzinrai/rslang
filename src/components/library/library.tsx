@@ -6,11 +6,22 @@ import { getWordsFromBackend } from '../../services/getWords';
 import LibraryWord from './library-word';
 import WordRate from './word-rate';
 
+interface LibraryShow {
+  all: boolean;
+  hard: boolean;
+  deleted: boolean;
+}
+
 function Library() {
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
 
   const [words, setWords] = useState([]);
+  const [libraryShow, setLibraryShow] = useState<LibraryShow>({
+    all: true,
+    hard: false,
+    deleted: false,
+  });
 
   useEffect(() => {
     const preloadWords = async () => {
@@ -55,11 +66,29 @@ function Library() {
       <div className={styles.libraryColumn}>
         <div className={styles.libraryBtnContainer}>
           <span className={styles.libraryColumnTitle}>Words:</span>
-          <button className={`${styles.libraryButton} ${styles.active}`} type="button">All</button>
-          <button className={styles.libraryButton} type="button">Hard</button>
-          <button className={styles.libraryButton} type="button">Deleted</button>
+          <button
+            className={`${styles.libraryButton} ${libraryShow.all ? styles.active : ''}`}
+            type="button"
+            onClick={() => setLibraryShow({ all: true, hard: false, deleted: false })}
+          >
+            All
+          </button>
+          <button
+            className={`${styles.libraryButton} ${libraryShow.hard ? styles.active : ''}`}
+            type="button"
+            onClick={() => setLibraryShow({ all: false, hard: true, deleted: false })}
+          >
+            Hard
+          </button>
+          <button
+            className={`${styles.libraryButton} ${libraryShow.deleted ? styles.active : ''}`}
+            type="button"
+            onClick={() => setLibraryShow({ all: false, hard: false, deleted: true })}
+          >
+            Deleted
+          </button>
         </div>
-        {words.length > 0 && words.map((word: any, i: number) => (
+        {libraryShow.all && words.length > 0 && words.map((word: any, i: number) => (
           <LibraryWord
             key={`${word._id}_libraryWord`}
             index={i}
