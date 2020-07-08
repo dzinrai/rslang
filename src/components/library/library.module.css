@@ -28,7 +28,7 @@ body {
 
 .difficulties {
     margin-right: 80px;
-    background-color: #ffffff;
+    background-color: #FAFAFA;
 }
 
 .difficulties > span {
@@ -45,7 +45,7 @@ body {
     width: 100%;
     flex-direction: column;
     justify-content: left;
-    background-color: #ffffff;
+    background-color: #FAFAFA;
 }
 
 .diffContainer {
