@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './today-progress.module.css';
-import { ReactComponent as TodayProgressImage } from '../../../img/lamp-main.svg';
+import { ReactComponent as TodayProgressImage } from '../../img/lamp-main.svg';
 
 function TodayProgress() {
   return (

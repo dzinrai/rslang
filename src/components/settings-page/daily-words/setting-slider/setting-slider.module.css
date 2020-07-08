@@ -1,0 +1,20 @@
+.info {
+  width: 322px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 34px 8px 29px;
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  color: #397FD3
+}
+
+.wordsInfo {
+  margin: 24px 34px 12px 29px;
+}
+
+.slider {
+  margin: 0 34px 0 29px;
+}

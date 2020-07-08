@@ -20,6 +20,8 @@
     width: 54px;
     height: 40px;
     cursor: pointer;
+    background-color: transparent;
+    border: none;
 }
 
 .menuButton span {
