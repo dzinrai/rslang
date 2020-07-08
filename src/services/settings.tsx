@@ -11,15 +11,22 @@ export async function getSettings() {
   return content;
 }
 
-interface UserSettings {
+export interface UserSettings {
     wordsPerDay: number,
     optional: {
      cardsPerDay:number;
-
+     wordTranscription:boolean;
+     spellingOutSentence:boolean;
+     picture: boolean;
+     sentenceExample:boolean;
+     translateDescription:boolean;
+     showResultButton:boolean;
+     moveToDifficult:boolean;
+     difficultyButtons:boolean;
     }
   }
 
-export async function createSettings(settings:UserSettings) { // settings:{ "wordsPerDay": 20, "optional": {cardsPerDay: 10, ...} }
+export async function createSettings(settings:UserSettings) {
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/settings`,
     {
       method: 'PUT',

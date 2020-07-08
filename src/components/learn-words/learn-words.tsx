@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd';
 import styles from './learn-words.module.css';
 import { getWordsFromBackend } from '../../services/getWords';
-import { getSettings, createSettings } from '../../services/settings';
+import { preloadWords} from '../../services/create-user-word';
+import { getSettings, createSettings, UserSettings } from '../../services/settings';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import CardsSlider from './cards-slider/cards-slider';
@@ -26,9 +27,24 @@ function LearnWords() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    createSettings({ wordsPerDay: 20, optional: { cardsPerDay: 10 } });
+    preloadWords({
+      wordsPerExampleSentenceLTE:10, wordsPerPage:20,
+    })
+    createSettings({
+      wordsPerDay: 10, optional: {
+        cardsPerDay: 10,
+        wordTranscription: true,
+        spellingOutSentence: false,
+        picture: true,
+        sentenceExample: true,
+        translateDescription: true,
+        showResultButton: true,
+        moveToDifficult: true,
+        difficultyButtons: true,
+      }
+    });
   }, []);
-
+  
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
   const newUsersWord = (word1: string) => setUsersWord(word1);
@@ -44,29 +60,41 @@ function LearnWords() {
     return async function (): Promise<void> {
       setLoading(true);
       const settingsData = await getSettings();
-      const cardsDayAmount = await settingsData.optional.cardsPerDay;
+      const settings: UserSettings = {
+        wordsPerDay: settingsData.wordsPerDa,
+        optional: {
+          cardsPerDay: settingsData.optional.cardsPerDay,
+          wordTranscription: settingsData.optional.wordTranscription,
+          spellingOutSentence: settingsData.optional.spellingOutSentence,
+          picture: settingsData.optional.picture,
+          sentenceExample: settingsData.optional.sentenceExample,
+          translateDescription: settingsData.optional.translateDescription,
+          showResultButton: settingsData.optional.showResultButton,
+          moveToDifficult: settingsData.optional.moveToDifficult,
+          difficultyButtons: settingsData.optional.difficultyButtons,
+        }
+      }
       let filter: string = '';
       switch (key) {
         case 'new':
           filter = JSON.stringify({
             $or: [
               { 'userWord.optional.newWord': true },
-              { userWord: null },
+              
             ],
           });
           break;
         case 'complicated':
-          filter = JSON.stringify({
-            $or: [
-              { 'userWord.difficulty': 'hard' },
-              { userWord: null },
-            ],
-          });
+          filter = JSON.stringify(
+            { 'userWord.difficulty': 'hard' },
+          );
           break;
         default:
+          
           break;
       }
-      getWordsFromBackend({ filter, cardsDayAmount }) // this will be request with params.
+      console.log(settings.optional.cardsPerDay)
+      getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)
         .then((data) => {
           setWords(data[0].paginatedResults);
         })
@@ -125,11 +153,11 @@ function LearnWords() {
               setTranspAnswer={newTranspAnswer}
             />
             {(autoplay && correct) && (
-            <AudioAutoplay
-              audioWord={audioWord}
-              audioExample={audioExample}
-              audioMeaning={audioMeaning}
-            />
+              <AudioAutoplay
+                audioWord={audioWord}
+                audioExample={audioExample}
+                audioMeaning={audioMeaning}
+              />
             )}
             <Buttons
               word={word}

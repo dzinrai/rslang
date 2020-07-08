@@ -1,15 +1,16 @@
 import { UserWord } from './create-user-word';
+import { UserSettings } from './settings';
 
 export interface WordsGetter {
-  page: number;
-  group: number;
+  page?: number;
+  group?: number;
   wordsPerExampleSentenceLTE: number,
   wordsPerPage: number
 }
 
 export interface WordsFromBack {
-  filter: string;
-  cardsDayAmount: number;
+  filter?: string;
+  settings?: UserSettings;
 }
 
 export interface UpdatedWord {
@@ -18,17 +19,17 @@ export interface UpdatedWord {
 }
 
 export async function getWords({
-  page, group, wordsPerExampleSentenceLTE, wordsPerPage,
+  wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
-  const url = `https://afternoon-falls-25894.herokuapp.com/words?group=${group}&page=${page}&wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}&wordsPerPage=${wordsPerPage}`;
+  const url = `https://afternoon-falls-25894.herokuapp.com/words?wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}&wordsPerPage=${wordsPerPage}`;
   const rawResponse = await fetch(url);
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();
   return content;
 }
 
-export async function getWordsFromBackend({ filter, cardsDayAmount }: WordsFromBack) {
-  const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords?filter=${filter}&wordsPerPage=${cardsDayAmount}`, {
+export async function getWordsFromBackend({filter}: WordsFromBack,wordPerPage:number) {
+  const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords?filter=${filter}&wordsPerPage=${wordPerPage}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${localStorage.getItem('userToken')}`,
@@ -37,7 +38,7 @@ export async function getWordsFromBackend({ filter, cardsDayAmount }: WordsFromB
   });
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();
-  console.log(content);
+  console.log(`back:`,content);
   return content;
 }
 
