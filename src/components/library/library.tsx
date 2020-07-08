@@ -2,9 +2,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './library.module.css';
 import { storeWords } from '../../context/contextWords';
-import { getWordsFromBackend } from '../../services/getWords';
+import getWordsForLibrary from '../../services/getWordsForLibrary';
 import LibraryWord from './library-word';
 import WordRate from './word-rate';
+import LibraryHardWords from './library-hard-words';
 
 interface LibraryShow {
   all: boolean;
@@ -25,7 +26,7 @@ function Library() {
 
   useEffect(() => {
     const preloadWords = async () => {
-      const wordsFromBackend = await getWordsFromBackend();
+      const wordsFromBackend = await getWordsForLibrary();
       if (!wordsFromBackend
         || !wordsFromBackend[0].paginatedResults
         || wordsFromBackend.error) return;
@@ -94,6 +95,7 @@ function Library() {
             index={i}
           />
         ))}
+        {libraryShow.hard && <LibraryHardWords />}
       </div>
     </div>
   );
