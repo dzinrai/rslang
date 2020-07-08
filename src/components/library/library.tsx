@@ -6,6 +6,7 @@ import getWordsForLibrary from '../../services/getWordsForLibrary';
 import LibraryWord from './library-word';
 import WordRate from './word-rate';
 import LibraryHardWords from './library-hard-words';
+import LibraryDeletedWords from './library-deleted-words';
 
 interface LibraryShow {
   all: boolean;
@@ -93,9 +94,11 @@ function Library() {
           <LibraryWord
             key={`${word._id}_libraryWord`}
             index={i}
+            deleted={false}
           />
         ))}
         {libraryShow.hard && <LibraryHardWords />}
+        {libraryShow.deleted && <LibraryDeletedWords />}
       </div>
     </div>
   );

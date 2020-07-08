@@ -3,15 +3,15 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect, useState } from 'react';
 import styles from './library-word.module.css';
-import { getWordsForLibraryHard } from '../../services/getWordsForLibrary';
+import { getWordsForLibraryDeleted } from '../../services/getWordsForLibrary';
 import LibraryWord from './library-word';
 
-function LibraryHardWords() {
+function LibraryDeletedWords() {
   const [words, setWords] = useState([]);
 
   useEffect(() => {
     const preloadWords = async () => {
-      const wordsFromBackend = await getWordsForLibraryHard();
+      const wordsFromBackend = await getWordsForLibraryDeleted();
       if (!wordsFromBackend
         || !wordsFromBackend[0].paginatedResults
         || wordsFromBackend.error) return;
@@ -28,7 +28,7 @@ function LibraryHardWords() {
           <LibraryWord
             key={`${word._id}_libraryWord`}
             index={i}
-            deleted={false}
+            deleted
           />
         ))}
       </div>
@@ -36,4 +36,4 @@ function LibraryHardWords() {
   );
 }
 
-export default LibraryHardWords;
+export default LibraryDeletedWords;

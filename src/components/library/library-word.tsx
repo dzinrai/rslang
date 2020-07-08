@@ -9,9 +9,10 @@ import WordMoreInfo from './word-more-info';
 
 interface LibraryWordProps {
   index: number;
+  deleted: boolean;
 }
 
-function LibraryWord({ index }: LibraryWordProps) {
+function LibraryWord({ index, deleted }: LibraryWordProps) {
   const wordsState = useContext(storeWords);
   const stateWords = wordsState.state;
   const word = stateWords.words ? stateWords.words[index] : null;
@@ -57,8 +58,11 @@ function LibraryWord({ index }: LibraryWordProps) {
           </span>
         </div>
       </div>
-      <button className={styles.trashBtn} type="button">
-        <Trash />
+      <button
+        className={!deleted ? styles.trashBtn : styles.restoreBtn}
+        type="button"
+      >
+        {!deleted ? <Trash /> : '+'}
       </button>
 
       <button
