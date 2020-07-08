@@ -1,24 +1,19 @@
-import React, { useState, useContext } from 'react';
-import { storeWords } from '../../../context/contextWords';
+import React, { useState } from 'react';
 import SettingSlider from './setting-slider';
 import SettingButton from '../setting-button';
 import style from './daily-words.module.css';
 
 const DailyWords: React.FC = () => {
-  const wordsState = useContext(storeWords);
-  const dispatchWords = wordsState.dispatch;
-
-  const [countOfDailyWords, setCountOfDailyWords] = useState(wordsState.state.countOfDailyWords);
-  const [countOfDailyCards, setCountOfDailyCards] = useState(wordsState.state.countOfDailyCards);
+  const [countOfDailyWords, setCountOfDailyWords] = useState(10);
+  const [countOfDailyCards, setCountOfDailyCards] = useState(10);
 
   function onChangeWords(value: number) {
     setCountOfDailyWords(value);
-    dispatchWords({ type: 'setCountOfDailyWords', value });
+    console.log(value);
   }
 
   function onChangeCards(value: number) {
     setCountOfDailyCards(value);
-    dispatchWords({ type: 'setCountOfDailyCards', value });
   }
 
   return (
