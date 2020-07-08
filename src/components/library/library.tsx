@@ -1,7 +1,8 @@
+/* eslint-disable no-underscore-dangle */
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './library.module.css';
 import { storeWords } from '../../context/contextWords';
-import { getWords } from '../../services/getWords';
+import { getWordsFromBackend } from '../../services/getWords';
 import LibraryWord from './library-word';
 import WordRate from './word-rate';
 
@@ -13,16 +14,16 @@ function Library() {
 
   useEffect(() => {
     const preloadWords = async () => {
-      const wordsFromBackend = await getWords({
-        page: 1, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
-      });
-      setWords(wordsFromBackend);
-      dispatchWords({ type: 'setWords', value: wordsFromBackend });
+      const wordsFromBackend = await getWordsFromBackend();
+      if (!wordsFromBackend
+        || !wordsFromBackend[0].paginatedResults
+        || wordsFromBackend.error) return;
+      setWords(wordsFromBackend[0].paginatedResults);
+      dispatchWords({ type: 'setWords', value: wordsFromBackend[0].paginatedResults });
     };
     preloadWords();
     // eslint-disable-next-line
   }, []);
-  console.log(words);
 
   return (
     <div className={styles.container}>
@@ -54,7 +55,7 @@ function Library() {
       <div className={styles.libraryColumn}>
         {words.length > 0 && words.map((word: any, i: number) => (
           <LibraryWord
-            key={word.id}
+            key={`${word._id}_libraryWord`}
             index={i}
           />
         ))}
