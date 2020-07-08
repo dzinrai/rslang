@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './game.module.css';
 import { useHistory, useLocation } from 'react-router-dom';
+import styles from './game.module.css';
 
 interface Props {
   text: string;
@@ -10,16 +10,14 @@ interface Props {
   path: string
 }
 
-
 function Game({
-  text, Image, isEven = false, caption, path
+  text, Image, isEven = false, caption, path,
 }: Props) {
-    const history = useHistory()
-    const landingPath = useLocation()
-    const HandleClick = () => {
-        if (landingPath.pathname !== '/')
-        history.push(`/mini-games/${path}`)
-    }
+  const history = useHistory();
+  const landingPath = useLocation();
+  const HandleClick = () => {
+    if (landingPath.pathname !== '/') { history.push(`/mini-games/${path}`); }
+  };
   return (
     <div className={styles.container} onClick={HandleClick}>
       <p className={styles.details}>{text}</p>

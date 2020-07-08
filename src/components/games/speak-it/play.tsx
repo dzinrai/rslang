@@ -1,108 +1,127 @@
-import React, {useEffect, useState, useRef, useContext} from "react";
+import React, {
+  useEffect, useState, useRef, useContext,
+} from 'react';
 import ButtonBack from '../controls/button-back/button-back';
 import styles from './play.module.css';
-import Modal from './modal-window'
-import {storeWords} from "../../../context/contextWords";
-import getWords from "../../../services/getWords";
-import SpeakMode from './speak-mode'
-import defaultImage from './../../../img/megaphone.svg'
+import Modal from './modal-window';
+import { storeWords } from '../../../context/contextWords';
+import getWords from '../../../services/getWords';
+import SpeakMode from './speak-mode';
+import defaultImage from '../../../img/megaphone.svg';
+
 declare const window: any;
-const URL_CONTENT = 'https://raw.githubusercontent.com/dzinrai/rslang-data/master/'
+const URL_CONTENT = 'https://raw.githubusercontent.com/dzinrai/rslang-data/master/';
 
 export default () => {
-    const wordsState = useContext(storeWords);
-    const dispatchWords = wordsState.dispatch;
-    const [words, setWords] = useState<any>([]);
-    const [page, setPage] = useState(1);
-    const [isPlayMode, setIsPlayMode] = useState(true);
-    const preloadWords = async (page : number) => {
-        const wordsFromBackend = await getWords({ page, group: 0 });
-        setWords(wordsFromBackend);
-        console.log(wordsFromBackend)
-        dispatchWords({ type: 'setWords', value: wordsFromBackend });
-    };
-    useEffect(() => {
-        wordRef.current = new Array(words.length)
-        preloadWords(page);
-    }, []);
-    const wordRef = useRef<any>([])
-    const [correctWords, setCorrectWords] = useState<any>([])
-    const [isResultsOpen, setIsResultsOpen] = useState(false)
-    const [currentWord, setCurrentWord] = useState<any>({})
-    const sayWord = (word : any) => {
-        setCurrentWord(word)
-        const newSound = new Audio(URL_CONTENT + word.audio)
-        newSound.play()
-    }
-    const toggleModal = () => {
-        isResultsOpen ? setIsResultsOpen(false) : setIsResultsOpen(true)
-        if (isPlayMode) setIsPlayMode(false)
-    }
-    const newGame = () => {
-        setPage(page + 1)
-        setCorrectWords([])
-        wordRef.current.map((item: any) => {
-            item.classList.remove('disable')
-        })
-        preloadWords(page + 1);
-        toggleModal()
-        setIsPlayMode(true)
-    }
-    const toggleMode = () => {
-        isPlayMode ? setIsPlayMode(false) : setIsPlayMode(true)
-    }
+  const wordsState = useContext(storeWords);
+  const dispatchWords = wordsState.dispatch;
+  const [words, setWords] = useState<any>([]);
+  const [pageLevel, setPageLevel] = useState(1);
+  const [isPlayMode, setIsPlayMode] = useState(true);
+  // eslint-disable-next-line no-shadow
+  const preloadWords = async (pageLevel : number) => {
+    const page = pageLevel;
+    const wordsFromBackend = await getWords({ page, group: 0 });
+    setWords(wordsFromBackend);
+    dispatchWords({ type: 'setWords', value: wordsFromBackend });
+  };
+  const wordRef = useRef<any>([]);
+  useEffect(() => {
+    wordRef.current = new Array(words.length);
+    preloadWords(pageLevel);
+  }, []);
+  const [correctWords, setCorrectWords] = useState<any>([]);
+  const [isResultsOpen, setIsResultsOpen] = useState(false);
+  const [currentWord, setCurrentWord] = useState<any>({});
+  const sayWord = (word : any) => {
+    setCurrentWord(word);
+    const newSound = new Audio(URL_CONTENT + word.audio);
+    newSound.play();
+  };
+  const toggleModal = () => {
+    // eslint-disable-next-line no-unused-expressions
+    isResultsOpen ? setIsResultsOpen(false) : setIsResultsOpen(true);
+    if (isPlayMode) setIsPlayMode(false);
+  };
+  const newGame = () => {
+    setPageLevel(pageLevel + 1);
+    setCorrectWords([]);
+    // eslint-disable-next-line array-callback-return
+    wordRef.current.map((item: any) => {
+      item.classList.remove('disable');
+    });
+    preloadWords(pageLevel + 1);
+    toggleModal();
+    setIsPlayMode(true);
+  };
+  const toggleMode = () => {
+    // eslint-disable-next-line no-unused-expressions
+    isPlayMode ? setIsPlayMode(false) : setIsPlayMode(true);
+  };
 
-    return (
-        <>
-            <ButtonBack/>
-            <div className={styles.mainContainer}>
-                {isPlayMode ?
-                   <> {window.webkitSpeechRecognition ?
-                       <SpeakMode
-                           correctWords={correctWords}
-                           wordRef={wordRef}
-                           setCorrectWords={setCorrectWords}
-                           words={words}
-                           URL_CONTENT={URL_CONTENT}
-                /> : 'Sorry, your browser does not support this game, use GoogleChrome 25+ version' }</> :
-                    <div className={styles.imageContainer}>
-                        <img src={currentWord.image ? URL_CONTENT + currentWord.image : defaultImage} alt=""/>
-                        <span>{currentWord.wordTranslate ? currentWord.wordTranslate : ''}</span>
-                    </div>
-                }
-                <div className={`${styles.wordsContainer} ${!isPlayMode && styles.clickable}`}>
-                    {words.map((word : any, index: any) => <div
-                        key={index}
-                        className={styles.wordElement}
-                        ref={el => wordRef.current[index] = el}
-                        data-word={word.word}
-                        data-id={index}
-                        data-img={word.image}
-                        data-translate={word.wordTranslate}
-                        onClick={() => !isPlayMode ? sayWord(word) : null}
-                    >
-                        <span className={styles.wordTitle}>{word.word}</span>
-                        <p className={styles.wordTranscription}>{word.transcription}</p>
-                    </div>)}</div>
-                <div className={styles.footerButtons}>
-
-                    <div onClick={toggleMode} className={styles.btnSwitchMode}>
-                        {isPlayMode ? <>Switch to train mode</> : <> Switch to play mode </>}
-                    </div>
-                    <div onClick={toggleModal} className={styles.btnResults}>Results</div>
-
-                </div>
+  return (
+    <>
+      <ButtonBack />
+      <div className={styles.mainContainer}>
+        {isPlayMode
+          ? (
+            <>
+              {' '}
+              {window.webkitSpeechRecognition
+                ? (
+                  <SpeakMode
+                    correctWords={correctWords}
+                    wordRef={wordRef}
+                    setCorrectWords={setCorrectWords}
+                    words={words}
+                    URL_CONTENT={URL_CONTENT}
+                  />
+                ) : 'Sorry, your browser does not support this game, use GoogleChrome 25+ version' }
+            </>
+          )
+          : (
+            <div className={styles.imageContainer}>
+              <img src={currentWord.image ? URL_CONTENT + currentWord.image : defaultImage} alt="" />
+              <span>{currentWord.wordTranslate ? currentWord.wordTranslate : ''}</span>
             </div>
+          )}
+        <div className={`${styles.wordsContainer} ${!isPlayMode && styles.clickable}`}>
+          {words.map((word : any, index: any) => (
+            <div
+              key={`id__${word}`}
+              className={styles.wordElement}
+              ref={(el) => { wordRef.current[index] = el; }}
+              data-word={word.word}
+              data-id={index}
+              data-img={word.image}
+              data-translate={word.wordTranslate}
+              onClick={() => (!isPlayMode ? sayWord(word) : null)}
+              role="presentation"
+            >
+              <span className={styles.wordTitle}>{word.word}</span>
+              <p className={styles.wordTranscription}>{word.transcription}</p>
+            </div>
+          ))}
+        </div>
+        <div className={styles.footerButtons}>
 
-            <Modal
-                isResultsOpen={isResultsOpen}
-                newGame={newGame}
-                toggleModal={toggleModal}
-                correctWords={correctWords}
-                words={words}
-                URL_CONTENT={URL_CONTENT}
-            />
+          <div onClick={toggleMode} className={styles.btnSwitchMode} role="presentation">
+            {isPlayMode ? <>Switch to train mode</> : <> Switch to play mode </>}
+          </div>
+          <div onClick={toggleModal} className={styles.btnResults} role="presentation">Results</div>
 
-        </>
-    )
-}
+        </div>
+      </div>
+
+      <Modal
+        isResultsOpen={isResultsOpen}
+        newGame={newGame}
+        toggleModal={toggleModal}
+        correctWords={correctWords}
+        words={words}
+        URL_CONTENT={URL_CONTENT}
+      />
+
+    </>
+  );
+};
