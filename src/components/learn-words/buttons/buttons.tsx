@@ -82,17 +82,19 @@ function Buttons({
       case 'hard':
         word.userWord.difficulty = 'hard';
         word.userWord.optional.interval = 1;
-        word.userWord.optional.nextDate = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
+        console.log( word.userWord.optional.nextView)
         break;
       case 'normal':
         word.userWord.difficulty = 'normal';
         word.userWord.optional.interval = 2;
-        word.userWord.optional.nextDate = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
         break;
       case 'easy':
         word.userWord.difficulty = 'easy';
-        word.userWord.optional.interval *= 2;
-        word.userWord.optional.nextDate = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
+        word.userWord.optional.interval = +word.userWord.optional.interval* 2;
+        console.log( word.userWord.optional.interval)
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
       default:
         word.userWord.optional.repeat = true;
         break;

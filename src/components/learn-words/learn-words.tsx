@@ -30,7 +30,7 @@ function LearnWords() {
 
   useEffect(() => {
     preloadWords({
-      wordsPerExampleSentenceLTE: 10, wordsPerPage: 20,
+      wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
     })
     createSettings({
       wordsPerDay: 10, optional: {
@@ -53,7 +53,8 @@ function LearnWords() {
       wordsToday:0,
       newWordsToday:0,
       dayProgress:0,
-      lastWord:{}
+      lastWord:{},
+      weekDay:moment().format('dddd'),
       },
       games:{
         speakIt:{
@@ -81,11 +82,11 @@ function LearnWords() {
           words: 0,
           percentCorrect:0,
         },
-        // ownGame:{
-        //   lastPlay:'',
-        //   words: 0,
-        //   percentCorrect:0,
-        // },
+        ownGame:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
       }
     }        
     

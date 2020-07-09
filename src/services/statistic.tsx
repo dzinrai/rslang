@@ -5,6 +5,7 @@ interface UserStatistic{
           wordsToday:number;
           newWordsToday:number;
           lastWord:any;
+          weekDay: string;
           dayProgress:number;// wordsToday/wordsTodayPlan(get this one from setting's back)*100% and put it in progress rainbow line style
          // this may be week days progress 
           },
@@ -34,11 +35,11 @@ interface UserStatistic{
               words: number;
               percentCorrect:number;
             },
-            // ownGame:{
-            //   lastPlay: any;
-            //   words: number;
-            //   percentCorrect:number;
-           // },
+            ownGame:{
+              lastPlay: any;
+              words: number;
+              percentCorrect:number;
+           },
           }
         }        
         
@@ -55,6 +56,7 @@ export async function createStatistic(statistic:UserStatistic) {
         },
         body: JSON.stringify({learnedWords:statistic.learnedWords,optional:statistic.optional}),
       });
+      console.log(JSON.stringify({learnedWords:statistic.learnedWords,optional:statistic.optional}))
     if (rawResponse.status !== 200) return { error: 'Failed to get words' };
     const content = await rawResponse.json();
     console.log('new',content)
@@ -71,7 +73,6 @@ export async function createStatistic(statistic:UserStatistic) {
     });
     if (settingsFromBack.status !== 200) return { error: 'Failed to get settings' };
     const content = await settingsFromBack.json();
-    console.log('get',content )
     return content;
   }
   
