@@ -24,6 +24,8 @@ const TotalWordsTodayChart: React.FC = () => {
       },
     },
   };
+    /* eslint-disable */
   return <Liquid {...config} />;
+    /* eslint-enable */
 };
 export default TotalWordsTodayChart;

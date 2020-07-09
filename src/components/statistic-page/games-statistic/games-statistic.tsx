@@ -37,7 +37,7 @@ function GamesStatistic() {
     <div className={styles.container}>
       <div className={styles.sectionTitle}>Mini-games statistic</div>
       <div className={styles.gamesContainer}>
-        <div onClick={info} className={styles.gameContainer}>
+        <button onClick={info} className={styles.gameContainer} type="button">
           <div className={styles.gameImage}>
             <EnglishPuzzle />
           </div>
@@ -45,8 +45,8 @@ function GamesStatistic() {
             <div className={styles.gameTitle}>English Puzzle</div>
             <div className={styles.gameStats}>15% correct words</div>
           </div>
-        </div>
-        <div className={styles.gameContainer}>
+        </button>
+        <button className={styles.gameContainer} type="button">
           <div className={styles.gameImage}>
             <AudioCall />
           </div>
@@ -54,8 +54,8 @@ function GamesStatistic() {
             <div className={styles.gameTitle}>Audio Call</div>
             <div className={styles.gameStats}>15% correct words</div>
           </div>
-        </div>
-        <div className={styles.gameContainer}>
+        </button>
+        <button className={styles.gameContainer} type="button">
           <div className={styles.gameImage}>
             <Sprint />
           </div>
@@ -63,8 +63,8 @@ function GamesStatistic() {
             <div className={styles.gameTitle}>Sprint</div>
             <div className={styles.gameStats}>15% correct words</div>
           </div>
-        </div>
-        <div className={styles.gameContainer}>
+        </button>
+        <button className={styles.gameContainer} type="button">
           <div className={styles.gameImage}>
             <Savannah />
           </div>
@@ -72,8 +72,8 @@ function GamesStatistic() {
             <div className={styles.gameTitle}>Savannah</div>
             <div className={styles.gameStats}>15% correct words</div>
           </div>
-        </div>
-        <div className={styles.gameContainer}>
+        </button>
+        <button className={styles.gameContainer} type="button">
           <div className={styles.gameImage}>
             <SpeakIt />
           </div>
@@ -81,8 +81,8 @@ function GamesStatistic() {
             <div className={styles.gameTitle}>Speak It</div>
             <div className={styles.gameStats}>15% correct words</div>
           </div>
-        </div>
-        <div className={styles.gameContainer}>
+        </button>
+        <button className={styles.gameContainer} type="button">
           <div className={styles.gameImage}>
             <OwnGame />
           </div>
@@ -90,7 +90,7 @@ function GamesStatistic() {
             <div className={styles.gameTitle}>Own Game</div>
             <div className={styles.gameStats}>15% correct words</div>
           </div>
-        </div>
+        </button>
       </div>
     </div>
   );

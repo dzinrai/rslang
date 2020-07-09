@@ -37,6 +37,7 @@
     justify-content: space-between;
     padding: 10px;
     transition: box-shadow .2s linear;
+    border: none;
 }
 
 .gameContainer:hover {

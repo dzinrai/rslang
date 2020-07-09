@@ -43,6 +43,8 @@ const TotalStatisticChart = ({ testStats }: TotalStatisticChartProps) => {
       lineWidth: 5,
     },
   };
+  /* eslint-disable */
   return <Area {...config} />;
+  /* eslint-enable */
 };
 export default TotalStatisticChart;
