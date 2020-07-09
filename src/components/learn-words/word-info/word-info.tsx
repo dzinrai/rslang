@@ -1,8 +1,6 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import styles from './word-info.module.css';
 import { ReactComponent as Trans } from '../../../img/btnTranslate.svg';
-import { updateWordById} from '../../../services/getWords';
-
 
 interface InfoSentences {
   word: string,
@@ -21,7 +19,7 @@ function WordInfo(props: InfoSentences) {
     word, textExample, textMeaning, textExampleTranslate, textMeaningTranslate,
     correct,
   } = props;
- 
+
   const [isTranslation, setIsTranslation] = useState(false);
 
   function showTranslation() {

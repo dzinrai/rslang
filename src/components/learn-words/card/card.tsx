@@ -1,12 +1,10 @@
+import React from 'react';
 import styles from './card.module.css';
 import WordProgressIndicator from '../word-progress-indicator/word-progress-indicator';
 import SentenceWithInput from '../sentence-with-input/sentence-with-input';
 import SoundIndicator from '../sound-indicator/sound-indicator';
 import WordInfo from '../word-info/word-info';
 import MoveDeleteWord from '../move-delete-word/move-delete-word';
-// import { getStatistic,createStatistic} from '../../../services/statistic';
-// import { updateWordById} from '../../../services/getWords';
-// import moment from 'moment';
 
 interface CardProps {
   word: any,
@@ -27,28 +25,10 @@ interface CardProps {
   setTranspAnswer: any,
 }
 
-// function viewCount( wordObject:any){
-//   wordObject.userWord.optional.views+=1;
-//   wordObject.userWord.optional.newWord=false;
-//   wordObject.userWord.optional.lastView=moment().format('DD/MM/YY'); 
-//   saveLastWord(wordObject)
-//   updateWordById(wordObject._id, wordObject.userWord)
-// }
-
-// export function saveLastWord(word:any){
-//   getStatistic()
-//   .then((statistic:any)=>{
-//   statistic.learnedWords+=1;
-//   statistic.optional.common.lastWord=word;
-//   createStatistic(statistic);
-//   })
-//   }
-  
 function Card({
   word, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes,
   setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer,
 }: CardProps) {
-
   return (
     <div className={styles.cardContainer}>
       <div className={styles.sentenceImg}>
@@ -83,7 +63,7 @@ function Card({
         </div>
         <div className={styles.imageMoveDelete}>
           <img style={{ borderRadius: '5px' }} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} width="195" height="150" alt="" />
-          <MoveDeleteWord wordObject={word}/>
+          <MoveDeleteWord wordObject={word} />
         </div>
       </div>
       <WordInfo

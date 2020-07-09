@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable */
+import { updateWordById } from '../../../services/getWords';
+
 interface CheckProps {
   word: string,
   correct: boolean,
@@ -6,11 +12,22 @@ interface CheckProps {
   usersWord: string,
   setIndexes: any,
   setInProp: any,
-  setTranspAnswer: any
+  setTranspAnswer: any,
+  wordObject: any
+}
+
+function errorsCount(wordObject:any) {
+  wordObject.userWord.optional.errors += 1;
+  wordObject.userWord.optional.repeat = true;
+  updateWordById(wordObject._id, wordObject.userWord);
+}
+function correctCount(wordObject:any) {
+  wordObject.userWord.optional.correct += 1;
+  updateWordById(wordObject._id, wordObject.userWord);
 }
 
 function checkWord(e: any, {
-  word, correct, onCorrect, setUsersWord, usersWord, setIndexes,
+  wordObject, word, correct, onCorrect, setUsersWord, usersWord, setIndexes,
   setInProp, setTranspAnswer,
 }: CheckProps) {
   setInProp(true);
@@ -20,8 +37,10 @@ function checkWord(e: any, {
     setIndexes([]);
     if (inputWord === word) {
       onCorrect(true);
+      correctCount(wordObject);
       setTranspAnswer(false);
     } else if (inputWord.length !== word.length) {
+      errorsCount(wordObject);
       const newIndexes: any = [];
       word.split('').map((el: string, i: number) => (el !== inputWord[i]) && newIndexes.push(i));
       setIndexes(newIndexes);

@@ -1,5 +1,6 @@
-import { getWords } from './getWords';
 import moment from 'moment';
+// eslint-disable-next-line
+import { getWords } from './getWords';
 
 interface WordsGetter {
   page?: number;
@@ -50,7 +51,7 @@ export async function preloadWords({
   wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
   const wordsFromBackend = await getWords({
-    wordsPerExampleSentenceLTE, wordsPerPage
+    wordsPerExampleSentenceLTE, wordsPerPage,
   });
   wordsFromBackend.forEach((oneWord: any) => {
     createUserWord({
@@ -59,7 +60,7 @@ export async function preloadWords({
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, active: true, correct: 0, interval:2, wordId: oneWord.id, lastView:moment().format('DD/MM/YY') , nextView: moment().format('DD/MM/YY'),
+          newWord: true, views: 0, errors: 0, repeat: false, active: true, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
         },
       },
     });

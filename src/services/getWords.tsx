@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { UserWord } from './create-user-word';
 import { UserSettings } from './settings';
 
@@ -23,7 +24,7 @@ export async function getWords({
   return content;
 }
 
-export async function getWordsFromBackend({filter}: WordsFromBack,wordPerPage:number) {
+export async function getWordsFromBackend({ filter }: WordsFromBack, wordPerPage:number) {
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords?filter=${filter}&wordsPerPage=${wordPerPage}`, {
     method: 'GET',
     headers: {
@@ -33,12 +34,12 @@ export async function getWordsFromBackend({filter}: WordsFromBack,wordPerPage:nu
   });
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();
-  console.log(`back:`,content);
+  console.log('back:', content);
   return content;
 }
 
-export async function updateWordById( wordId :string, word : UserWord) {
-  console.log(word)
+export async function updateWordById(wordId :string, word : UserWord) {
+  console.log(word);
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/words/${wordId}`,
     {
       method: 'PUT',
@@ -54,7 +55,7 @@ export async function updateWordById( wordId :string, word : UserWord) {
   return content;
 }
 
-export async function getWordById( wordId:string) {
+export async function getWordById(wordId:string) {
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/words/${wordId}`, {
     method: 'GET',
     headers: {

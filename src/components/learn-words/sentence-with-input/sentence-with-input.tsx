@@ -3,7 +3,6 @@ import { CSSTransition } from 'react-transition-group';
 import checkWord from './check-word';
 import styles from './sentence-with-input.module.css';
 import './styles.css';
-import { updateWordById} from '../../../services/getWords'
 
 interface Word {
   word: string,
@@ -21,51 +20,14 @@ interface Word {
   setTranspAnswer: any
 }
 
-function errorsCount( wordObject:any){
-  wordObject.userWord.optional.errors+=1;
-  wordObject.userWord.optional.repeat=true;
-  updateWordById(wordObject._id, wordObject.userWord)
-}
-function correctCount( wordObject:any){
-  wordObject.userWord.optional.correct+=1;
-  updateWordById(wordObject._id, wordObject.userWord)
-}
-
 function SentenceWithInput({
-  wordObject,word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
+  wordObject, word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
   inProp, setInProp, transpAnswer, setTranspAnswer,
 }: Word) {
-  function checkWord(e: any) {
-    setInProp(true);
-    setTranspAnswer(false);
-    if (e.keyCode === 13 && !correct) {
-      setIndexes([]);
-      const inputWord = usersWord.toLowerCase().trim();
-      if (inputWord === word) {
-        onCorrect(true);
-        correctCount( wordObject)
-        setTranspAnswer(false);
-      } else if (inputWord.length !== word.length) {  
-        errorsCount(wordObject)
-        const newIndexes: any = [];
-        word.split('').map((el: string, i: number) => (el !== inputWord[i]) && newIndexes.push(i));
-        setIndexes(newIndexes);
-        setInProp(false);
-        setTranspAnswer(true);
-      } else {
-        const newIndexes: any = [];
-        inputWord.split('').map((el: string, i: number) => (el !== word[i]) && newIndexes.push(i));
-        setIndexes(newIndexes);
-        setInProp(false);
-        setTranspAnswer(true);
-      }
-      setUsersWord('');
-    }
-  }
-
   const checkProps = {
     word,
     correct,
+    wordObject,
     onCorrect,
     setUsersWord,
     usersWord,
@@ -75,7 +37,6 @@ function SentenceWithInput({
     setTranspAnswer,
   };
 
-
   if (!word) return null;
 
   return (
@@ -83,32 +44,42 @@ function SentenceWithInput({
       <div className={styles.sentenceContainer}>
         <span className={styles.inputContainer}>
           <span className={styles.background}>
-            {word.split('').map((el, i) => <span key={i} className={styles.hidden}>{el}</span>)}
+            {/*eslint-disable*/
+              word.split('').map((el, i) => <span key={i} className={styles.hidden}>{el}</span>)
+            /* eslint-enable */}
           </span>
 
           <span className={styles.wordContainer}>
             {word.split('').map((el, i) => (indexes.includes(i)
               ? (
+                /*eslint-disable*/
                 <CSSTransition in={inProp} key={i} timeout={1500} classNames="my-node">
                   <span className={styles.mistake}>{el}</span>
                 </CSSTransition>
+                /* eslint-enable */
               )
               : (
+                /*eslint-disable*/
                 <CSSTransition in={inProp} key={i} timeout={1500} classNames="my-node">
                   <span className={styles.correct}>{el}</span>
                 </CSSTransition>
+                /* eslint-enable */
               )))}
           </span>
           {transpAnswer && (
             <span className={styles.transparentWordContainer}>
-              {word.split('').map((el, i) => (indexes.includes(i)
+              {/*eslint-disable*/
+                word.split('').map((el, i) => (indexes.includes(i)
                 ? <span key={i} className={styles.transparentMistake}>{el}</span>
-                : <span key={i} className={styles.transparentCorrect}>{el}</span>))}
+                : <span key={i} className={styles.transparentCorrect}>{el}</span>))
+                /* eslint-enable */}
             </span>
           )}
           {correct && (
             <span className={styles.answerContainer}>
-              {word.split('').map((el, i) => <span key={i} className={styles.transparentCorrect}>{el}</span>)}
+              {/*eslint-disable*/
+              word.split('').map((el, i) => <span key={i} className={styles.transparentCorrect}>{el}</span>)
+              /* eslint-enable */}
             </span>
           )}
           <input
@@ -127,5 +98,4 @@ function SentenceWithInput({
     </>
   );
 }
-
 export default SentenceWithInput;

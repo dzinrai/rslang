@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd';
+import moment from 'moment';
 import styles from './learn-words.module.css';
 import { getWordsFromBackend } from '../../services/getWords';
 import { preloadWords } from '../../services/create-user-word';
 import { getSettings, createSettings, UserSettings } from '../../services/settings';
-import {createStatistic} from '../../services/statistic';
+import { createStatistic } from '../../services/statistic';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import CardsSlider from './cards-slider/cards-slider';
 import AudioAutoplay from './audio-autoplay/audio-autoplay';
-import moment from 'moment';
 
 function LearnWords() {
   const [words, setWords] = useState([]);
@@ -28,7 +28,7 @@ function LearnWords() {
   const [visible, setVisible] = useState(true);
   const [loading, setLoading] = useState(false);
 
-    /* eslint-disable */
+  /* eslint-disable */
 
   useEffect(() => {
     preloadWords({
@@ -123,9 +123,9 @@ function LearnWords() {
           showResultButton: settingsData.optional.showResultButton,
           moveToDifficult: settingsData.optional.moveToDifficult,
           difficultyButtons: settingsData.optional.difficultyButtons,
-        }
-      }
-      let filter: string = '';
+        },
+      };
+      let filter = '';
       switch (key) {
         case 'new':
           filter = JSON.stringify({
@@ -138,14 +138,14 @@ function LearnWords() {
         case 'repeating':
           filter = JSON.stringify(
             {
-              "$and": [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
-              { 'userWord.optional.newWord': false }
-              ]
-            }
+              $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
+                { 'userWord.optional.newWord': false },
+              ],
+            },
           );
           break;
         default:
-          //filter for all words
+          // filter for all words
           break;
       }
       getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)

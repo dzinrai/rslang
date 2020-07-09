@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import Card from '../card/card';
 
@@ -23,7 +24,7 @@ interface SliderProps {
     transpAnswer: boolean,
     setTranspAnswer: any,
   }
-  
+
 function CardsSlider({
   words, word, setWord, index, setIndex, onCorrect, correct, setUsersWord,
   usersWord, indexes, setIndexes,

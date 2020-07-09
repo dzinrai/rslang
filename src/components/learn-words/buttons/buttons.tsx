@@ -1,12 +1,13 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint no-param-reassign: "error" */
 import React from 'react';
 import { Button } from 'antd';
 import { CheckOutlined, HistoryOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import checkWord from './check-word';
 import styles from './buttons.module.css';
 import { updateWordById } from '../../../services/getWords';
-import moment from 'moment';
 import { getStatistic, createStatistic } from '../../../services/statistic';
-
 
 interface ButtonsProps {
   word: any,
@@ -24,28 +25,23 @@ interface ButtonsProps {
   transpAnswer: boolean,
   setTranspAnswer: any
 }
-function viewCount(wordObject: any) {
-  wordObject.userWord.optional.views += 1;
-  wordObject.userWord.optional.newWord = false;
-  wordObject.userWord.optional.lastView = moment().format('DD/MM/YY');
-  saveLastWord(wordObject)
-  updateWordById(wordObject._id, wordObject.userWord)
-}
 
 export function saveLastWord(word: any) {
-  // getSettings()
-  //   .then((data) => {
-  //     data.optional.lastWord = word._id;
-  //     createSettings(data);
-  //   })
   getStatistic()
     .then((statistic: any) => {
       statistic.learnedWords += 1;
       statistic.optional.common.lastWord = word._id;
       createStatistic(statistic);
-    })
+    });
 }
 
+function viewCount(wordObject: any) {
+  wordObject.userWord.optional.views += 1;
+  wordObject.userWord.optional.newWord = false;
+  wordObject.userWord.optional.lastView = moment().format('DD/MM/YY');
+  saveLastWord(wordObject);
+  updateWordById(wordObject._id, wordObject.userWord);
+}
 
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex,
@@ -68,24 +64,24 @@ function Buttons({
       case 'hard':
         word.userWord.difficulty = 'hard';
         word.userWord.optional.interval = 1;
-        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
-        console.log( word.userWord.optional.nextView)
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
+        console.log(word.userWord.optional.nextView);
         break;
       case 'normal':
         word.userWord.difficulty = 'normal';
         word.userWord.optional.interval = 2;
-        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
         break;
       case 'easy':
         word.userWord.difficulty = 'easy';
-        word.userWord.optional.interval = +word.userWord.optional.interval* 2;
-        console.log( word.userWord.optional.interval)
-        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY')
+        word.userWord.optional.interval = +word.userWord.optional.interval * 2;
+        console.log(word.userWord.optional.interval);
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
       default:
         word.userWord.optional.repeat = true;
         break;
     }
-    updateWordById(word._id, word.userWord)
+    updateWordById(word._id, word.userWord);
     setIndex();
     onCorrect(false);
     setUsersWord('');
@@ -130,9 +126,7 @@ function Buttons({
           : (
             <>
               <Button
-                onClick={() => 
-        
-                  checkWord(checkProps)}
+                onClick={() => checkWord(checkProps)}
                 type="primary"
                 icon={<CheckOutlined />}
                 size="large"
