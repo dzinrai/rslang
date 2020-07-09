@@ -13,7 +13,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin: 0 auto 15px;
     padding-bottom: 15px;
     font-family: 'Montserrat', sans-serif;
 }
@@ -122,7 +122,7 @@
     font-weight: bold;
     font-size: .65rem;
 }
-
+.restoreBtn,
 .trashBtn {
     display: flex;
     align-items: center;
@@ -134,19 +134,38 @@
     max-height: 35px;
     border-radius: 5px;
     border: none;
-    transition: all .2s;
+    transition: all .15s;
 }
-
+.restoreBtn {
+    color: white;
+    background-color: #94fa58e0;
+    font-size: 22px;
+    font-weight: bold;
+}
+.restoreBtn:hover,
 .trashBtn:hover {
     cursor: pointer;
     background-color: #ff4d39e0;
+}
+.restoreBtn:hover {
+    background-color: #4ecc05ed;
+}
+.restoreBtn:hover {
+    color: #ffffff;
 }
 .trashBtn:hover svg > path {
     fill: #ffffff;
 }
 
-.systemInfoBtn:active,.trashBtn:active {
-    transform: scale(.9);
+.systemInfoBtn:hover,
+.trashBtn:hover,
+.restoreBtn:hover {
+    border-radius: 50%;
+}
+.systemInfoBtn:active,
+.trashBtn:active,
+.restoreBtn:active {
+    transform: scale(.95);
 }
 
 .arrowBtn {
@@ -204,6 +223,54 @@
 .moreInfo.opened {
     max-height: unset;
     min-height: 100px;
+}
+@media (max-width: 1400px) {
+    .wordBlock {
+        min-width: unset;
+    }
+
+    .wordInfo {
+        min-width: unset;
+    }
+}
+@media (max-width: 1200px) {
+    .wordBlock {
+        flex: 1 0 33%;
+        margin: 0 4px;
+    }
+    .wordInfo {
+        flex: 1 0 33%;
+        margin: 0 4px;
+    }
+}
+@media (max-width: 1020px) {
+    .libraryLine {
+        background-color: #F3F3F3;
+        border-radius: 5px;
+    }
+    .wordBlock {
+        min-width: unset;
+        width: 100%;
+        flex: 1 0 95%;
+        margin: 4px;
+    }
+    .wordImage {
+        max-width: 40%;
+        max-height: unset;
+        height: unset;
+        width: 100%;
+        flex: 1 0 95%;
+        margin: 0 auto;
+    }
+    .wordInfo {
+        min-width: unset;
+        width: 100%;
+        flex: 1 0 95%;
+        margin: 4px;
+    }
+    .trashBtn {
+        margin: 0 auto;
+    }
 }
 
 @keyframes showS {
