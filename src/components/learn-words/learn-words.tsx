@@ -28,6 +28,8 @@ function LearnWords() {
   const [visible, setVisible] = useState(true);
   const [loading, setLoading] = useState(false);
 
+    /* eslint-disable */
+
   useEffect(() => {
     preloadWords({
       wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
@@ -93,6 +95,7 @@ function LearnWords() {
 })
   }, []);
 
+    /* eslint-enable */
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
   const newUsersWord = (word1: string) => setUsersWord(word1);
