@@ -9,13 +9,13 @@ interface WordRateProps {
 function WordRate({ rate, wordId }: WordRateProps) {
   const [low, setLow] = useState(false);
   const keys = [1, 2, 3, 4, 5];
-
+/* eslint-disable */
   useEffect(() => {
     if (rate < 3) setLow(true);
     else setLow(false);
   }, [rate]);
   if (!rate || rate > 5 || rate < 1) return null;
-
+ /* eslint-enable */
   return (
     <div className={styles.rate}>
       {[...Array(rate)].map((e, i) => (

@@ -8,7 +8,7 @@ function Messages() {
   const gameState = useContext(storeGame);
   const stateGame = gameState.state;
   const [src, setSrc] = useState('');
-
+  /* eslint-disable */
   useEffect(() => {
     if (stateGame.words.length && stateGame.currWordIndex <= stateGame.words.length) {
       const audioSrc = rawData({ filename: stateGame.words[stateGame.currWordIndex].audioExample });

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import styles from './card.module.css';
 import WordProgressIndicator from '../word-progress-indicator/word-progress-indicator';
 import SentenceWithInput from '../sentence-with-input/sentence-with-input';
@@ -50,10 +49,6 @@ function Card({
   setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer,
 }: CardProps) {
 
-  // useEffect(()=>{
-  //   viewCount(word);
-  // },[setAutoplay])
-  
   return (
     <div className={styles.cardContainer}>
       <div className={styles.sentenceImg}>

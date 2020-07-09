@@ -40,7 +40,7 @@ function BottomControls() {
       }, 100);
     }
   }
-
+  /* eslint-disable */
   useEffect(() => {
     if (stateGame.buildingSentence.length !== stateGame.currentSentence.length) {
       dispatchGame({ type: 'sentenceHasMistake', value: null });

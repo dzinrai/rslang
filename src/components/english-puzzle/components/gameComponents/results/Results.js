@@ -11,7 +11,7 @@ function Results() {
   const dispatchGame = gameState.dispatch;
   const stateGame = gameState.state;
   const [bg, setBg] = useState(false);
-
+  /* eslint-disable */
   useEffect(() => {
     setBg(stateGame.roundImage);
   }, [stateGame.roundImage]);
