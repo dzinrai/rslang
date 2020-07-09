@@ -1,10 +1,10 @@
 import { getWords } from './getWords';
 
 interface WordsGetter {
-    page?: number;
-    group?: number;
-    wordsPerExampleSentenceLTE: number,
-    wordsPerPage: number
+  page?: number;
+  group?: number;
+  wordsPerExampleSentenceLTE: number,
+  wordsPerPage: number
 }
 
 interface WordsSetter {
@@ -17,13 +17,14 @@ export interface UserWord {
   difficulty: 'easy' | 'normal' | 'hard';
   optional: {
     newWord: boolean;
-    active:boolean;
+    active: boolean;
     views: number;
     errors: number;
     repeat: boolean;
     wordId: string;
-    lastView:number;
+    lastView: number;
     nextView: number;
+    correct: number;
   }
 }
 
@@ -47,7 +48,7 @@ export async function preloadWords({
   wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
   const wordsFromBackend = await getWords({
-   wordsPerExampleSentenceLTE, wordsPerPage
+    wordsPerExampleSentenceLTE, wordsPerPage
   });
   wordsFromBackend.forEach((oneWord: any) => {
     createUserWord({
@@ -56,7 +57,7 @@ export async function preloadWords({
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, active:true, wordId: oneWord.id, lastView: new Date().getMinutes(), nextView: new Date().getMinutes(),
+          newWord: true, views: 0, errors: 0, repeat: false, active: true, correct: 0, wordId: oneWord.id, lastView: new Date().getMinutes(), nextView: new Date().getMinutes(),
         },
       },
     });

@@ -90,10 +90,9 @@ function LearnWords() {
           );
           break;
         default:
-          
+          //filter for all words
           break;
       }
-      console.log(settings.optional.cardsPerDay)
       getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)
         .then((data) => {
           setWords(data[0].paginatedResults);

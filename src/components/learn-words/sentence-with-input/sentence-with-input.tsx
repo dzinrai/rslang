@@ -2,6 +2,7 @@ import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import styles from './sentence-with-input.module.css';
 import './styles.css';
+import { updateWordById} from '../../../services/getWords'
 
 interface Word {
   word: string,
@@ -15,11 +16,22 @@ interface Word {
   inProp: boolean,
   setInProp: any,
   transpAnswer: boolean,
+  wordObject:any,
   setTranspAnswer: any
 }
 
+function errorsCount( wordObject:any){
+  wordObject.userWord.optional.errors+=1;
+  wordObject.userWord.optional.repeat=true;
+  updateWordById(wordObject._id, wordObject.userWord)
+}
+function correctCount( wordObject:any){
+  wordObject.userWord.optional.correct+=1;
+  updateWordById(wordObject._id, wordObject.userWord)
+}
+
 function SentenceWithInput({
-  word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
+  wordObject,word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
   inProp, setInProp, transpAnswer, setTranspAnswer,
 }: Word) {
   function checkWord(e: any) {
@@ -30,8 +42,10 @@ function SentenceWithInput({
       const inputWord = usersWord.toLowerCase().trim();
       if (inputWord === word) {
         onCorrect(true);
+        correctCount( wordObject)
         setTranspAnswer(false);
-      } else if (inputWord.length !== word.length) {
+      } else if (inputWord.length !== word.length) {  
+        errorsCount(wordObject)
         const newIndexes: any = [];
         word.split('').map((el: string, i: number) => (el !== inputWord[i]) && newIndexes.push(i));
         setIndexes(newIndexes);

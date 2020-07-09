@@ -2,22 +2,23 @@ import React from 'react';
 import { Button } from 'antd';
 import { CheckOutlined, HistoryOutlined } from '@ant-design/icons';
 import styles from './buttons.module.css';
+import { updateWordById} from '../../../services/getWords'
 
 interface ButtonsProps {
-    word: any,
-    onCorrect: any,
-    setUsersWord: any,
-    usersWord: string,
-    correct: boolean,
-    setIndexes: any,
-    setIndex: any,
-    audioWord: any,
-    audioExample: any,
-    audioMeaning: any,
-    inProp: boolean,
-    setInProp: any,
-    transpAnswer: boolean,
-    setTranspAnswer: any
+  word: any,
+  onCorrect: any,
+  setUsersWord: any,
+  usersWord: string,
+  correct: boolean,
+  setIndexes: any,
+  setIndex: any,
+  audioWord: any,
+  audioExample: any,
+  audioMeaning: any,
+  inProp: boolean,
+  setInProp: any,
+  transpAnswer: boolean,
+  setTranspAnswer: any
 }
 
 function Buttons({
@@ -49,7 +50,25 @@ function Buttons({
     }
   }
 
-  function difficultyButtonClick(difficulty:string) {
+  function difficultyButtonClick(difficulty: string) {
+    switch (difficulty) {
+      case 'hard':
+        word.userWord.difficulty='hard';
+        word.userWord.optional.nextDate.setDate(word.userWord.optional.lastDate+1)
+        break;
+      case 'normal':
+        word.userWord.difficulty='normal';
+        word.userWord.optional.nextDate.setDate(word.userWord.optional.lastDate+2)
+        break;
+      case 'easy':
+        word.userWord.difficulty='easy';
+        word.userWord.optional.nextDate.setDate(word.userWord.optional.lastDate+4)
+        break;
+      default:
+        word.userWord.optional.repeat=true;
+        break;
+    }
+    updateWordById(word._id, word.userWord)
     setIndex();
     onCorrect(false);
     setUsersWord('');
@@ -87,7 +106,7 @@ function Buttons({
                   Easy
                 </Button>
               </div>
-              <Button type="primary" icon={<HistoryOutlined />} size="large" shape="circle" />
+              <Button type="primary" icon={<HistoryOutlined />} size="large" shape="circle" onClick={() => difficultyButtonClick('repeat')} />
             </>
           )
           : (

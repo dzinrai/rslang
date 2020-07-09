@@ -5,11 +5,9 @@ import SentenceWithInput from '../sentence-with-input/sentence-with-input';
 import SoundIndicator from '../sound-indicator/sound-indicator';
 import WordInfo from '../word-info/word-info';
 import MoveDeleteWord from '../move-delete-word/move-delete-word';
+import { updateWordById} from '../../../services/getWords'
+import { getStatistic,createStatistic} from '../../../services/statistic'
 
-// interface CardProps {
-//   index: number
-//   curword: Word;
-// }
 interface CardProps {
   word: any,
   setWord: any,
@@ -29,10 +27,28 @@ interface CardProps {
   setTranspAnswer: any,
 }
 
+function viewCount( wordObject:any){
+  wordObject.userWord.optional.view+=1;
+  wordObject.userWord.optional.newWord=false;
+  wordObject.userWord.optional.lastView=new Date();
+  saveLastWord(wordObject)
+  updateWordById(wordObject._id, wordObject.userWord)
+}
+
+export function saveLastWord(word:any){
+getStatistic()
+.then((statistic:any)=>{
+statistic.learnedWords+=1;
+statistic.optional.common.lastWord=word;
+createStatistic(statistic);
+})
+}
+
 function Card({
   word, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes,
   setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer,
 }: CardProps) {
+  viewCount(word);
   return (
     <div className={styles.cardContainer}>
       <div className={styles.sentenceImg}>
@@ -41,6 +57,7 @@ function Card({
             <WordProgressIndicator />
             <SentenceWithInput
               word={word.word}
+              wordObject={word}
               correct={correct}
               onCorrect={onCorrect}
               setUsersWord={setUsersWord}
@@ -66,7 +83,7 @@ function Card({
         </div>
         <div className={styles.imageMoveDelete}>
           <img style={{ borderRadius: '5px' }} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} width="195" height="150" alt="" />
-          <MoveDeleteWord />
+          <MoveDeleteWord wordObject={word}/>
         </div>
       </div>
       <WordInfo

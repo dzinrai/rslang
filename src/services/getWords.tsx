@@ -13,11 +13,6 @@ export interface WordsFromBack {
   settings?: UserSettings;
 }
 
-export interface UpdatedWord {
- wordId: string;
- word: UserWord;
-}
-
 export async function getWords({
   wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
@@ -42,7 +37,8 @@ export async function getWordsFromBackend({filter}: WordsFromBack,wordPerPage:nu
   return content;
 }
 
-export async function getWordById({ wordId, word }:UpdatedWord) {
+export async function updateWordById( wordId :string, word : UserWord) {
+  console.log(word)
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/words/${wordId}`,
     {
       method: 'PUT',
@@ -53,6 +49,20 @@ export async function getWordById({ wordId, word }:UpdatedWord) {
       },
       body: JSON.stringify(word),
     });
+  if (rawResponse.status !== 200) return { error: 'Failed to get words' };
+  const content = await rawResponse.json();
+  console.log(content)
+  return content;
+}
+
+export async function getWordById( wordId:string) {
+  const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/words/${wordId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      Accept: 'application/json',
+    },
+  });
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();
   return content;
