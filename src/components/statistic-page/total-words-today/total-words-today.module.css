@@ -1,0 +1,36 @@
+.container {
+    max-width: 323px;
+    max-height: 254px;
+    padding: 20px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+    position: relative;
+}
+
+.sectionTitle {
+    position: absolute;
+    top: 7px;
+    left: 14px;
+    font-family: Montserrat, sans-serif;
+    text-align: left;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 25px;
+    color: #112256;
+}
+
+.textContainer {
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 25px;
+    color: #112256;
+}
+
+.chartContainer {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}

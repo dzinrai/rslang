@@ -1,0 +1,48 @@
+.container {
+    max-width: 723px;
+    max-height: 288px;
+    padding: 28px;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+    position: relative;
+}
+
+.sectionTitle {
+    position: absolute;
+    top: 7px;
+    left: 14px;
+    font-family: Montserrat, sans-serif;
+    text-align: left;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 25px;
+    color: #112256;
+}
+.gameContainer {
+    max-width: 212px;
+    max-height: 65px;
+    background-color: rgba(162, 204, 218, 0.26);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.gameTitle {
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: #0A5DC1;
+    line-height: 1.2;
+}
+
+.gameStats {
+    color: #112256;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.gameImage {
+    height: 60px;
+}

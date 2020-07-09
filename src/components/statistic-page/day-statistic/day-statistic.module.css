@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.weekDay {
+    font-weight: 400;
+    font-size: 18px;
+    width: 43px;
+    text-align: left;
+}
+
+.progressInProc {
+    font-weight: 400;
+    font-size: 18px;
+    width: 45px;
+    text-align: right;
+}
+
+.dayProgress {
+    position: relative;
+    left: -25%;
+    padding-bottom: 5px;
+}
+
+.wholeBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 183px;
+    height: 5px;
+    background-color: #EFEFEF;
+    border-radius: 3px;
+}
+
+.progressBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 183px;
+    height: 5px;
+    background-color: #EB5757;
+    border-radius: 3px;
+}
