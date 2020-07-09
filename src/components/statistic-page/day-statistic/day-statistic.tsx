@@ -7,17 +7,20 @@ interface DayStatisticProps {
 }
 
 function DayStatistic({ day, percent }: DayStatisticProps) {
-  const progressWidth = (183 * percent) / 100
-  const progressColor = percent > 60 ? '#2F80ED' : '#EB5757'
+  const progressWidth = (183 * percent) / 100;
+  const progressColor = percent > 60 ? '#2F80ED' : '#EB5757';
   return (
     <div className={styles.container}>
-        <div className={styles.weekDay}>{day}</div>
-        <div className={styles.dayProgress}>
-            <div className={styles.wholeBar}></div>
-            <div className={styles.progressBar} style={{width: `${progressWidth}px`, backgroundColor: `${progressColor}`}}></div>
-        </div>
-        <div className={styles.progressInProc}>{percent}%</div>
-    </div>  
+      <div className={styles.weekDay}>{day}</div>
+      <div className={styles.dayProgress}>
+        <div className={styles.wholeBar} />
+        <div className={styles.progressBar} style={{ width: `${progressWidth}px`, backgroundColor: `${progressColor}` }} />
+      </div>
+      <div className={styles.progressInProc}>
+        {percent}
+        %
+      </div>
+    </div>
   );
 }
 
