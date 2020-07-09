@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Button } from 'antd';
 import styles from './learn-words.module.css';
 import { getWordsFromBackend } from '../../services/getWords';
-import { preloadWords} from '../../services/create-user-word';
+import { preloadWords } from '../../services/create-user-word';
 import { getSettings, createSettings, UserSettings } from '../../services/settings';
+import {createStatistic} from '../../services/statistic';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import CardsSlider from './cards-slider/cards-slider';
 import AudioAutoplay from './audio-autoplay/audio-autoplay';
+import moment from 'moment';
 
 function LearnWords() {
   const [words, setWords] = useState([]);
@@ -28,7 +30,7 @@ function LearnWords() {
 
   useEffect(() => {
     preloadWords({
-      wordsPerExampleSentenceLTE:10, wordsPerPage:20,
+      wordsPerExampleSentenceLTE: 10, wordsPerPage: 20,
     })
     createSettings({
       wordsPerDay: 10, optional: {
@@ -41,10 +43,55 @@ function LearnWords() {
         showResultButton: true,
         moveToDifficult: true,
         difficultyButtons: true,
+     
       }
     });
+  createStatistic({
+    learnedWords: 0,
+    optional: {
+      common:{
+      wordsToday:0,
+      newWordsToday:0,
+      dayProgress:0,
+      lastWord:{}
+      },
+      games:{
+        speakIt:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        savannah:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        audioCall:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        sprint:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        puzzle:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        // ownGame:{
+        //   lastPlay:'',
+        //   words: 0,
+        //   percentCorrect:0,
+        // },
+      }
+    }        
+    
+})
   }, []);
-  
+
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
   const newUsersWord = (word1: string) => setUsersWord(word1);
@@ -80,13 +127,17 @@ function LearnWords() {
           filter = JSON.stringify({
             $or: [
               { 'userWord.optional.newWord': true },
-              
+
             ],
           });
           break;
-        case 'complicated':
+        case 'repeating':
           filter = JSON.stringify(
-            { 'userWord.difficulty': 'hard' },
+            {
+              "$and": [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
+              { 'userWord.optional.newWord': false }
+              ]
+            }
           );
           break;
         default:
@@ -118,8 +169,8 @@ function LearnWords() {
           <Button className={styles.modalButtonAll} type="primary" loading={loading} onClick={handleOk('all')}>
             All words
           </Button>,
-          <Button className={styles.modalButtonDifficult} type="primary" loading={loading} onClick={handleOk('complicated')}>
-            Complicated words
+          <Button className={styles.modalButtonDifficult} type="primary" loading={loading} onClick={handleOk('repeating')}>
+            Words to repeat
           </Button>,
         ]}
       >

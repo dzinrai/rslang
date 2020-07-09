@@ -51,7 +51,6 @@ export async function updateWordById( wordId :string, word : UserWord) {
     });
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();
-  console.log(content)
   return content;
 }
 

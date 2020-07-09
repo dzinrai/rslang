@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './card.module.css';
 import WordProgressIndicator from '../word-progress-indicator/word-progress-indicator';
 import SentenceWithInput from '../sentence-with-input/sentence-with-input';
 import SoundIndicator from '../sound-indicator/sound-indicator';
 import WordInfo from '../word-info/word-info';
 import MoveDeleteWord from '../move-delete-word/move-delete-word';
-import { updateWordById} from '../../../services/getWords'
-import { getStatistic,createStatistic} from '../../../services/statistic'
+// import { getStatistic,createStatistic} from '../../../services/statistic';
+// import { updateWordById} from '../../../services/getWords';
+// import moment from 'moment';
 
 interface CardProps {
   word: any,
@@ -27,28 +28,32 @@ interface CardProps {
   setTranspAnswer: any,
 }
 
-function viewCount( wordObject:any){
-  wordObject.userWord.optional.view+=1;
-  wordObject.userWord.optional.newWord=false;
-  wordObject.userWord.optional.lastView=new Date();
-  saveLastWord(wordObject)
-  updateWordById(wordObject._id, wordObject.userWord)
-}
+// function viewCount( wordObject:any){
+//   wordObject.userWord.optional.views+=1;
+//   wordObject.userWord.optional.newWord=false;
+//   wordObject.userWord.optional.lastView=moment().format('DD/MM/YY'); 
+//   saveLastWord(wordObject)
+//   updateWordById(wordObject._id, wordObject.userWord)
+// }
 
-export function saveLastWord(word:any){
-getStatistic()
-.then((statistic:any)=>{
-statistic.learnedWords+=1;
-statistic.optional.common.lastWord=word;
-createStatistic(statistic);
-})
-}
-
+// export function saveLastWord(word:any){
+//   getStatistic()
+//   .then((statistic:any)=>{
+//   statistic.learnedWords+=1;
+//   statistic.optional.common.lastWord=word;
+//   createStatistic(statistic);
+//   })
+//   }
+  
 function Card({
   word, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes,
   setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer,
 }: CardProps) {
-  viewCount(word);
+
+  // useEffect(()=>{
+  //   viewCount(word);
+  // },[setAutoplay])
+  
   return (
     <div className={styles.cardContainer}>
       <div className={styles.sentenceImg}>

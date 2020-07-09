@@ -1,4 +1,5 @@
 import { getWords } from './getWords';
+import moment from 'moment';
 
 interface WordsGetter {
   page?: number;
@@ -22,9 +23,10 @@ export interface UserWord {
     errors: number;
     repeat: boolean;
     wordId: string;
-    lastView: number;
-    nextView: number;
+    lastView: string;
+    nextView:string;
     correct: number;
+    interval:number;
   }
 }
 
@@ -57,7 +59,7 @@ export async function preloadWords({
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, active: true, correct: 0, wordId: oneWord.id, lastView: new Date().getMinutes(), nextView: new Date().getMinutes(),
+          newWord: true, views: 0, errors: 0, repeat: false, active: true, correct: 0,interval:2, wordId: oneWord.id, lastView:moment().format('DD/MM/YY') , nextView: moment().format('DD/MM/YY'),
         },
       },
     });
