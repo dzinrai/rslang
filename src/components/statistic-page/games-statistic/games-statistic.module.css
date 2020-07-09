@@ -1,7 +1,8 @@
 .container {
     max-width: 723px;
     max-height: 288px;
-    padding: 28px;
+    padding: 40px 28px;
+    padding-top: 50px;
     box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
     border-radius: 7px;
     position: relative;
@@ -19,6 +20,14 @@
     line-height: 25px;
     color: #112256;
 }
+
+.gamesContainer {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 16px;
+}
+
 .gameContainer {
     max-width: 212px;
     max-height: 65px;
@@ -27,6 +36,12 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    transition: box-shadow .3s linear;
+}
+
+.gameContainer:hover {
+    cursor: pointer;
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
 }
 
 .gameTitle {
@@ -35,12 +50,14 @@
     font-size: 18px;
     color: #0A5DC1;
     line-height: 1.2;
+    text-align: right;
 }
 
 .gameStats {
     color: #112256;
     font-size: 14px;
     font-weight: 400;
+    text-align: right;
 }
 
 .gameImage {

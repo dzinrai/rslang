@@ -22,16 +22,66 @@ function GamesStatistic() {
 //       },
 
 //   ]
+
+  function clickHandler() {
+      console.log('AAAAAA')
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.sectionTitle}>Mini-games statistic</div>  
       <div className={styles.gamesContainer}>
-        <div className={styles.gameContainer}>
+        <div onClick={clickHandler} className={styles.gameContainer}>
             <div className={styles.gameImage}>
                 <EnglishPuzzle />
             </div>
             <div className={styles.gameInfo}>
                 <div className={styles.gameTitle}>English Puzzle</div>
+                <div className={styles.gameStats}>15% new words</div>
+            </div>
+        </div>
+        <div className={styles.gameContainer}>
+            <div className={styles.gameImage}>
+                <AudioCall />
+            </div>
+            <div className={styles.gameInfo}>
+                <div className={styles.gameTitle}>Audio Call</div>
+                <div className={styles.gameStats}>15% new words</div>
+            </div>
+        </div>
+        <div className={styles.gameContainer}>
+            <div className={styles.gameImage}>
+                <Sprint />
+            </div>
+            <div className={styles.gameInfo}>
+                <div className={styles.gameTitle}>Sprint</div>
+                <div className={styles.gameStats}>15% new words</div>
+            </div>
+        </div>
+        <div className={styles.gameContainer}>
+            <div className={styles.gameImage}>
+                <Savannah />
+            </div>
+            <div className={styles.gameInfo}>
+                <div className={styles.gameTitle}>Savannah</div>
+                <div className={styles.gameStats}>15% new words</div>
+            </div>
+        </div>
+        <div className={styles.gameContainer}>
+            <div className={styles.gameImage}>
+                <SpeakIt />
+            </div>
+            <div className={styles.gameInfo}>
+                <div className={styles.gameTitle}>Speak It</div>
+                <div className={styles.gameStats}>15% new words</div>
+            </div>
+        </div>
+        <div className={styles.gameContainer}>
+            <div className={styles.gameImage}>
+                <OwnGame />
+            </div>
+            <div className={styles.gameInfo}>
+                <div className={styles.gameTitle}>Own Game</div>
                 <div className={styles.gameStats}>15% new words</div>
             </div>
         </div>
