@@ -16,8 +16,8 @@ const TotalStatisticChart = ({ testStats }: any) => {
   //     });
   // };
   const config = {
-    width: 250,
-    height: 170,
+    width: 339,
+    height: 292,
     smooth: true,
     // title: {
     //   visible: true,

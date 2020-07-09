@@ -9,11 +9,21 @@ import GamesStatistic from './games-statistic/games-statistic'
 function StatisticPage() {
   return (
       <div className={styles.container}>
-      <TodayProgress />
-      <WeekStatistic />
-      <TotalWordsToday />
-      <TotalStatistic />
-      <GamesStatistic />
+        <div className={styles.todayProgress}>
+        <TodayProgress />
+        </div>
+        <div className={styles.weekStatistic}>
+        <WeekStatistic />
+        </div>
+        <div className={styles.totalWordsToday}>
+        <TotalWordsToday />
+        </div>
+        <div className={styles.totalStatistic}>
+        <TotalStatistic />
+        </div>
+        <div className={styles.gamesStatistic}>
+        <GamesStatistic />
+        </div>
       </div>
   );
 }
