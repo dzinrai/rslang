@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 import { CheckOutlined, HistoryOutlined } from '@ant-design/icons';
+import checkWord from './check-word';
 import styles from './buttons.module.css';
 import { updateWordById } from '../../../services/getWords';
 import moment from 'moment';
@@ -50,6 +51,7 @@ function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex,
   setInProp, setTranspAnswer,
 }: ButtonsProps) {
+
   function checkWord() {
     if (!correct) {
       const curWord = word.word;
@@ -75,7 +77,17 @@ function Buttons({
     }
   }
 
-
+  const checkProps = {
+    word,
+    onCorrect,
+    setUsersWord,
+    usersWord,
+    correct,
+    setIndexes,
+    setIndex,
+    setInProp,
+    setTranspAnswer,
+  };
   function difficultyButtonClick(difficulty: string) {
     viewCount(word);
     switch (difficulty) {
@@ -103,6 +115,7 @@ function Buttons({
     setIndex();
     onCorrect(false);
     setUsersWord('');
+    setTranspAnswer(false);
   }
 
   function showResultsClick() {
@@ -143,7 +156,9 @@ function Buttons({
           : (
             <>
               <Button
-                onClick={() => checkWord()}
+                onClick={() => 
+        
+        Word(checkProps)}
                 type="primary"
                 icon={<CheckOutlined />}
                 size="large"

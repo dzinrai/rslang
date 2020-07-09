@@ -1,0 +1,47 @@
+.gamesWrapper > div > div {
+    cursor: pointer;
+}
+.gamesWrapper > div > div p:last-child{
+    margin-bottom: 0;
+}
+
+.imageMegaphone {
+    margin-left: 80px;
+    width: 100%;
+}
+
+.gamesWrapper {
+    display: grid;
+    justify-content: center;
+    align-content: start;
+    background-image: url("./../../img/LightGrasient.svg");
+    background-position: bottom right;
+    background-repeat: no-repeat;
+    background-size: initial;
+    width: 100vw;
+    min-height: calc(100vh - 100px);
+    overflow: hidden;
+    background-color: #FAFAFA;
+    padding-top: 5%;
+}
+.buttonDescription {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 22px;
+    color: #263655;
+    margin-top: 20px;
+}
+
+.gameName {
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    font-weight: 800;
+    font-size: 96px;
+    line-height: 117px;
+    color: rgba(0, 134, 181, 0.32);
+}
+
+body {
+    background-color: #FAFAFA;
+}

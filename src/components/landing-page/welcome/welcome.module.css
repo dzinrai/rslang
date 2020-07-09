@@ -6,13 +6,15 @@
   position: relative;
   overflow: hidden;
   z-index: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .logo {
-  display: block;
-  font-weight: bold;
-  font-size: 36px;
-  color: #1958DB
+  composes: logo from '../landing-page.module.css';
+}
+
+.logoIcon {
+  composes: logoIcon from '../landing-page.module.css';
 }
 
 .title {
@@ -62,4 +64,9 @@
   right: 156px;
   bottom: 235px;
   z-index: -1;
+}
+
+.header {
+  position: relative;
+  margin-bottom: 0;
 }

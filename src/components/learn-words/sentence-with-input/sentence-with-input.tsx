@@ -1,5 +1,6 @@
 import React from 'react';
 import { CSSTransition } from 'react-transition-group';
+import checkWord from './check-word';
 import styles from './sentence-with-input.module.css';
 import './styles.css';
 import { updateWordById} from '../../../services/getWords'
@@ -62,6 +63,19 @@ function SentenceWithInput({
     }
   }
 
+  const checkProps = {
+    word,
+    correct,
+    onCorrect,
+    setUsersWord,
+    usersWord,
+    indexes,
+    setIndexes,
+    setInProp,
+    setTranspAnswer,
+  };
+
+
   if (!word) return null;
 
   return (
@@ -102,7 +116,7 @@ function SentenceWithInput({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setUsersWord(e.target.value);
             }}
-            onKeyDown={(e: any) => checkWord(e)}
+            onKeyDown={(e: any) => checkWord(e, checkProps)}
             type="text"
             name=""
             id="inputWord"

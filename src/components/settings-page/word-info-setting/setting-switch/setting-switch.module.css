@@ -1,0 +1,7 @@
+.switchContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  margin-top: 26px;
+}
