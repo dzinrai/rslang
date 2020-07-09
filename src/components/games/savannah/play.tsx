@@ -6,25 +6,26 @@ import styles from './play.module.css';
 import Modal from './modal-window';
 import { storeWords } from '../../../context/contextWords';
 import { getWords } from '../../../services/getWords';
+import Timer from './timer';
 
 export default () => {
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
-  const [statistic, setStatistic] = useState<any>({ correctWords: [], wrongWords: [] });
+  const [statistic, setStatistic] = useState<any>([]);
+  const [isFalling, setIsFalling] = useState<any>(true);
   const [words, setWords] = useState<any>([]);
   const [randomWords, setRandomWords] = useState<any>([]);
-  const [currentWord, setCurrentWord] = useState<any>({});
+  const [currentWord, setCurrentWord] = useState<any>({ info: { word: '' }, errors: 0 });
   const [pageLevel, setPageLevel] = useState<number>(1);
   const [group, setGroup] = useState<number>(0);
   const wordRef = useRef<any>([]);
-
-  const [correctWords, setCorrectWords] = useState<any>([]);
   const [isResultsOpen, setIsResultsOpen] = useState(false);
-
+  let timer : any;
   const startGame = (words : any) => {
-    setCurrentWord(words[0]);
+    setCurrentWord({ info: words[0], errors: 0 });
     words.sort(() => Math.random() - 0.5);
     setRandomWords(words.sort(() => Math.random() - 0.5));
+    setIsFalling(true);
     if (group === 5) {
       setPageLevel(pageLevel + 1);
       setGroup(0);
@@ -32,17 +33,18 @@ export default () => {
   };
 
   const CheckWord = (word : string) => {
-    if (word === currentWord.wordTranslate) {
+    if (word === currentWord.info.word) {
+      clearTimeout(timer);
       preloadWords();
-      const array = statistic.correctWords;
-      array.push(word);
-      setStatistic({ ...statistic, correctWords: array });
+      const array = statistic;
+      array.push({ ...currentWord, guessed: true });
+      setStatistic(array);
+      setIsFalling(false);
     } else {
-      const array = statistic.wrongWords;
-      array.push(word);
-      setStatistic({ ...statistic, wrongWords: array });
+      setCurrentWord({ ...currentWord, errors: currentWord.errors + 1 });
     }
-    console.log(statistic);
+    // console.log(statistic);
+    // console.log(currentWord);
   };
 
   const preloadWords = async () => {
@@ -56,7 +58,7 @@ export default () => {
   };
 
   useEffect(() => {
-    wordRef.current = new Array(words.length);
+    // wordRef.current
     preloadWords();
   }, []);
   const toggleModal = () => {
@@ -69,18 +71,18 @@ export default () => {
 
   return (
     <>
+      {isFalling ? <Timer preloadWords={preloadWords} currentWord={currentWord} setIsFalling={setIsFalling} statistic={statistic} setStatistic={setStatistic} /> : null}
       <ButtonBack />
-      <b>{currentWord.word}</b>
+      <b className={isFalling ? styles.falling : styles.fallingNone}>{currentWord.info.word}</b>
       {randomWords.length > 0
         ? (
           <div className={styles.container}>
             {randomWords.map((item : any) => (
               <div
                 key={item.id}
-                onClick={() => CheckWord(item.wordTranslate)}
+                onClick={() => CheckWord(item.word)}
               >
                 {item.wordTranslate}
-                {console.log(item)}
               </div>
             ))}
           </div>
@@ -89,8 +91,8 @@ export default () => {
       <Modal
         isResultsOpen={isResultsOpen}
         toggleModal={toggleModal}
-        correctWords={correctWords}
         words={words}
+        statistic={statistic}
       />
     </>
   );

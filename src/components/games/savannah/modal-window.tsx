@@ -4,12 +4,12 @@ import { Modal } from 'antd';
 interface Props {
   isResultsOpen: boolean,
   toggleModal: any,
-  correctWords: string[],
+  statistic: any,
   words: any
 }
 
 export default ({
-  isResultsOpen, toggleModal, correctWords, words,
+  isResultsOpen, toggleModal, statistic, words,
 }: Props) => (
   <Modal
     title="Results"
@@ -21,17 +21,11 @@ export default ({
   >
     <b>Correct words:</b>
     <br />
-    {correctWords.map((word) => (
-      <div key={`speak-it-${word}`}>
-        {word}
-      </div>
-    ))}
+    {/* {statistic.correctWords.map((word : any) => ( */}
+    {/*  <div key={`speak-it-${word.word}`}> */}
+    {/*    {word.word} */}
+    {/*  </div> */}
+    {/* ))} */}
     <b>Unspoken:</b>
-    <br />
-    {words.filter((word: any) => !correctWords.includes(word.word)).map((word: any) => (
-      <div key={`speak-it-${word.word}`}>
-        {word.word}
-      </div>
-    ))}
   </Modal>
 );
