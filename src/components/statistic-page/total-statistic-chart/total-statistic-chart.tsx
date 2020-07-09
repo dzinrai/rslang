@@ -7,9 +7,11 @@ interface TotalStatisticChartProps {
 
 const TotalStatisticChart = ({ testStats }: TotalStatisticChartProps) => {
   const [data, setData] = useState([]);
+  /*eslint-disable*/
   useEffect(() => {
     setData(testStats);
   }, []);
+  /*eslint-enable*/
   const config = {
     width: 339,
     height: 292,
