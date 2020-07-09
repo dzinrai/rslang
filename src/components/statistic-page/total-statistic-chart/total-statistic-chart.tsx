@@ -19,20 +19,25 @@ const TotalStatisticChart = ({ testStats }: any) => {
     width: 339,
     height: 292,
     smooth: true,
+    forseFit: true,
     // title: {
     //   visible: true,
     //   text: '基础面积图',
     // },
     data,
     color: '#0A5DC1',
+    tooltip: {
+      fields: ['Words', 'Correct words', 'Date']
+    },
     meta: {
-      'percentCorrect': {
+      // values: ['words', 'percentCorrect', 'date'],
+      'Correct words': {
         formatter: (v: number) => `${v}%`
       }
     },
-    xField: 'words',
-    yField: 'percentCorrect',
-    stackField: 'date',
+    xField: 'Words',
+    yField: 'Correct words',
+    // stackField: 'date',
     xAxis: {
       // type: 'words',
       tickCount: 5,
