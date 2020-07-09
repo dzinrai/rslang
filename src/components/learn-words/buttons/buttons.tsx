@@ -77,6 +77,7 @@ function Buttons({
         word.userWord.optional.interval = +word.userWord.optional.interval * 2;
         console.log(word.userWord.optional.interval);
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
+        break;
       default:
         word.userWord.optional.repeat = true;
         break;
