@@ -21,7 +21,7 @@ function LibraryAllWords({ active, nonActive, hard } : any) {
     <div className={styles.container}>
       <div className={styles.libraryColumn}>
         {words.length > 0 && words.map((word: any, i: number) => (
-          (checks(word) && <LibraryWord
+          (word.userWord && checks(word) && <LibraryWord
             key={`${word._id}_libraryWord`}
             word={word}
             isDeletedPage={nonActive ? true : false}

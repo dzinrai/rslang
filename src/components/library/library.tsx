@@ -31,15 +31,9 @@ function Library() {
       else return true;
     }
     const preloadWords = async () => {
-      const wordsFromBackendActive = await getWordsForLibrary(true);
-      const wordsFromBackendInactive = await getWordsForLibrary(false);
-      if (!check(wordsFromBackendActive) || !check(wordsFromBackendInactive)) return;
-
-      const wordsFromBackend = [
-        ...wordsFromBackendActive[0].paginatedResults,
-        ...wordsFromBackendInactive[0].paginatedResults];
-
-      dispatchWords({ type: 'setAllWords', value: wordsFromBackend });
+      const wordsFromBackend = await getWordsForLibrary();
+      if (!check(wordsFromBackend)) return;
+      dispatchWords({ type: 'setAllWords', value: wordsFromBackend[0].paginatedResults });
     };
     if (!allWords || allWords.length === 0) preloadWords();
     // eslint-disable-next-line
