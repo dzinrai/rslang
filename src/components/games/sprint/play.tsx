@@ -21,9 +21,6 @@ export default ({ words }: PlayProps) => {
     const [points, setPoints] = useState(10)
     const [correctWords, setCorrectWords] = useState(0)
     const [checkedCircles, setCheckedCircles] = useState(0)
-    let wordsForPlay: any = []
-
-    if (words.length !== 0) wordsForPlay = createCouples(words)
 
   return (
     <div className={styles.background}>
@@ -37,13 +34,13 @@ export default ({ words }: PlayProps) => {
         />
         {playMode && <div className={styles.pointsContainer}>{totalPoints}</div>}
         {playMode && <div className={styles.circlesContainer}>
-            {(checkedCircles % 4 === 1) || (checkedCircles % 4 === 2) || (checkedCircles % 4 === 3) ? <CheckedCircle /> : <Circle />}
-            {(checkedCircles % 4 === 2) || (checkedCircles % 4 === 3) ? <CheckedCircle /> : <Circle />}
-            {(checkedCircles % 4 === 3) ? <CheckedCircle /> : <Circle />}
+            {(checkedCircles % 4 === 1) || (checkedCircles % 4 === 2) || (checkedCircles % 4 === 3 || checkedCircles >= 12) ? <CheckedCircle /> : <Circle />}
+            {(checkedCircles % 4 === 2) || (checkedCircles % 4 === 3 || checkedCircles >= 12) ? <CheckedCircle /> : <Circle />}
+            {(checkedCircles % 4 === 3 || checkedCircles >= 12) ? <CheckedCircle /> : <Circle />}
         </div>}
         {playMode && 
         <Card 
-        couple={wordsForPlay[wordsIndex]} 
+        couple={words[wordsIndex]} 
         wordsIndex={wordsIndex}
         setWordsIndex={() => setWordsIndex(wordsIndex + 1)}
         isActive={isActive}

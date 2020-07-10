@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { storeWords } from '../../../context/contextWords';
 import { getWords } from '../../../services/getWords';
+import createCouples from './create-couples'
 import styles from '../page-mini-games.module.css';
 import CommonStartGameBlock from '../common-start-game-block';
 import Sprinter from '../../../img/sprinter.svg';
@@ -12,6 +13,7 @@ export default () => {
   const dispatchWords = wordsState.dispatch;
   const [words, setWords] = useState<any>([]);
   const [pageLevel, setPageLevel] = useState<number>(1);
+  let wordsForPlay: any = []
 
   useEffect(() => {
     const preloadWords = async (pageLevel : number) => {
@@ -23,6 +25,7 @@ export default () => {
     }; 
     preloadWords(0)     
 },[])
+  if (words.length !== 0) wordsForPlay = createCouples(words)
 
   const pinkColor = '#FF645F';
   return (
@@ -34,7 +37,7 @@ export default () => {
             <CommonStartGameBlock setIsStart={setIsStart} color={pinkColor} buttonText="start" name="Sprint" />
           </div>
         )
-        : <Play words={words} />}
+        : <Play words={wordsForPlay} />}
     </>
   );
 };
