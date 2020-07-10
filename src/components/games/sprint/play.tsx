@@ -8,36 +8,22 @@ import React, {
   import Card from './card/card'
   import Timer from './timer/timer'
   import styles from './play.module.css';
-  import { storeWords } from '../../../context/contextWords';
-  import { getWords } from '../../../services/getWords';
+
+  interface PlayProps {
+      words: any
+  }
   
-export default () => {
-    const wordsState = useContext(storeWords);
-    const dispatchWords = wordsState.dispatch;
-    const [words, setWords] = useState<any>([]);
-    const [pageLevel, setPageLevel] = useState<number>(1);
+export default ({ words }: PlayProps) => {
     const [playMode, setPlayMode] = useState(false);
     const [isActive, setIsActive] = useState(true);
     const [wordsIndex, setWordsIndex] = useState(0);
     const [totalPoints, setTotalPoints] = useState(0);
     const [points, setPoints] = useState(10)
     const [correctWords, setCorrectWords] = useState(0)
+    const [checkedCircles, setCheckedCircles] = useState(0)
     let wordsForPlay: any = []
 
-    // eslint-disable-next-line no-shadow
-    useEffect(() => {
-        const preloadWords = async (pageLevel : number) => {
-            const wordsFromBackend = await getWords({
-              page: pageLevel, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 60,
-            });
-            setWords(wordsFromBackend);
-            dispatchWords({ type: 'setWords', value: wordsFromBackend });
-        }; 
-        preloadWords(0)     
-    },[])
-
     if (words.length !== 0) wordsForPlay = createCouples(words)
-    console.log('AAAAA', wordsForPlay)
 
   return (
     <div className={styles.background}>
@@ -51,17 +37,22 @@ export default () => {
         />
         {playMode && <div className={styles.pointsContainer}>{totalPoints}</div>}
         {playMode && <div className={styles.circlesContainer}>
-            <CheckedCircle />
-            <CheckedCircle />
-            <Circle />
+            {(checkedCircles % 4 === 1) || (checkedCircles % 4 === 2) || (checkedCircles % 4 === 3) ? <CheckedCircle /> : <Circle />}
+            {(checkedCircles % 4 === 2) || (checkedCircles % 4 === 3) ? <CheckedCircle /> : <Circle />}
+            {(checkedCircles % 4 === 3) ? <CheckedCircle /> : <Circle />}
         </div>}
         {playMode && 
         <Card 
         couple={wordsForPlay[wordsIndex]} 
+        wordsIndex={wordsIndex}
         setWordsIndex={() => setWordsIndex(wordsIndex + 1)}
         isActive={isActive}
         setTotalPoints={() => setTotalPoints(totalPoints + points)}
         setCorrectWords={() => setCorrectWords(correctWords + 1)}
+        points={points}
+        setPoints={(newPoints: number) => setPoints(newPoints)}
+        checkedCircles={checkedCircles}
+        setCheckedCircles={(circles: number) => setCheckedCircles(circles)}
         />}
     </div>
 

@@ -1,11 +1,9 @@
 function randomInteger(min = 1, max = 59) {
-    // случайное число от min до (max+1)
     let rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);
 }
 
 export default (words: any) => {
-    //Math.round(Math.random())
     let newWords: any = []
     let wordsForPlay: any = []
     console.log(randomInteger())
@@ -18,7 +16,5 @@ export default (words: any) => {
             wordsForPlay.push({yes: 0, word: newWords[i].newWord, translate: newWords[(i + randomInteger()) % 60].newTransl})
         }
     }
-    console.log(newWords)
-    console.log(wordsForPlay)
     return wordsForPlay
 }
