@@ -31,9 +31,9 @@ function LearnWords() {
   /* eslint-disable */
 
   useEffect(() => {
-    // preloadWords({
-    //   page: 4, group: 5, wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
-    // })
+    preloadWords({
+      page: 4, group: 5, wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
+    })
     createSettings({
       wordsPerDay: 10, optional: {
         cardsPerDay: 50,
@@ -129,30 +129,30 @@ function LearnWords() {
       switch (key) {
         case 'new':
           filter = JSON.stringify(
-            { 'userWord.optional.newWord': true });
+            { 'userWord.optional.newWord': true },
+          );
           break;
         case 'repeating':
           filter = JSON.stringify({
             $or: [{
               $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
-              { 'userWord.optional.newWord': false },
+                { 'userWord.optional.newWord': false },
               ],
             },
-            { 'userWord.optional.errorInGame': true }
-            ]
+            { 'userWord.optional.errorInGame': true },
+            ],
           });
           break;
         default:
           filter = JSON.stringify({
             $or: [{
               $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
-              { 'userWord.optional.newWord': false },
-              ]
+                { 'userWord.optional.newWord': false },
+              ],
             },
-            { 'userWord.optional.newWord': true }
-            ]
-          }
-          );
+            { 'userWord.optional.newWord': true },
+            ],
+          });
           break;
       }
       getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)

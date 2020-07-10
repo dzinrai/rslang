@@ -37,7 +37,6 @@ export function saveLastWord(word: any) {
 
 function viewCount(wordObject: any) {
   wordObject.userWord.optional.views += 1;
-  console.log('стало фолсе')
   wordObject.userWord.optional.newWord = false;
   wordObject.userWord.optional.lastView = moment().format('DD/MM/YY');
   saveLastWord(wordObject);
@@ -66,7 +65,6 @@ function Buttons({
         word.userWord.difficulty = 'hard';
         word.userWord.optional.interval = 1;
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
-        console.log(word.userWord.optional.nextView);
         break;
       case 'normal':
         word.userWord.difficulty = 'normal';
@@ -76,7 +74,6 @@ function Buttons({
       case 'easy':
         word.userWord.difficulty = 'easy';
         word.userWord.optional.interval = +word.userWord.optional.interval * 2;
-        console.log(word.userWord.optional.interval);
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
         break;
       default:

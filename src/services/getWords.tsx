@@ -14,7 +14,8 @@ export interface WordsFromBack {
   settings?: UserSettings;
 }
 
-export async function getWords({page,group,
+export async function getWords({
+  page, group,
   wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
   const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group} wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}&wordsPerPage=${wordsPerPage}`;
