@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Progress } from 'antd'
-import './timer.css'
+import styles from './timer.module.css'
 // import styles from './timer.module.css';
 
 interface TimerProps {
@@ -42,7 +42,7 @@ const Timer = ({ playMode, setPlayMode, isActive, setIsActive}: TimerProps) => {
     }, [isActive, seconds]);
   
     return (
-      <div className="app">
+      <div className={styles.timerContainer}>
         <Progress
         type="circle"
         strokeColor={{
