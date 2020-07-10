@@ -24,10 +24,10 @@ function LearnWords() {
   const [autoplay, setAutoplay] = useState(false);
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
-  const [maxCards, setMaxCards] = useState(0)
+  const [maxCards, setMaxCards] = useState(0);
 
   const [visible, setVisible] = useState(true);
-  const [visibleNotification, setVisibleNotification] = useState(false)
+  const [visibleNotification, setVisibleNotification] = useState(false);
   const [loading, setLoading] = useState(false);
 
   /* eslint-disable */
@@ -170,13 +170,15 @@ function LearnWords() {
       content: (
         <div className={styles.notifContainer}>
           <div className={styles.notifTitle}>You have learned all words for today!</div>
-          <div>If you want to learn more, you can change amount of words for today in settings.</div>
+          <div>
+            If you want to learn more, you can change amount of words for today in settings.
+          </div>
           <div>Keep up the good work!</div>
         </div>
       ),
-      onOk() {setVisibleNotification(false)},
+      onOk() { setVisibleNotification(false); },
     });
-}
+  }
 
   return (
     <div className={styles.background}>
@@ -249,13 +251,13 @@ function LearnWords() {
               transpAnswer={transpAnswer}
               setTranspAnswer={newTranspAnswer}
               visibleNot={visibleNotification}
-              setVisibleNot={(visible: boolean) => setVisibleNotification(visible)}
+              setVisibleNot={(visibleNot: boolean) => setVisibleNotification(visibleNot)}
               maxCards={maxCards}
               notification={Notification}
             />
           </div>
         ) : null}
-        
+
     </div>
   );
 }

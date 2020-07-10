@@ -11,7 +11,7 @@ interface CheckProps {
 
 function checkWord({
   word, correct, onCorrect, setUsersWord, usersWord, setIndexes,
-  setInProp, setTranspAnswer
+  setInProp, setTranspAnswer,
 }: CheckProps) {
   setInProp(true);
   setTranspAnswer(false);

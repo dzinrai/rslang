@@ -49,8 +49,8 @@ function viewCount(wordObject: any) {
 }
 
 function Buttons({
-  word, onCorrect, setUsersWord, usersWord, correct, setIndexes,index, setIndex,
-  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification
+  word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
+  setInProp, setTranspAnswer, setVisibleNot, maxCards, notification,
 }: ButtonsProps) {
   const checkProps = {
     word,
@@ -92,12 +92,12 @@ function Buttons({
       setIndex();
       onCorrect(false);
       setUsersWord('');
-      setTranspAnswer(false);  
+      setTranspAnswer(false);
     }
     if ((index === maxCards - 1) && correct) {
-      setVisibleNot(true)
+      setVisibleNot(true);
       // get stats from back
-      notification()
+      notification();
     }
   }
 
