@@ -11,7 +11,7 @@ const TotalStatisticChart = ({ testStats }: TotalStatisticChartProps) => {
   useEffect(() => {
     setData(testStats);
   }, []);
-  /*eslint-enable*/
+  /* eslint-enable */
   const config = {
     width: 339,
     height: 292,
