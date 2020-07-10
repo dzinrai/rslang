@@ -73,11 +73,11 @@ export default () => {
       }
     }
   };
-
+    /* eslint-disable */
   useEffect(() => {
     preloadWords();
   }, []);
-
+    /* eslint-enable */
   return (
     <>
       {isFalling ? (

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 
 interface propsType {
     setIsFalling: any,
@@ -9,22 +9,24 @@ interface propsType {
 }
 
 export default ({
-  preloadWords, setIsFalling, statistic, setStatistic, currentWord,
-} : propsType) => {
-  useEffect(() => {
-    const timeoutID = window.setTimeout(() => {
-      setIsFalling(false);
-      const array = statistic;
-      if (currentWord.info.word) {
-        array.push({ ...currentWord, guessed: false });
-      }
-      setStatistic(array);
-      preloadWords();
-    }, 4000);
+                    preloadWords, setIsFalling, statistic, setStatistic, currentWord,
+                }: propsType) => {
+    /* eslint-disable */
+    useEffect(() => {
+        const timeoutID = window.setTimeout(() => {
+            setIsFalling(false);
+            const array = statistic;
+            if (currentWord.info.word) {
+                array.push({...currentWord, guessed: false});
+            }
+            setStatistic(array);
+            preloadWords();
+        }, 4000);
 
-    return () => {
-      window.clearTimeout(timeoutID);
-    };
-  }, []);
-  return <></>;
+        return () => {
+            window.clearTimeout(timeoutID);
+        };
+    }, []);
+    /* eslint-enable */
+    return <></>;
 };
