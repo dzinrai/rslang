@@ -4,13 +4,19 @@ import styles from '../play.module.css';
 interface CardProps {
     couple: any,
     setWordsIndex: any,
-    isActive: boolean
+    isActive: boolean,
+    setTotalPoints: any,
+    setCorrectWords: any
 }
 
-export default ({ couple, setWordsIndex, isActive }: CardProps) => {
+export default ({ couple, setWordsIndex, isActive, setTotalPoints, setCorrectWords }: CardProps) => {
   const checkCouple = (res: number) => {
     if (isActive) {
-        if (res === couple.yes) setWordsIndex()
+        if (res === couple.yes) {
+            setWordsIndex()
+            setTotalPoints()
+            setCorrectWords()
+        }
     }
   }
   

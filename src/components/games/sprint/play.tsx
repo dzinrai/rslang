@@ -18,7 +18,10 @@ export default () => {
     const [pageLevel, setPageLevel] = useState<number>(1);
     const [playMode, setPlayMode] = useState(false);
     const [isActive, setIsActive] = useState(true);
-    const [wordsIndex, setWordsIndex] = useState(0)
+    const [wordsIndex, setWordsIndex] = useState(0);
+    const [totalPoints, setTotalPoints] = useState(0);
+    const [points, setPoints] = useState(10)
+    const [correctWords, setCorrectWords] = useState(0)
     let wordsForPlay: any = []
 
     // eslint-disable-next-line no-shadow
@@ -33,7 +36,6 @@ export default () => {
         preloadWords(0)     
     },[])
 
-    // const newIndex = () => setWordsIndex(wordsIndex + 1)
     if (words.length !== 0) wordsForPlay = createCouples(words)
     console.log('AAAAA', wordsForPlay)
 
@@ -47,6 +49,7 @@ export default () => {
             isActive={isActive} 
             setIsActive={(active: boolean) => setIsActive(active)} 
         />
+        {playMode && <div className={styles.pointsContainer}>{totalPoints}</div>}
         {playMode && <div className={styles.circlesContainer}>
             <CheckedCircle />
             <CheckedCircle />
@@ -57,12 +60,15 @@ export default () => {
         couple={wordsForPlay[wordsIndex]} 
         setWordsIndex={() => setWordsIndex(wordsIndex + 1)}
         isActive={isActive}
+        setTotalPoints={() => setTotalPoints(totalPoints + points)}
+        setCorrectWords={() => setCorrectWords(correctWords + 1)}
         />}
     </div>
 
     <div className={styles.correctWords}>
         {' '}
-        {7}
+        {correctWords}
+        {' '}
         <span>correct words</span>
     </div>
 

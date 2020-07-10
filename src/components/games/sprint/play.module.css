@@ -104,3 +104,11 @@
     background-color: #1a742d;
     cursor: pointer;
 }
+
+.pointsContainer {
+    font-weight: 600;
+    font-size: 42px;
+    font-family: Montserrat, sans-serif;
+    color: #1958DB;
+    margin: 7px 0;
+}
