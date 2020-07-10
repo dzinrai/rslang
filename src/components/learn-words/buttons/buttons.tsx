@@ -37,6 +37,7 @@ export function saveLastWord(word: any) {
 
 function viewCount(wordObject: any) {
   wordObject.userWord.optional.views += 1;
+  console.log('стало фолсе')
   wordObject.userWord.optional.newWord = false;
   wordObject.userWord.optional.lastView = moment().format('DD/MM/YY');
   saveLastWord(wordObject);

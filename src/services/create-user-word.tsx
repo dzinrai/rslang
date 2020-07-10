@@ -28,6 +28,7 @@ export interface UserWord {
     nextView:string;
     correct: number;
     interval:number;
+    errorInGame:boolean;
   }
 }
 
@@ -44,14 +45,16 @@ export async function createUserWord({ userId, wordId, word }: WordsSetter) {
     });
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();
+  console.log('после создания новых',  content)
   return content;
 }
 
-export async function preloadWords({
+export async function preloadWords({ page,group,
   wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
+  console.log('прилоуд')
   const wordsFromBackend = await getWords({
-    wordsPerExampleSentenceLTE, wordsPerPage,
+    wordsPerExampleSentenceLTE, wordsPerPage,page,group
   });
   wordsFromBackend.forEach((oneWord: any) => {
     createUserWord({
@@ -60,7 +63,7 @@ export async function preloadWords({
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, active: true, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
+          newWord: true, views: 0, errors: 0, repeat: false, active: true,errorInGame:false, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
         },
       },
     });
