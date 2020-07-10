@@ -18,6 +18,8 @@ export default () => {
     const [pageLevel, setPageLevel] = useState<number>(1);
     const [playMode, setPlayMode] = useState(false);
     const [isActive, setIsActive] = useState(true);
+    const [wordsIndex, setWordsIndex] = useState(0)
+    let wordsForPlay: any = []
 
     // eslint-disable-next-line no-shadow
     useEffect(() => {
@@ -30,8 +32,10 @@ export default () => {
         }; 
         preloadWords(0)     
     },[])
-    console.log(words)
-    if (words.length !== 0) createCouples(words)
+
+    // const newIndex = () => setWordsIndex(wordsIndex + 1)
+    if (words.length !== 0) wordsForPlay = createCouples(words)
+    console.log('AAAAA', wordsForPlay)
 
   return (
     <div className={styles.background}>
@@ -48,7 +52,12 @@ export default () => {
             <CheckedCircle />
             <Circle />
         </div>}
-        {playMode && <Card />}
+        {playMode && 
+        <Card 
+        couple={wordsForPlay[wordsIndex]} 
+        setWordsIndex={() => setWordsIndex(wordsIndex + 1)}
+        isActive={isActive}
+        />}
     </div>
 
     <div className={styles.correctWords}>
