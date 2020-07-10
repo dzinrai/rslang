@@ -33,9 +33,9 @@ function LearnWords() {
   /* eslint-disable */
 
   useEffect(() => {
-    preloadWords({
-      wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
-    })
+    // preloadWords({
+    //   wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
+    // })
     createSettings({
       wordsPerDay: 10, optional: {
         cardsPerDay: 10,
