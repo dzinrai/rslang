@@ -3,6 +3,9 @@ import styles from '../page-mini-games.module.css';
 import CommonStartGameBlock from '../common-start-game-block';
 import Lion from '../../../img/lion.svg';
 import Play from './play';
+import Koza from '../../../img/gamesImages/savannah_koza.svg';
+import Jiraffa from '../../../img/gamesImages/savannah_jiraffa.svg';
+import Zebra from '../../../img/gamesImages/savannah_zebra.svg';
 
 export default () => {
   const [isStart, setIsStart] = useState<boolean>(false);
@@ -17,6 +20,11 @@ export default () => {
           </div>
         )
         : <Play />}
+      <div className={styles.animalsContainer}>
+        <img className={styles.koza} src={Koza} alt="" />
+        <img className={styles.zebra} src={Zebra} alt="" />
+        <img className={styles.jiraffa} src={Jiraffa} alt="" />
+      </div>
     </>
   );
 };

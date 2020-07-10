@@ -15,15 +15,15 @@ export default ({
     const timeoutID = window.setTimeout(() => {
       setIsFalling(false);
       const array = statistic;
-      array.push({ ...currentWord, guessed: false });
+      if (currentWord.info.word) {
+        array.push({ ...currentWord, guessed: false });
+      }
       setStatistic(array);
-      console.log('start timeOut');
       preloadWords();
     }, 4000);
 
     return () => {
       window.clearTimeout(timeoutID);
-      console.log('clean timeOut');
     };
   }, []);
   return <></>;
