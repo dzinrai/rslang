@@ -24,16 +24,18 @@ function LearnWords() {
   const [autoplay, setAutoplay] = useState(false);
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
+  const [maxCards, setMaxCards] = useState(0)
 
   const [visible, setVisible] = useState(true);
+  const [visibleNotification, setVisibleNotification] = useState(false)
   const [loading, setLoading] = useState(false);
 
   /* eslint-disable */
 
   useEffect(() => {
-    preloadWords({
-      wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
-    })
+    // preloadWords({
+    //   wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
+    // })
     createSettings({
       wordsPerDay: 10, optional: {
         cardsPerDay: 10,
@@ -48,51 +50,66 @@ function LearnWords() {
      
       }
     });
-  createStatistic({
-    learnedWords: 0,
-    optional: {
-      common:{
-      wordsToday:0,
-      newWordsToday:0,
-      dayProgress:0,
-      lastWord:{},
-      weekDay:moment().format('dddd'),
-      },
-      games:{
-        speakIt:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
+    setMaxCards(10)
+    async function getSomeWords() {
+      const url = `https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/words`;
+      const rawResponse = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+          Accept: 'application/json',
         },
-        savannah:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        audioCall:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        sprint:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        puzzle:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        ownGame:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-      }
-    }        
+      });
+      if (rawResponse.status !== 200) return { error: 'Failed to get words' };
+      const content = await rawResponse.json();
+      return content;
+    }
+    console.log('SSSSSSS', getSomeWords())
+//   createStatistic({
+//     learnedWords: 0,
+//     optional: {
+//       common:{
+//       wordsToday:0,
+//       newWordsToday:0,
+//       dayProgress:0,
+//       lastWord:{},
+//       weekDay:moment().format('dddd'),
+//       },
+//       games:{
+//         speakIt:{
+//           lastPlay:'',
+//           words: 0,
+//           percentCorrect:0,
+//         },
+//         savannah:{
+//           lastPlay:'',
+//           words: 0,
+//           percentCorrect:0,
+//         },
+//         audioCall:{
+//           lastPlay:'',
+//           words: 0,
+//           percentCorrect:0,
+//         },
+//         sprint:{
+//           lastPlay:'',
+//           words: 0,
+//           percentCorrect:0,
+//         },
+//         puzzle:{
+//           lastPlay:'',
+//           words: 0,
+//           percentCorrect:0,
+//         },
+//         ownGame:{
+//           lastPlay:'',
+//           words: 0,
+//           percentCorrect:0,
+//         },
+//       }
+//     }        
     
-})
+// })
   }, []);
 
     /* eslint-enable */
@@ -112,7 +129,7 @@ function LearnWords() {
       setLoading(true);
       const settingsData = await getSettings();
       const settings: UserSettings = {
-        wordsPerDay: settingsData.wordsPerDa,
+        wordsPerDay: settingsData.wordsPerDay,
         optional: {
           cardsPerDay: settingsData.optional.cardsPerDay,
           wordTranscription: settingsData.optional.wordTranscription,
@@ -158,6 +175,22 @@ function LearnWords() {
         });
     };
   }
+
+  function Notification() {
+    Modal.info({
+      title: 'Congrats!',
+      visible: visibleNotification,
+      centered: true,
+      content: (
+        <div className={styles.notifContainer}>
+          <div className={styles.notifTitle}>You have learned all words for today!</div>
+          <div>If you want to learn more, you can change amount of words for today in settings.</div>
+          <div>Keep up the good work!</div>
+        </div>
+      ),
+      onOk() {setVisibleNotification(false)},
+    });
+}
 
   return (
     <div className={styles.background}>
@@ -220,6 +253,7 @@ function LearnWords() {
               usersWord={usersWord}
               correct={correct}
               setIndexes={setIndexes}
+              index={index}
               setIndex={newIndex}
               audioWord={audioWord}
               audioExample={audioExample}
@@ -228,9 +262,14 @@ function LearnWords() {
               setInProp={newInProp}
               transpAnswer={transpAnswer}
               setTranspAnswer={newTranspAnswer}
+              visibleNot={visibleNotification}
+              setVisibleNot={(visible: boolean) => setVisibleNotification(visible)}
+              maxCards={maxCards}
+              notification={Notification}
             />
           </div>
         ) : null}
+        
     </div>
   );
 }

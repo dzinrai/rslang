@@ -6,12 +6,12 @@ interface CheckProps {
   usersWord: string,
   setIndexes: any,
   setInProp: any,
-  setTranspAnswer: any
+  setTranspAnswer: any,
 }
 
 function checkWord({
   word, correct, onCorrect, setUsersWord, usersWord, setIndexes,
-  setInProp, setTranspAnswer,
+  setInProp, setTranspAnswer
 }: CheckProps) {
   setInProp(true);
   setTranspAnswer(false);
