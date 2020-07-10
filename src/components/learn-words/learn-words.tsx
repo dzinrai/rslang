@@ -33,9 +33,9 @@ function LearnWords() {
   /* eslint-disable */
 
   useEffect(() => {
-    // preloadWords({
-    //   wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
-    // })
+    preloadWords({
+      wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
+    })
     createSettings({
       wordsPerDay: 10, optional: {
         cardsPerDay: 10,
@@ -51,65 +51,51 @@ function LearnWords() {
       }
     });
     setMaxCards(10)
-    async function getSomeWords() {
-      const url = `https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/words`;
-      const rawResponse = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
-          Accept: 'application/json',
+  createStatistic({
+    learnedWords: 0,
+    optional: {
+      common:{
+      wordsToday:0,
+      newWordsToday:0,
+      dayProgress:0,
+      lastWord:{},
+      weekDay:moment().format('dddd'),
+      },
+      games:{
+        speakIt:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
         },
-      });
-      if (rawResponse.status !== 200) return { error: 'Failed to get words' };
-      const content = await rawResponse.json();
-      return content;
-    }
-    console.log('SSSSSSS', getSomeWords())
-//   createStatistic({
-//     learnedWords: 0,
-//     optional: {
-//       common:{
-//       wordsToday:0,
-//       newWordsToday:0,
-//       dayProgress:0,
-//       lastWord:{},
-//       weekDay:moment().format('dddd'),
-//       },
-//       games:{
-//         speakIt:{
-//           lastPlay:'',
-//           words: 0,
-//           percentCorrect:0,
-//         },
-//         savannah:{
-//           lastPlay:'',
-//           words: 0,
-//           percentCorrect:0,
-//         },
-//         audioCall:{
-//           lastPlay:'',
-//           words: 0,
-//           percentCorrect:0,
-//         },
-//         sprint:{
-//           lastPlay:'',
-//           words: 0,
-//           percentCorrect:0,
-//         },
-//         puzzle:{
-//           lastPlay:'',
-//           words: 0,
-//           percentCorrect:0,
-//         },
-//         ownGame:{
-//           lastPlay:'',
-//           words: 0,
-//           percentCorrect:0,
-//         },
-//       }
-//     }        
+        savannah:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        audioCall:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        sprint:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        puzzle:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        ownGame:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+      }
+    }        
     
-// })
+})
   }, []);
 
     /* eslint-enable */
