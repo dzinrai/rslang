@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './button-start.module.css';
 
 interface Props {
-  color: string;
-  text: string;
-  StartGameHandler: any;
+    color: string;
+    text: string;
+    StartGameHandler: any;
 }
 
 export default ({ color, text, StartGameHandler }: Props) => {
@@ -13,7 +13,7 @@ export default ({ color, text, StartGameHandler }: Props) => {
   };
 
   return (
-    <button type="button" style={style} className={styles.button} onClick={StartGameHandler}>
+    <button style={style} className={styles.button} onClick={StartGameHandler} type="button">
       {text}
     </button>
   );
