@@ -34,11 +34,11 @@ function LearnWords() {
 
   useEffect(() => {
     preloadWords({
-      wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
+      page: 4, group: 5, wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
     })
     createSettings({
       wordsPerDay: 10, optional: {
-        cardsPerDay: 10,
+        cardsPerDay: 50,
         wordTranscription: true,
         spellingOutSentence: false,
         picture: true,
@@ -47,10 +47,9 @@ function LearnWords() {
         showResultButton: true,
         moveToDifficult: true,
         difficultyButtons: true,
-     
+
       }
     });
-    setMaxCards(10)
   createStatistic({
     learnedWords: 0,
     optional: {
@@ -91,14 +90,54 @@ function LearnWords() {
           lastPlay:'',
           words: 0,
           percentCorrect:0,
+    createStatistic({
+      learnedWords: 0,
+      optional: {
+        common: {
+          wordsToday: 0,
+          newWordsToday: 0,
+          dayProgress: 0,
+          lastWord: {},
+          weekDay: moment().format('dddd'),
         },
+        games: {
+          speakIt: {
+            lastPlay: '',
+            words: 0,
+            percentCorrect: 0,
+          },
+          savannah: {
+            lastPlay: '',
+            words: 0,
+            percentCorrect: 0,
+          },
+          audioCall: {
+            lastPlay: '',
+            words: 0,
+            percentCorrect: 0,
+          },
+          sprint: {
+            lastPlay: '',
+            words: 0,
+            percentCorrect: 0,
+          },
+          puzzle: {
+            lastPlay: '',
+            words: 0,
+            percentCorrect: 0,
+          },
+          ownGame: {
+            lastPlay: '',
+            words: 0,
+            percentCorrect: 0,
+          },
+        }
       }
-    }        
-    
-})
+
+    })
   }, []);
 
-    /* eslint-enable */
+  /* eslint-enable */
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
   const newUsersWord = (word1: string) => setUsersWord(word1);
@@ -131,26 +170,34 @@ function LearnWords() {
       let filter = '';
       switch (key) {
         case 'new':
-          filter = JSON.stringify({
-            $or: [
-              { 'userWord.optional.newWord': true },
-
-            ],
-          });
+          filter = JSON.stringify(
+            { 'userWord.optional.newWord': true },
+          );
           break;
         case 'repeating':
-          filter = JSON.stringify(
-            {
+          filter = JSON.stringify({
+            $or: [{
               $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
                 { 'userWord.optional.newWord': false },
               ],
             },
-          );
+            { 'userWord.optional.errorInGame': true },
+            ],
+          });
           break;
         default:
-          // filter for all words
+          filter = JSON.stringify({
+            $or: [{
+              $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
+                { 'userWord.optional.newWord': false },
+              ],
+            },
+            { 'userWord.optional.newWord': true },
+            ],
+          });
           break;
       }
+    setMaxCards(settings.optional.cardsPerDay);
       getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)
         .then((data) => {
           setWords(data[0].paginatedResults);
