@@ -8,7 +8,7 @@ export default () => {
     history.push('/mini-games');
   };
   return (
-    <button type="button" className={styles.button} onClick={EndGameHandler}>
+    <button className={styles.button} onClick={EndGameHandler} type="button">
       Back to mini Games
     </button>
   );
