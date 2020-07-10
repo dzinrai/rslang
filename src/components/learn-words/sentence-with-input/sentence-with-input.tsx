@@ -16,16 +16,18 @@ interface Word {
   inProp: boolean,
   setInProp: any,
   transpAnswer: boolean,
+  wordObject:any,
   setTranspAnswer: any
 }
 
 function SentenceWithInput({
-  word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
+  wordObject, word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
   inProp, setInProp, transpAnswer, setTranspAnswer,
 }: Word) {
   const checkProps = {
     word,
     correct,
+    wordObject,
     onCorrect,
     setUsersWord,
     usersWord,
@@ -96,5 +98,4 @@ function SentenceWithInput({
     </>
   );
 }
-
 export default SentenceWithInput;

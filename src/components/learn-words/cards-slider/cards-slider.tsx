@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import Card from '../card/card';
 
@@ -31,6 +32,7 @@ function CardsSlider({
   inProp, setInProp, transpAnswer, setTranspAnswer,
 }: SliderProps) {
   const curword = words[index];
+  /* eslint-disable */
   useEffect(() => {
     setWord(curword);
     setAudioWord(word.audio);
@@ -38,6 +40,7 @@ function CardsSlider({
     setAudioMeaning(word.audioMeaning);
   }, [curword, word, setWord, setAudioWord, setAudioExample, setAudioMeaning]);
 
+ /* eslint-enable */
   return (
     <>
       <Card
