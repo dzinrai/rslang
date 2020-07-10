@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from 'react';
 
 const initialState = {
   words: ['word1'],
+  allWords: [],
   countOfDailyWords: 20,
   countOfDailyCards: 10,
 };
@@ -20,6 +21,11 @@ const WordsProvider = ({ children }: Props) => {
       case 'setWords':
         newState = {
           ...prevState, words: action.value,
+        };
+        return newState;
+      case 'setAllWords':
+        newState = {
+          ...prevState, allWords: action.value,
         };
         return newState;
       case 'setCountOfDailyWords':

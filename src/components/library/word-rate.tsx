@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './word-rate.module.css';
 
 interface WordRateProps {
-  rate: number;
+  rate: any;
   wordId: string;
 }
 

@@ -1,21 +1,17 @@
-import React, { useContext, useState } from 'react';
-import { storeWords } from '../../context/contextWords';
+import React, { useState } from 'react';
 import styles from './library-word.module.css';
 import WordRate from './word-rate';
 import { ReactComponent as Ear } from '../../img/ear.svg';
-import { ReactComponent as Trash } from '../../img/trash.svg';
 import { ReactComponent as Arrow } from '../../img/arrowDown.svg';
 import WordMoreInfo from './word-more-info';
+import DeleteRestoreBtn from './library-delete-restore-button';
 
 interface LibraryWordProps {
-  index: number;
-  deleted: boolean;
+  word: any;
+  isDeletedPage: boolean;
 }
 
-function LibraryWord({ index, deleted }: LibraryWordProps) {
-  const wordsState = useContext(storeWords);
-  const stateWords = wordsState.state;
-  const word = stateWords.words ? stateWords.words[index] : null;
+function LibraryWord({ word, isDeletedPage }: LibraryWordProps) {
   const [isFullInfo, setIsFullInfo] = useState(false);
 
   if (!word || !word.word) return null;
@@ -35,7 +31,7 @@ function LibraryWord({ index, deleted }: LibraryWordProps) {
             <Ear />
             {word.transcription}
           </span>
-          <WordRate rate={word.group + 1} wordId={word.id} />
+          <WordRate rate={word.userWord.optional.wordIndicator} wordId={word._id} />
         </div>
       </div>
       <img className={styles.wordImage} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} alt={word.word} />
@@ -43,27 +39,22 @@ function LibraryWord({ index, deleted }: LibraryWordProps) {
         <button className={styles.systemInfoBtn} type="button">Interval system Info</button>
         <div className={styles.repeatDate}>
           <span>Last time repeat:</span>
-          <b className={styles.date}>25/08/20</b>
+          <b className={styles.date}>{word.userWord.optional.lastView}</b>
         </div>
         <div className={styles.nextDate}>
           <span>Next time:</span>
-          <b className={styles.date}>in 10 minutes</b>
+          <b className={styles.date}>{word.userWord.optional.nextView}</b>
         </div>
         <div className={styles.repeatCount}>
           <span>
             Repeated&nbsp;
-            <b className={styles.count}>6</b>
+            <b className={styles.count}>{word.userWord.optional.interval}</b>
             &nbsp;
             times
           </span>
         </div>
       </div>
-      <button
-        className={!deleted ? styles.trashBtn : styles.restoreBtn}
-        type="button"
-      >
-        {!deleted ? <Trash /> : '+'}
-      </button>
+      <DeleteRestoreBtn word={word} isDeletedPage={isDeletedPage} />
 
       <button
         className={`${styles.arrowBtn} ${isFullInfo ? styles.close : ''}`}
@@ -77,10 +68,12 @@ function LibraryWord({ index, deleted }: LibraryWordProps) {
         && (
           <div className={`${styles.moreInfo} ${isFullInfo ? styles.opened : ''}`}>
             <WordMoreInfo
+              wordId={word._id}
               textExample={word.textExample}
               textExampleTranslate={word.textExampleTranslate}
               textMeaning={word.textMeaning}
               textMeaningTranslate={word.textMeaningTranslate}
+              difficulty={word.userWord.difficulty}
             />
           </div>
         )}
