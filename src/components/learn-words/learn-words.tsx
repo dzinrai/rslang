@@ -34,11 +34,11 @@ function LearnWords() {
 
   useEffect(() => {
     preloadWords({
-      wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
+      page: 4, group: 5, wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
     })
     createSettings({
       wordsPerDay: 10, optional: {
-        cardsPerDay: 10,
+        cardsPerDay: 50,
         wordTranscription: true,
         spellingOutSentence: false,
         picture: true,
@@ -47,23 +47,9 @@ function LearnWords() {
         showResultButton: true,
         moveToDifficult: true,
         difficultyButtons: true,
-     
+
       }
     });
-    setMaxCards(10)
-    async function getSomeWords() {
-      const url = `https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/words`;
-      const rawResponse = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('userToken')}`,
-          Accept: 'application/json',
-        },
-      });
-      if (rawResponse.status !== 200) return { error: 'Failed to get words' };
-      const content = await rawResponse.json();
-      return content;
-    }
   createStatistic({
     learnedWords: 0,
     optional: {
@@ -144,26 +130,34 @@ function LearnWords() {
       let filter = '';
       switch (key) {
         case 'new':
-          filter = JSON.stringify({
-            $or: [
-              { 'userWord.optional.newWord': true },
-
-            ],
-          });
+          filter = JSON.stringify(
+            { 'userWord.optional.newWord': true },
+          );
           break;
         case 'repeating':
-          filter = JSON.stringify(
-            {
+          filter = JSON.stringify({
+            $or: [{
               $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
                 { 'userWord.optional.newWord': false },
               ],
             },
-          );
+            { 'userWord.optional.errorInGame': true },
+            ],
+          });
           break;
         default:
-          // filter for all words
+          filter = JSON.stringify({
+            $or: [{
+              $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
+                { 'userWord.optional.newWord': false },
+              ],
+            },
+            { 'userWord.optional.newWord': true },
+            ],
+          });
           break;
       }
+    setMaxCards(settings.optional.cardsPerDay);
       getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)
         .then((data) => {
           setWords(data[0].paginatedResults);
@@ -264,7 +258,7 @@ function LearnWords() {
               transpAnswer={transpAnswer}
               setTranspAnswer={newTranspAnswer}
               visibleNot={visibleNotification}
-              setVisibleNot={(visible: boolean) => setVisibleNotification(visible)}
+              setVisibleNot={(visibleNot: boolean) => setVisibleNotification(visibleNot)}
               maxCards={maxCards}
               notification={Notification}
             />

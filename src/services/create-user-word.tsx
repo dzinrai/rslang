@@ -28,6 +28,8 @@ export interface UserWord {
     nextView:string;
     correct: number;
     interval:number;
+    errorInGame:boolean;
+    wordIndicator:number;
   }
 }
 
@@ -48,10 +50,11 @@ export async function createUserWord({ userId, wordId, word }: WordsSetter) {
 }
 
 export async function preloadWords({
+  page, group,
   wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
   const wordsFromBackend = await getWords({
-    wordsPerExampleSentenceLTE, wordsPerPage,
+    wordsPerExampleSentenceLTE, wordsPerPage, page, group,
   });
   wordsFromBackend.forEach((oneWord: any) => {
     createUserWord({
@@ -60,7 +63,7 @@ export async function preloadWords({
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, active: true, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
+          newWord: true, views: 0, errors: 0, repeat: false, active: true, errorInGame: false, wordIndicator: 1, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
         },
       },
     });
