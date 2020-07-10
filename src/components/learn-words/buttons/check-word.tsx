@@ -13,6 +13,7 @@ interface CheckProps {
   setIndexes: any,
   setInProp: any,
   setTranspAnswer: any,
+
 }
 function errorsCount(wordObject:any) {
   wordObject.userWord.optional.errors += 1;

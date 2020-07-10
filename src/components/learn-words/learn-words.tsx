@@ -24,8 +24,10 @@ function LearnWords() {
   const [autoplay, setAutoplay] = useState(false);
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
+  const [maxCards, setMaxCards] = useState(0);
 
   const [visible, setVisible] = useState(true);
+  const [visibleNotification, setVisibleNotification] = useState(false);
   const [loading, setLoading] = useState(false);
 
   /* eslint-disable */
@@ -48,54 +50,54 @@ function LearnWords() {
 
       }
     });
-    createStatistic({
-      learnedWords: 0,
-      optional: {
-        common: {
-          wordsToday: 0,
-          newWordsToday: 0,
-          dayProgress: 0,
-          lastWord: {},
-          weekDay: moment().format('dddd'),
+  createStatistic({
+    learnedWords: 0,
+    optional: {
+      common:{
+      wordsToday:0,
+      newWordsToday:0,
+      dayProgress:0,
+      lastWord:{},
+      weekDay:moment().format('dddd'),
+      },
+      games:{
+        speakIt:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
         },
-        games: {
-          speakIt: {
-            lastPlay: '',
-            words: 0,
-            percentCorrect: 0,
-          },
-          savannah: {
-            lastPlay: '',
-            words: 0,
-            percentCorrect: 0,
-          },
-          audioCall: {
-            lastPlay: '',
-            words: 0,
-            percentCorrect: 0,
-          },
-          sprint: {
-            lastPlay: '',
-            words: 0,
-            percentCorrect: 0,
-          },
-          puzzle: {
-            lastPlay: '',
-            words: 0,
-            percentCorrect: 0,
-          },
-          ownGame: {
-            lastPlay: '',
-            words: 0,
-            percentCorrect: 0,
-          },
-        }
+        savannah:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        audioCall:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        sprint:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        puzzle:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
+        ownGame:{
+          lastPlay:'',
+          words: 0,
+          percentCorrect:0,
+        },
       }
-
-    })
+    }        
+    
+})
   }, []);
 
-  /* eslint-enable */
+
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
   const newUsersWord = (word1: string) => setUsersWord(word1);
@@ -112,7 +114,7 @@ function LearnWords() {
       setLoading(true);
       const settingsData = await getSettings();
       const settings: UserSettings = {
-        wordsPerDay: settingsData.wordsPerDa,
+        wordsPerDay: settingsData.wordsPerDay,
         optional: {
           cardsPerDay: settingsData.optional.cardsPerDay,
           wordTranscription: settingsData.optional.wordTranscription,
@@ -155,6 +157,7 @@ function LearnWords() {
           });
           break;
       }
+    setMaxCards(settings.optional.cardsPerDay);
       getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)
         .then((data) => {
           setWords(data[0].paginatedResults);
@@ -164,6 +167,24 @@ function LearnWords() {
           setVisible(false);
         });
     };
+  }
+
+  function Notification() {
+    Modal.info({
+      title: 'Congrats!',
+      visible: visibleNotification,
+      centered: true,
+      content: (
+        <div className={styles.notifContainer}>
+          <div className={styles.notifTitle}>You have learned all words for today!</div>
+          <div>
+            If you want to learn more, you can change amount of words for today in settings.
+          </div>
+          <div>Keep up the good work!</div>
+        </div>
+      ),
+      onOk() { setVisibleNotification(false); },
+    });
   }
 
   return (
@@ -227,6 +248,7 @@ function LearnWords() {
               usersWord={usersWord}
               correct={correct}
               setIndexes={setIndexes}
+              index={index}
               setIndex={newIndex}
               audioWord={audioWord}
               audioExample={audioExample}
@@ -235,11 +257,16 @@ function LearnWords() {
               setInProp={newInProp}
               transpAnswer={transpAnswer}
               setTranspAnswer={newTranspAnswer}
+              visibleNot={visibleNotification}
+              setVisibleNot={(visibleNot: boolean) => setVisibleNotification(visibleNot)}
+              maxCards={maxCards}
+              notification={Notification}
             />
           </div>
         ) : null}
+
     </div>
   );
 }
-
+    /* eslint-enable */
 export default LearnWords;

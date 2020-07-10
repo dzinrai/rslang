@@ -16,6 +16,7 @@ interface ButtonsProps {
   usersWord: string,
   correct: boolean,
   setIndexes: any,
+  index: number,
   setIndex: any,
   audioWord: any,
   audioExample: any,
@@ -23,7 +24,11 @@ interface ButtonsProps {
   inProp: boolean,
   setInProp: any,
   transpAnswer: boolean,
-  setTranspAnswer: any
+  setTranspAnswer: any,
+  visibleNot: boolean,
+  setVisibleNot: any,
+  maxCards: number,
+  notification: any
 }
 
 export function saveLastWord(word: any) {
@@ -44,9 +49,10 @@ function viewCount(wordObject: any) {
 }
 
 function Buttons({
-  word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex,
-  setInProp, setTranspAnswer,
+  word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
+  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification,
 }: ButtonsProps) {
+  console.log(visibleNot);
   const checkProps = {
     word,
     onCorrect,
@@ -81,10 +87,17 @@ function Buttons({
         break;
     }
     updateWordById(word._id, word.userWord);
-    setIndex();
-    onCorrect(false);
-    setUsersWord('');
-    setTranspAnswer(false);
+    if (index < maxCards - 1) {
+      setIndex();
+      onCorrect(false);
+      setUsersWord('');
+      setTranspAnswer(false);
+    }
+    if ((index === maxCards - 1) && correct) {
+      setVisibleNot(true);
+      // get stats from back
+      notification();
+    }
   }
 
   function showResultsClick() {

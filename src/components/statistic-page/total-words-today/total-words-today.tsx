@@ -13,6 +13,7 @@ function TotalWordsToday() {
       </div>
       <div className={styles.textContainer}>
         Only
+        {' '}
         <b>{leftWords}</b>
         {' '}
         words left to repeat
