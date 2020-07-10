@@ -15,9 +15,6 @@ function TodayProgress() {
           .
         </p>
       </span>
-      <span className={styles.level}>
-        Level 9
-      </span>
       <TodayProgressImage className={styles.lamp_img} />
     </div>
   );

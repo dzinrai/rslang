@@ -14,6 +14,7 @@ import Library from '../components/library/library';
 import GamesPage from '../components/games/page-mini-games';
 import SpeakIt from '../components/games/speak-it/start-page';
 import EnglishPuzzle from '../components/english-puzzle/english-puzzle';
+import StatisticPage from '../components/statistic-page/statistic-page';
 
 function AppRouter() {
   return (
@@ -41,6 +42,9 @@ function AppRouter() {
           </Route>
           <Route path="/library">
             <Library />
+          </Route>
+          <Route path="/statistic">
+            <StatisticPage />
           </Route>
           <Route path="/mini-games" exact>
             <GamesPage />
