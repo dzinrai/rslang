@@ -11,7 +11,7 @@ import settingsStored from '../../localStorage/settings';
 import styles from './game-main.module.css';
 import Puzzle from '../../../../img/puzzle.svg';
 import PuzzleStatistic from './statistics/puzzle-statistic';
-import { getStatistic, createStatistic } from '../../../../services/statistic';
+import { getStatistic } from '../../../../services/statistic';
 
 function Game() {
   const gameState = useContext(storeGame);
@@ -30,10 +30,6 @@ function Game() {
     async function preloadStat() {
       const currStat = await getStatistic();
       console.log(currStat);
-      if (currStat.status === 404) {
-        createStatistic();
-        return;
-      }
       if (!currStat || currStat.error) return;
       else if (currStat.optional && currStat.optional.games && currStat.optional.games.puzzle) {
         const stat = currStat.optional.games.puzzle.statistics;

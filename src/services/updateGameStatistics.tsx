@@ -1,4 +1,4 @@
-import { getStatistic, createStatistic, initialStatistic } from "./statistic";
+import { getStatistic, createStatistic } from "./statistic";
 
 
 interface updateGameStatistics {
@@ -9,10 +9,7 @@ interface updateGameStatistics {
 async function updateGameStatistics(update :updateGameStatistics) {
   // get statistic from back, update it, then send back
   const currStat = await getStatistic();
-  if (currStat.status === 404) {
-    createStatistic(initialStatistic);
-    return;
-  } else if (!currStat || currStat.error) return;
+  if (!currStat || currStat.error) return;
   else {
     const newStat = {
       ...currStat,
