@@ -104,6 +104,8 @@ body {
 
 .libraryButton:hover {
     transform: scale(.95);
+    background-color: #2B79E6;
+    color: #FAFAFA;
 }
 
 .libraryButton:active {

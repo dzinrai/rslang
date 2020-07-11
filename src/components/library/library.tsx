@@ -2,11 +2,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './library.module.css';
 import { storeWords } from '../../context/contextWords';
-import getWordsForLibrary from '../../services/getWordsForLibrary';
-import LibraryWord from './library-word';
 import WordRate from './word-rate';
-import LibraryHardWords from './library-hard-words';
-import LibraryDeletedWords from './library-deleted-words';
+import LibraryAllWords from './library-all-words';
+import preloadWords from '../../services/preloadWords';
 
 interface LibraryShow {
   all: boolean;
@@ -18,7 +16,6 @@ function Library() {
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
 
-  const [words, setWords] = useState([]);
   const [libraryShow, setLibraryShow] = useState<LibraryShow>({
     all: true,
     hard: false,
@@ -26,15 +23,7 @@ function Library() {
   });
 
   useEffect(() => {
-    const preloadWords = async () => {
-      const wordsFromBackend = await getWordsForLibrary();
-      if (!wordsFromBackend
-        || !wordsFromBackend[0].paginatedResults
-        || wordsFromBackend.error) return;
-      setWords(wordsFromBackend[0].paginatedResults);
-      dispatchWords({ type: 'setWords', value: wordsFromBackend[0].paginatedResults });
-    };
-    preloadWords();
+    preloadWords(dispatchWords);
     // eslint-disable-next-line
   }, []);
 
@@ -90,15 +79,9 @@ function Library() {
             Deleted
           </button>
         </div>
-        {libraryShow.all && words.length > 0 && words.map((word: any, i: number) => (
-          <LibraryWord
-            key={`${word._id}_libraryWord`}
-            index={i}
-            deleted={false}
-          />
-        ))}
-        {libraryShow.hard && <LibraryHardWords />}
-        {libraryShow.deleted && <LibraryDeletedWords />}
+        {libraryShow.all && <LibraryAllWords active={true} />}
+        {libraryShow.hard && <LibraryAllWords active={true} hard={true} />}
+        {libraryShow.deleted && <LibraryAllWords nonActive={true}  />}
       </div>
     </div>
   );
