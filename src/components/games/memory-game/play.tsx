@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import Timer from '../sprint/timer/timer'
+import ModalWindow from '../sprint/modal-window'
 // import cardImages from "../../cards";
 import Card from "./card/card";
 // import deepcopy from "deepcopy";
@@ -42,8 +44,15 @@ export default ({ words }: PlayProps) => {
 
 	const [cards, setCards] = useState(generateCards(words));
 	const [canFlip, setCanFlip] = useState(false);
-	const [firstCard, setFirstCard] = useState(cards[0]);
-	const [secondCard, setSecondCard] = useState(cards[0]);
+	const [firstCard, setFirstCard] = useState();
+	const [secondCard, setSecondCard] = useState();
+    const [amountCorrect, setAmountCorrect] = useState(0)
+    const [playMode, setPlayMode] = useState(false);
+    const [isActive, setIsActive] = useState(true);
+    const [isResultsOpen, setIsResultsOpen] = useState(false);
+    const correctWords: any = useRef([])
+    const openedResults: any = useRef(false);
+    const fullCorrectWordsList: any = useRef([])
 
 	function setCardIsFlipped(cardID: string, isFlipped: boolean) {
 		setCards((prev: any) => prev.map((c: any) => {
@@ -65,11 +74,22 @@ export default ({ words }: PlayProps) => {
 		setTimeout(() => {
 			let index = 0;
 			for (const card of cards) {
-				setTimeout(() => setCardIsFlipped(card.id, true), index++ * 100);
+				setTimeout(() => setCardIsFlipped(card.id, true), index++ * 50);
 			}
 			setTimeout(() => setCanFlip(true), cards.length * 100);
 		}, 3000);
 	}, []);
+    /*eslint-disable*/
+    useEffect(() => {
+        if (!isActive && playMode && !openedResults.current) {
+        fullCorrectWordsList.current = words.filter((word: any) => correctWords.current.includes(word.id))
+        setIsResultsOpen(true);
+        openedResults.current = true;
+        cards.map((card: any) => {setCanFlip(false); setCardIsFlipped(card.id, false)})
+        }
+    });
+    /* eslint-enable */
+
 
 
 	function resetFirstAndSecondCards() {
@@ -83,6 +103,8 @@ export default ({ words }: PlayProps) => {
 		setCardIsFlipped(firstCard.id, false);
 		setCardIsFlipped(secondCard.id, false);
 		resetFirstAndSecondCards();
+        setAmountCorrect(amountCorrect + 1)
+        correctWords.current.push(firstCard.wordId)
 	}
 	function onFailureGuess() {
 		const firstCardID = firstCard.id;
@@ -120,7 +142,25 @@ export default ({ words }: PlayProps) => {
 	}
   return (
     <>
+        {isResultsOpen
+        && (
+        <ModalWindow
+        isResultsOpen={isResultsOpen}
+        toggleModal={() => setIsResultsOpen(false)}
+        correctWords={fullCorrectWordsList.current}
+        words={words}
+        URL_CONTENT={URL_CONTENT}
+        />
+        )}
         <ButtonBack />
+        <div className='timer-container'>
+          <Timer 
+          playMode={playMode}
+          setPlayMode={(mode: boolean) => setPlayMode(mode)}
+          isActive={isActive}
+          setIsActive={(active: boolean) => setIsActive(active)}
+        />
+        </div>
         <div className="game container-md">
 		<div className="cards-container">
 			{cards.map((card: any) => <Card onClick={() => onCardClick(card)} key={card.id} {...card}/>)}
@@ -129,7 +169,7 @@ export default ({ words }: PlayProps) => {
 
         <div className='correctWords'>
         {' '}
-        {7}
+        {amountCorrect}
         {' '}
         <span>correct words</span>
         </div>

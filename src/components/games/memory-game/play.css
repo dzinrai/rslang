@@ -104,7 +104,7 @@
 .game .cards-container {
 	/* width: 100vw;
 	height: 100vh; */
-	margin: 96px;
+	margin: 2px;
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(4, 1fr);
@@ -125,6 +125,13 @@
 	}
 }
 
+@media screen and (max-width: 755px) and (max-height: 800px) {
+	.game .cards-container {
+		grid-template-columns: repeat(2, auto);
+		grid-template-rows: repeat(8, 1fr);
+	}
+}
+
 @media screen and (min-width: 600px) and (max-height: 500px) {
 	.game .cards-container {
 		grid-template-columns: repeat(8, 1fr);
@@ -134,8 +141,8 @@
 
 @media (max-width: 991.98px) {
 	.game .cards-container {
-		width: calc(100vw - (16px * 2));
-		height: calc(100vh - (16px * 2));
+		/* width: calc(100vw - (16px * 2));
+		height: calc(100vh - (16px * 2)); */
 		margin: 16px;
 		grid-gap: 8px;
 	}
