@@ -1,22 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from './word-more-info.module.css';
 import { ReactComponent as Trans } from '../../img/btnTranslate.svg';
 import normalizeString from '../../assets/normalizeString';
+import { storeWords } from '../../context/contextWords';
+import makeWordDifficultyTo from '../../services/makeWordDifficult';
 
 interface WordMoreInfoProps {
+  wordId: string;
   textExample: string;
   textExampleTranslate: string;
   textMeaning: string;
   textMeaningTranslate: string;
+  difficulty: string;
 }
 
 function WordMoreInfo(props: WordMoreInfoProps) {
   const {
-    textExample, textExampleTranslate, textMeaning, textMeaningTranslate,
+    wordId, textExample, textExampleTranslate, textMeaning, textMeaningTranslate, difficulty,
   } = props;
+  const wordsState = useContext(storeWords);
+  const words = wordsState.state.allWords;
+  const dispatchWords = wordsState.dispatch;
   const [isTranslation, setIsTranslation] = useState(false);
   function showTranslation() {
     setIsTranslation(!isTranslation);
+  }
+  function toDifficulty(newDifficulty: string) {
+    makeWordDifficultyTo(wordId, newDifficulty);
+    words.forEach((wordsInContext: any, i: number) => {
+      if (wordsInContext._id === wordId) {
+        const newWords = [...words];
+        newWords[i].userWord.difficulty = newDifficulty;
+        dispatchWords({type: 'setAllWords', value: newWords});
+      }
+    });
   }
 
   return (
@@ -39,8 +56,9 @@ function WordMoreInfo(props: WordMoreInfoProps) {
       <button
         className={styles.moveToBtn}
         type="button"
+        onClick={difficulty !== 'hard' ? () => toDifficulty('hard') : () => toDifficulty('normal')}
       >
-        Move to difficult
+        Move to {difficulty !== 'hard' ? 'hard' : 'normal'}
       </button>
     </div>
   );

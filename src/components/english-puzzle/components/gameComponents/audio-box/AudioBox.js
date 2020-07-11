@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState, useContext } from 'react';
+// eslint-disable-next-line
 import { useAudioPlayer } from 'react-use-audio-player';
 import Button from '../../Button';
 import { storeGame } from '../../storeGame';

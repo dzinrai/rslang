@@ -37,6 +37,7 @@ function Card({
             <WordProgressIndicator />
             <SentenceWithInput
               word={word.word}
+              wordObject={word}
               correct={correct}
               onCorrect={onCorrect}
               setUsersWord={setUsersWord}
@@ -62,7 +63,7 @@ function Card({
         </div>
         <div className={styles.imageMoveDelete}>
           <img style={{ borderRadius: '5px' }} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} width="195" height="150" alt="" />
-          <MoveDeleteWord />
+          <MoveDeleteWord wordObject={word} />
         </div>
       </div>
       <WordInfo

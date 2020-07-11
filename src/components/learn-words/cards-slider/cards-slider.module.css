@@ -1,0 +1,19 @@
+.sliderContainer {
+    display: inline-flex;
+    max-width: 1400px;
+}
+
+.arrow {
+    font-size: 60px;
+    color:  rgba(43, 121, 230, 0.2);
+    padding-top: 20%
+}
+.arrow:last-child{
+    padding-left: 20px;
+}
+.arrow:first-child{
+    padding-right: 20px;
+}
+.arrow:hover{
+    color: #2B79E6;
+}

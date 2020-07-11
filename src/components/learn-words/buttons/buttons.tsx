@@ -1,30 +1,58 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint no-param-reassign: "error" */
 import React from 'react';
-import { Button, Switch } from 'antd';
+import { Button } from 'antd';
 import { CheckOutlined, HistoryOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import checkWord from './check-word';
 import styles from './buttons.module.css';
+import { updateWordById } from '../../../services/getWords';
+import { getStatistic, createStatistic } from '../../../services/statistic';
 
 interface ButtonsProps {
-    word: any,
-    onCorrect: any,
-    setUsersWord: any,
-    usersWord: string,
-    correct: boolean,
-    setIndexes: any,
-    setIndex: any,
-    audioWord: any,
-    audioExample: any,
-    audioMeaning: any,
-    inProp: boolean,
-    setInProp: any,
-    transpAnswer: boolean,
-    setTranspAnswer: any
+  word: any,
+  onCorrect: any,
+  setUsersWord: any,
+  usersWord: string,
+  correct: boolean,
+  setIndexes: any,
+  index: number,
+  setIndex: any,
+  audioWord: any,
+  audioExample: any,
+  audioMeaning: any,
+  inProp: boolean,
+  setInProp: any,
+  transpAnswer: boolean,
+  setTranspAnswer: any,
+  visibleNot: boolean,
+  setVisibleNot: any,
+  maxCards: number,
+  notification: any
+}
+
+export function saveLastWord(word: any) {
+  getStatistic()
+    .then((statistic: any) => {
+      statistic.learnedWords += 1;
+      statistic.optional.common.lastWord = word._id;
+      createStatistic(statistic);
+    });
+}
+
+function viewCount(wordObject: any) {
+  wordObject.userWord.optional.views += 1;
+  wordObject.userWord.optional.newWord = false;
+  wordObject.userWord.optional.lastView = moment().format('DD/MM/YY');
+  saveLastWord(wordObject);
+  updateWordById(wordObject._id, wordObject.userWord);
 }
 
 function Buttons({
-  word, onCorrect, setUsersWord, usersWord, correct, setIndexes, setIndex,
-  setInProp, setTranspAnswer,
+  word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
+  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification,
 }: ButtonsProps) {
+  console.log(visibleNot);
   const checkProps = {
     word,
     onCorrect,
@@ -36,12 +64,40 @@ function Buttons({
     setInProp,
     setTranspAnswer,
   };
-
-  function difficultyButtonClick() {
-    setIndex();
-    onCorrect(false);
-    setUsersWord('');
-    setTranspAnswer(false);
+  function difficultyButtonClick(difficulty: string) {
+    viewCount(word);
+    switch (difficulty) {
+      case 'hard':
+        word.userWord.difficulty = 'hard';
+        word.userWord.optional.interval = 1;
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
+        break;
+      case 'normal':
+        word.userWord.difficulty = 'normal';
+        word.userWord.optional.interval = 2;
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
+        break;
+      case 'easy':
+        word.userWord.difficulty = 'easy';
+        word.userWord.optional.interval = +word.userWord.optional.interval * 2;
+        word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
+        break;
+      default:
+        word.userWord.optional.repeat = true;
+        break;
+    }
+    updateWordById(word._id, word.userWord);
+    if (index < maxCards - 1) {
+      setIndex();
+      onCorrect(false);
+      setUsersWord('');
+      setTranspAnswer(false);
+    }
+    if ((index === maxCards - 1) && correct) {
+      setVisibleNot(true);
+      // get stats from back
+      notification();
+    }
   }
 
   function showResultsClick() {
@@ -58,25 +114,25 @@ function Buttons({
               <div className={styles.buttonsInfo}>Indicate difficulty level</div>
               <div className={styles.levelButtons}>
                 <Button
-                  onClick={() => difficultyButtonClick()}
+                  onClick={() => difficultyButtonClick('hard')}
                   className={styles.buttonHard}
                 >
                   Hard
                 </Button>
                 <Button
-                  onClick={() => difficultyButtonClick()}
+                  onClick={() => difficultyButtonClick('normal')}
                   className={styles.buttonNormal}
                 >
                   Normal
                 </Button>
                 <Button
-                  onClick={() => difficultyButtonClick()}
+                  onClick={() => difficultyButtonClick('easy')}
                   className={styles.buttonEasy}
                 >
                   Easy
                 </Button>
               </div>
-              <Button type="primary" icon={<HistoryOutlined />} size="large" shape="circle" />
+              <Button type="primary" icon={<HistoryOutlined />} size="large" shape="circle" onClick={() => difficultyButtonClick('repeat')} />
             </>
           )
           : (
@@ -100,20 +156,6 @@ function Buttons({
               </div>
             </>
           )}
-      </div>
-      <div className={styles.switchContainer}>
-        <div>
-          <Switch />
-          <span>Only new words</span>
-        </div>
-        <div>
-          <Switch defaultChecked />
-          <span>All words</span>
-        </div>
-        <div>
-          <Switch />
-          <span>Difficult words</span>
-        </div>
       </div>
     </>
   );

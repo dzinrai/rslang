@@ -1,10 +1,12 @@
+import moment from 'moment';
+// eslint-disable-next-line
 import { getWords } from './getWords';
 
 interface WordsGetter {
-    page: number;
-    group: number;
-    wordsPerExampleSentenceLTE: number,
-    wordsPerPage: number
+  page?: number;
+  group?: number;
+  wordsPerExampleSentenceLTE: number,
+  wordsPerPage: number
 }
 
 interface WordsSetter {
@@ -13,14 +15,21 @@ interface WordsSetter {
   word: UserWord;
 }
 
-interface UserWord {
+export interface UserWord {
   difficulty: 'easy' | 'normal' | 'hard';
   optional: {
     newWord: boolean;
+    active: boolean;
     views: number;
     errors: number;
     repeat: boolean;
     wordId: string;
+    lastView: string;
+    nextView:string;
+    correct: number;
+    interval:number;
+    errorInGame:boolean;
+    wordIndicator:number;
   }
 }
 
@@ -41,10 +50,11 @@ export async function createUserWord({ userId, wordId, word }: WordsSetter) {
 }
 
 export async function preloadWords({
-  page, group, wordsPerExampleSentenceLTE, wordsPerPage,
+  page, group,
+  wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
   const wordsFromBackend = await getWords({
-    page, group, wordsPerExampleSentenceLTE, wordsPerPage,
+    wordsPerExampleSentenceLTE, wordsPerPage, page, group,
   });
   wordsFromBackend.forEach((oneWord: any) => {
     createUserWord({
@@ -53,7 +63,7 @@ export async function preloadWords({
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, wordId: oneWord.id,
+          newWord: true, views: 0, errors: 0, repeat: false, active: true, errorInGame: false, wordIndicator: 1, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
         },
       },
     });

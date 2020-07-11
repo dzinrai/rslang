@@ -8,7 +8,7 @@ function Board() {
   const gameState = useContext(storeGame);
   const stateGame = gameState.state;
   const [bg, setBg] = useState(false);
-
+  /* eslint-disable */
   useEffect(() => {
     setBg(stateGame.roundImage);
   }, [stateGame.roundImage]);

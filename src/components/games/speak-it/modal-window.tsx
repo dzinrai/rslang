@@ -1,39 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
+import styles from './play.module.css';
 
 interface Props {
-  isResultsOpen: boolean,
-  newGame: any,
-  toggleModal: any,
-  correctWords: string[],
-  words: any
+    isResultsOpen: boolean,
+    newGame: any,
+    toggleModal: any,
+    correctWords: string[],
+    words: any,
+    URL_CONTENT: string
 }
 
 export default ({
-  isResultsOpen, newGame, toggleModal, correctWords, words,
-}: Props) => (
-  <Modal
-    title="Results"
-    visible={isResultsOpen}
-    onOk={newGame}
-    onCancel={toggleModal}
-    okText="New game"
-    okButtonProps={{ style: { borderRadius: '30px', backgroundColor: '#1194C8', border: 'none' } }}
-    cancelButtonProps={{ style: { borderRadius: '30px' } }}
-  >
-    <b>Correct words:</b>
-    <br />
-    {correctWords.map((word) => (
-      <div key={`speak-it-${word}`}>
-        {word}
+  isResultsOpen, newGame, toggleModal, correctWords, words, URL_CONTENT,
+}: Props) => {
+  const [unspokenWordsList, setUnspokenWordsList] = useState();
+  const [correctWordsList, setCorrectWordsList] = useState();
+  const sayWord = (audio: any) => {
+    const newSound = new Audio(URL_CONTENT + audio);
+    newSound.play();
+  };
+  /* eslint-disable */
+  useEffect(() => {
+    setCorrectWordsList(correctWords.map((indexWord) => (
+      <div
+        key={`id__${indexWord}`}
+        onClick={() => sayWord(words[indexWord].audio)}
+        role="presentation"
+      >
+        <span>
+          {words[indexWord].word}
+          <em>{words[indexWord].transcription}</em>
+        </span>
+        <span>{words[indexWord].wordTranslate}</span>
       </div>
-    ))}
-    <b>Unspoken:</b>
-    <br />
-    {words.filter((word: any) => !correctWords.includes(word.word)).map((word: any) => (
-      <div key={`speak-it-${word.word}`}>
-        {word.word}
+    )));
+    setUnspokenWordsList(words.filter((word: any, index: any) => !correctWords.includes(index))
+      .map((word: any) => (
+        <div
+          key={`id__${word}`}
+          onClick={() => sayWord(word.audio)}
+          role="presentation"
+        >
+          <span>
+            {word.word}
+            {' '}
+            <em>{word.transcription}</em>
+          </span>
+          <span>{word.wordTranslate}</span>
+        </div>
+      )));
+  }, [isResultsOpen]);
+  /* eslint-enable */
+  return (
+    <Modal
+      title="Results"
+      visible={isResultsOpen}
+      onOk={newGame}
+      onCancel={toggleModal}
+      okText="New game"
+      okButtonProps={{ style: { borderRadius: '30px', backgroundColor: '#1194C8', border: 'none' } }}
+      cancelButtonProps={{ style: { borderRadius: '30px' } }}
+    >
+      <div className={styles.resultsBlock}>
+        <b>Correct words:</b>
+        <br />
+        {correctWordsList}
+        <b>Unspoken:</b>
+        <br />
+        {unspokenWordsList}
       </div>
-    ))}
-  </Modal>
-);
+
+    </Modal>
+  );
+};

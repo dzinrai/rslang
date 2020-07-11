@@ -11,7 +11,7 @@ interface InfoSentences {
   audio: string,
   audioExample: string,
   audioMeaning: string,
-  correct: boolean
+  correct: boolean,
 }
 
 function WordInfo(props: InfoSentences) {

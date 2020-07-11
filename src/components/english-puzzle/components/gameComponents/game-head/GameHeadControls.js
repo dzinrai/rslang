@@ -20,6 +20,7 @@ function GameHeadControls() {
     }
     settingsStored.save(`puzzle-${types.type}`, types.value);
   }
+  /* eslint-disable */
   useEffect(() => {
     if (pages.length !== stateGame.pages) {
       setPages(Array(stateGame.pages).fill().map((_, i) => i + 1));

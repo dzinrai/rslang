@@ -16,16 +16,18 @@ interface Word {
   inProp: boolean,
   setInProp: any,
   transpAnswer: boolean,
+  wordObject:any,
   setTranspAnswer: any
 }
 
 function SentenceWithInput({
-  word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
+  wordObject, word, correct, onCorrect, setUsersWord, usersWord, indexes, setIndexes,
   inProp, setInProp, transpAnswer, setTranspAnswer,
 }: Word) {
   const checkProps = {
     word,
     correct,
+    wordObject,
     onCorrect,
     setUsersWord,
     usersWord,
@@ -42,32 +44,42 @@ function SentenceWithInput({
       <div className={styles.sentenceContainer}>
         <span className={styles.inputContainer}>
           <span className={styles.background}>
-            {word.split('').map((el, i) => <span key={i} className={styles.hidden}>{el}</span>)}
+            {/*eslint-disable*/
+              word.split('').map((el, i) => <span key={i} className={styles.hidden}>{el}</span>)
+            /* eslint-enable */}
           </span>
 
           <span className={styles.wordContainer}>
             {word.split('').map((el, i) => (indexes.includes(i)
               ? (
+                /*eslint-disable*/
                 <CSSTransition in={inProp} key={i} timeout={1500} classNames="my-node">
                   <span className={styles.mistake}>{el}</span>
                 </CSSTransition>
+                /* eslint-enable */
               )
               : (
+                /*eslint-disable*/
                 <CSSTransition in={inProp} key={i} timeout={1500} classNames="my-node">
                   <span className={styles.correct}>{el}</span>
                 </CSSTransition>
+                /* eslint-enable */
               )))}
           </span>
           {transpAnswer && (
             <span className={styles.transparentWordContainer}>
-              {word.split('').map((el, i) => (indexes.includes(i)
+              {/*eslint-disable*/
+                word.split('').map((el, i) => (indexes.includes(i)
                 ? <span key={i} className={styles.transparentMistake}>{el}</span>
-                : <span key={i} className={styles.transparentCorrect}>{el}</span>))}
+                : <span key={i} className={styles.transparentCorrect}>{el}</span>))
+                /* eslint-enable */}
             </span>
           )}
           {correct && (
             <span className={styles.answerContainer}>
-              {word.split('').map((el, i) => <span key={i} className={styles.transparentCorrect}>{el}</span>)}
+              {/*eslint-disable*/
+              word.split('').map((el, i) => <span key={i} className={styles.transparentCorrect}>{el}</span>)
+              /* eslint-enable */}
             </span>
           )}
           <input
@@ -86,5 +98,4 @@ function SentenceWithInput({
     </>
   );
 }
-
 export default SentenceWithInput;
