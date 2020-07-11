@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default ({
-  isResultsOpen,toggleModal, correctWords, words, URL_CONTENT,
+  isResultsOpen, toggleModal, correctWords, words, URL_CONTENT,
 }: Props) => {
   const [unspokenWordsList, setUnspokenWordsList] = useState();
   const [correctWordsList, setCorrectWordsList] = useState();
@@ -21,10 +21,7 @@ export default ({
   };
   /* eslint-disable */
   useEffect(() => {
-    console.log('in modal correct', correctWords)
-    console.log('in modal all', words)
     const mistakes = words.filter((word: any) => !correctWords.includes(word))
-    console.log('mistakes', mistakes)
     setCorrectWordsList(correctWords.map((word: any, indexWord: number) => (
       <div
         key={`id__${word.id}`}
@@ -38,7 +35,6 @@ export default ({
         <span>{word.wordTranslate}</span>
       </div>
     )));
-    console.log()
     setUnspokenWordsList(words.filter((word: any) => !correctWords.includes(word))
       .map((word: any, index: number) => (
         <div
@@ -60,7 +56,7 @@ export default ({
     <Modal
       title="Results"
       visible={isResultsOpen}
-      footer={[<button key="ok" onClick={toggleModal} type='button' className={styles.okButton}>OK</button>]}
+      footer={[<button key="ok" onClick={toggleModal} type="button" className={styles.okButton}>OK</button>]}
     >
       <div className={styles.resultsBlock}>
         <b>Correct words:</b>
