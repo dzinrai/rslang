@@ -8,7 +8,7 @@ import { storeWords } from '../../context/contextWords';
 
 function LibraryAllWords({ active, nonActive, hard } : any) {
   const wordsState = useContext(storeWords);
-  const words = wordsState.state.allWords;
+  const words = wordsState.state.words;
   if (!words) return null;
   function checks (word: any) {
     if (active && hard) return word.userWord.optional.active && word.userWord.difficulty === 'hard';

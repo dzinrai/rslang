@@ -2,9 +2,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styles from './library.module.css';
 import { storeWords } from '../../context/contextWords';
-import getWordsForLibrary from '../../services/getWordsForLibrary';
 import WordRate from './word-rate';
 import LibraryAllWords from './library-all-words';
+import preloadWords from '../../services/preloadWords';
 
 interface LibraryShow {
   all: boolean;
@@ -23,18 +23,7 @@ function Library() {
   });
 
   useEffect(() => {
-    function check(wordsFromBackend: any) {
-      if (!wordsFromBackend || !wordsFromBackend[0]
-        || !wordsFromBackend[0].paginatedResults
-        || wordsFromBackend.error) return;
-      else return true;
-    }
-    const preloadWords = async () => {
-      const wordsFromBackend = await getWordsForLibrary();
-      if (!check(wordsFromBackend)) return;
-      dispatchWords({ type: 'setAllWords', value: wordsFromBackend[0].paginatedResults });
-    };
-    preloadWords();
+    preloadWords(dispatchWords);
     // eslint-disable-next-line
   }, []);
 
