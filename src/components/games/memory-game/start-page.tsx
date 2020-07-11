@@ -11,7 +11,6 @@ export default () => {
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
   const [words, setWords] = useState<any>([]);
-  let wordsForPlay: any = [];
   /*eslint-disable*/
   useEffect(() => {
     const preloadWords = async () => {

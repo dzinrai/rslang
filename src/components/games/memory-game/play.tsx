@@ -1,36 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import Timer from '../sprint/timer/timer'
-import ModalWindow from '../sprint/modal-window'
-import Card from "./card/card";
+import Timer from '../sprint/timer/timer';
+import ModalWindow from '../sprint/modal-window';
+import Card from './card/card';
 import ButtonBack from '../controls/button-back/button-back';
-import './play.css'
+import './play.css';
+
 const URL_CONTENT = 'https://raw.githubusercontent.com/dzinrai/rslang-data/master/';
 
 function shuffleArray(array: any) {
-	return array.sort(() => .5 - Math.random());
+  return array.sort(() => 0.5 - Math.random());
 }
 
 function generateCards(words: any) {
-	const wordsCards = shuffleArray(words)
-		.map((word: any) => ({
-            id: uuidv4(),
-			wordId: word.id,
-			imageURL: URL_CONTENT + word.image,
-			isFlipped: false,
-			canFlip: true
-		}))
-    
-    const imagesCards = shuffleArray(words)
-		.map((word: any) => ({
-            id: uuidv4(),
-			wordId: word.id,
-			word: word.word,
-			isFlipped: false,
-			canFlip: true
-		}))
+  const wordsCards = shuffleArray(words)
+    .map((word: any) => ({
+      id: uuidv4(),
+      wordId: word.id,
+      imageURL: URL_CONTENT + word.image,
+      isFlipped: false,
+      canFlip: true,
+    }));
 
-	return shuffleArray(wordsCards.concat(imagesCards));
+  const imagesCards = shuffleArray(words)
+    .map((word: any) => ({
+      id: uuidv4(),
+      wordId: word.id,
+      word: word.word,
+      isFlipped: false,
+      canFlip: true,
+    }));
+
+  return shuffleArray(wordsCards.concat(imagesCards));
 }
 
 interface PlayProps {
@@ -38,35 +39,32 @@ interface PlayProps {
 }
 
 export default ({ words }: PlayProps) => {
+  const [cards, setCards] = useState(generateCards(words));
+  const [canFlip, setCanFlip] = useState(false);
+  const [firstCard, setFirstCard] = useState();
+  const [secondCard, setSecondCard] = useState();
+  const [amountCorrect, setAmountCorrect] = useState(0);
+  const [playMode, setPlayMode] = useState(false);
+  const [isActive, setIsActive] = useState(true);
+  const [isResultsOpen, setIsResultsOpen] = useState(false);
+  const correctWords: any = useRef([]);
+  const openedResults: any = useRef(false);
+  const fullCorrectWordsList: any = useRef([]);
 
-	const [cards, setCards] = useState(generateCards(words));
-	const [canFlip, setCanFlip] = useState(false);
-	const [firstCard, setFirstCard] = useState();
-	const [secondCard, setSecondCard] = useState();
-    const [amountCorrect, setAmountCorrect] = useState(0)
-    const [playMode, setPlayMode] = useState(false);
-    const [isActive, setIsActive] = useState(true);
-    const [isResultsOpen, setIsResultsOpen] = useState(false);
-    const correctWords: any = useRef([])
-    const openedResults: any = useRef(false);
-    const fullCorrectWordsList: any = useRef([])
+  function setCardIsFlipped(cardID: string, isFlipped: boolean) {
+    setCards((prev: any) => prev.map((c: any) => {
+      if (c.id !== cardID) return c;
+      return { ...c, isFlipped };
+    }));
+  }
+  function setCardCanFlip(cardID: string, isCanFlip: boolean) {
+    setCards((prev: any) => prev.map((c: any) => {
+      if (c.id !== cardID) return c;
+      return { ...c, isCanFlip };
+    }));
+  }
 
-	function setCardIsFlipped(cardID: string, isFlipped: boolean) {
-		setCards((prev: any) => prev.map((c: any) => {
-			if (c.id !== cardID)
-				return c;
-			return {...c, isFlipped};
-		}));
-	}
-	function setCardCanFlip(cardID: string, canFlip: boolean) {
-		setCards((prev: any) => prev.map((c: any) => {
-			if (c.id !== cardID)
-				return c;
-			return {...c, canFlip};
-		}));
-	}
-    
-    /*eslint-disable*/
+  /*eslint-disable*/
 	useEffect(() => {
 		setTimeout(() => {
 			let index = 0;
@@ -86,89 +84,92 @@ export default ({ words }: PlayProps) => {
     });
     /* eslint-enable */
 
+  function resetFirstAndSecondCards() {
+    setFirstCard(null);
+    setSecondCard(null);
+  }
 
+  function onSuccessGuess() {
+    setCardCanFlip(firstCard.id, false);
+    setCardCanFlip(secondCard.id, false);
+    setCardIsFlipped(firstCard.id, false);
+    setCardIsFlipped(secondCard.id, false);
+    resetFirstAndSecondCards();
+    setAmountCorrect(amountCorrect + 1);
+    correctWords.current.push(firstCard.wordId);
+  }
+  function onFailureGuess() {
+    const firstCardID = firstCard.id;
+    const secondCardID = secondCard.id;
 
-	function resetFirstAndSecondCards() {
-		setFirstCard(null);
-		setSecondCard(null);
-	}
+    setTimeout(() => {
+      setCardIsFlipped(firstCardID, true);
+    }, 1000);
+    setTimeout(() => {
+      setCardIsFlipped(secondCardID, true);
+    }, 1200);
 
-	function onSuccessGuess() {
-		setCardCanFlip(firstCard.id, false);
-		setCardCanFlip(secondCard.id, false);
-		setCardIsFlipped(firstCard.id, false);
-		setCardIsFlipped(secondCard.id, false);
-		resetFirstAndSecondCards();
-        setAmountCorrect(amountCorrect + 1)
-        correctWords.current.push(firstCard.wordId)
-	}
-	function onFailureGuess() {
-		const firstCardID = firstCard.id;
-		const secondCardID = secondCard.id;
+    resetFirstAndSecondCards();
+  }
+  /*eslint-disable*/
 
-		setTimeout(() => {
-			setCardIsFlipped(firstCardID, true);
-		}, 1000);
-		setTimeout(() => {
-			setCardIsFlipped(secondCardID, true);
-		}, 1200);
+  useEffect(() => {
+    if (!firstCard || !secondCard) return;
+    firstCard.wordId === secondCard.wordId ? onSuccessGuess() : onFailureGuess();
+  }, [firstCard, secondCard]);
+  /*eslint-enable*/
 
-		resetFirstAndSecondCards();
-	}
+  function onCardClick(card: any) {
+    if (!canFlip) return;
+    if (!card.canFlip) return;
 
-	useEffect(() => {
-		if (!firstCard || !secondCard)
-			return;
-		(firstCard.wordId === secondCard.wordId) ? onSuccessGuess() : onFailureGuess();
-	}, [firstCard, secondCard]);
+    if (((firstCard && (card.id === firstCard.id)) || ((secondCard && (card.id === secondCard.id))))) return;
 
+    setCardIsFlipped(card.id, false);
 
-	function onCardClick(card: any) {
-		if (!canFlip)
-			return;
-		if (!card.canFlip)
-			return;
-
-		if ((firstCard && (card.id === firstCard.id) || (secondCard && (card.id === secondCard.id))))
-			return;
-
-		setCardIsFlipped(card.id, false);
-
-		(firstCard) ? setSecondCard(card) : setFirstCard(card);
-	}
+    firstCard ? setSecondCard(card) : setFirstCard(card);
+  }
   return (
     <>
-        {isResultsOpen
+      {isResultsOpen
         && (
         <ModalWindow
-        isResultsOpen={isResultsOpen}
-        toggleModal={() => setIsResultsOpen(false)}
-        correctWords={fullCorrectWordsList.current}
-        words={words}
-        URL_CONTENT={URL_CONTENT}
+          isResultsOpen={isResultsOpen}
+          toggleModal={() => setIsResultsOpen(false)}
+          correctWords={fullCorrectWordsList.current}
+          words={words}
+          URL_CONTENT={URL_CONTENT}
         />
         )}
-        <ButtonBack />
-        <div className='timer-container'>
-          <Timer 
+      <ButtonBack />
+      <div className="timer-container">
+        <Timer
           playMode={playMode}
           setPlayMode={(mode: boolean) => setPlayMode(mode)}
           isActive={isActive}
           setIsActive={(active: boolean) => setIsActive(active)}
         />
+      </div>
+        {/*eslint-disable*/}
+      <div className="game container-md">
+        <div className="cards-container">
+          {cards.map((card: any) => (
+            <Card
+              onClick={() => onCardClick(card)}
+              key={card.id}
+              {...card}
+            />
+          ))}
         </div>
-        <div className="game container-md">
-		<div className="cards-container">
-			{cards.map((card: any) => <Card onClick={() => onCardClick(card)} key={card.id} {...card}/>)}
-		</div>
-	    </div>;
+      </div>
+    {/*eslint-enable*/}
 
-        <div className='correctWords'>
+      <div className="correctWords">
         {' '}
         {amountCorrect}
         {' '}
         <span>correct words</span>
-        </div>
+      </div>
     </>
   );
 };

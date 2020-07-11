@@ -1,5 +1,5 @@
-import React from "react";
-import './card.css'
+import React from 'react';
+import './card.css';
 
 interface CardProps {
     imageURL?: string,
@@ -8,12 +8,15 @@ interface CardProps {
     onClick: any
 }
 
-export default function Card(props: CardProps) {
-
-	return <div className="card-container" onClick={props.onClick}>
-		<div className={"card" + (props.isFlipped ? " flipped" : "")}>
-			{props.imageURL ? <img className="side front" src={props.imageURL} alt=''/> : <div className='word'>{props.word}</div>}
-			<div className="side back"/>
-		</div>
-	</div>;
+export default function Card({
+  imageURL, word, isFlipped, onClick,
+}: CardProps) {
+  return (
+    <button className="card-container" onClick={onClick} type="button">
+      <div className={`card${isFlipped ? ' flipped' : ''}`}>
+        {imageURL ? <img className="side front" src={imageURL} alt="" /> : <div className="word">{word}</div>}
+        <div className="side back" />
+      </div>
+    </button>
+  );
 }
