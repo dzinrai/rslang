@@ -36,7 +36,7 @@ export async function createSettings(settings:UserSettings) {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(settings),
+      body: JSON.stringify({  wordsPerDay: settings. wordsPerDay, optional: settings.optional }),
     });
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();

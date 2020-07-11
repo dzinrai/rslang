@@ -3,6 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable */
 import { updateWordById } from '../../../services/getWords';
+import { getStatistic, createStatistic } from '../../../services/statistic';
 
 interface CheckProps {
   word: any,
@@ -16,6 +17,11 @@ interface CheckProps {
 
 }
 function errorsCount(wordObject: any,isTrain?:boolean) {
+  getStatistic()
+  .then((statistic: any) => {
+      statistic.optional.common.errors+=1;
+      createStatistic(statistic);
+    })
   wordObject.userWord.optional.errorInGame = isTrain ? false : true;
   wordObject.userWord.optional.errors += 1;
 
@@ -28,6 +34,11 @@ function errorsCount(wordObject: any,isTrain?:boolean) {
 }
 
 function correctCount(wordObject: any) {
+  getStatistic()
+  .then((statistic: any) => {
+      statistic.optional.common.correct+=1;
+      createStatistic(statistic);
+    })
   wordObject.userWord.optional.correct += 1;
   wordObject.userWord.optional.errorInGame=false;
   wordObject.userWord.optional.wordIndicator < 5 ?

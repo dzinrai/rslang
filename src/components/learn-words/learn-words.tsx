@@ -33,66 +33,7 @@ function LearnWords() {
   /* eslint-disable */
 
   useEffect(() => {
-    // createSettings({
-    //   wordsPerDay: 10, optional: {
-    //     lastVisit:moment().format('DD/MM/YY'),
-    //     cardsPerDay: 50,
-    //     wordTranscription: true,
-    //     spellingOutSentence: false,
-    //     picture: true,
-    //     sentenceExample: true,
-    //     translateDescription: true,
-    //     showResultButton: true,
-    //     moveToDifficult: true,
-    //     difficultyButtons: true,
-
-    //   }
-    // });
-  // createStatistic({
-  //   learnedWords: 0,
-  //   optional: {
-  //     common:{
-  //     wordsToday:0,
-  //     newWordsToday:0,
-  //     dayProgress:0,
-  //     lastWord:{},
-  //     weekDay:moment().format('dddd'),
-  //     },
-  //     games:{
-  //       speakIt:{
-  //         lastPlay:'',
-  //         words: 0,
-  //         percentCorrect:0,
-  //       },
-  //       savannah:{
-  //         lastPlay:'',
-  //         words: 0,
-  //         percentCorrect:0,
-  //       },
-  //       audioCall:{
-  //         lastPlay:'',
-  //         words: 0,
-  //         percentCorrect:0,
-  //       },
-  //       sprint:{
-  //         lastPlay:'',
-  //         words: 0,
-  //         percentCorrect:0,
-  //       },
-  //       puzzle:{
-  //         lastPlay:'',
-  //         words: 0,
-  //         percentCorrect:0,
-  //       },
-  //       ownGame:{
-  //         lastPlay:'',
-  //         words: 0,
-  //         percentCorrect:0,
-  //       },
-  //     }
-  //   }        
     
-//})
   }, []);
 
 

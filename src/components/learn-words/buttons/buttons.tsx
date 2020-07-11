@@ -32,17 +32,18 @@ interface ButtonsProps {
 }
 
 export function saveLastWord(word: any,isTrain?: boolean) {
-  console.log('word before ',word)
   getStatistic()
     .then((statistic: any) => {
       if(isTrain){
         statistic.optional.common.wordsToday+=1;
-        if(!word.userWord.optional.newWord===false){statistic.optional.common.newWordsToday++}
+        if(!word.userWord.optional.newWord===false){statistic.optional.common.newWordsToday+=1}
       }
       statistic.learnedWords++;
-      statistic.optional.common.lastWord = word._id;
-      statistic.optional.common.words = word._id;
+      statistic.optional.common.lastWord = word._id;  
       createStatistic(statistic);
+    })
+    .then(()=>{
+      
     }).catch(() => {
       console.log("Can't update statistic");
     })

@@ -2,9 +2,11 @@ import React, { useRef, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
+import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import styles from './signup-page.module.css';
-
+import { createSettings } from '../../services/settings';
+import { createStatistic } from '../../services/statistic';
 import createUser from '../../services/create-user';
 import loginUser from '../../services/login-user';
 import Context from '../../context/contextUser';
@@ -32,6 +34,72 @@ const SignUpPage: React.FC = () => {
       .then(() => {
         history.push('/');
         authorize();
+      })
+      .then(() => {
+        createSettings(
+          {
+            wordsPerDay: 20,
+            optional: {
+              lastVisit: moment().format('DD/MM/YY'),
+              cardsPerDay: 10,
+              wordTranscription: true,
+              spellingOutSentence: false,
+              picture: true,
+              sentenceExample: true,
+              translateDescription: true,
+              showResultButton: true,
+              moveToDifficult: true,
+              difficultyButtons: true,
+            }
+          }
+        );
+        createStatistic({
+          learnedWords: 0,
+          optional: {
+            common: {
+              wordsToday: 0,
+              newWordsToday: 0,
+              dayProgress: 0,
+              lastWord: {},
+              weekDay: moment().format('dddd'),
+              errors:0,
+              correct:0
+            },
+            games: {
+              speakIt: {
+                lastPlay: '',
+                words: 0,
+                percentCorrect: 0,
+              },
+              savannah: {
+                lastPlay: '',
+                words: 0,
+                percentCorrect: 0,
+              },
+              audioCall: {
+                lastPlay: '',
+                words: 0,
+                percentCorrect: 0,
+              },
+              sprint: {
+                lastPlay: '',
+                words: 0,
+                percentCorrect: 0,
+              },
+              puzzle: {
+                lastPlay: '',
+                words: 0,
+                percentCorrect: 0,
+              },
+              ownGame: {
+                lastPlay: '',
+                words: 0,
+                percentCorrect: 0,
+              },
+            }
+          }
+
+        })
       })
       .catch((err) => {
         setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);

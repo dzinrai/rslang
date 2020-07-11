@@ -2,10 +2,13 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
+import moment from 'moment';
 import 'antd/dist/antd.css';
 import loginUser from '../../services/login-user';
 import Context from '../../context/contextUser';
 import styles from './login-page.module.css';
+import { getStatistic, createStatistic} from '../../services/statistic';
+import { getSettings, createSettings} from '../../services/settings';
 
 interface LoginUser {
   email: string;
@@ -22,7 +25,21 @@ const LoginPage: React.FC = () => {
       .then(() => {
         history.push('/main-page');
         authorize();
-      }).catch((err) => {
+      })
+      .then(()=>{
+        getStatistic().then((statistic: any)=>{
+          statistic.optional.common.weekDay=moment().format('dddd');
+          createStatistic(statistic)
+        })
+      })
+      .then(()=>{
+        getSettings()
+        .then((settings:any)=>{
+          settings.optional.lastVisit=moment().format('DD/MM/YY');
+          createSettings(settings)
+        })
+      })
+      .catch((err) => {
         setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);
       });
   };
