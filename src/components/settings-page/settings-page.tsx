@@ -1,45 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DailyWords from './daily-words';
 import WordInfoSetting from './word-info-setting';
 import OtherSetting from './other-setting';
 import TodayProgress from '../today-progress';
 import WordCardExample from './word-card-example';
+import { getSettings, createSettings } from '../../services/settings';
 import styles from './settings-page.module.css';
 
-const SettingsPage: React.FC = () => {
-  const wordInfoSettingsObj = {
-    wordTranscription: true,
-    spellingOutSentence: true,
-    picture: true,
-    sentenceExample: true,
-  };
-  const otherSettingsObj = {
-    translateDescription: true,
-    showResultButton: true,
-    moveToDifficult: true,
-    deleteWord: true,
-    difficultyButtons: true,
-  };
-  const defaultSettings = {
-    wordsPerDay: 10,
-    optional: {
-      cardsPerDay: 10,
-      wordTranscription: true,
-      spellingOutSentence: true,
-      picture: true,
-      sentenceExample: true,
-      translateDescription: true,
-      showResultButton: true,
-      moveToDifficult: true,
-      deleteWord: true,
-      difficultyButtons: true,
-    },
-  };
-  const [userSettings, setUserSettings] = useState(defaultSettings);
-  const [dailyWords, setDailyWords] = useState(12);
-  const [dailyCards, setDailyCards] = useState(10);
-  const [wordInfoSettings, setWordInfoSettings] = useState(wordInfoSettingsObj);
-  const [otherSettings, setOtherSettings] = useState(otherSettingsObj);
+const SettingsPage: React.FC<any> = () => {
+  const [dailyWords, setDailyWords] = useState<any>(null);
+  const [dailyCards, setDailyCards] = useState<any>(null);
+  const [wordInfoSettings, setWordInfoSettings] = useState<any>(null);
+  const [otherSettings, setOtherSettings] = useState<any>(null);
+
+  let settings = null;
+
+  useEffect(() => {
+    getSettings().then((data) => {
+      setDailyWords(data.wordsPerDay);
+      setDailyCards(data.optional.cardsPerDay);
+      setWordInfoSettings({
+        wordTranscription: data.optional.wordTranscription,
+        spellingOutSentence: data.optional.spellingOutSentence,
+        picture: data.optional.picture,
+        sentenceExample: data.optional.sentenceExample,
+      });
+      setOtherSettings({
+        translateDescription: data.optional.translateDescription,
+        showResultButton: data.optional.showResultButton,
+        moveToDifficult: data.optional.moveToDifficult,
+        deleteWord: data.optional.deleteWord,
+        difficultyButtons: data.optional.difficultyButtons,
+      });
+    });
+    // eslint-disable-next-line
+  }, []);
 
   function saveSettings(): void {
     const newUserSetting = {
@@ -51,10 +46,7 @@ const SettingsPage: React.FC = () => {
       },
     };
 
-    console.log(userSettings);
-    console.log(newUserSetting);
-
-    setUserSettings(newUserSetting);
+    createSettings(newUserSetting);
   }
 
   function getDailyValues(dailyObj: any) {
@@ -72,8 +64,6 @@ const SettingsPage: React.FC = () => {
     newOtherSettings.difficultyButtons = false;
 
     otherObj.forEach((el: string) => {
-      console.log('el:', el);
-
       switch (el) {
         case 'translateDescription':
           newOtherSettings.translateDescription = true;
@@ -101,25 +91,22 @@ const SettingsPage: React.FC = () => {
 
   function getWordInfoSettings(id: string): void {
     const newWordInfoSettings = { ...wordInfoSettings };
-    const {
-      wordTranscription, spellingOutSentence, picture, sentenceExample,
-    } = newWordInfoSettings;
 
     switch (id) {
       case 'wordTranscription':
-        newWordInfoSettings.wordTranscription = !wordTranscription;
+        newWordInfoSettings.wordTranscription = !newWordInfoSettings.wordTranscription;
         break;
 
       case 'spellingOutSentence':
-        newWordInfoSettings.spellingOutSentence = !spellingOutSentence;
+        newWordInfoSettings.spellingOutSentence = !newWordInfoSettings.spellingOutSentence;
         break;
 
       case 'picture':
-        newWordInfoSettings.picture = !picture;
+        newWordInfoSettings.picture = !newWordInfoSettings.picture;
         break;
 
       case 'sentenceExample':
-        newWordInfoSettings.sentenceExample = !sentenceExample;
+        newWordInfoSettings.sentenceExample = !newWordInfoSettings.sentenceExample;
         break;
 
       default:
@@ -129,34 +116,42 @@ const SettingsPage: React.FC = () => {
     setWordInfoSettings(newWordInfoSettings);
   }
 
+  if (dailyWords && wordInfoSettings && wordInfoSettings && otherSettings) {
+    settings = (
+      <>
+        <div className={styles.item1}>
+          <DailyWords
+            dailyWords={dailyWords}
+            dailyCards={dailyCards}
+            changedDailyWords={getDailyValues}
+          />
+        </div>
+        <div className={styles.item2}>
+          <TodayProgress />
+        </div>
+        <div className={styles.item3}>
+          <OtherSetting
+            otherSettings={otherSettings}
+            changed={getOtherSettings}
+          />
+        </div>
+        <div className={styles.item4}>
+          <WordInfoSetting
+            wordInfoSettings={wordInfoSettings}
+            clicked={saveSettings}
+            changed={getWordInfoSettings}
+          />
+        </div>
+        <div className={styles.item5}>
+          <WordCardExample />
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className={styles.container}>
-      <div className={styles.item1}>
-        <DailyWords
-          dailyWords={dailyWords}
-          dailyCards={dailyCards}
-          changedDailyWords={getDailyValues}
-        />
-      </div>
-      <div className={styles.item2}>
-        <TodayProgress />
-      </div>
-      <div className={styles.item3}>
-        <OtherSetting
-          otherSettings={otherSettings}
-          changed={getOtherSettings}
-        />
-      </div>
-      <div className={styles.item4}>
-        <WordInfoSetting
-          wordInfoSettings={wordInfoSettings}
-          clicked={saveSettings}
-          changed={getWordInfoSettings}
-        />
-      </div>
-      <div className={styles.item5}>
-        <WordCardExample />
-      </div>
+      {settings}
     </div>
   );
 };

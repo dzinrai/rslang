@@ -2,6 +2,21 @@ import React, { createContext, useReducer } from 'react';
 
 const initialState = {
   words: ['word1'],
+  userSettings: {
+    wordsPerDay: 10,
+    optional: {
+      cardsPerDay: 10,
+      wordTranscription: true,
+      spellingOutSentence: true,
+      picture: true,
+      sentenceExample: true,
+      translateDescription: true,
+      showResultButton: true,
+      moveToDifficult: true,
+      deleteWord: true,
+      difficultyButtons: true,
+    },
+  },
 };
 
 const storeWords = createContext<any>(undefined);
@@ -18,6 +33,11 @@ const WordsProvider = ({ children }: Props) => {
       case 'setWords':
         newState = {
           ...prevState, words: action.value,
+        };
+        return newState;
+      case 'setUserSettings':
+        newState = {
+          ...prevState, userSettings: action.value,
         };
         return newState;
       default:

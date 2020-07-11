@@ -31,7 +31,7 @@ function WordMoreInfo(props: WordMoreInfoProps) {
       if (wordsInContext._id === wordId) {
         const newWords = [...words];
         newWords[i].userWord.difficulty = newDifficulty;
-        dispatchWords({type: 'setAllWords', value: newWords});
+        dispatchWords({ type: 'setAllWords', value: newWords });
       }
     });
   }
@@ -58,7 +58,9 @@ function WordMoreInfo(props: WordMoreInfoProps) {
         type="button"
         onClick={difficulty !== 'hard' ? () => toDifficulty('hard') : () => toDifficulty('normal')}
       >
-        Move to {difficulty !== 'hard' ? 'hard' : 'normal'}
+        Move to
+        {' '}
+        {difficulty !== 'hard' ? 'hard' : 'normal'}
       </button>
     </div>
   );

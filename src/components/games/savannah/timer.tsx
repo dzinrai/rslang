@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 interface propsType {
     setIsFalling: any,
@@ -9,9 +9,9 @@ interface propsType {
 }
 
 export default ({
-                    preloadWords, setIsFalling, statistic, setStatistic, currentWord,
-                }: propsType) => {
-    /* eslint-disable */
+  preloadWords, setIsFalling, statistic, setStatistic, currentWord,
+}: propsType) => {
+  /* eslint-disable */
     useEffect(() => {
         const timeoutID = window.setTimeout(() => {
             setIsFalling(false);
@@ -28,5 +28,5 @@ export default ({
         };
     }, []);
     /* eslint-enable */
-    return <></>;
+  return <></>;
 };

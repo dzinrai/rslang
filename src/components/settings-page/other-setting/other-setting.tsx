@@ -12,15 +12,8 @@ const OtherSetting: React.FC<{
   changed: any,
   otherSettings: any
 }> = ({ changed, otherSettings }: PropsType) => {
-  const defaultValue: any = Object.keys(otherSettings).filter((el: string) => {
-    console.log('other-setting comp:', otherSettings[el], el);
-
-    if (otherSettings[el] === true) {
-      return otherSettings[el];
-    }
-
-    return undefined;
-  });
+  const defaultValue: any = Object.keys(otherSettings)
+    .filter((el: string) => otherSettings[el] === true);
 
   return (
     <div className={styles.container}>

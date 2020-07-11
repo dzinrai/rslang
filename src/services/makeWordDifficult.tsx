@@ -15,7 +15,6 @@ export default async function makeWordDifficultyTo(wordId: string, value: string
   const content = await rawResponse.json();
   console.log(`updated to ${value}`, content);
   return content;
-
 }
 
 export async function toggleWordActivity(wordId: string, prevOptional: any, active: boolean) {
@@ -30,8 +29,8 @@ export async function toggleWordActivity(wordId: string, prevOptional: any, acti
       body: JSON.stringify({
         optional: {
           ...prevOptional,
-          active
-        }
+          active,
+        },
       }),
     });
   if (rawResponse.status !== 200) return { error: 'Failed' };
