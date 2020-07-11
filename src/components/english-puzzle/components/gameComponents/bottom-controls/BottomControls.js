@@ -33,11 +33,6 @@ function BottomControls() {
     } else if (btn.isResults) {
       dispatchGame({ type: 'saveToResult', value: { know: words } });
       dispatchGame({ type: 'isShowResults', value: true });
-    } else if (btn.isCheat) {
-      check(dispatchGame, stateGame, currentSentence);
-      setTimeout(() => {
-        continueLevel(dispatchGame, stateGame);
-      }, 100);
     }
   }
   /* eslint-disable */
