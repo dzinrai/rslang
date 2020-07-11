@@ -1,20 +1,20 @@
 import React from 'react';
 import { Slider } from 'antd';
-import style from './setting-slider.module.css';
+import styles from './setting-slider.module.css';
 
 type Props = {
   name: string;
   count: number;
-  onChange: (firstArg: any) => void;
+  changed: (firstArg: any) => void;
 }
 
 const SettingSlider: React.FC<{
   name: string,
   count: number,
-  onChange: (firstArg: any) => void,
-}> = ({ name, count, onChange }: Props) => (
+  changed: (firstArg: any) => void,
+}> = ({ name, count, changed }: Props) => (
   <>
-    <div className={`${style.info} ${style.cardsInfo}`}>
+    <div className={`${styles.info} ${styles.cardsInfo}`}>
       <span>{name}</span>
       <span>
         {count}
@@ -23,11 +23,11 @@ const SettingSlider: React.FC<{
       </span>
     </div>
     <Slider
-      className={style.slider}
+      className={styles.slider}
       min={5}
-      defaultValue={10}
+      defaultValue={count}
       max={30}
-      onChange={(value) => onChange(value)}
+      onChange={(value) => changed(value)}
     />
   </>
 );

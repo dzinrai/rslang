@@ -1,24 +1,71 @@
 import React from 'react';
 import { Checkbox, Row } from 'antd';
 import SettingCheckbox from './setting-checkbox';
-import style from './other-setting.module.css';
+import styles from './other-setting.module.css';
 
-const OtherSetting: React.FC = () => {
-  function onChange(checkedValues: any) {
-    console.log('checked = ', checkedValues);
-  }
+type PropsType = {
+  otherSettings: any;
+  changed: any;
+};
+
+const OtherSetting: React.FC<{
+  changed: any,
+  otherSettings: any
+}> = ({ changed, otherSettings }: PropsType) => {
+  const defaultValue: any = Object.keys(otherSettings).filter((el: string) => {
+    console.log('other-setting comp:', otherSettings[el], el);
+
+    if (otherSettings[el] === true) {
+      return otherSettings[el];
+    }
+
+    return undefined;
+  });
 
   return (
-    <div className={style.container}>
-      <p className={style.header}>Other Setting</p>
-      <Checkbox.Group className={style.settingContainer} onChange={onChange}>
+    <div className={styles.container}>
+      <p className={styles.header}>Other Setting</p>
+      <Checkbox.Group
+        className={styles.settingContainer}
+        onChange={(checkedValues) => changed(checkedValues)}
+        defaultValue={defaultValue}
+      >
         <Row>
-          <SettingCheckbox span={12} value="A" text="Pronounce the word in English after typing" specialText="" paragraph="" />
-          <SettingCheckbox span={12} value="B" text="Translate sentences for word descriptions" specialText="" paragraph="" />
-          <SettingCheckbox span={12} value="C" text="Display button" specialText="Show answer" paragraph="" />
-          <SettingCheckbox span={12} value="D" text="Display button" specialText="Delete word" paragraph="" />
-          <SettingCheckbox span={12} value="E" text="Display button" specialText="Move to difficult" paragraph="" />
-          <SettingCheckbox span={12} value="F" text="Display button" specialText="Hard, easy, normal" paragraph="It appears every time after you check the word" />
+          <SettingCheckbox
+            span={12}
+            value="translateDescription"
+            text="Translate sentences for word descriptions"
+            specialText=""
+            paragraph=""
+          />
+          <SettingCheckbox
+            span={12}
+            value="showResultButton"
+            text="Display button"
+            specialText="Show answer"
+            paragraph=""
+          />
+          <SettingCheckbox
+            span={12}
+            value="deleteWord"
+            text="Display button"
+            specialText="Delete word"
+            paragraph=""
+          />
+          <SettingCheckbox
+            span={12}
+            value="moveToDifficult"
+            text="Display button"
+            specialText="Move to difficult"
+            paragraph=""
+          />
+          <SettingCheckbox
+            span={12}
+            value="difficultyButtons"
+            text="Display button"
+            specialText="Hard, easy, normal"
+            paragraph="It appears every time after you check the word"
+          />
         </Row>
       </Checkbox.Group>
     </div>

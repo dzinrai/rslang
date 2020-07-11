@@ -1,13 +1,18 @@
 import React from 'react';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
-import style from './setting-button.module.css';
+import styles from './setting-button.module.css';
 
-const SettingButton: React.FC = () => (
+type Props = {
+  clicked: () => void;
+}
+
+const SettingButton: React.FC<{ clicked: () => void }> = ({ clicked }: Props) => (
   <Button
-    className={style.btn}
+    className={styles.btn}
     shape="round"
     value="large"
+    onClick={() => clicked()}
   >
     Save
   </Button>
