@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { storeWords } from '../../../context/contextWords';
 import { getWords } from '../../../services/getWords';
-// import createCouples from './create-couples';
 import styles from '../page-mini-games.module.css';
 import CommonStartGameBlock from '../common-start-game-block';
 import MemoryGame from '../../../img/memory-game.svg';
@@ -26,8 +25,6 @@ export default () => {
   }, []);
   /* eslint-enable */
 
-//   if (words.length !== 0) wordsForPlay = words.slice(0, 8);
-  console.log(words)
   const pinkColor = '#FF645F';
   return (
     <>

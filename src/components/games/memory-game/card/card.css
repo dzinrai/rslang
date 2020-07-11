@@ -113,3 +113,10 @@
     right: 56px;
     top: 48%;
 }
+
+@media (max-width: 1150px) {
+	.timer-container {
+		position: static;
+		margin: 10px 0
+	}
+} 

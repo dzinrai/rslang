@@ -2,11 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Timer from '../sprint/timer/timer'
 import ModalWindow from '../sprint/modal-window'
-// import cardImages from "../../cards";
 import Card from "./card/card";
-// import deepcopy from "deepcopy";
 import ButtonBack from '../controls/button-back/button-back';
-// import styles from './play.module.css';
 import './play.css'
 const URL_CONTENT = 'https://raw.githubusercontent.com/dzinrai/rslang-data/master/';
 
@@ -68,8 +65,8 @@ export default ({ words }: PlayProps) => {
 			return {...c, canFlip};
 		}));
 	}
-
-	// showcase
+    
+    /*eslint-disable*/
 	useEffect(() => {
 		setTimeout(() => {
 			let index = 0;
@@ -79,7 +76,6 @@ export default ({ words }: PlayProps) => {
 			setTimeout(() => setCanFlip(true), cards.length * 100);
 		}, 3000);
 	}, []);
-    /*eslint-disable*/
     useEffect(() => {
         if (!isActive && playMode && !openedResults.current) {
         fullCorrectWordsList.current = words.filter((word: any) => correctWords.current.includes(word.id))
