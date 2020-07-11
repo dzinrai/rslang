@@ -14,6 +14,7 @@ import Library from '../components/library/library';
 import GamesPage from '../components/games/page-mini-games';
 import SpeakIt from '../components/games/speak-it/start-page';
 import Sprint from '../components/games/sprint/start-page';
+import Savannah from '../components/games/savannah/start-page';
 import EnglishPuzzle from '../components/english-puzzle/english-puzzle';
 import StatisticPage from '../components/statistic-page/statistic-page';
 
@@ -52,6 +53,9 @@ function AppRouter() {
           </Route>
           <Route path="/mini-games/speakit">
             <SpeakIt />
+          </Route>
+          <Route path="/mini-games/savannah">
+            <Savannah />
           </Route>
           <Route path="/mini-games/puzzle">
             <EnglishPuzzle />

@@ -10,8 +10,12 @@
     width: 100%;
 }
 
+
 .imageSprinter {
     width: 100%;
+}
+.imageLion {
+    margin-left: 80px;
 }
 
 .gamesWrapper {
@@ -48,4 +52,22 @@
 
 body {
     background-color: #FAFAFA;
+}
+
+.animalsContainer img {
+    position: absolute;
+}
+
+.koza {
+    top: 95px;
+    right: 0;
+}
+.zebra {
+    bottom: 0;
+    right: 0;
+}
+
+.jiraffa {
+    top: 95px;
+    left: 0;
 }

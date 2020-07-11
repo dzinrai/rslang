@@ -50,8 +50,9 @@ function viewCount(wordObject: any) {
 
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
-  setInProp, setTranspAnswer, setVisibleNot, maxCards, notification,
+  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification,
 }: ButtonsProps) {
+  console.log(visibleNot);
   const checkProps = {
     word,
     onCorrect,
@@ -70,7 +71,6 @@ function Buttons({
         word.userWord.difficulty = 'hard';
         word.userWord.optional.interval = 1;
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
-        console.log(word.userWord.optional.nextView);
         break;
       case 'normal':
         word.userWord.difficulty = 'normal';
@@ -80,7 +80,6 @@ function Buttons({
       case 'easy':
         word.userWord.difficulty = 'easy';
         word.userWord.optional.interval = +word.userWord.optional.interval * 2;
-        console.log(word.userWord.optional.interval);
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
         break;
       default:
