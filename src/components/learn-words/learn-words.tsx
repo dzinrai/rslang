@@ -30,6 +30,8 @@ function LearnWords() {
   const [visibleNotification, setVisibleNotification] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [progress,setProgress]=useState(0)
+
   /* eslint-disable */
 
   useEffect(() => {
@@ -47,6 +49,7 @@ function LearnWords() {
   const controlAutoplay = (isAutoplay: boolean) => setAutoplay(isAutoplay);
   const newInProp = (isInProp: boolean) => setInProp(isInProp);
   const newTranspAnswer = (isTranspAnswer: boolean) => setTranspAnswer(isTranspAnswer);
+  const newProgress=(progress:number)=>setProgress(progress);
 
   function handleOk(key: string): () => void | Promise<void> {
     return async function (): Promise<void> {
@@ -151,7 +154,7 @@ function LearnWords() {
       {words.length !== 0
         ? (
           <div className={styles.cardContainer}>
-            <ProgressIndicator />
+            <ProgressIndicator progress={progress} />
             <CardsSlider
               words={words}
               word={word}
@@ -182,6 +185,7 @@ function LearnWords() {
               />
             )}
             <Buttons
+            setProgress={newProgress}
               word={word}
               onCorrect={correctCard}
               setUsersWord={setUsersWord}

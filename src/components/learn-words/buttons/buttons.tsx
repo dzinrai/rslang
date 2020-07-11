@@ -8,9 +8,11 @@ import checkWord from './check-word';
 import styles from './buttons.module.css';
 import { updateWordById } from '../../../services/getWords';
 import { getStatistic, createStatistic } from '../../../services/statistic';
+import { getSettings } from '../../../services/settings';
 
 interface ButtonsProps {
   word: any,
+  setProgress: any,
   onCorrect: any,
   setUsersWord: any,
   usersWord: string,
@@ -31,26 +33,6 @@ interface ButtonsProps {
   notification: any
 }
 
-export function saveLastWord(word: any,isTrain?: boolean) {
-  getStatistic()
-    .then((statistic: any) => {
-      if(isTrain){
-        statistic.optional.common.wordsToday+=1;
-        if(!word.userWord.optional.newWord===false){statistic.optional.common.newWordsToday+=1}
-      }
-      statistic.learnedWords++;
-      statistic.optional.common.lastWord = word._id;  
-      createStatistic(statistic);
-    })
-    .then(()=>{
-      
-    }).catch(() => {
-      console.log("Can't update statistic");
-    })
-    .then(() => {
-      viewCount(word)
-    });
-}
 
 function viewCount(wordObject: any) {
   wordObject.userWord.optional.views++;
@@ -61,7 +43,7 @@ function viewCount(wordObject: any) {
 
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
-  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification,
+  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification, setProgress
 }: ButtonsProps) {
 
   console.log(visibleNot);
@@ -75,10 +57,35 @@ function Buttons({
     setIndex,
     setInProp,
     setTranspAnswer,
-  };  
+  };
+  function saveLastWord(word: any, isTrain?: boolean) {
+    getStatistic()
+      .then((statistic: any) => {
+        if (isTrain) {
+          getSettings()
+            .then((settings: any) => {
+              statistic.optional.common.dayProgress = statistic.optional.common.wordsToday / settings.optional.cardsPerDay * 100;
+              setProgress(statistic.optional.common.dayProgress)
+            })
+          statistic.optional.common.wordsToday += 1;
+          if (!word.userWord.optional.newWord === false) { statistic.optional.common.newWordsToday += 1 }
+        }
+        statistic.learnedWords++;
+        statistic.optional.common.lastWord = word._id;
+        createStatistic(statistic);
+      })
+      .then(() => {
+
+      }).catch(() => {
+        console.log("Can't update statistic");
+      })
+      .then(() => {
+        viewCount(word)
+      });
+  }
 
   function difficultyButtonClick(difficulty: string) {
-    saveLastWord(word,true);
+    saveLastWord(word, true);
     switch (difficulty) {
       case 'hard':
         word.userWord.difficulty = 'hard';
