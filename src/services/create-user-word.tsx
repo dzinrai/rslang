@@ -1,13 +1,6 @@
 import moment from 'moment';
 // eslint-disable-next-line
-import { getWords } from './getWords';
-
-interface WordsGetter {
-  page?: number;
-  group?: number;
-  wordsPerExampleSentenceLTE: number,
-  wordsPerPage: number
-}
+import { getWordsFromBackend } from './getWords';
 
 interface WordsSetter {
   userId: string;
@@ -25,11 +18,11 @@ export interface UserWord {
     repeat: boolean;
     wordId: string;
     lastView: string;
-    nextView:string;
+    nextView: string;
     correct: number;
-    interval:number;
-    errorInGame:boolean;
-    wordIndicator:number;
+    interval: number;
+    errorInGame: boolean;
+    wordIndicator: number;
   }
 }
 
@@ -49,14 +42,12 @@ export async function createUserWord({ userId, wordId, word }: WordsSetter) {
   return content;
 }
 
-export async function preloadWords({
-  page, group,
-  wordsPerExampleSentenceLTE, wordsPerPage,
-}: WordsGetter) {
-  const wordsFromBackend = await getWords({
-    wordsPerExampleSentenceLTE, wordsPerPage, page, group,
-  });
-  wordsFromBackend.forEach((oneWord: any) => {
+export async function preloadWordsOnBackend(wordsPerDay: number) {
+  const nullFilter = JSON.stringify({ 'userWord': null });
+  const wordsForBackend = await getWordsFromBackend(
+    nullFilter, wordsPerDay
+  );
+  wordsForBackend.forEach((oneWord: any) => {
     createUserWord({
       userId: `${localStorage.getItem('userId')}`,
       wordId: oneWord.id,

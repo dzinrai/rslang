@@ -31,20 +31,30 @@ interface ButtonsProps {
   notification: any
 }
 
-export function saveLastWord(word: any) {
+export function saveLastWord(word: any,isTrain?: boolean) {
+  console.log('word before ',word)
   getStatistic()
     .then((statistic: any) => {
-      statistic.learnedWords += 1;
+      if(isTrain){
+        statistic.optional.common.wordsToday+=1;
+        if(!word.userWord.optional.newWord===false){statistic.optional.common.newWordsToday++}
+      }
+      statistic.learnedWords++;
       statistic.optional.common.lastWord = word._id;
+      statistic.optional.common.words = word._id;
       createStatistic(statistic);
+    }).catch(() => {
+      console.log("Can't update statistic");
+    })
+    .then(() => {
+      viewCount(word)
     });
 }
 
 function viewCount(wordObject: any) {
-  wordObject.userWord.optional.views += 1;
+  wordObject.userWord.optional.views++;
   wordObject.userWord.optional.newWord = false;
   wordObject.userWord.optional.lastView = moment().format('DD/MM/YY');
-  saveLastWord(wordObject);
   updateWordById(wordObject._id, wordObject.userWord);
 }
 
@@ -52,6 +62,7 @@ function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
   setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification,
 }: ButtonsProps) {
+
   console.log(visibleNot);
   const checkProps = {
     word,
@@ -63,9 +74,10 @@ function Buttons({
     setIndex,
     setInProp,
     setTranspAnswer,
-  };
+  };  
+
   function difficultyButtonClick(difficulty: string) {
-    viewCount(word);
+    saveLastWord(word,true);
     switch (difficulty) {
       case 'hard':
         word.userWord.difficulty = 'hard';

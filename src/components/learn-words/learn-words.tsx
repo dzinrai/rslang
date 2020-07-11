@@ -3,7 +3,7 @@ import { Modal, Button } from 'antd';
 import moment from 'moment';
 import styles from './learn-words.module.css';
 import { getWordsFromBackend } from '../../services/getWords';
-import { preloadWords } from '../../services/create-user-word';
+//import { preloadWords } from '../../services/create-user-word';
 import { getSettings, createSettings, UserSettings } from '../../services/settings';
 import { createStatistic } from '../../services/statistic';
 import ProgressIndicator from './progress-indicator/progress-indicator';
@@ -33,68 +33,66 @@ function LearnWords() {
   /* eslint-disable */
 
   useEffect(() => {
-    preloadWords({
-      page: 4, group: 5, wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
-    })
-    createSettings({
-      wordsPerDay: 10, optional: {
-        cardsPerDay: 50,
-        wordTranscription: true,
-        spellingOutSentence: false,
-        picture: true,
-        sentenceExample: true,
-        translateDescription: true,
-        showResultButton: true,
-        moveToDifficult: true,
-        difficultyButtons: true,
+    // createSettings({
+    //   wordsPerDay: 10, optional: {
+    //     lastVisit:moment().format('DD/MM/YY'),
+    //     cardsPerDay: 50,
+    //     wordTranscription: true,
+    //     spellingOutSentence: false,
+    //     picture: true,
+    //     sentenceExample: true,
+    //     translateDescription: true,
+    //     showResultButton: true,
+    //     moveToDifficult: true,
+    //     difficultyButtons: true,
 
-      }
-    });
-  createStatistic({
-    learnedWords: 0,
-    optional: {
-      common:{
-      wordsToday:0,
-      newWordsToday:0,
-      dayProgress:0,
-      lastWord:{},
-      weekDay:moment().format('dddd'),
-      },
-      games:{
-        speakIt:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        savannah:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        audioCall:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        sprint:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        puzzle:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        ownGame:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-      }
-    }        
+    //   }
+    // });
+  // createStatistic({
+  //   learnedWords: 0,
+  //   optional: {
+  //     common:{
+  //     wordsToday:0,
+  //     newWordsToday:0,
+  //     dayProgress:0,
+  //     lastWord:{},
+  //     weekDay:moment().format('dddd'),
+  //     },
+  //     games:{
+  //       speakIt:{
+  //         lastPlay:'',
+  //         words: 0,
+  //         percentCorrect:0,
+  //       },
+  //       savannah:{
+  //         lastPlay:'',
+  //         words: 0,
+  //         percentCorrect:0,
+  //       },
+  //       audioCall:{
+  //         lastPlay:'',
+  //         words: 0,
+  //         percentCorrect:0,
+  //       },
+  //       sprint:{
+  //         lastPlay:'',
+  //         words: 0,
+  //         percentCorrect:0,
+  //       },
+  //       puzzle:{
+  //         lastPlay:'',
+  //         words: 0,
+  //         percentCorrect:0,
+  //       },
+  //       ownGame:{
+  //         lastPlay:'',
+  //         words: 0,
+  //         percentCorrect:0,
+  //       },
+  //     }
+  //   }        
     
-})
+//})
   }, []);
 
 
@@ -116,6 +114,7 @@ function LearnWords() {
       const settings: UserSettings = {
         wordsPerDay: settingsData.wordsPerDay,
         optional: {
+          lastVisit:settingsData.optional.lastVisit,
           cardsPerDay: settingsData.optional.cardsPerDay,
           wordTranscription: settingsData.optional.wordTranscription,
           spellingOutSentence: settingsData.optional.spellingOutSentence,
@@ -158,7 +157,7 @@ function LearnWords() {
           break;
       }
     setMaxCards(settings.optional.cardsPerDay);
-      getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)
+      getWordsFromBackend( filter, settings.optional.cardsPerDay)
         .then((data) => {
           setWords(data[0].paginatedResults);
         })
