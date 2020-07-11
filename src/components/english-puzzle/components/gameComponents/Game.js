@@ -32,7 +32,7 @@ function Game() {
       console.log(currStat);
       if (!currStat || currStat.error) return;
       else if (currStat.optional && currStat.optional.games && currStat.optional.games.puzzle) {
-        const stat = currStat.optional.games.puzzle.statistics;
+        const stat = currStat.optional.games.puzzle.statistics || [];
         dispatchGame({ type: 'updateStatistics', value: stat });
       }
     }
