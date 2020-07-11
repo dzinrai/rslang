@@ -11,11 +11,14 @@ interface CardProps {
     points: number,
     setPoints: any,
     checkedCircles: number,
-    setCheckedCircles: any
+    setCheckedCircles: any,
+    allWords: any
+    fullCorrectList: any
 }
 
 export default ({ couple, wordsIndex, setWordsIndex, isActive, setTotalPoints, setCorrectWords, 
-    points, setPoints, checkedCircles, setCheckedCircles }: CardProps) => {
+    points, setPoints, checkedCircles, setCheckedCircles, 
+    allWords, fullCorrectList }: CardProps) => {
     
     const [backColor, setBackColor] = useState('#1958DB')
     useEffect(() => {
@@ -33,14 +36,16 @@ export default ({ couple, wordsIndex, setWordsIndex, isActive, setTotalPoints, s
         }
     })
   const checkCouple = (res: number) => {
-    if (isActive) {
+    if (isActive && wordsIndex < allWords.length - 1) {
         if (res === couple.yes) {
             setCheckedCircles(checkedCircles + 1) 
             if (checkedCircles % 4 === 3 && checkedCircles < 12) setPoints(points * 2)
+            fullCorrectList.push(allWords[wordsIndex])
             setWordsIndex(wordsIndex + 1)
             setTotalPoints()
             setCorrectWords()
         } else {
+            setWordsIndex(wordsIndex + 1)
             setCheckedCircles(0)
             setPoints(10)    
         }

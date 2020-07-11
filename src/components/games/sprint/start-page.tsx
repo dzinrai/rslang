@@ -14,8 +14,10 @@ export default () => {
   const [words, setWords] = useState<any>([]);
   const [pageLevel, setPageLevel] = useState<number>(1);
   let wordsForPlay: any = []
+  // let words: any = []
 
   useEffect(() => {
+    
     const preloadWords = async (pageLevel : number) => {
         const wordsFromBackend = await getWords({
           page: pageLevel, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 60,
@@ -25,6 +27,7 @@ export default () => {
     }; 
     preloadWords(0)     
 },[])
+
   if (words.length !== 0) wordsForPlay = createCouples(words)
 
   const pinkColor = '#FF645F';
@@ -37,7 +40,7 @@ export default () => {
             <CommonStartGameBlock setIsStart={setIsStart} color={pinkColor} buttonText="start" name="Sprint" />
           </div>
         )
-        : <Play words={wordsForPlay} />}
+        : <Play allWords={words} words={wordsForPlay} />}
     </>
   );
 };

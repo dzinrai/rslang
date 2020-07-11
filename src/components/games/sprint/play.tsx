@@ -4,16 +4,17 @@ import React, {
   import ButtonBack from '../controls/button-back/button-back';
   import { ReactComponent as CheckedCircle} from '../../../img/checked-circle.svg'
   import { ReactComponent as Circle } from '../../../img/circle.svg'
-  import createCouples from './create-couples'
+  import ModalWindow from './modal-window'
   import Card from './card/card'
   import Timer from './timer/timer'
   import styles from './play.module.css';
 
   interface PlayProps {
+      allWords: any,
       words: any
   }
   
-export default ({ words }: PlayProps) => {
+export default ({ allWords, words }: PlayProps) => {
     const [playMode, setPlayMode] = useState(false);
     const [isActive, setIsActive] = useState(true);
     const [wordsIndex, setWordsIndex] = useState(0);
@@ -21,9 +22,33 @@ export default ({ words }: PlayProps) => {
     const [points, setPoints] = useState(10)
     const [correctWords, setCorrectWords] = useState(0)
     const [checkedCircles, setCheckedCircles] = useState(0)
+    const [isResultsOpen, setIsResultsOpen] = useState(false)
+    const openedResults: any = useRef(false)
+    const fullWordsList: any = useRef([])
+    const fullCorrectList: any = useRef([])
+    const URL_CONTENT = 'https://raw.githubusercontent.com/dzinrai/rslang-data/master/';
+
+    useEffect(() => {
+    if (!isActive && playMode && !openedResults.current) {
+        for (let i = 0; i <= wordsIndex; i += 1) {
+            fullWordsList.current.push(allWords[i])
+        }
+        setIsResultsOpen(true)
+        openedResults.current = true
+    }
+    })
 
   return (
     <div className={styles.background}>
+    {isResultsOpen && 
+    <ModalWindow
+    isResultsOpen={isResultsOpen}
+    toggleModal={() => setIsResultsOpen(false)}
+    correctWords={fullCorrectList.current}
+    words={fullWordsList.current}
+    URL_CONTENT={URL_CONTENT}
+    />
+    }
     <ButtonBack />
     <div className={styles.cardContainer}>
         <Timer 
@@ -50,6 +75,8 @@ export default ({ words }: PlayProps) => {
         setPoints={(newPoints: number) => setPoints(newPoints)}
         checkedCircles={checkedCircles}
         setCheckedCircles={(circles: number) => setCheckedCircles(circles)}
+        allWords={allWords}
+        fullCorrectList={fullCorrectList.current}
         />}
     </div>
 
@@ -59,7 +86,6 @@ export default ({ words }: PlayProps) => {
         {' '}
         <span>correct words</span>
     </div>
-
     </div>
   );
 };

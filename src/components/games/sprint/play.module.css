@@ -127,3 +127,37 @@
     background-color: #1958DB;
     color: white;
 }
+
+.resultsBlock > div em{
+    font-weight: lighter;
+}
+
+.resultsBlock > div:not(:last-child){
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.resultsBlock > div{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    column-gap: 20px;
+    padding: 5px 5px 10px 20px;
+    background-image: url("./../../../img/earListen.svg");
+    background-position: left center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.okButton {
+    border-radius: 30px;
+    background-color: #1194C8;
+    border: none;
+    padding: 4px 21px;
+    color: white;
+    transition: background-color .2s linear; 
+}
+
+.okButton:hover {
+    cursor: pointer;
+    background-color: #1958DB;
+}
