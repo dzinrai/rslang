@@ -15,7 +15,6 @@ interface LibraryShow {
 function Library() {
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
-  const allWords = wordsState.state.allwords;
 
   const [libraryShow, setLibraryShow] = useState<LibraryShow>({
     all: true,
@@ -35,7 +34,7 @@ function Library() {
       if (!check(wordsFromBackend)) return;
       dispatchWords({ type: 'setAllWords', value: wordsFromBackend[0].paginatedResults });
     };
-    if (!allWords || allWords.length === 0) preloadWords();
+    preloadWords();
     // eslint-disable-next-line
   }, []);
 
