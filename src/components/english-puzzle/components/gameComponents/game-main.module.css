@@ -87,7 +87,11 @@
         max-height: 866px;
     }
 }
-
+@media (min-width: 1200px) and (max-height: 700px) {
+    .puzzleContainer {
+        height: 200vh;
+    }
+}
 @media (max-width: 1200px) {
     .puzzleContainer {
         height: unset;

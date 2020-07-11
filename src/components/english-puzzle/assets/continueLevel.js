@@ -1,6 +1,7 @@
 import shuffleArray from './shuffleArray';
 import calcNext from './calcNext';
 import saveRound from './saveRound';
+import saveStat from './saveStat';
 
 function continueLevel(dispatchGame, stateGame) {
   if (!stateGame.sentenceHasMistake) {
@@ -25,6 +26,7 @@ function continueLevel(dispatchGame, stateGame) {
     } else {
       const next = calcNext(stateGame.difficulty, stateGame.page, stateGame.pages);
       saveRound(next.nextDifficulty, next.nextPage);
+      saveStat(dispatchGame, stateGame);
       dispatchGame({ type: 'finishRound' });
     }
   }
