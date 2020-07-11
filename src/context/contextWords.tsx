@@ -2,8 +2,21 @@ import React, { createContext, useReducer } from 'react';
 
 const initialState = {
   words: ['word1'],
-  countOfDailyWords: 20,
-  countOfDailyCards: 10,
+  userSettings: {
+    wordsPerDay: 10,
+    optional: {
+      cardsPerDay: 10,
+      wordTranscription: true,
+      spellingOutSentence: true,
+      picture: true,
+      sentenceExample: true,
+      translateDescription: true,
+      showResultButton: true,
+      moveToDifficult: true,
+      deleteWord: true,
+      difficultyButtons: true,
+    },
+  },
 };
 
 const storeWords = createContext<any>(undefined);
@@ -22,14 +35,9 @@ const WordsProvider = ({ children }: Props) => {
           ...prevState, words: action.value,
         };
         return newState;
-      case 'setCountOfDailyWords':
+      case 'setUserSettings':
         newState = {
-          ...prevState, countOfDailyWords: action.value,
-        };
-        return newState;
-      case 'setCountOfDailyCards':
-        newState = {
-          ...prevState, countOfDailyCards: action.value,
+          ...prevState, userSettings: action.value,
         };
         return newState;
       default:

@@ -34,7 +34,7 @@ export async function getWordsForLibraryHard() {
 
 export async function getWordsForLibraryDeleted() {
   // const filterHard = JSON.stringify({ 'userWord.difficulty': 'hard' });
-  const filterHard = JSON.stringify({ $and: [{ 'userWord.optional.active': false } ] });
+  const filterHard = JSON.stringify({ $and: [{ 'userWord.optional.active': false }] });
   const url = `https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords?filter=${filterHard}`;
   const rawResponse = await fetch(url, {
     method: 'GET',

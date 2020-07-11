@@ -1,19 +1,26 @@
 import React from 'react';
 import { Switch } from 'antd';
-import style from './setting-switch.module.css';
+import styles from './setting-switch.module.css';
 
 type Props = {
   text: string;
   checked: boolean;
+  changed: () => void;
 }
 
 const SettingSwitch: React.FC<{
   text: string,
   checked: boolean,
-}> = ({ text, checked }: Props) => (
-  <div className={style.switchContainer}>
+  changed: () => void;
+}> = ({
+  text, checked, changed,
+}: Props) => (
+  <div className={styles.switchContainer}>
     <span>{text}</span>
-    <Switch defaultChecked={checked} />
+    <Switch
+      defaultChecked={checked}
+      onClick={() => changed()}
+    />
   </div>
 );
 

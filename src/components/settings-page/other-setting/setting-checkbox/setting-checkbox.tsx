@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox, Col } from 'antd';
-import style from './setting-checkbox.module.css';
+import styles from './setting-checkbox.module.css';
 
 type Props = {
   span: number;
@@ -19,11 +19,13 @@ const SettingCheckbox: React.FC<{
 }> = ({
   span, value, text, specialText, paragraph,
 }: Props) => (
-  <Col span={span} className={style.checkboxContainer}>
-    <Checkbox value={value}>
+  <Col span={span} className={styles.checkboxContainer}>
+    <Checkbox
+      value={value}
+    >
       {text}
-      {specialText ? <span className={style.text}>{` "${specialText}"`}</span> : null}
-      {paragraph ? <p className={style.tooltip}>{paragraph}</p> : null}
+      {specialText ? <span className={styles.text}>{` "${specialText}"`}</span> : null}
+      {paragraph ? <p className={styles.tooltip}>{paragraph}</p> : null}
     </Checkbox>
   </Col>
 );
