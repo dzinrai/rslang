@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint no-param-reassign: "error" */
 import React, { useState } from 'react';
 import styles from './library-word.module.css';
 import WordRate from './word-rate';

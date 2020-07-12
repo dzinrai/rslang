@@ -2,10 +2,15 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
+// import { Alert } from 'antd';
+import moment from 'moment';
 import 'antd/dist/antd.css';
+
 import loginUser from '../../services/login-user';
 import Context from '../../context/contextUser';
 import styles from './login-page.module.css';
+import { getStatistic, createStatistic } from '../../services/statistic';
+import { getSettings, createSettings } from '../../services/settings';
 
 interface LoginUser {
   email: string;
@@ -17,12 +22,40 @@ const LoginPage: React.FC = () => {
   const history = useHistory();
   const { authorize } = useContext(Context);
   const [errorMessage, setErrorMessage] = useState<React.ReactNode>(null);
+  /* eslint-disable */
   const onSubmit = async (data: LoginUser): Promise<void> => {
     loginUser(data)
       .then(() => {
         authorize();
-        history.push('/main-page');
-      }).catch((err) => {
+      })
+      .then(() => {
+        getSettings()
+          .then((settings: any) => {
+            //  if (!settings.isUserOfOurSuperDuperApp === true) {
+            //   history.push('/auth');
+            // <Alert
+            //   message="OOOOP ERROR"
+            //   description="Your e-mail is already taken by another rs-lang"
+            //   type="error"
+            //   showIcon
+            //   closable
+            // />
+            // return;
+            //   } else {
+            history.push('/main-page');
+            settings.optional.lastVisit = moment().format('DD/MM/YY');
+            createSettings(settings);
+            //    }
+          });
+      })
+      .then(() => {
+        getStatistic().then((statistic: any) => {
+          statistic.optional.common.weekDay = moment().format('dddd');
+          createStatistic(statistic);
+        });
+      })
+      .catch((err) => {
+
         setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);
       });
   };

@@ -10,8 +10,8 @@ export interface WordsGetter {
 }
 
 export interface WordsFromBack {
-  filter?: string;
-  settings?: UserSettings;
+  filter: string;
+  settings: UserSettings;
 }
 
 export async function getWords({
@@ -24,7 +24,7 @@ export async function getWords({
   return content;
 }
 
-export async function getWordsFromBackend({ filter }: WordsFromBack, wordPerPage:number) {
+export async function getWordsFromBackend(filter:any, wordPerPage:number) {
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords?filter=${filter}&wordsPerPage=${wordPerPage}`, {
     method: 'GET',
     headers: {

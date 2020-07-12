@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint no-param-reassign: "error" */
 import React, { useContext } from 'react';
 import { ReactComponent as Trash } from '../../img/trash.svg';
 import styles from './library-word.module.css';

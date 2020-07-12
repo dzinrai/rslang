@@ -117,16 +117,16 @@ export default ({ words }: PlayProps) => {
     if (!firstCard || !secondCard) return;
     firstCard.wordId === secondCard.wordId ? onSuccessGuess() : onFailureGuess();
   }, [firstCard, secondCard]);
-  /*eslint-enable*/
+  /* eslint-enable */
 
   function onCardClick(card: any) {
     if (!canFlip) return;
     if (!card.canFlip) return;
-
+    // eslint-disable-next-line
     if (((firstCard && (card.id === firstCard.id)) || ((secondCard && (card.id === secondCard.id))))) return;
 
     setCardIsFlipped(card.id, false);
-
+    // eslint-disable-next-line
     firstCard ? setSecondCard(card) : setFirstCard(card);
   }
   return (
@@ -150,7 +150,7 @@ export default ({ words }: PlayProps) => {
           setIsActive={(active: boolean) => setIsActive(active)}
         />
       </div>
-        {/*eslint-disable*/}
+      {/*eslint-disable*/}
       <div className="game container-md">
         <div className="cards-container">
           {cards.map((card: any) => (
@@ -162,7 +162,7 @@ export default ({ words }: PlayProps) => {
           ))}
         </div>
       </div>
-    {/*eslint-enable*/}
+    {/* eslint-enable */}
 
       <div className="correctWords">
         {' '}
