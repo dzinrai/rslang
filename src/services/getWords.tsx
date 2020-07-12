@@ -66,3 +66,16 @@ export async function getWordById(wordId:string) {
   const content = await rawResponse.json();
   return content;
 }
+
+export async function getWordByIdFromAPI(wordId:string) {
+  const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/words/${wordId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      Accept: 'application/json',
+    },
+  });
+  if (rawResponse.status !== 200) return { error: 'Failed to get word' };
+  const content = await rawResponse.json();
+  return content;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import moment from 'moment';
 import styles from './main-page.module.css';
 import LastWord from './last-word/last-word';
@@ -10,12 +10,19 @@ import { getSettings, createSettings } from '../../services/settings';
 import preloadWords from '../../services/preloadWords';
 import { preloadWordsOnBackend } from '../../services/create-user-word';
 import { getStatistic } from '../../services/statistic';
+import { getWordByIdFromAPI } from '../../services/getWords';
 
 function MainPage() {
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
   const userSettingsState = useContext(storeWords);
   const defaultUserSettings = userSettingsState.state.userSettings;
+  const [lastWord, setLastWord] = useState(null);
+
+  async function updateLastWord(wordId: string) {
+    const word = await getWordByIdFromAPI(wordId);
+    setLastWord(word);
+  }
 
   useEffect(() => {
     let thisNewDay = false;
@@ -33,6 +40,7 @@ function MainPage() {
         getStatistic()
           .then((statistic:any) => {
             dispatchWords({ type: 'setUserStatistic', value: statistic });
+            updateLastWord(statistic.optional.common.lastWord);
             // eslint-disable-next-line
             if (thisNewDay) statistic.optional.common.dayProgress = 0;
           });
@@ -41,7 +49,6 @@ function MainPage() {
           createSettings(defaultUserSettings);
         }
       });
-
     // eslint-disable-next-line
   }, []);
 
@@ -50,7 +57,7 @@ function MainPage() {
       <div className={styles.container}>
         <div className={styles.progressAndWord}>
           <TodayProgress />
-          <LastWord />
+          <LastWord word={lastWord} />
         </div>
         <div className={styles.toDoAndPlan}>
           <ToDoAction />
