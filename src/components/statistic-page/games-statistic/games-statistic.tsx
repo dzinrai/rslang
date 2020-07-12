@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './games-statistic.module.css';
 import GameStats from '../game-stats/game-stats';
 import EnglishPuzzle from '../../../img/small-puzzle.svg';

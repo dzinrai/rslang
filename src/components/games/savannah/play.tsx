@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, useContext, useRef,
+  useEffect, useState, useContext,
 } from 'react';
 import moment from 'moment';
 import ButtonBack from '../controls/button-back/button-back';
