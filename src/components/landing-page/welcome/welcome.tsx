@@ -7,6 +7,15 @@ import { ReactComponent as WelcomeImage } from '../../../img/layer-2.svg';
 
 function Welcome() {
   const history = useHistory();
+  const userToken = sessionStorage.getItem('userToken');
+
+  function redirect(): void {
+    if (userToken) {
+      history.push('/main-page');
+    } else {
+      history.push('/auth');
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -21,9 +30,7 @@ function Welcome() {
       <button
         type="button"
         className={styles.button}
-        onClick={() => {
-          history.push('/auth');
-        }}
+        onClick={redirect}
       >
         Get Started
       </button>
