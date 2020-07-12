@@ -22,8 +22,9 @@ function LastWord({ word } : any) {
       setTranslate(word.wordTranslate);
       setTranscription(word.transcription);
     }
+    // eslint-disable-next-line
   }, [word]);
- 
+
   return (
     <div className={styles.lastWord}>
       <p className={styles.top}>Your last word</p>
