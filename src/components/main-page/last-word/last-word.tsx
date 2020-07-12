@@ -11,7 +11,6 @@ import toFromUpperCaseString from '../../../assets/toFromUpperCaseString';
 // ReactDOM.render(<DatePicker />, mountNode);
 
 function LastWord({ word } : any) {
-  if (!word || !word.word || !word.transcription || !word.wordTranslate) return null;
   const [exactWord, setExactWord] = useState<string>('');
   const [translate, setTranslate] = useState<string>('');
   const [transcription, setTranscription] = useState<string>('');
@@ -24,7 +23,7 @@ function LastWord({ word } : any) {
     }
     
   }, [word]);
-
+  if (!word || !word.word || !word.transcription || !word.wordTranslate) return null;
   return (
     <div className={styles.lastWord}>
       <p className={styles.top}>Your last word</p>
