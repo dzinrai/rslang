@@ -19,6 +19,8 @@ function Results() {
   function handleClick(btn) {
     if (btn.isContinue) {
       nextRound(dispatchGame, stateGame);
+    } else if (btn.isStatistic) {
+      dispatchGame({ type: 'showStats', value: true });
     }
   }
 
@@ -33,8 +35,8 @@ function Results() {
             I don&apos;t know
             <span className={styles.numberRed}>{stateGame.results.notKnow.length}</span>
           </h4>
-          {stateGame.results.notKnow.map((wordSentence) => (
-            <span className={styles.resultSent}>
+          {stateGame.results.notKnow.map((wordSentence, i) => (
+            <span className={styles.resultSent} key={'miniPlay_' + i}>
               <MiniPlay
                 src={rawData({ filename: wordSentence.audioExample })}
               />
@@ -47,8 +49,8 @@ function Results() {
             I know
             <span className={styles.numberGreen}>{stateGame.results.know.length}</span>
           </h4>
-          {stateGame.results.know.map((wordSentence) => (
-            <span className={styles.resultSent}>
+          {stateGame.results.know.map((wordSentence, i) => (
+            <span className={styles.resultSent} key={'miniPlay_' + i + 10}>
               <MiniPlay
                 src={rawData({ filename: wordSentence.audioExample })}
               />
@@ -59,7 +61,7 @@ function Results() {
       </div>
       <div className={styles.resultsBtns}>
         <Button className="btn" text="Continue" onClick={() => handleClick({ isContinue: true })} />
-        <Button className="btn" text="Statistic" />
+        <Button className="btn" text="Statistic" onClick={() => handleClick({ isStatistic: true })} />
       </div>
     </div>
 

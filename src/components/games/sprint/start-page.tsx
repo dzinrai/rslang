@@ -17,15 +17,14 @@ export default () => {
   useEffect(() => {
     const preloadWords = async () => {
       const wordsFromBackend = await getWords({
-        wordsPerExampleSentenceLTE: 10, wordsPerPage: 60,
+        wordsPerExampleSentenceLTE: 20, wordsPerPage: 60,
       });
-      setWords(wordsFromBackend);
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
+      setWords(wordsFromBackend);
     };
-    preloadWords();
+    preloadWords()
   }, []);
   /* eslint-enable */
-
   if (words.length !== 0) wordsForPlay = createCouples(words);
 
   const pinkColor = '#FF645F';

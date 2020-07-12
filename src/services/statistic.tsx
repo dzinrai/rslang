@@ -44,10 +44,10 @@ interface UserStatistic{
            },
           }
         }
-
 }
 
-export async function createStatistic(statistic:UserStatistic) {
+export async function createStatistic(statisticObj:UserStatistic) {
+  const statistic = statisticObj;
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/statistics`,
     {
       method: 'PUT',
@@ -73,7 +73,8 @@ export async function getStatistic() {
       Accept: 'application/json',
     },
   });
-  if (settingsFromBack.status !== 200) return { error: 'Failed to get settings' };
+  if (settingsFromBack.status === 404) return { error: 'Statistics not found', status: 404 };
+  if (settingsFromBack.status !== 200) return { error: 'Failed to get statistic' };
   const content = await settingsFromBack.json();
   return content;
 }

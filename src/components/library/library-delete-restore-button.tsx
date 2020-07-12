@@ -21,7 +21,7 @@ function DeleteRestoreBtn({ isDeletedPage, word }: DeleteRestoreBtnProps) {
       if (wordsInContext._id === word._id) {
         const newWords = [...words];
         newWords[i].userWord.optional.active = isDeletedPage;
-        dispatchWords({type: 'setAllWords', value: newWords});
+        dispatchWords({ type: 'setAllWords', value: newWords });
       }
     });
   };

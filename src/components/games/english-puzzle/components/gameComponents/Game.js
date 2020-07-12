@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Button from '../Button';
 import GameHeadControls from './game-head/GameHeadControls';
 import { storeGame } from '../storeGame';
@@ -9,7 +9,9 @@ import preloadRound from '../../assets/preloadRound';
 import Results from './results/Results';
 import settingsStored from '../../localStorage/settings';
 import styles from './game-main.module.css';
-import Puzzle from '../../../../img/puzzle.svg';
+import Puzzle from '../../../../../img/puzzle.svg';
+import PuzzleStatistic from './statistics/puzzle-statistic';
+import { getStatistic } from '../../../../../services/statistic';
 
 function Game() {
   const gameState = useContext(storeGame);
@@ -24,6 +26,19 @@ function Game() {
     dispatchGame({ type: 'activateHint', value: importStore.hints });
     dispatchGame(types);
   }
+  useEffect(() => {
+    async function preloadStat() {
+      const currStat = await getStatistic();
+      console.log(currStat);
+      if (!currStat || currStat.error) return;
+      else if (currStat.optional && currStat.optional.games && currStat.optional.games.puzzle) {
+        const stat = currStat.optional.games.puzzle.statistics || [];
+        dispatchGame({ type: 'updateStatistics', value: stat });
+      }
+    }
+    preloadStat();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div className={`${styles.puzzleContainer} ${!stateGame.isStarted ? styles.start : ''}`}>
@@ -50,6 +65,8 @@ function Game() {
           {stateGame.isShowResults && <Results />}
 
           {!stateGame.isShowResults && <BottomControls />}
+
+          {stateGame.showStats && <PuzzleStatistic />}
         </div>
         )}
     </div>

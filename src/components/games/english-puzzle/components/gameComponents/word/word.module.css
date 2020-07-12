@@ -7,10 +7,11 @@
     max-height: 44px;
     padding: 0;
     margin: 0 1px 0 0;
-    font-size: 24px;
+    font-size: 1.3rem;
+    font-weight: 600;
     background-color: #fbd6d6;
     border-radius: 3px;
-    color: #000;
+    color: #1958DB;
     font-family: 'Montserrat', sans-serif;
     text-shadow: -2px 0 2px #ffffff, 2px 0 2px #ffffff, 0 2px 2px #ffffff;
     text-align: center;

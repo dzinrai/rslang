@@ -37,7 +37,8 @@ function LearnWords() {
       page: 4, group: 5, wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
     })
     createSettings({
-      wordsPerDay: 10, optional: {
+      wordsPerDay: 10,
+        optional: {
         cardsPerDay: 50,
         wordTranscription: true,
         spellingOutSentence: false,
@@ -46,8 +47,8 @@ function LearnWords() {
         translateDescription: true,
         showResultButton: true,
         moveToDifficult: true,
+        deleteWord: true,
         difficultyButtons: true,
-
       }
     });
   createStatistic({
@@ -124,6 +125,7 @@ function LearnWords() {
           translateDescription: settingsData.optional.translateDescription,
           showResultButton: settingsData.optional.showResultButton,
           moveToDifficult: settingsData.optional.moveToDifficult,
+          deleteWord: settingsData.optional.deleteWord,
           difficultyButtons: settingsData.optional.difficultyButtons,
         },
       };

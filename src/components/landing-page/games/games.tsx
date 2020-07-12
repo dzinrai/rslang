@@ -17,7 +17,7 @@ function Games() {
       <Game path="speakit" text="Allows you to improve listening comprehension of English" Image={Calling} caption="Audio Call" />
       <Game path="sprint" text="You need to quickly decide the correct one is the translation of the word" Image={Sprinter} caption="Sprint" />
       <Game path="puzzle" text="Build a sentence from words. Effective exercise to understand the structure of sentences" Image={Puzzle} caption="English Puzzle" />
-      <Game path="speakit" text="Surprise" Image={Surprise} caption="Special OwnGame" />
+      <Game path="memory-game" text="Surprise" Image={Surprise} caption="Special OwnGame" />
     </div>
   );
 }

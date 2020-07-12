@@ -1,4 +1,4 @@
-import getWordsForLibrary from "./getWordsForLibrary";
+import getWordsForLibrary from './getWordsForLibrary';
 
 const preloadWords = async (dispatchWords: any) => {
   const wordsFromBackend = await getWordsForLibrary();
