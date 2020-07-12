@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useHistory } from 'react-router-dom';
 import styles from './header.module.css';
 import Logo from '../../img/HeaderLogo.svg';
 import MenuLink from './menu-link';
@@ -35,10 +35,22 @@ const Header: React.FC = () => {
   const [menuButtonStyle, menuContainerStyle] = [`${styles.menuButton}
       ${isOpen && styles.active}`, `${styles.menuContainer}
       ${isOpen && styles.active}`];
+  const history = useHistory();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
+  const logout = () => {
+    history.push('/');
+
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userToken');
+
+    sessionStorage.removeItem('userId');
+    sessionStorage.removeItem('userToken');
+  };
+
   return (
     <>
       <div className={styles.headerContainer}>
@@ -58,9 +70,13 @@ const Header: React.FC = () => {
             <div className={styles.menuScreenBackground} />
             <div className={styles.menuBlock}>
               <MenuLink link={pathArray} toggleMenu={toggleMenu} />
-              <div className={styles.btnLogOut}>
+              <button
+                className={styles.btnLogOut}
+                type="button"
+                onClick={logout}
+              >
                 Log Out
-              </div>
+              </button>
             </div>
           </div>
         )}
