@@ -22,7 +22,6 @@ export default () => {
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
       setWords(wordsFromBackend);
     };
-
     preloadWords()
   }, []);
   /* eslint-enable */

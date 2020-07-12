@@ -1,7 +1,9 @@
 import React, {
   useEffect, useState, useRef,
 } from 'react';
+import moment from 'moment';
 import ButtonBack from '../controls/button-back/button-back';
+import { getStatistic, createStatistic } from '../../../services/statistic'
 import { ReactComponent as CheckedCircle } from '../../../img/checked-circle.svg';
 import { ReactComponent as Circle } from '../../../img/circle.svg';
 import ModalWindow from './modal-window';
@@ -36,6 +38,20 @@ export default ({ allWords, words }: PlayProps) => {
       }
       setIsResultsOpen(true);
       openedResults.current = true;
+      const loadStats = async () => {
+        const gettedStats = await getStatistic();
+        console.log('getted stats', gettedStats)
+        const percentCorrect = Math.round((fullCorrectList.current.length*100)/fullWordsList.current.length)
+        gettedStats.optional.games.sprint.lastPlay.push(moment().format('DD/MM/YY'))
+        gettedStats.optional.games.sprint.percentCorrect.push(percentCorrect)
+        gettedStats.optional.games.sprint.words.push(fullWordsList.current.length)
+        console.log('put stats', gettedStats)
+
+        const newStats = async (stats: any) => await createStatistic(stats)
+        newStats(gettedStats)
+
+      };
+      loadStats();  
     }
   });
   /* eslint-enable */

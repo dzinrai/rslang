@@ -1,49 +1,49 @@
 /* eslint-disable */
 interface UserStatistic{
-  learnedWords: number,
-  optional: {
-    common:{
-    wordsToday:number;
-    newWordsToday:number;
-    lastWord:any;
-    weekDay: string;
-    dayProgress:number;// wordsToday/wordsTodayPlan
-    //(get this one from setting's back)*100% and put it in progress rainbow line style
-    // this may be week days progress
-    },
-    games:{
-      speakIt:{
-        lastPlay: string;
-        words: number;
-        percentCorrect:number;// correct/words*100%
-      },
-      savannah:{
-        lastPlay: string;
-        words: number;
-        percentCorrect:number;
-      },
-      audioCall:{
-        lastPlay: string;
-        words: number;
-        percentCorrect:number;
-      },
-      sprint:{
-        lastPlay: string;
-        words: number;
-        percentCorrect:number;
-      },
-      puzzle:{
-        lastPlay: string;
-        words: number;
-        percentCorrect:number;
-      },
-      ownGame:{
-        lastPlay: string;
-        words: number;
-        percentCorrect:number;
-      },
-    }
-  }
+        learnedWords: number,
+        optional: {
+          common:{
+          wordsToday:number;
+          newWordsToday:number;
+          lastWord:any;
+          weekDay: string;
+          dayProgress:number;// wordsToday/wordsTodayPlan
+          //(get this one from setting's back)*100% and put it in progress rainbow line style
+         // this may be week days progress
+          },
+          games:{
+            speakIt:{
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;// correct/words*100%
+            },
+            savannah:{
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
+            },
+            audioCall:{
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
+            },
+            sprint:{
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
+            },
+            puzzle:{
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
+            },
+            ownGame:{
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
+           },
+          }
+        }
 }
 
 export async function createStatistic(statisticObj:UserStatistic) {
