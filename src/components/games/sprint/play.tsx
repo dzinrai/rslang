@@ -36,12 +36,15 @@ export default ({ allWords, words }: PlayProps) => {
       for (let i = 0; i <= wordsIndex; i += 1) {
         fullWordsList.current.push(allWords[i]);
       }
+
       setIsResultsOpen(true);
       openedResults.current = true;
+
       const loadStats = async () => {
         const gettedStats = await getStatistic();
         console.log('getted stats', gettedStats)
         const percentCorrect = Math.round((fullCorrectList.current.length*100)/fullWordsList.current.length)
+        gettedStats.optional.common.lastWord = fullCorrectList.current[fullCorrectList.current.length - 1].id
         gettedStats.optional.games.sprint.lastPlay.push(moment().format('DD/MM/YY'))
         gettedStats.optional.games.sprint.percentCorrect.push(percentCorrect)
         gettedStats.optional.games.sprint.words.push(fullWordsList.current.length)
