@@ -21,7 +21,7 @@ function MainPage() {
 
   async function updateLastWord(wordId: string) {
     const word = await getWordByIdFromAPI(wordId);
-    setLastWord(word);
+    if (word && !word.error) setLastWord(word);
   }
 
   useEffect(() => {
@@ -39,6 +39,7 @@ function MainPage() {
       .then(() => {
         getStatistic()
           .then((statistic:any) => {
+            if (!statistic || !statistic.optional) return;
             dispatchWords({ type: 'setUserStatistic', value: statistic });
             updateLastWord(statistic.optional.common.lastWord);
             // eslint-disable-next-line
