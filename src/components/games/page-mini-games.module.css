@@ -30,7 +30,7 @@
     min-height: calc(100vh - 100px);
     overflow: hidden;
     background-color: #FAFAFA;
-    padding-top: 5%;
+    padding-top: 0;
 }
 .buttonDescription {
     font-weight: 300;

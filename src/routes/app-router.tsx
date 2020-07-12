@@ -16,7 +16,7 @@ import SpeakIt from '../components/games/speak-it/start-page';
 import Sprint from '../components/games/sprint/start-page';
 import Savannah from '../components/games/savannah/start-page';
 import MemoryGame from '../components/games/memory-game/start-page';
-import EnglishPuzzle from '../components/english-puzzle/english-puzzle';
+import EnglishPuzzle from '../components/games/english-puzzle/english-puzzle';
 import StatisticPage from '../components/statistic-page/statistic-page';
 
 function AppRouter() {

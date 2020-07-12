@@ -1,4 +1,4 @@
-import updateGameStatistics from "../../../services/updateGameStatistics";
+import updateGameStatistics from "../../../../services/updateGameStatistics";
 
 async function saveStat(dispatchGame, stateGame) {
   const date = String(new Date().toLocaleString('ru-RU')).slice(0, -3);
