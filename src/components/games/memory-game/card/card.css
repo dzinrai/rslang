@@ -102,7 +102,7 @@
 .timer-container {
 	position: fixed;
     right: 56px;
-    top: 48%;
+	top: 48%;
 }
 
 @media (max-width: 1150px) {

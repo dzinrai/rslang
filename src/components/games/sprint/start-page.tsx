@@ -15,17 +15,19 @@ export default () => {
   let wordsForPlay: any = [];
   /*eslint-disable*/
   useEffect(() => {
-    const preloadWords = async (pageLevel : number) => {
+    const preloadWords = async () => {
       const wordsFromBackend = await getWords({
-        page: 0, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 60,
+        wordsPerExampleSentenceLTE: 20, wordsPerPage: 60,
       });
-      setWords(wordsFromBackend);
+      console.log('from back', wordsFromBackend)
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
+      setWords(wordsFromBackend);
     };
-    preloadWords(0);
+
+    preloadWords()
   }, []);
   /* eslint-enable */
-
+  console.log('first words', words)
   if (words.length !== 0) wordsForPlay = createCouples(words);
 
   const pinkColor = '#FF645F';

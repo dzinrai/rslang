@@ -15,7 +15,7 @@ export default () => {
   useEffect(() => {
     const preloadWords = async () => {
       const wordsFromBackend = await getWords({
-        page: 0, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 8,
+        wordsPerExampleSentenceLTE: 20, wordsPerPage: 8,
       });
       setWords(wordsFromBackend.slice(0, 8));
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
