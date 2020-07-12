@@ -122,7 +122,7 @@ function Buttons({
       setUsersWord('');
       setTranspAnswer(false);
     }
-    if ((index === maxCards - 1) && correct && itTimeToNotification) {
+    if ((index >= maxCards - 1) && correct && itTimeToNotification) {
       setVisibleNot(true);
       getStatistic()
         .then((statistic:any) => {
