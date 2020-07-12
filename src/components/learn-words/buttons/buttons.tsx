@@ -11,6 +11,8 @@ import { getStatistic, createStatistic } from '../../../services/statistic';
 import { getSettings } from '../../../services/settings';
 
 interface ButtonsProps {
+  setRepeatTrainWords:any,
+  repeatWords:any,
   word: any,
   setProgress: any,
   onCorrect: any,
@@ -30,12 +32,12 @@ interface ButtonsProps {
   visibleNot: boolean,
   setVisibleNot: any,
   maxCards: number,
-  notification: any
+  notification: any,
+  itTimeToNotification:boolean
 }
 
-
 function viewCount(wordObject: any) {
-  wordObject.userWord.optional.views++;
+  wordObject.userWord.optional.views += 1;
   wordObject.userWord.optional.newWord = false;
   wordObject.userWord.optional.lastView = moment().format('DD/MM/YY');
   updateWordById(wordObject._id, wordObject.userWord);
@@ -43,9 +45,9 @@ function viewCount(wordObject: any) {
 
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
-  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification, setProgress
+  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification, setProgress,
+  setRepeatTrainWords, itTimeToNotification, repeatWords,
 }: ButtonsProps) {
-
   console.log(visibleNot);
   const checkProps = {
     word,
@@ -58,29 +60,34 @@ function Buttons({
     setInProp,
     setTranspAnswer,
   };
+  // eslint-disable-next-line
   function saveLastWord(word: any, isTrain?: boolean) {
     getStatistic()
       .then((statistic: any) => {
         if (isTrain) {
-          getSettings()
-            .then((settings: any) => {
-              statistic.optional.common.dayProgress = statistic.optional.common.wordsToday / settings.optional.cardsPerDay * 100;
-              setProgress(statistic.optional.common.dayProgress)
-            })
-          statistic.optional.common.wordsToday += 1;
-          if (!word.userWord.optional.newWord === false) { statistic.optional.common.newWordsToday += 1 }
+          if (word.userWord.optional.repeat === false) {
+            getSettings()
+              .then((settings: any) => {
+                // eslint-disable-next-line
+                statistic.optional.common.dayProgress = (statistic.optional.common.wordsToday / settings.optional.cardsPerDay) * 100;
+                setProgress(statistic.optional.common.dayProgress);
+              });
+            statistic.optional.common.wordsToday += 1;
+          }
+          // eslint-disable-next-line
+          if (!word.userWord.optional.newWord === false) { statistic.optional.common.newWordsToday += 1; }
         }
-        statistic.learnedWords++;
+        if (word.userWord.optional.newWord === true) {
+          statistic.learnedWords += 1;
+        }
         statistic.optional.common.lastWord = word._id;
         createStatistic(statistic);
       })
-      .then(() => {
-
-      }).catch(() => {
+      .catch(() => {
         console.log("Can't update statistic");
       })
       .then(() => {
-        viewCount(word)
+        viewCount(word);
       });
   }
 
@@ -104,6 +111,8 @@ function Buttons({
         break;
       default:
         word.userWord.optional.repeat = true;
+        repeatWords.push(word);
+        setRepeatTrainWords(repeatWords);
         break;
     }
     updateWordById(word._id, word.userWord);
@@ -113,13 +122,12 @@ function Buttons({
       setUsersWord('');
       setTranspAnswer(false);
     }
-    if ((index === maxCards - 1) && correct) {
+    if ((index === maxCards - 1) && correct && itTimeToNotification) {
       setVisibleNot(true);
       getStatistic()
-      .then((statistic:any)=>{
-        notification(statistic);
-      })
-  
+        .then((statistic:any) => {
+          notification(statistic);
+        });
     }
   }
 

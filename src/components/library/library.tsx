@@ -79,9 +79,9 @@ function Library() {
             Deleted
           </button>
         </div>
-        {libraryShow.all && <LibraryAllWords active={true} />}
-        {libraryShow.hard && <LibraryAllWords active={true} hard={true} />}
-        {libraryShow.deleted && <LibraryAllWords nonActive={true}  />}
+        {libraryShow.all && <LibraryAllWords active />}
+        {libraryShow.hard && <LibraryAllWords active hard />}
+        {libraryShow.deleted && <LibraryAllWords nonActive />}
       </div>
     </div>
   );

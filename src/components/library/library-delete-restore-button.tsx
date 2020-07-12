@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint no-param-reassign: "error" */
 import React, { useContext } from 'react';
 import { ReactComponent as Trash } from '../../img/trash.svg';
 import styles from './library-word.module.css';
@@ -21,7 +23,7 @@ function DeleteRestoreBtn({ isDeletedPage, word }: DeleteRestoreBtnProps) {
       if (wordsInContext._id === word._id) {
         const newWords = [...words];
         newWords[i].userWord.optional.active = isDeletedPage;
-        dispatchWords({type: 'setAllWords', value: newWords});
+        dispatchWords({ type: 'setAllWords', value: newWords });
       }
     });
   };

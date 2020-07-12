@@ -4,9 +4,9 @@ import { Modal, Button } from 'antd';
 import moment from 'moment';
 import styles from './learn-words.module.css';
 import { getWordsFromBackend } from '../../services/getWords';
-//import { preloadWords } from '../../services/create-user-word';
-import { getSettings, createSettings, UserSettings } from '../../services/settings';
-//import { createStatistic } from '../../services/statistic';
+// import { preloadWords } from '../../services/create-user-word';
+import { getSettings, UserSettings } from '../../services/settings';
+import { getStatistic, createStatistic } from '../../services/statistic';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import CardsSlider from './cards-slider/cards-slider';
@@ -26,20 +26,23 @@ function LearnWords() {
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
   const [maxCards, setMaxCards] = useState(0);
+  const [repeatTrainWords, setRepeatTrainWords] = useState([]);
+
+  const [itTimeToNotification, setItTimeToNotification] = useState(false);
 
   const [visible, setVisible] = useState(true);
   const [visibleNotification, setVisibleNotification] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(0);
 
   /* eslint-disable */
 
   useEffect(() => {
 
   }, []);
-
-
+  const isTimeToNotif=(nitifTime:boolean)=>setItTimeToNotification(nitifTime)
+  const newRepeatWords=(repeatTrainWord:any)=>setRepeatTrainWords(repeatTrainWord);
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
   const newUsersWord = (word1: string) => setUsersWord(word1);
@@ -50,7 +53,7 @@ function LearnWords() {
   const controlAutoplay = (isAutoplay: boolean) => setAutoplay(isAutoplay);
   const newInProp = (isInProp: boolean) => setInProp(isInProp);
   const newTranspAnswer = (isTranspAnswer: boolean) => setTranspAnswer(isTranspAnswer);
-  const newProgress = (progress: number) => setProgress(progress);
+  const newProgress = (progress1: number) => setProgress(progress1);
 
   function handleOk(key: string): () => void | Promise<void> {
     return async function (): Promise<void> {
@@ -139,6 +142,14 @@ function LearnWords() {
       ),
       onOk() { 
         setVisibleNotification(false);
+        getStatistic()
+        .then((statistic:any)=>{
+          statistic.optional.errors=0;
+          statistic.optional.correct=0;
+          statistic.optional.wordsToday=0;
+          statistic.optional.newWordsToday=0;
+          createStatistic(statistic);
+        })
         history.push('/main-page');
        },
     });
@@ -170,6 +181,9 @@ function LearnWords() {
           <div className={styles.cardContainer}>
             <ProgressIndicator progress={progress} />
             <CardsSlider
+            setItTimeToNotification={isTimeToNotif}
+            maxWordsCards={maxCards}
+            repeatWords={repeatTrainWords}
               words={words}
               word={word}
               setWord={newWord}
@@ -199,6 +213,9 @@ function LearnWords() {
               />
             )}
             <Buttons
+            itTimeToNotification={itTimeToNotification}
+            setRepeatTrainWords={newRepeatWords}
+            repeatWords={repeatTrainWords}
               setProgress={newProgress}
               word={word}
               onCorrect={correctCard}

@@ -38,13 +38,14 @@ export async function createUserWord({ userId, wordId, word }: WordsSetter) {
     });
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();
+  console.log('createUserWords', content);
   return content;
 }
 
 export async function preloadWordsOnBackend(wordsPerDay: number) {
-  const nullFilter = JSON.stringify({ 'userWord': null });
+  const nullFilter = JSON.stringify({ userWord: null });
   const wordsForBackend = await getWordsFromBackend(
-    nullFilter, wordsPerDay
+    nullFilter, wordsPerDay,
   );
   wordsForBackend.forEach((oneWord: any) => {
     createUserWord({

@@ -8,7 +8,7 @@ import TodayProgress from '../today-progress';
 import { storeWords } from '../../context/contextWords';
 import preloadWords from '../../services/preloadWords';
 import { preloadWordsOnBackend } from '../../services/create-user-word';
-import { getSettings} from '../../services/settings';
+import { getSettings } from '../../services/settings';
 
 function MainPage() {
   const wordsState = useContext(storeWords);
@@ -23,7 +23,7 @@ function MainPage() {
           preloadWordsOnBackend(settingsData.wordsPerDay);
           preloadWords(dispatchWords);
         }
-      })
+      });
     // eslint-disable-next-line
   }, []);
 

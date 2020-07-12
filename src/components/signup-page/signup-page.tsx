@@ -51,8 +51,8 @@ const SignUpPage: React.FC = () => {
               showResultButton: true,
               moveToDifficult: true,
               difficultyButtons: true,
-            }
-          }
+            },
+          },
         );
         createStatistic({
           learnedWords: 0,
@@ -63,8 +63,8 @@ const SignUpPage: React.FC = () => {
               dayProgress: 0,
               lastWord: {},
               weekDay: moment().format('dddd'),
-              errors:0,
-              correct:0
+              errors: 0,
+              correct: 0,
             },
             games: {
               speakIt: {
@@ -97,10 +97,10 @@ const SignUpPage: React.FC = () => {
                 words: 0,
                 percentCorrect: 0,
               },
-            }
-          }
+            },
+          },
 
-        })
+        });
       })
       .catch((err) => {
         setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);
