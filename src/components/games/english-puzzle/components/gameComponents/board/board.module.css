@@ -72,7 +72,7 @@
 }
 .paintName {
     position: absolute;
-    bottom: -30px;
+    bottom: -40px;
     color: #ffffff;
     width: 100%;
     font-size: 18px;
@@ -80,6 +80,9 @@
     text-align: center;
     padding: 4px 5px;
     background-color: #bdbdbd67;
+    max-height: 36px;
+    word-wrap: none;
+    overflow: hidden;
 }
 
 @media (max-width: 1200px) {

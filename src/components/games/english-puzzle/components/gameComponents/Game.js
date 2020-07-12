@@ -9,9 +9,9 @@ import preloadRound from '../../assets/preloadRound';
 import Results from './results/Results';
 import settingsStored from '../../localStorage/settings';
 import styles from './game-main.module.css';
-import Puzzle from '../../../../img/puzzle.svg';
+import Puzzle from '../../../../../img/puzzle.svg';
 import PuzzleStatistic from './statistics/puzzle-statistic';
-import { getStatistic } from '../../../../services/statistic';
+import { getStatistic } from '../../../../../services/statistic';
 
 function Game() {
   const gameState = useContext(storeGame);
