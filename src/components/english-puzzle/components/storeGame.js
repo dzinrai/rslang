@@ -32,6 +32,8 @@ const initialState = {
   roundImage: {},
   isShowResults: false,
   results: { know: [], notKnow: [] },
+  statistics: [],
+  showStats: false,
 };
 const storeGame = createContext(initialState);
 const { Provider } = storeGame;
@@ -151,6 +153,12 @@ const StateOfGameProvider = ({ children }) => {
         return newState;
       case 'roundImage':
         newState = { ...state, roundImage: action.value };
+        return newState;
+      case 'updateStatistics':
+        newState = { ...state, statistics: action.value };
+        return newState;
+      case 'showStats':
+        newState = { ...state, showStats: action.value };
         return newState;
       default:
         throw new Error();
