@@ -40,6 +40,7 @@ function MainPage() {
         getStatistic()
           .then((statistic:any) => {
             if (!statistic || !statistic.optional) return;
+            console.log(statistic);
             dispatchWords({ type: 'setUserStatistic', value: statistic });
             updateLastWord(statistic.optional.common.lastWord);
             // eslint-disable-next-line
