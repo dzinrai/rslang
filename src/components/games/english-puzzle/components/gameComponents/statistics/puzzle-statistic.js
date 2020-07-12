@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Modal } from 'antd';
 import styles from './puzzle-statistic.module.css';
 import { storeGame } from '../../storeGame';
-
+/* eslint-disable*/
 function PuzzleStatistic() {
   const gameState = useContext(storeGame);
   const dispatchGame = gameState.dispatch;

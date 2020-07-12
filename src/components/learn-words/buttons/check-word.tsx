@@ -3,6 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable */
 import { updateWordById } from '../../../services/getWords';
+import { getStatistic, createStatistic } from '../../../services/statistic';
 
 interface CheckProps {
   word: any,
@@ -15,15 +16,38 @@ interface CheckProps {
   setTranspAnswer: any,
 
 }
-function errorsCount(wordObject:any) {
+function errorsCount(wordObject: any,isTrain?:boolean) {
+  getStatistic()
+  .then((statistic: any) => {
+      statistic.optional.common.errors+=1;
+      createStatistic(statistic);
+    })
+  wordObject.userWord.optional.errorInGame = isTrain ? false : true;
   wordObject.userWord.optional.errors += 1;
+
+  wordObject.userWord.optional.wordIndicator > 1 ?
+   wordObject.userWord.optional.wordIndicator-- :
+    wordObject.userWord.optional.wordIndicator;
+
   wordObject.userWord.optional.repeat = true;
   updateWordById(wordObject._id, wordObject.userWord);
 }
-function correctCount(wordObject:any) {
+
+function correctCount(wordObject: any) {
+  getStatistic()
+  .then((statistic: any) => {
+      statistic.optional.common.correct+=1;
+      createStatistic(statistic);
+    })
   wordObject.userWord.optional.correct += 1;
+  wordObject.userWord.optional.errorInGame=false;
+  wordObject.userWord.optional.wordIndicator < 5 ?
+   wordObject.userWord.optional.wordIndicator++ :
+    wordObject.userWord.optional.wordIndicator;
+
   updateWordById(wordObject._id, wordObject.userWord);
 }
+
 function checkWord({
   word, correct, onCorrect, setUsersWord, usersWord, setIndexes,
   setInProp, setTranspAnswer,
@@ -40,7 +64,7 @@ function checkWord({
       setTranspAnswer(false);
     } else if (inputWord.length !== curWord.length) {
       const newIndexes: any = [];
-      errorsCount(word);
+      errorsCount(word,true);
       curWord.split('').map((el: string, i: number) => el !== inputWord[i] && newIndexes.push(i));
       setIndexes(newIndexes);
       setInProp(false);

@@ -3,35 +3,54 @@ import React, { useEffect } from 'react';
 import Card from '../card/card';
 
 interface SliderProps {
-    words: any,
-    word: any,
-    setWord: any,
-    index: number,
-    setIndex: any,
-    onCorrect: any,
-    correct: boolean,
-    setUsersWord: any,
-    usersWord: string,
-    indexes: any,
-    setIndexes: any,
-    setAudioWord: any,
-    setAudioExample: any,
-    setAudioMeaning: any,
-    autoplay: boolean,
-    setAutoplay: any,
-    inProp: boolean,
-    setInProp: any,
-    transpAnswer: boolean,
-    setTranspAnswer: any,
-  }
+  maxWordsCards: number,
+  setItTimeToNotification:any,
+  repeatWords: any,
+  words: any,
+  word: any,
+  setWord: any,
+  index: number,
+  setIndex: any,
+  onCorrect: any,
+  correct: boolean,
+  setUsersWord: any,
+  usersWord: string,
+  indexes: any,
+  setIndexes: any,
+  setAudioWord: any,
+  setAudioExample: any,
+  setAudioMeaning: any,
+  autoplay: boolean,
+  setAutoplay: any,
+  inProp: boolean,
+  setInProp: any,
+  transpAnswer: boolean,
+  setTranspAnswer: any,
+}
 
 function CardsSlider({
   words, word, setWord, index, setIndex, onCorrect, correct, setUsersWord,
   usersWord, indexes, setIndexes,
   setAudioWord, setAudioExample, setAudioMeaning, autoplay, setAutoplay,
-  inProp, setInProp, transpAnswer, setTranspAnswer,
+  inProp, setInProp, transpAnswer, setTranspAnswer, repeatWords, maxWordsCards, setItTimeToNotification
 }: SliderProps) {
-  const curword = words[index];
+
+  let curword: any = {};
+
+  if (index >= maxWordsCards - 1) {
+    if (repeatWords.length) {
+      curword = repeatWords.shift();
+      curword.userWord.optional.repeat=false;
+    } else {
+      setItTimeToNotification(true);
+    }
+
+  } else {
+    curword = words[index];
+  }
+
+
+
   /* eslint-disable */
   useEffect(() => {
     setWord(curword);
@@ -40,7 +59,7 @@ function CardsSlider({
     setAudioMeaning(word.audioMeaning);
   }, [curword, word, setWord, setAudioWord, setAudioExample, setAudioMeaning]);
 
- /* eslint-enable */
+  /* eslint-enable */
   return (
     <>
       <Card

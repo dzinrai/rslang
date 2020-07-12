@@ -141,11 +141,11 @@ export default ({ words }: PlayProps) => {
   function onCardClick(card: any) {
     if (!canFlip) return;
     if (!card.canFlip) return;
-
+    // eslint-disable-next-line
     if (((firstCard && (card.id === firstCard.id)) || ((secondCard && (card.id === secondCard.id))))) return;
 
     setCardIsFlipped(card.id, false);
-
+    // eslint-disable-next-line
     firstCard ? setSecondCard(card) : setFirstCard(card);
   }
   return (

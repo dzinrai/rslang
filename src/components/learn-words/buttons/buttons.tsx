@@ -8,9 +8,13 @@ import checkWord from './check-word';
 import styles from './buttons.module.css';
 import { updateWordById } from '../../../services/getWords';
 import { getStatistic, createStatistic } from '../../../services/statistic';
+import { getSettings } from '../../../services/settings';
 
 interface ButtonsProps {
+  setRepeatTrainWords:any,
+  repeatWords:any,
   word: any,
+  setProgress: any,
   onCorrect: any,
   setUsersWord: any,
   usersWord: string,
@@ -28,29 +32,21 @@ interface ButtonsProps {
   visibleNot: boolean,
   setVisibleNot: any,
   maxCards: number,
-  notification: any
-}
-
-export function saveLastWord(word: any) {
-  getStatistic()
-    .then((statistic: any) => {
-      statistic.learnedWords += 1;
-      statistic.optional.common.lastWord = word._id;
-      createStatistic(statistic);
-    });
+  notification: any,
+  itTimeToNotification:boolean
 }
 
 function viewCount(wordObject: any) {
   wordObject.userWord.optional.views += 1;
   wordObject.userWord.optional.newWord = false;
   wordObject.userWord.optional.lastView = moment().format('DD/MM/YY');
-  saveLastWord(wordObject);
   updateWordById(wordObject._id, wordObject.userWord);
 }
 
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
-  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification,
+  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification, setProgress,
+  setRepeatTrainWords, itTimeToNotification, repeatWords,
 }: ButtonsProps) {
   console.log(visibleNot);
   const checkProps = {
@@ -64,8 +60,39 @@ function Buttons({
     setInProp,
     setTranspAnswer,
   };
+  // eslint-disable-next-line
+  function saveLastWord(word: any, isTrain?: boolean) {
+    getStatistic()
+      .then((statistic: any) => {
+        if (isTrain) {
+          if (word.userWord.optional.repeat === false) {
+            getSettings()
+              .then((settings: any) => {
+                // eslint-disable-next-line
+                statistic.optional.common.dayProgress = (statistic.optional.common.wordsToday / settings.optional.cardsPerDay) * 100;
+                setProgress(statistic.optional.common.dayProgress);
+              });
+            statistic.optional.common.wordsToday += 1;
+          }
+          // eslint-disable-next-line
+          if (!word.userWord.optional.newWord === false) { statistic.optional.common.newWordsToday += 1; }
+        }
+        if (word.userWord.optional.newWord === true) {
+          statistic.learnedWords += 1;
+        }
+        statistic.optional.common.lastWord = word._id;
+        createStatistic(statistic);
+      })
+      .catch(() => {
+        console.log("Can't update statistic");
+      })
+      .then(() => {
+        viewCount(word);
+      });
+  }
+
   function difficultyButtonClick(difficulty: string) {
-    viewCount(word);
+    saveLastWord(word, true);
     switch (difficulty) {
       case 'hard':
         word.userWord.difficulty = 'hard';
@@ -84,6 +111,8 @@ function Buttons({
         break;
       default:
         word.userWord.optional.repeat = true;
+        repeatWords.push(word);
+        setRepeatTrainWords(repeatWords);
         break;
     }
     updateWordById(word._id, word.userWord);
@@ -93,10 +122,12 @@ function Buttons({
       setUsersWord('');
       setTranspAnswer(false);
     }
-    if ((index === maxCards - 1) && correct) {
+    if ((index >= maxCards - 1) && correct && itTimeToNotification) {
       setVisibleNot(true);
-      // get stats from back
-      notification();
+      getStatistic()
+        .then((statistic:any) => {
+          notification(statistic);
+        });
     }
   }
 

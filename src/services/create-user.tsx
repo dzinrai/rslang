@@ -27,7 +27,9 @@ const createUser = async (user: User) => {
 
   const content = await rawResponse.json();
 
-  localStorage.setItem('userId', content.id);
+  localStorage.setItem('userId', content.userId);
+
+  sessionStorage.setItem('userId', content.userId);
 
   return content;
 };
