@@ -12,7 +12,7 @@ const MenuLink: React.FC<LinkProps> = ({ link, toggleMenu }: LinkProps) => (
   <ul>
     {link.map((item) => (
       <li key={item.id}>
-        <NavLink className={styles.link} to={item.path} onClick={toggleMenu}>
+        <NavLink className={styles.link} exact to={`/${item.path}`} onClick={toggleMenu}>
           <img src={item!.image} alt="" />
           <span>
             {item.name}

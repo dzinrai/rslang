@@ -1,6 +1,6 @@
 export default async function getWordsForLibrary() {
   const filterHard = JSON.stringify({ $or: [{ 'userWord.optional.active': false }, { 'userWord.optional.active': true }] });
-  const url = `https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords?wordsPerPage=20&filter=${filterHard}`;
+  const url = `https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords?wordsPerPage=3600&filter=${filterHard}`;
   // const url = `https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords`;
   const rawResponse = await fetch(url, {
     method: 'GET',

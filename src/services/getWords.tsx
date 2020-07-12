@@ -15,10 +15,9 @@ export interface WordsFromBack {
 }
 
 export async function getWords({
-  page, group,
   wordsPerExampleSentenceLTE, wordsPerPage,
 }: WordsGetter) {
-  const url = `https://afternoon-falls-25894.herokuapp.com/words?page=${page}&group=${group} wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}&wordsPerPage=${wordsPerPage}`;
+  const url = `https://afternoon-falls-25894.herokuapp.com/words?wordsPerExampleSentenceLTE=${wordsPerExampleSentenceLTE}&wordsPerPage=${wordsPerPage}`;
   const rawResponse = await fetch(url);
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
   const content = await rawResponse.json();

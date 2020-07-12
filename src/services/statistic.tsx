@@ -15,41 +15,41 @@ interface UserStatistic{
           },
           games:{
             speakIt:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;// correct/words*100%
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;// correct/words*100%
             },
             savannah:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
             },
             audioCall:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
             },
             sprint:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
             },
             puzzle:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
             },
             ownGame:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
            },
           }
         }
-
 }
 
-export async function createStatistic(statistic:UserStatistic) {
+export async function createStatistic(statisticObj:UserStatistic) {
+  const statistic = statisticObj;
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/statistics`,
     {
       method: 'PUT',
@@ -75,7 +75,8 @@ export async function getStatistic() {
       Accept: 'application/json',
     },
   });
-  if (settingsFromBack.status !== 200) return { error: 'Failed to get settings' };
+  if (settingsFromBack.status === 404) return { error: 'Statistics not found', status: 404 };
+  if (settingsFromBack.status !== 200) return { error: 'Failed to get statistic' };
   const content = await settingsFromBack.json();
   return content;
 }

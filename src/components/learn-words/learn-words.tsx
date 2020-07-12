@@ -72,6 +72,7 @@ function LearnWords() {
           translateDescription: settingsData.optional.translateDescription,
           showResultButton: settingsData.optional.showResultButton,
           moveToDifficult: settingsData.optional.moveToDifficult,
+          deleteWord: settingsData.optional.deleteWord,
           difficultyButtons: settingsData.optional.difficultyButtons,
         },
       };

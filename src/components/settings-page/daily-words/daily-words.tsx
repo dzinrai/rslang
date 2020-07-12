@@ -1,32 +1,52 @@
-import React, { useState, useContext } from 'react';
-import { storeWords } from '../../../context/contextWords';
+import React, { useState } from 'react';
 import SettingSlider from './setting-slider';
-import SettingButton from '../setting-button';
-import style from './daily-words.module.css';
+import styles from './daily-words.module.css';
 
-const DailyWords: React.FC = () => {
-  const wordsState = useContext(storeWords);
-  const dispatchWords = wordsState.dispatch;
+type Props = {
+  dailyWords: number;
+  dailyCards: number;
+  changedDailyWords: any;
+}
 
-  const [countOfDailyWords, setCountOfDailyWords] = useState(wordsState.state.countOfDailyWords);
-  const [countOfDailyCards, setCountOfDailyCards] = useState(wordsState.state.countOfDailyCards);
+const DailyWords: React.FC<{
+  dailyWords: number,
+  dailyCards: number,
+  changedDailyWords: any,
+}> = ({ dailyWords, dailyCards, changedDailyWords }: Props) => {
+  const dailyObj = {
+    dailyWords,
+    dailyCards,
+  };
+  const [countOfDailyWords, setCountOfDailyWords] = useState(dailyWords);
+  const [countOfDailyCards, setCountOfDailyCards] = useState(dailyCards);
 
-  function onChangeWords(value: number) {
+  function changeDailyWords(value: number): void {
+    dailyObj.dailyWords = value;
+
     setCountOfDailyWords(value);
-    dispatchWords({ type: 'setCountOfDailyWords', value });
+    changedDailyWords(dailyObj);
   }
 
-  function onChangeCards(value: number) {
+  function changeDailyCards(value: number): void {
+    dailyObj.dailyCards = value;
+
     setCountOfDailyCards(value);
-    dispatchWords({ type: 'setCountOfDailyCards', value });
+    changedDailyWords(dailyObj);
   }
 
   return (
-    <div className={style.container}>
-      <p className={style.header}>Daily Learn Words</p>
-      <SettingSlider name="Daily Learn Words" count={countOfDailyWords} onChange={onChangeWords} />
-      <SettingSlider name="Daily Learn Cards" count={countOfDailyCards} onChange={onChangeCards} />
-      <SettingButton />
+    <div className={styles.container}>
+      <p className={styles.header}>Daily Learn Words</p>
+      <SettingSlider
+        name="Daily Learn Words"
+        count={countOfDailyWords}
+        changed={(value: number) => changeDailyWords(value)}
+      />
+      <SettingSlider
+        name="Daily Learn Cards"
+        count={countOfDailyCards}
+        changed={(value: number) => changeDailyCards(value)}
+      />
     </div>
   );
 };
