@@ -1,5 +1,5 @@
 .container {
-  width: 385px;
+  width: 100%;
   height: 324px;
   background: #FFFFFF;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.15);
@@ -19,4 +19,10 @@
 
 .settingContainer {
   margin: 34px 34px 0;
+}
+
+@media (max-width: 1235px) {
+  .container {
+    width: 100%;
+  }
 }

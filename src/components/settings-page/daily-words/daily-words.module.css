@@ -16,3 +16,9 @@
   line-height: 25px;
   color: #112256;
 }
+
+@media (max-width: 1235px) {
+  .container {
+    width: 100%;
+  }
+}
