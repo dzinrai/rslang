@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './last-word.module.css';
 import pronunciation from '../../../img/pronunciation.svg';
+import toFromUpperCaseString from '../../../assets/toFromUpperCaseString';
 
 // import { Button } from 'antd';
 // import 'antd/dist/antd.css';
@@ -9,17 +10,18 @@ import pronunciation from '../../../img/pronunciation.svg';
 
 // ReactDOM.render(<DatePicker />, mountNode);
 
-function LastWord() {
+function LastWord({ word } : any) {
+  if (!word) return null;
   return (
     <div className={styles.lastWord}>
       <p className={styles.top}>Your last word</p>
       <div className={styles.wordContainer}>
         <div className={styles.transcription}>
           <img src={pronunciation} alt="" />
-          [snov]
+          {word.transcription}
         </div>
-        <div className={styles.word}>Snow</div>
-        <div className={styles.translation}>Снег, снегопад</div>
+        <div className={styles.word}>{toFromUpperCaseString(word.word)}</div>
+        <div className={styles.translation}>{toFromUpperCaseString(word.wordTranslate)}</div>
       </div>
     </div>
   );

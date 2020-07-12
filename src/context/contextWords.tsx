@@ -17,6 +17,7 @@ const initialState = {
       difficultyButtons: true,
     },
   },
+  userStatistic: {}
 };
 
 const storeWords = createContext<any>(undefined);
@@ -38,6 +39,11 @@ const WordsProvider = ({ children }: Props) => {
       case 'setUserSettings':
         newState = {
           ...prevState, userSettings: action.value,
+        };
+        return newState;
+      case 'setUserStatistic':
+        newState = {
+          ...prevState, userStatistic: action.value,
         };
         return newState;
       default:
