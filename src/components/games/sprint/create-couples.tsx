@@ -4,16 +4,9 @@ function randomInteger(min = 1, max = 59) {
 }
 
 export default (words: any) => {
-  console.log('words', words)
   const newWords: any = [];
   const wordsForPlay: any = [];
-  console.log(randomInteger(1, words.length - 1));
-  const fullPlayWords: any = []
 
-  // for (let i = 0; i < 60; i += 1) {
-  //   fullPlayWords.push(words[randomInteger(1, words.length - 1)])
-  // }
-  console.log('full', fullPlayWords)
   words.map((word: any) => newWords.push({ newWord: word.word, newTransl: word.wordTranslate }));
 
   for (let i = 0; i < newWords.length; i += 1) {

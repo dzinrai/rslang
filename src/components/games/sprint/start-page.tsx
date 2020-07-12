@@ -19,7 +19,6 @@ export default () => {
       const wordsFromBackend = await getWords({
         wordsPerExampleSentenceLTE: 20, wordsPerPage: 60,
       });
-      console.log('from back', wordsFromBackend)
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
       setWords(wordsFromBackend);
     };
@@ -27,7 +26,6 @@ export default () => {
     preloadWords()
   }, []);
   /* eslint-enable */
-  console.log('first words', words)
   if (words.length !== 0) wordsForPlay = createCouples(words);
 
   const pinkColor = '#FF645F';
