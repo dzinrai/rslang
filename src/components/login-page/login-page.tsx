@@ -55,6 +55,7 @@ const LoginPage: React.FC = () => {
         });
       })
       .catch((err) => {
+
         setErrorMessage(<p className={styles.errorMsg}>{err.message}</p>);
       });
   };

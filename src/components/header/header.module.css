@@ -137,8 +137,9 @@
     right: 25px;
     font-weight: bold;
     font-size: 12px;
-    color: darkBlue;
-    border: 1px solid transparentDarkBlue;
+    color: #ffffff;
+    background-color: #FF645F;
+    border: 1px solid #FF645F;
     box-sizing: border-box;
     border-radius: 30px;
     padding: 6px 15px;
