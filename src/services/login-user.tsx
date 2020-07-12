@@ -30,6 +30,9 @@ const loginUser = async (user: User) => {
   localStorage.setItem('userId', content.userId);
   localStorage.setItem('userToken', content.token);
 
+  sessionStorage.setItem('userId', content.userId);
+  sessionStorage.setItem('userToken', content.token);
+
   return content;
 };
 
