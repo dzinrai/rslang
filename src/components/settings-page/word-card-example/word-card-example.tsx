@@ -55,7 +55,11 @@ const WordCardExample: React.FC<{
   let sentence: any = null;
 
   if (sentenceExample) {
-    sentence = <WordInfoExample translateDescription={translateDescription} />;
+    sentence = (
+      <WordInfoExample
+        translateDescription={translateDescription}
+      />
+    );
   }
 
   let indicator: any = <div className={styles.emptyBlock}> </div>;
