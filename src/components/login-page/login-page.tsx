@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 // import { Alert } from 'antd';
 import moment from 'moment';
 import 'antd/dist/antd.css';
@@ -22,6 +22,7 @@ const LoginPage: React.FC = () => {
   const history = useHistory();
   const { authorize } = useContext(Context);
   const [errorMessage, setErrorMessage] = useState<React.ReactNode>(null);
+  const [alert, setAlert] = useState<boolean>(false);
   /* eslint-disable */
   const onSubmit = async (data: LoginUser): Promise<void> => {
     loginUser(data)
@@ -31,21 +32,29 @@ const LoginPage: React.FC = () => {
       .then(() => {
         getSettings()
           .then((settings: any) => {
-            //  if (!settings.isUserOfOurSuperDuperApp === true) {
-            //   history.push('/auth');
-            // <Alert
-            //   message="OOOOP ERROR"
-            //   description="Your e-mail is already taken by another rs-lang"
-            //   type="error"
-            //   showIcon
-            //   closable
-            // />
-            // return;
-            //   } else {
-            history.push('/main-page');
-            settings.optional.lastVisit = moment().format('DD/MM/YY');
-            createSettings(settings);
-            //    }
+            if (settings && settings.optional && !settings.optional.isUserOfOurSuperDuperApp) {
+              history.push('/auth');
+              Modal.info({
+                title: 'Sorry',
+                visible: alert,
+                centered: true,
+                content: (
+                  <div>
+                    <p className={styles.statsTitle}>{''}</p>
+                    <div className={styles.statsTableContainer}>
+                      <span>Your e-mail is already taken by another rs-lang</span>
+                    </div>
+                  </div>
+                ),
+                onOk() { () => setAlert(true); },
+                okText: 'Close',
+              });
+              return;
+            } else {
+              history.push('/main-page');
+              settings.optional.lastVisit = moment().format('DD/MM/YY');
+              createSettings(settings);
+            }
           });
       })
       .then(() => {
