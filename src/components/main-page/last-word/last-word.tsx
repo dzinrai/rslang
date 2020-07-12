@@ -15,14 +15,14 @@ function LastWord({ word } : any) {
   const [exactWord, setExactWord] = useState<string>('');
   const [translate, setTranslate] = useState<string>('');
   const [transcription, setTranscription] = useState<string>('');
-
+/*eslint-disable*/
   useEffect(() => {
     if (word) {
       setExactWord(word.word);
       setTranslate(word.wordTranslate);
       setTranscription(word.transcription);
     }
-    // eslint-disable-next-line
+    
   }, [word]);
 
   return (
