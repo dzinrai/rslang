@@ -39,7 +39,7 @@ function LearnWords() {
   /* eslint-disable */
 
   useEffect(() => {
-
+   // eslint-disable-next-line
   }, []);
   const isTimeToNotif=(nitifTime:boolean)=>setItTimeToNotification(nitifTime)
   const newRepeatWords=(repeatTrainWord:any)=>setRepeatTrainWords(repeatTrainWord);
