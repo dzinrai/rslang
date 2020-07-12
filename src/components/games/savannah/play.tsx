@@ -1,9 +1,11 @@
 import React, {
   useEffect, useState, useContext,
 } from 'react';
+import moment from 'moment';
 import ButtonBack from '../controls/button-back/button-back';
 import styles from './play.module.css';
 import Modal from './modal-window';
+import { getStatistic, createStatistic } from '../../../services/statistic';
 import { storeWords } from '../../../context/contextWords';
 import { getWords } from '../../../services/getWords';
 import Timer from './timer';
@@ -25,6 +27,18 @@ export default () => {
   const [isResultsOpen, setIsResultsOpen] = useState(false);
   const [modalText, setModalText] = useState({ title: 'Guessed words', btn: 'Cancel' });
   const toggleModal = (isFall: boolean) => {
+    const loadStats = async () => {
+      const gettedStats = await getStatistic();
+      const percentCorrect = Math.round((correctWords * 100) / statistic.length);
+      gettedStats.optional.games.savannah.lastPlay.push(moment().format('DD/MM/YY'));
+      gettedStats.optional.games.savannah.percentCorrect.push(percentCorrect);
+      gettedStats.optional.games.savannah.words.push(statistic.length);
+
+      const newStats = async (stats: any) => await createStatistic(stats);
+      newStats(gettedStats);
+    };
+    loadStats();
+
     setIsFalling(isFall);
     setIsResultsOpen(!isResultsOpen);
     if (modalText.title === 'Game results') {
@@ -49,6 +63,7 @@ export default () => {
       page: pageLevel, group, wordsPerExampleSentenceLTE: 0, wordsPerPage: 4,
     });
     const words = wordsFromBackend.slice(0, 4);
+    // console.log('words', words)
     await dispatchWords({ type: 'setWords', value: wordsFromBackend });
     await startGame(words);
   };
