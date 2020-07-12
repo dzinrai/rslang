@@ -22,8 +22,6 @@ function GameStatsPage({ data, title }: GameStatsProps) {
     default: break;
   }
   const newdataSource = [];
-  console.log(dataArray);
-  console.log(data);
 
   if (title === 'English Puzzle') {
     for (let i = 0; i < datesArray.length; i += 1) {
