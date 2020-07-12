@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint no-param-reassign: "error" */
 import React, { useState, useContext } from 'react';
 import styles from './word-more-info.module.css';
 import { ReactComponent as Trans } from '../../img/btnTranslate.svg';

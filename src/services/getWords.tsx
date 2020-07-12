@@ -10,8 +10,8 @@ export interface WordsGetter {
 }
 
 export interface WordsFromBack {
-  filter?: string;
-  settings?: UserSettings;
+  filter: string;
+  settings: UserSettings;
 }
 
 export async function getWords({
@@ -24,7 +24,7 @@ export async function getWords({
   return content;
 }
 
-export async function getWordsFromBackend({ filter }: WordsFromBack, wordPerPage:number) {
+export async function getWordsFromBackend(filter:any, wordPerPage:number) {
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/aggregatedWords?filter=${filter}&wordsPerPage=${wordPerPage}`, {
     method: 'GET',
     headers: {
@@ -63,6 +63,19 @@ export async function getWordById(wordId:string) {
     },
   });
   if (rawResponse.status !== 200) return { error: 'Failed to get words' };
+  const content = await rawResponse.json();
+  return content;
+}
+
+export async function getWordByIdFromAPI(wordId:string) {
+  const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/words/${wordId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('userToken')}`,
+      Accept: 'application/json',
+    },
+  });
+  if (rawResponse.status !== 200) return { error: 'Failed to get word' };
   const content = await rawResponse.json();
   return content;
 }

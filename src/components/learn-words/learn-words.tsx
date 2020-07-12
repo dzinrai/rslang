@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Modal, Button } from 'antd';
 import moment from 'moment';
 import styles from './learn-words.module.css';
 import { getWordsFromBackend } from '../../services/getWords';
-import { preloadWords } from '../../services/create-user-word';
-import { getSettings, createSettings, UserSettings } from '../../services/settings';
-import { createStatistic } from '../../services/statistic';
+// import { preloadWords } from '../../services/create-user-word';
+import { getSettings, UserSettings } from '../../services/settings';
+import { getStatistic, createStatistic } from '../../services/statistic';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import CardsSlider from './cards-slider/cards-slider';
@@ -25,80 +26,23 @@ function LearnWords() {
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
   const [maxCards, setMaxCards] = useState(0);
+  const [repeatTrainWords, setRepeatTrainWords] = useState([]);
+
+  const [itTimeToNotification, setItTimeToNotification] = useState(false);
 
   const [visible, setVisible] = useState(true);
   const [visibleNotification, setVisibleNotification] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [progress, setProgress] = useState(0);
+
   /* eslint-disable */
 
   useEffect(() => {
-    preloadWords({
-      page: 4, group: 5, wordsPerExampleSentenceLTE: 10, wordsPerPage: 40,
-    })
-    createSettings({
-      wordsPerDay: 10,
-        optional: {
-        cardsPerDay: 50,
-        wordTranscription: true,
-        spellingOutSentence: false,
-        picture: true,
-        sentenceExample: true,
-        translateDescription: true,
-        showResultButton: true,
-        moveToDifficult: true,
-        deleteWord: true,
-        difficultyButtons: true,
-      }
-    });
-  createStatistic({
-    learnedWords: 0,
-    optional: {
-      common:{
-      wordsToday:0,
-      newWordsToday:0,
-      dayProgress:0,
-      lastWord:{},
-      weekDay:moment().format('dddd'),
-      },
-      games:{
-        speakIt:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        savannah:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        audioCall:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        sprint:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        puzzle:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-        ownGame:{
-          lastPlay:'',
-          words: 0,
-          percentCorrect:0,
-        },
-      }
-    }        
-    
-})
+   // eslint-disable-next-line
   }, []);
-
-
+  const isTimeToNotif=(nitifTime:boolean)=>setItTimeToNotification(nitifTime)
+  const newRepeatWords=(repeatTrainWord:any)=>setRepeatTrainWords(repeatTrainWord);
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
   const newUsersWord = (word1: string) => setUsersWord(word1);
@@ -109,6 +53,7 @@ function LearnWords() {
   const controlAutoplay = (isAutoplay: boolean) => setAutoplay(isAutoplay);
   const newInProp = (isInProp: boolean) => setInProp(isInProp);
   const newTranspAnswer = (isTranspAnswer: boolean) => setTranspAnswer(isTranspAnswer);
+  const newProgress = (progress1: number) => setProgress(progress1);
 
   function handleOk(key: string): () => void | Promise<void> {
     return async function (): Promise<void> {
@@ -117,6 +62,8 @@ function LearnWords() {
       const settings: UserSettings = {
         wordsPerDay: settingsData.wordsPerDay,
         optional: {
+          isUserOfOurSuperDuperApp: settingsData.optional.isUserOfOurSuperDuperApp,
+          lastVisit: settingsData.optional.lastVisit,
           cardsPerDay: settingsData.optional.cardsPerDay,
           wordTranscription: settingsData.optional.wordTranscription,
           spellingOutSentence: settingsData.optional.spellingOutSentence,
@@ -132,35 +79,42 @@ function LearnWords() {
       let filter = '';
       switch (key) {
         case 'new':
-          filter = JSON.stringify(
-            { 'userWord.optional.newWord': true },
-          );
+          filter = JSON.stringify({
+            $and: [
+              { 'userWord.optional.newWord': true },
+              { 'userWord.optional.active': true }
+            ]
+          });
           break;
         case 'repeating':
           filter = JSON.stringify({
-            $or: [{
-              $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
-                { 'userWord.optional.newWord': false },
-              ],
-            },
-            { 'userWord.optional.errorInGame': true },
+
+            $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
+            { 'userWord.optional.newWord': false },
+            { 'userWord.optional.active': true }
             ],
-          });
+          }
+          );
           break;
         default:
           filter = JSON.stringify({
             $or: [{
               $and: [{ 'userWord.optional.nextView': moment().format('DD/MM/YY') },
-                { 'userWord.optional.newWord': false },
+              { 'userWord.optional.newWord': false },
+              { 'userWord.optional.active': true }
               ],
             },
-            { 'userWord.optional.newWord': true },
+            {
+              $and: [
+                { 'userWord.optional.newWord': true },
+                { 'userWord.optional.active': true }]
+            }
             ],
           });
           break;
       }
-    setMaxCards(settings.optional.cardsPerDay);
-      getWordsFromBackend({ filter, settings }, settings.optional.cardsPerDay)
+      setMaxCards(settings.optional.cardsPerDay);
+      getWordsFromBackend(filter, settings.optional.cardsPerDay)
         .then((data) => {
           setWords(data[0].paginatedResults);
         })
@@ -171,21 +125,34 @@ function LearnWords() {
     };
   }
 
-  function Notification() {
+  function Notification(trainStatistic:any) {
+    const history = useHistory();
     Modal.info({
       title: 'Congrats!',
       visible: visibleNotification,
       centered: true,
       content: (
         <div className={styles.notifContainer}>
-          <div className={styles.notifTitle}>You have learned all words for today!</div>
-          <div>
-            If you want to learn more, you can change amount of words for today in settings.
-          </div>
-          <div>Keep up the good work!</div>
-        </div>
+        <div className={styles.notifTitle}>You have learned all words for today!</div>
+          <div className={styles.notifTitle}>
+          <div>Cards passed: {trainStatistic.wordsToday}</div>
+          <div> Percent of correct words: {trainStatistic.correct/(trainStatistic.correct+trainStatistic.errors)*100} %</div>
+          <div>New words: {trainStatistic.newWordsToday} </div>
+           </div>
+       </div>
       ),
-      onOk() { setVisibleNotification(false); },
+      onOk() { 
+        setVisibleNotification(false);
+        getStatistic()
+        .then((statistic:any)=>{
+          statistic.optional.errors=0;
+          statistic.optional.correct=0;
+          statistic.optional.wordsToday=0;
+          statistic.optional.newWordsToday=0;
+          createStatistic(statistic);
+        })
+        history.push('/main-page');
+       },
     });
   }
 
@@ -213,8 +180,11 @@ function LearnWords() {
       {words.length !== 0
         ? (
           <div className={styles.cardContainer}>
-            <ProgressIndicator />
+            <ProgressIndicator progress={progress} />
             <CardsSlider
+            setItTimeToNotification={isTimeToNotif}
+            maxWordsCards={maxCards}
+            repeatWords={repeatTrainWords}
               words={words}
               word={word}
               setWord={newWord}
@@ -244,6 +214,10 @@ function LearnWords() {
               />
             )}
             <Buttons
+            itTimeToNotification={itTimeToNotification}
+            setRepeatTrainWords={newRepeatWords}
+            repeatWords={repeatTrainWords}
+              setProgress={newProgress}
               word={word}
               onCorrect={correctCard}
               setUsersWord={setUsersWord}
@@ -270,5 +244,5 @@ function LearnWords() {
     </div>
   );
 }
-    /* eslint-enable */
+/* eslint-enable */
 export default LearnWords;

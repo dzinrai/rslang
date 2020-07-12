@@ -16,13 +16,25 @@ interface CheckProps {
   wordObject: any
 }
 
-function errorsCount(wordObject:any) {
+export function errorsCount(wordObject: any, isTrain?: boolean) {
+  wordObject.userWord.optional.errorInGame = isTrain ? false : true;
   wordObject.userWord.optional.errors += 1;
+
+  wordObject.userWord.optional.wordIndicator > 1 ?
+    wordObject.userWord.optional.wordIndicator-- :
+    wordObject.userWord.optional.wordIndicator;
+
   wordObject.userWord.optional.repeat = true;
   updateWordById(wordObject._id, wordObject.userWord);
 }
-function correctCount(wordObject:any) {
+export function correctCount(wordObject: any) {
   wordObject.userWord.optional.correct += 1;
+  wordObject.userWord.optional.errorInGame=false;
+
+  wordObject.userWord.optional.wordIndicator < 5 ?
+    wordObject.userWord.optional.wordIndicator++ :
+    wordObject.userWord.optional.wordIndicator;
+
   updateWordById(wordObject._id, wordObject.userWord);
 }
 
@@ -40,7 +52,7 @@ function checkWord(e: any, {
       correctCount(wordObject);
       setTranspAnswer(false);
     } else if (inputWord.length !== word.length) {
-      errorsCount(wordObject);
+      errorsCount(wordObject,true);
       const newIndexes: any = [];
       word.split('').map((el: string, i: number) => (el !== inputWord[i]) && newIndexes.push(i));
       setIndexes(newIndexes);
