@@ -16,8 +16,8 @@ async function updateGameStatistics(update :updateGameStatistics) {
       ...currStat.optional,
       games: {
         ...currStat.optional.games,
-        puzzle: {
-          ...currStat.optional.games.puzzle,
+        [update.gameName]: {
+          ...currStat.optional.games[update.gameName],
           lastPlay: update.date,
           statistics: update.statistics,
         },
