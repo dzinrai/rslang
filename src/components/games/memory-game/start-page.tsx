@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { storeWords } from '../../../context/contextWords';
 import { getWords } from '../../../services/getWords';
-import createCouples from './create-couples';
 import styles from '../page-mini-games.module.css';
 import CommonStartGameBlock from '../common-start-game-block';
-import Sprinter from '../../../img/sprinter.svg';
+import MemoryGame from '../../../img/memory-game.svg';
 import Play from './play';
 
 export default () => {
@@ -12,21 +11,18 @@ export default () => {
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
   const [words, setWords] = useState<any>([]);
-  let wordsForPlay: any = [];
   /*eslint-disable*/
   useEffect(() => {
     const preloadWords = async () => {
       const wordsFromBackend = await getWords({
-        wordsPerExampleSentenceLTE: 20, wordsPerPage: 60,
+        wordsPerExampleSentenceLTE: 20, wordsPerPage: 8,
       });
+      setWords(wordsFromBackend.slice(0, 8));
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
-      setWords(wordsFromBackend);
     };
-
-    preloadWords()
+    preloadWords();
   }, []);
   /* eslint-enable */
-  if (words.length !== 0) wordsForPlay = createCouples(words);
 
   const pinkColor = '#FF645F';
   return (
@@ -34,11 +30,11 @@ export default () => {
       {!isStart
         ? (
           <div className={styles.gamesWrapper}>
-            <img className={styles.imageSprinter} src={Sprinter} alt="The running man" />
-            <CommonStartGameBlock setIsStart={setIsStart} color={pinkColor} buttonText="start" name="Sprint" />
+            <img className={styles.imageSprinter} src={MemoryGame} alt="Memory game" />
+            <CommonStartGameBlock setIsStart={setIsStart} color={pinkColor} buttonText="start" name="Memory Game" />
           </div>
         )
-        : <Play allWords={words} words={wordsForPlay} />}
+        : <Play words={words} />}
     </>
   );
 };

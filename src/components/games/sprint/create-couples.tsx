@@ -6,7 +6,7 @@ function randomInteger(min = 1, max = 59) {
 export default (words: any) => {
   const newWords: any = [];
   const wordsForPlay: any = [];
-  console.log(randomInteger());
+
   words.map((word: any) => newWords.push({ newWord: word.word, newTransl: word.wordTranslate }));
 
   for (let i = 0; i < newWords.length; i += 1) {
@@ -16,7 +16,7 @@ export default (words: any) => {
       wordsForPlay.push({
         yes: 0,
         word: newWords[i].newWord,
-        translate: newWords[(i + randomInteger()) % 60].newTransl,
+        translate: newWords[(i + randomInteger(1, 59)) % 60].newTransl,
       });
     }
   }
