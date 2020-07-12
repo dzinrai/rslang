@@ -23,6 +23,7 @@
 
 @media (max-width: 1235px) {
   .container {
+    margin: auto;
     width: 100%;
   }
 }

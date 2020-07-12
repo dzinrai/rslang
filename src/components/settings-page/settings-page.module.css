@@ -45,3 +45,11 @@
     grid-column: 1 / 1;
   }
 }
+
+@media (max-width: 767px) {
+  .container {
+    justify-content: center;
+    grid-template-columns: 100%;
+    grid-template-rows: 63px 289px 193px 340px 324px;
+  }
+}
