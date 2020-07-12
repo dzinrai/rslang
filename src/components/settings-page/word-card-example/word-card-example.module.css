@@ -47,7 +47,7 @@
   padding: 0 5px;
 }
 
-.sentenseTranslation {
+.sentenceTranslation {
   display: flex;
   flex-direction: column;
   width: 440px;
@@ -64,4 +64,9 @@
   display: inline-flex;
   justify-content: space-between;
   margin-top: 20px;
+}
+
+.emptyBlock {
+  margin-top: 20px;
+  height: 22px;
 }
