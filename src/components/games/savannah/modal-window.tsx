@@ -30,7 +30,7 @@ export default ({
         cancelButtonProps={{ style: { borderRadius: '30px' } }}
       >
 
-        {console.log(statistic)}
+        {console.log('stats', statistic)}
         <ul className={styles.tableHeader}>
           <li>Word:</li>
           <li>Translation:</li>

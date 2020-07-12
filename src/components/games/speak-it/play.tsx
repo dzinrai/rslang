@@ -2,6 +2,8 @@ import React, {
   useEffect, useState, useRef, useContext,
 } from 'react';
 import ButtonBack from '../controls/button-back/button-back';
+import moment from 'moment';
+import { getStatistic, createStatistic } from '../../../services/statistic'
 import styles from './play.module.css';
 import Modal from './modal-window';
 import { storeWords } from '../../../context/contextWords';
@@ -42,6 +44,23 @@ export default () => {
     newSound.play();
   };
   const toggleModal = () => {
+    const loadStats = async () => {
+      const gettedStats = await getStatistic();
+      console.log('getted stats', gettedStats)
+      console.log('correct and words', words, correctWords)
+      const percentCorrect = Math.round((correctWords.length*100)/words.length)
+      if (correctWords[correctWords.length - 1]) gettedStats.optional.common.lastWord = correctWords[correctWords.length - 1].id
+      gettedStats.optional.games.speakIt.lastPlay.push(moment().format('DD/MM/YY'))
+      gettedStats.optional.games.speakIt.percentCorrect.push(percentCorrect)
+      gettedStats.optional.games.speakIt.words.push(words.length)
+      console.log('put stats', gettedStats)
+
+      const newStats = async (stats: any) => await createStatistic(stats)
+      newStats(gettedStats)
+
+    };
+    loadStats();  
+
     // eslint-disable-next-line no-unused-expressions
     isResultsOpen ? setIsResultsOpen(false) : setIsResultsOpen(true);
     if (isPlayMode) setIsPlayMode(false);
