@@ -51,6 +51,7 @@ const SignUpPage: React.FC = () => {
               showResultButton: true,
               moveToDifficult: true,
               difficultyButtons: true,
+              deleteWord: true
             },
           },
         );
