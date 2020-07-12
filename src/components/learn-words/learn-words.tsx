@@ -37,7 +37,6 @@ function LearnWords() {
   const [progress, setProgress] = useState(0);
 
   /* eslint-disable */
-
   useEffect(() => {
    // eslint-disable-next-line
   }, []);
@@ -115,7 +114,7 @@ function LearnWords() {
       }
       setMaxCards(settings.optional.cardsPerDay);
       getWordsFromBackend(filter, settings.optional.cardsPerDay)
-        .then((data) => {
+        .then((data:any) => {
           setWords(data[0].paginatedResults);
         })
         .then(() => {
