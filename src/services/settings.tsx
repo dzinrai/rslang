@@ -19,6 +19,7 @@ export async function getSettings() {
 }
 
 export interface UserSettings {
+  id?:any;
     wordsPerDay: number,
     optional: {
       isUserOfOurSuperDuperApp:boolean;
@@ -35,18 +36,6 @@ export interface UserSettings {
      difficultyButtons:boolean;
     }
   }
-
-
-export async function createSettings(settings: UserSettings) {
-  const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/settings`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('userToken')}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(settings),
-  });
 
 export async function createSettings(settings:UserSettings) {
   const rawResponse = await fetch(`https://afternoon-falls-25894.herokuapp.com/users/${localStorage.getItem('userId')}/settings`,

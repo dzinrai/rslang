@@ -9,7 +9,6 @@ import { storeWords } from '../../context/contextWords';
 import { getSettings, createSettings } from '../../services/settings';
 import preloadWords from '../../services/preloadWords';
 import { preloadWordsOnBackend } from '../../services/create-user-word';
-import { getSettings } from '../../services/settings';
 
 function MainPage() {
   const wordsState = useContext(storeWords);
@@ -27,10 +26,10 @@ function MainPage() {
           preloadWords(dispatchWords);
         }
       }).catch((err) => {
-      if (err.message === 'Not found settings') {
-        createSettings(defaultUserSettings);
-      }
-    });
+        if (err.message === 'Not found settings') {
+          createSettings(defaultUserSettings);
+        }
+      });
 
     // eslint-disable-next-line
   }, []);
