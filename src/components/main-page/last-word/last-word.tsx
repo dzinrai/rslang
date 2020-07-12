@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './last-word.module.css';
 import pronunciation from '../../../img/pronunciation.svg';
 import toFromUpperCaseString from '../../../assets/toFromUpperCaseString';
@@ -12,16 +12,28 @@ import toFromUpperCaseString from '../../../assets/toFromUpperCaseString';
 
 function LastWord({ word } : any) {
   if (!word || !word.word || !word.transcription || !word.wordTranslate) return null;
+  const [exactWord, setExactWord] = useState<string>('');
+  const [translate, setTranslate] = useState<string>('');
+  const [transcription, setTranscription] = useState<string>('');
+
+  useEffect(() => {
+    if (word) {
+      setExactWord(word.word);
+      setTranslate(word.wordTranslate);
+      setTranscription(word.transcription);
+    }
+  }, [word]);
+ 
   return (
     <div className={styles.lastWord}>
       <p className={styles.top}>Your last word</p>
       <div className={styles.wordContainer}>
         <div className={styles.transcription}>
           <img src={pronunciation} alt="" />
-          {word.transcription}
+          {transcription}
         </div>
-        <div className={styles.word}>{toFromUpperCaseString(word.word)}</div>
-        <div className={styles.translation}>{toFromUpperCaseString(word.wordTranslate)}</div>
+        <div className={styles.word}>{toFromUpperCaseString(exactWord)}</div>
+        <div className={styles.translation}>{toFromUpperCaseString(translate)}</div>
       </div>
     </div>
   );
