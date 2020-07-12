@@ -32,6 +32,7 @@ function MainPage() {
       .then(() => {
         getStatistic()
           .then((statistic:any) => {
+            dispatchWords({ type: 'setUserStatistic', value: statistic });
             // eslint-disable-next-line
             if (thisNewDay) statistic.optional.common.dayProgress = 0;
           });
