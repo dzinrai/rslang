@@ -143,7 +143,10 @@ const SettingsPage: React.FC<any> = () => {
           />
         </div>
         <div className={styles.item5}>
-          <WordCardExample />
+          <WordCardExample
+            wordInfoSettings={wordInfoSettings}
+            otherSettings={otherSettings}
+          />
         </div>
       </>
     );

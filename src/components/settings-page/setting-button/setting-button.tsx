@@ -9,7 +9,7 @@ type Props = {
 
 const SettingButton: React.FC<{ clicked: () => void }> = ({ clicked }: Props) => (
   <Button
-    className={styles.btn}
+    className={`${styles.btn} ${styles.btnFilled}`}
     shape="round"
     value="large"
     onClick={() => clicked()}

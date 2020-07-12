@@ -5,7 +5,7 @@
   margin: 33px auto 0;
   padding: 12px 0 16px 0;
   border-radius: 30px;
-  border: 2px solid #0A5DC1;
+  border: 2px solid #FF645F;
   color: #0A5DC1;
   background-color: #ffffff;
   font-family: 'Montserrat', sans-serif;
@@ -22,4 +22,9 @@
   background-color: #ffffff;
   color: #0A5DC1;
   box-shadow: 1px 1px 1px 1px rgb(148, 148, 148);
+}
+
+.btnFilled {
+  background-color: #FF645F;
+  color: #ffffff;
 }
