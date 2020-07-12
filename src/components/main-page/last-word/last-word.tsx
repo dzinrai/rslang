@@ -14,16 +14,16 @@ function LastWord({ word } : any) {
   const [exactWord, setExactWord] = useState<string>('');
   const [translate, setTranslate] = useState<string>('');
   const [transcription, setTranscription] = useState<string>('');
-
+/*eslint-disable*/
   useEffect(() => {
     if (word) {
       setExactWord(word.word);
       setTranslate(word.wordTranslate);
       setTranscription(word.transcription);
     }
+    
   }, [word]);
-  if (!word) return null;
-
+  if (!word || !word.word || !word.transcription || !word.wordTranslate) return null;
   return (
     <div className={styles.lastWord}>
       <p className={styles.top}>Your last word</p>

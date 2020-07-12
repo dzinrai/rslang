@@ -2,11 +2,10 @@ import React from 'react';
 import styles from './progress-indicator.module.css';
 
 function ProgressIndicator(progress:any) {
-  const indWidth = progress;
-
+  console.log('progress %', progress);
   return (
     <div className={styles.indicatorContainer}>
-      <div className={styles.progressIndicator} style={{ width: `${indWidth}vw` }} />
+      <div className={styles.progressIndicator} style={{ width: `${progress}vw` }} />
     </div>
   );
 }

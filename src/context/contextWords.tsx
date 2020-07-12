@@ -17,7 +17,7 @@ const initialState = {
       difficultyButtons: true,
     },
   },
-  userStatistic: {}
+  userStatistic: {},
 };
 
 const storeWords = createContext<any>(undefined);
