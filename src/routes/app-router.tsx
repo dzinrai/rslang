@@ -26,6 +26,9 @@ function AppRouter() {
           <Route path="/auth">
             <AuthPage />
           </Route>
+          <Route path="/error-page">
+            <AuthPage />
+          </Route>
           <Route path="/login">
             <LoginPage />
           </Route>

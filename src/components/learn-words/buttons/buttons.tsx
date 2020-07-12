@@ -115,8 +115,11 @@ function Buttons({
     }
     if ((index === maxCards - 1) && correct) {
       setVisibleNot(true);
-      // get stats from back
-      notification();
+      getStatistic()
+      .then((statistic:any)=>{
+        notification(statistic);
+      })
+  
     }
   }
 

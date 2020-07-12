@@ -21,7 +21,6 @@ export interface UserWord {
     nextView: string;
     correct: number;
     interval: number;
-    errorInGame: boolean;
     wordIndicator: number;
   }
 }
@@ -54,7 +53,7 @@ export async function preloadWordsOnBackend(wordsPerDay: number) {
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, active: true, errorInGame: false, wordIndicator: 1, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
+          newWord: true, views: 0, errors: 0, repeat: false, active: true, wordIndicator: 1, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
         },
       },
     });

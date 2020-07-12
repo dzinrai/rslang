@@ -14,6 +14,7 @@ export async function getSettings() {
 export interface UserSettings {
     wordsPerDay: number,
     optional: {
+      isUserOfOurSuperDuperApp:boolean;
       lastVisit:any;
      cardsPerDay:number;
      wordTranscription:boolean;
