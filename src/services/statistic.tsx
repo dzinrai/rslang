@@ -13,34 +13,34 @@ interface UserStatistic{
           },
           games:{
             speakIt:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;// correct/words*100%
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;// correct/words*100%
             },
             savannah:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
             },
             audioCall:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
             },
             sprint:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
             },
             puzzle:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
             },
             ownGame:{
-              lastPlay: string;
-              words: number;
-              percentCorrect:number;
+              lastPlay: any;
+              words: any;
+              percentCorrect:any;
            },
           }
         }

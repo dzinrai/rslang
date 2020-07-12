@@ -15,14 +15,14 @@ export default () => {
   let wordsForPlay: any = [];
   /*eslint-disable*/
   useEffect(() => {
-    const preloadWords = async (pageLevel : number) => {
+    const preloadWords = async () => {
       const wordsFromBackend = await getWords({
-        page: 0, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 60,
+        wordsPerExampleSentenceLTE: 10, wordsPerPage: 60,
       });
       setWords(wordsFromBackend);
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
     };
-    preloadWords(0);
+    preloadWords();
   }, []);
   /* eslint-enable */
 
