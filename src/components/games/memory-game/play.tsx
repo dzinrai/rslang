@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
-import { getStatistic, createStatistic } from '../../../services/statistic'
+import { getStatistic, createStatistic } from '../../../services/statistic';
 import Timer from '../sprint/timer/timer';
 import ModalWindow from '../sprint/modal-window';
 import Card from './card/card';
@@ -136,7 +136,7 @@ export default ({ words }: PlayProps) => {
     if (!firstCard || !secondCard) return;
     firstCard.wordId === secondCard.wordId ? onSuccessGuess() : onFailureGuess();
   }, [firstCard, secondCard]);
-  /*eslint-enable*/
+  /* eslint-enable */
 
   function onCardClick(card: any) {
     if (!canFlip) return;
@@ -169,7 +169,7 @@ export default ({ words }: PlayProps) => {
           setIsActive={(active: boolean) => setIsActive(active)}
         />
       </div>
-        {/*eslint-disable*/}
+      {/*eslint-disable*/}
       <div className="game container-md">
         <div className="cards-container">
           {cards.map((card: any) => (
@@ -181,7 +181,7 @@ export default ({ words }: PlayProps) => {
           ))}
         </div>
       </div>
-    {/*eslint-enable*/}
+    {/* eslint-enable */}
 
       <div className="correctWords">
         {' '}

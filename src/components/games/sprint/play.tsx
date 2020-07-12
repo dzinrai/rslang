@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import moment from 'moment';
 import ButtonBack from '../controls/button-back/button-back';
-import { getStatistic, createStatistic } from '../../../services/statistic'
+import { getStatistic, createStatistic } from '../../../services/statistic';
 import { ReactComponent as CheckedCircle } from '../../../img/checked-circle.svg';
 import { ReactComponent as Circle } from '../../../img/circle.svg';
 import ModalWindow from './modal-window';

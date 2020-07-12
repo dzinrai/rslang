@@ -30,12 +30,12 @@ function PuzzleStatistic() {
         <div>
           <p className={styles.statsTitle}>{statsObject.title}</p>
           <div className={styles.statsTableContainer}>
-            {[...stateGame.statistics].map( (stat, i) =>
-              <div className={styles.statsGameLine} key={'stats_' + i}>
+            {[...stateGame.statistics].map((stat, i) => (
+              <div className={styles.statsGameLine} key={`stats_${i}`}>
                 <span>{stat.date}</span>
                 <span>{`know: ${String(stat.result.know)} dont: ${String(stat.result.notKnow)}`}</span>
               </div>
-            )}
+            ))}
           </div>
         </div>
       ),
@@ -45,8 +45,7 @@ function PuzzleStatistic() {
   }
 
   return (
-    <div className={styles.container}>
-    </div>
+    <div className={styles.container} />
   );
 }
 

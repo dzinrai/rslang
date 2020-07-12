@@ -1,11 +1,11 @@
 import React, {
-  useEffect, useState, useContext, useRef
+  useEffect, useState, useContext, useRef,
 } from 'react';
+import moment from 'moment';
 import ButtonBack from '../controls/button-back/button-back';
 import styles from './play.module.css';
 import Modal from './modal-window';
-import moment from 'moment';
-import { getStatistic, createStatistic } from '../../../services/statistic'
+import { getStatistic, createStatistic } from '../../../services/statistic';
 import { storeWords } from '../../../context/contextWords';
 import { getWords } from '../../../services/getWords';
 import Timer from './timer';
@@ -29,16 +29,15 @@ export default () => {
   const toggleModal = (isFall: boolean) => {
     const loadStats = async () => {
       const gettedStats = await getStatistic();
-      const percentCorrect = Math.round((correctWords*100)/statistic.length)
-      gettedStats.optional.games.savannah.lastPlay.push(moment().format('DD/MM/YY'))
-      gettedStats.optional.games.savannah.percentCorrect.push(percentCorrect)
-      gettedStats.optional.games.savannah.words.push(statistic.length)
+      const percentCorrect = Math.round((correctWords * 100) / statistic.length);
+      gettedStats.optional.games.savannah.lastPlay.push(moment().format('DD/MM/YY'));
+      gettedStats.optional.games.savannah.percentCorrect.push(percentCorrect);
+      gettedStats.optional.games.savannah.words.push(statistic.length);
 
-      const newStats = async (stats: any) => await createStatistic(stats)
-      newStats(gettedStats)
-
+      const newStats = async (stats: any) => await createStatistic(stats);
+      newStats(gettedStats);
     };
-    loadStats();  
+    loadStats();
 
     setIsFalling(isFall);
     setIsResultsOpen(!isResultsOpen);
