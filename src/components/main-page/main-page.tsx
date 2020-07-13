@@ -28,16 +28,15 @@ function MainPage() {
     let thisNewDay = false;
     getSettings()
       .then((settingsData) => {
-        const date1 = moment(moment().format('DD/MM/YY'),'DD/MM/YY');
-        const date2 = moment(settingsData.optional.lastVisit,'DD/MM/YY');
-        console.log(date1.diff(date2, 'd'))
+        const date1 = moment(moment().format('DD/MM/YY'), 'DD/MM/YY');
+        const date2 = moment(settingsData.optional.lastVisit, 'DD/MM/YY');
         if (date1.diff(date2, 'd') >= 1) {
           thisNewDay = true;
-          console.log("подгрузка новых слов на бэк")
           preloadWordsOnBackend(settingsData.wordsPerDay);
           preloadWords(dispatchWords);
+          // eslint-disable-next-line
           settingsData.optional.lastVisit = moment().format('DD/MM/YY');
-          createSettings( settingsData);
+          createSettings(settingsData);
         }
       })
       .then(() => {
@@ -49,7 +48,7 @@ function MainPage() {
             updateLastWord(statistic.optional.common.lastWord);
             // eslint-disable-next-line
             if (thisNewDay) statistic.optional.common.dayProgress = 0;
-            createStatistic(statistic)
+            createStatistic(statistic);
           });
       }).catch((err) => {
         if (err.message === 'Not found settings') {

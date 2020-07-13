@@ -71,11 +71,11 @@ function Buttons({
               .then((settings: any) => {
                 // eslint-disable-next-line
                 const dayProgress=(statistic.optional.common.wordsToday / settings.optional.cardsPerDay) * 100;
-                statistic.optional.common.dayProgress = (dayProgress>100)?100: dayProgress;
+                statistic.optional.common.dayProgress = (dayProgress > 100) ? 100 : dayProgress;
                 setProgress(statistic.optional.common.dayProgress);
                 createStatistic(statistic);
               });
-                    }
+          }
           // eslint-disable-next-line
           if (!word.userWord.optional.newWord === false) { statistic.optional.common.newWordsToday += 1; }
         }
@@ -114,7 +114,7 @@ function Buttons({
       default:
         word.userWord.optional.repeat = true;
         repeatWords.push(word);
-        console.log('repeat words',repeatWords)
+        console.log('repeat words', repeatWords);
         setRepeatTrainWords(repeatWords);
         break;
     }
@@ -126,7 +126,7 @@ function Buttons({
       setTranspAnswer(false);
     }
     if ((index >= maxCards - 1) && correct && itTimeToNotification) {
-      console.log('time to notification')
+      console.log('time to notification');
       setVisibleNot(true);
       getStatistic()
         .then((statistic:any) => {
