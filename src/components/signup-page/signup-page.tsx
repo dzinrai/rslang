@@ -41,7 +41,7 @@ const SignUpPage: React.FC = () => {
             wordsPerDay: 20,
             optional: {
               isUserOfOurSuperDuperApp: true,
-              lastVisit: moment().format('DD/MM/YY'),
+              lastVisit: moment().subtract(1, 'days').format('DD/MM/YY'),
               cardsPerDay: 10,
               wordTranscription: true,
               spellingOutSentence: false,

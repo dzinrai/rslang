@@ -32,6 +32,7 @@ function MainPage() {
         const date2 = moment(settingsData.lastVisit);
         if (date1.diff(date2, 'days') >= 1) {
           thisNewDay = true;
+          console.log("подгрузка новых слоы на бэк")
           preloadWordsOnBackend(settingsData.wordsPerDay);
           preloadWords(dispatchWords);
         }
