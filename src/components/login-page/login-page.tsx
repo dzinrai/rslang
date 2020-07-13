@@ -52,8 +52,7 @@ const LoginPage: React.FC = () => {
               return;
             } else {
               history.push('/main-page');
-              settings.optional.lastVisit = moment().format('DD/MM/YY');
-              createSettings(settings);
+             // createSettings(settings);
             }
           });
       })

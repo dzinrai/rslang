@@ -73,6 +73,7 @@ function Buttons({
                 const dayProgress=(statistic.optional.common.wordsToday / settings.optional.cardsPerDay) * 100;
                 statistic.optional.common.dayProgress = (dayProgress>100)?100: dayProgress;
                 setProgress(statistic.optional.common.dayProgress);
+                createStatistic(statistic);
               });
                     }
           // eslint-disable-next-line
