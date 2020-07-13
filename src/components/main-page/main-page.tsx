@@ -9,7 +9,7 @@ import { storeWords } from '../../context/contextWords';
 import { getSettings, createSettings } from '../../services/settings';
 import preloadWords from '../../services/preloadWords';
 import { preloadWordsOnBackend } from '../../services/create-user-word';
-import { getStatistic } from '../../services/statistic';
+import { getStatistic, createStatistic } from '../../services/statistic';
 import { getWordByIdFromAPI } from '../../services/getWords';
 
 function MainPage() {
@@ -28,12 +28,15 @@ function MainPage() {
     let thisNewDay = false;
     getSettings()
       .then((settingsData) => {
-        const date1 = moment(moment().format('DD/MM/YY'));
-        const date2 = moment(settingsData.lastVisit);
-        if (date1.diff(date2, 'days') >= 1) {
+        const date1 = moment(moment().format('DD/MM/YY'), 'DD/MM/YY');
+        const date2 = moment(settingsData.optional.lastVisit, 'DD/MM/YY');
+        if (date1.diff(date2, 'd') >= 1) {
           thisNewDay = true;
           preloadWordsOnBackend(settingsData.wordsPerDay);
           preloadWords(dispatchWords);
+          // eslint-disable-next-line
+          settingsData.optional.lastVisit = moment().format('DD/MM/YY');
+          createSettings(settingsData);
         }
       })
       .then(() => {
@@ -45,6 +48,7 @@ function MainPage() {
             updateLastWord(statistic.optional.common.lastWord);
             // eslint-disable-next-line
             if (thisNewDay) statistic.optional.common.dayProgress = 0;
+            createStatistic(statistic);
           });
       }).catch((err) => {
         if (err.message === 'Not found settings') {
