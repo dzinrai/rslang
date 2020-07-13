@@ -33,7 +33,7 @@ export default () => {
       gettedStats.optional.games.savannah.lastPlay.push(moment().format('DD/MM/YY'));
       gettedStats.optional.games.savannah.percentCorrect.push(percentCorrect);
       gettedStats.optional.games.savannah.words.push(statistic.length);
-
+      // eslint-disable-next-line
       const newStats = async (stats: any) => await createStatistic(stats);
       newStats(gettedStats);
     };

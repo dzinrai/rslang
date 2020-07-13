@@ -35,6 +35,7 @@ function LearnWords() {
   const [loading, setLoading] = useState(false);
 
   const [progress, setProgress] = useState(0);
+  const [wordIndicator, setIndicator] = useState(1);
 
   /* eslint-disable */
 
@@ -50,6 +51,7 @@ function LearnWords() {
   const newAudioWord = (audio: any) => setAudioWord(audio);
   const newAudioExample = (audio: any) => setAudioExample(audio);
   const newAudioMeaning = (audio: any) => setAudioMeaning(audio);
+  const newWordIndicator=(indicator:any)=>setIndicator(indicator)
   const controlAutoplay = (isAutoplay: boolean) => setAutoplay(isAutoplay);
   const newInProp = (isInProp: boolean) => setInProp(isInProp);
   const newTranspAnswer = (isTranspAnswer: boolean) => setTranspAnswer(isTranspAnswer);
@@ -182,6 +184,8 @@ function LearnWords() {
           <div className={styles.cardContainer}>
             <ProgressIndicator progress={progress} />
             <CardsSlider
+            wordIndicator={wordIndicator}
+            setIndicator={newWordIndicator}
             setItTimeToNotification={isTimeToNotif}
             maxWordsCards={maxCards}
             repeatWords={repeatTrainWords}

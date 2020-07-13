@@ -4,6 +4,7 @@ import Card from '../card/card';
 
 interface SliderProps {
   maxWordsCards: number,
+  wordIndicator:number,
   setItTimeToNotification:any,
   repeatWords: any,
   words: any,
@@ -20,6 +21,7 @@ interface SliderProps {
   setAudioWord: any,
   setAudioExample: any,
   setAudioMeaning: any,
+  setIndicator:any,
   autoplay: boolean,
   setAutoplay: any,
   inProp: boolean,
@@ -32,11 +34,12 @@ function CardsSlider({
   words, word, setWord, index, setIndex, onCorrect, correct, setUsersWord,
   usersWord, indexes, setIndexes,
   setAudioWord, setAudioExample, setAudioMeaning, autoplay, setAutoplay,
-  inProp, setInProp, transpAnswer, setTranspAnswer, repeatWords, maxWordsCards, setItTimeToNotification
+  inProp, setInProp, transpAnswer, setTranspAnswer, repeatWords, maxWordsCards,
+   setItTimeToNotification,setIndicator,wordIndicator
 }: SliderProps) {
 
   let curword: any = {};
-
+console.log('card slider',word)
   if (index >= maxWordsCards - 1) {
     if (repeatWords.length) {
       curword = repeatWords.shift();
@@ -53,6 +56,7 @@ function CardsSlider({
 
   /* eslint-disable */
   useEffect(() => {
+    word?setIndicator(word.userWord.optional.wordIndicator):null;
     setWord(curword);
     setAudioWord(word.audio);
     setAudioExample(word.audioExample);
@@ -63,6 +67,7 @@ function CardsSlider({
   return (
     <>
       <Card
+        indicator={wordIndicator}
         word={word}
         setWord={setWord}
         index={index}
