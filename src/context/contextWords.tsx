@@ -18,6 +18,7 @@ const initialState = {
     },
   },
   userStatistic: {},
+  name: ''
 };
 
 const storeWords = createContext<any>(undefined);
@@ -44,6 +45,11 @@ const WordsProvider = ({ children }: Props) => {
       case 'setUserStatistic':
         newState = {
           ...prevState, userStatistic: action.value,
+        };
+        return newState;
+      case 'setName':
+        newState = {
+          ...prevState, name: action.value,
         };
         return newState;
       default:

@@ -1,15 +1,17 @@
 import React from 'react';
 import styles from './game-for-today.module.css';
+import { Link } from 'react-router-dom';
 
 interface Props {
   boldText: string,
   picture: string,
-  title: string
+  title: string,
+  path: string
 }
 
-function GameForToday({ boldText, picture, title }: Props) {
+function GameForToday({ boldText, picture, title, path }: Props) {
   return (
-    <div className={styles.gameContainer}>
+    <Link to={`/mini-games/${path}`} className={styles.gameContainer}>
       <div className={styles.gameText}>
         Learn
         {' '}
@@ -19,7 +21,7 @@ function GameForToday({ boldText, picture, title }: Props) {
       </div>
       <div className={styles.gameImg}><img src={picture} alt="" /></div>
       <div className={styles.gameTitle}>{title}</div>
-    </div>
+    </Link>
   );
 }
 
