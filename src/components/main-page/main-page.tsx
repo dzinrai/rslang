@@ -49,11 +49,12 @@ function MainPage() {
             // eslint-disable-next-line
             if (thisNewDay) {
               statistic.optional.common.dayProgress = 0;
-              statistic.optional.common.wordsToday = 0;
+              statistic.optional.common.wordsToday.push(0);
               statistic.optional.common.newWordsToday = 0;
-              statistic.optional.common.weekDay = moment().format('dddd');
+              statistic.optional.common.weekDay.push(moment().format('dddd'));
+              statistic.optional.common.visitDate.push(moment().format('DD/MM/YY'));
               statistic.optional.common.errors = 0;
-              statistic.optional.common.correct = 0;
+              statistic.optional.common.correct.push(0);
             }
             createStatistic(statistic);
           });

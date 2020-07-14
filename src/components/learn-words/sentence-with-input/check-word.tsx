@@ -36,12 +36,10 @@ export function errorsCount(wordObject: any) {
 export function correctCount(wordObject: any) {
   getStatistic()
   .then((statistic: any) => {
-      statistic.optional.common.correct+=1;
+      statistic.optional.common.correct[statistic.optional.common.correct.length-1]+=1;
       createStatistic(statistic);
     })
   wordObject.userWord.optional.correct += 1;
-  console.log('correctttttttttttttttttttttttttttttttttttt')
-  wordObject.userWord.optional.errorInGame=false;
   wordObject.userWord.optional.wordIndicator < 5 ?
    wordObject.userWord.optional.wordIndicator+=1 :
    updateWordById(wordObject._id, wordObject.userWord);

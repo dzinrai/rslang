@@ -2,7 +2,6 @@ import React, { useRef, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
-import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import styles from './signup-page.module.css';
 import { createSettings } from '../../services/settings';
@@ -59,13 +58,14 @@ const SignUpPage: React.FC = () => {
           learnedWords: 0,
           optional: {
             common: {
-              wordsToday: 0,
+              visitDate: [],
+              wordsToday: [],
               newWordsToday: 0,
               dayProgress: 0,
               lastWord: {},
-              weekDay: moment().format('dddd'),
+              weekDay: [],
               errors: 0,
-              correct: 0,
+              correct: [],
             },
             games: {
               speakIt: {
