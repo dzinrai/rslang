@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './play.module.css'
 import './backs.css'
+import moment from 'moment';
+import { getStatistic, createStatistic } from '../../../services/statistic';
 import ButtonBack from '../controls/button-back/button-back';
 import CardsForPlay from './cards-for-play/cards-for-play';
 import AudioIcon from './audio-icon/audio-icon';
 import CorrectAnswer from './correct-answer/correct-answer';
-import {CSSTransition} from 'react-transition-group'
+import {CSSTransition} from 'react-transition-group';
+import ModalWindow from '../sprint/modal-window'
 
 const URL_CONTENT = 'https://raw.githubusercontent.com/dzinrai/rslang-data/master/';
 
@@ -24,6 +27,10 @@ export default ({ words }: PlayProps) => {
     const [currentCards, setCurrentCards] = useState<any>([])
     const [correctAnswer, setCorrectAnswer] = useState<any>(false)
     const [appearCards, setAppearCards] = useState<boolean>(true)
+    const [isResultsOpen, setIsResultsOpen] = useState<boolean>(false)
+    const correctWords: any = useRef([])
+    const fullCorrectWordsList: any = useRef([])
+    const answers: any = useRef([])
     const lastWord = useRef(false)
 
     let cardsArrays: any = []
@@ -57,10 +64,12 @@ export default ({ words }: PlayProps) => {
         }
         cardsArrays.push(tempArray)
     }
-    console.log(cardsArrays)
+
     function checkWord(event: any, word: string) {
         if (event.currentTarget.classList.contains('card')) {
             if (word === currentWord.word) {
+                correctWords.current.push(word)
+                // console.log(correctWords)
                 event.currentTarget.classList.remove('card')
                 event.currentTarget.classList.add('activeCard')
                 console.log('index1', arrayIndex)
@@ -98,27 +107,60 @@ export default ({ words }: PlayProps) => {
 
     function nextCards() {
         if (arrayIndex <= 9 && !lastWord.current) {
-            const bg = document.querySelectorAll(`.background${arrayIndex}`)[0]
-            bg.classList.add(`background${arrayIndex + 1}`)
-            bg.classList.remove(`background${arrayIndex}`)
             setCorrectAnswer(false)
             setCurrentCards(cardsArrays[arrayIndex])
             setCurrentWord(cardsArrays[arrayIndex][randomInteger(0, 4)])    
-            // setAppearCards(true)
+            console.log('current', currentWord)
+            answers.current.push(currentWord)
         }
     }
 
+    function showResults() {
+        if (answers.current.length < 10) {
+            answers.current.push(currentWord)
+        }
+        fullCorrectWordsList.current = words.filter((word: any) => correctWords.current.includes(word.word))
+        console.log('answers', answers, correctWords)
+        setIsResultsOpen(true)
+        const loadStats = async () => {
+            const gettedStats = await getStatistic();
+            console.log('getted stats', gettedStats)
+            const percentCorrect = Math.round((fullCorrectWordsList.current.length*100)/answers.current.length)
+            gettedStats.optional.common.lastWord = fullCorrectWordsList.current[fullCorrectWordsList.current.length - 1].id
+            gettedStats.optional.games.audioCall.lastPlay.push(moment().format('DD/MM/YY'))
+            gettedStats.optional.games.audioCall.percentCorrect.push(percentCorrect)
+            gettedStats.optional.games.audioCall.words.push(answers.current.length)
+            console.log('put stats', gettedStats)
+    
+            const newStats = async (stats: any) => await createStatistic(stats)
+            newStats(gettedStats)
+    
+          };
+          loadStats();    
+  
+    }
+
     useEffect(() => {
-        // setAppearCards(true)
         setCurrentCards(cardsArrays[arrayIndex])
         setCurrentWord(cardsArrays[arrayIndex][randomInteger(0, 4)])
     }, [])
-    // console.log(currentCards)
-    // console.log(currentWord)
-    
-    // console.log(words)
+
     return (
-        <div className='background1'>
+        <>
+            {isResultsOpen
+            && (
+            <ModalWindow
+            isResultsOpen={isResultsOpen}
+            toggleModal={() => setIsResultsOpen(false)}
+            correctWords={fullCorrectWordsList.current}
+            words={answers.current}
+            URL_CONTENT={URL_CONTENT}
+            />
+            )}
+
+            <CSSTransition in={appearCards} appear={true} timeout={1000} classNames='example'>
+                <div className={`background${arrayIndex + 1}`}></div>
+            </CSSTransition>
             <ButtonBack />
             {<div className={styles.container}>
                 <div className={styles.audioContainer}>
@@ -134,16 +176,17 @@ export default ({ words }: PlayProps) => {
                         checkWord={(event: any, currentWord: string) => checkWord(event, currentWord)}
                         appearCards={appearCards}/>
                 </div>
-                {correctAnswer ? <button onClick={nextCards} className={styles.nextButton} type='button'>Next words</button> :
+                {correctAnswer && !lastWord.current ? <button onClick={nextCards} className={styles.nextButton} type='button'>Next words</button> :
                 <button onClick={helpPlease} className={styles.nextButton} type='button'>Help please</button>}
+                {lastWord.current && <button onClick={showResults} className={styles.nextButton} type='button'>Show Results</button>}
             </div>}
 
             <div className={styles.correctWords}>
             {' '}
-            {7}
+            {correctWords.current.length}
             {' '}
             <span>correct words</span>
             </div>
-        </div>
+        </>
     )
 }

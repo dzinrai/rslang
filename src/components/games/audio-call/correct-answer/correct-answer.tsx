@@ -8,7 +8,6 @@ interface CorrectAnswerProps {
 }
 
 export default ({ answer }: CorrectAnswerProps) => {
-    console.log('ans', answer)
     if (!answer) return null
     return (
         <div className={styles.container}>

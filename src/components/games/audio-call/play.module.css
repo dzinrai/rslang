@@ -6,7 +6,7 @@
     font-weight: 800;
     font-size: 96px;
     text-align: right;
-    color: #263655;
+    color: white;
     border: 1px transparent solid;
 }
 
@@ -45,7 +45,7 @@
 
 .nextButton {
     width: 140px;
-    height: 40px;
+    /* height: 40px; */
     background-color: #FF645F;
     cursor: pointer;
     transition: background-color .2s linear;

@@ -12,13 +12,7 @@ interface CardsForPlayProps {
 }
 
 export default ({ cards, currentWord, checkWord, appearCards }: CardsForPlayProps) => {
-    console.log('AAAA')
-    console.log('cards', cards)
     if (!cards || !currentWord) return null
-    console.log('appearCards', appearCards)
-    // useEffect(() => {
-    //     setAppearCards(false)
-    // })
     return (
         <>
         {cards.map((card: any) =>  <CSSTransition in={appearCards} appear={true} key={card.id} timeout={1000} classNames='example'>
