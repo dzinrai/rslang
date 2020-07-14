@@ -110,6 +110,11 @@ function LearnWords() {
               $and: [
                 { 'userWord.optional.newWord': true },
                 { 'userWord.optional.active': true }]
+            },
+            {
+              $and: [
+                { 'userWord.optional.newWord': false },
+                { 'userWord.optional.active': true }]
             }
             ],
           });
@@ -129,6 +134,7 @@ function LearnWords() {
 
   function Notification(trainStatistic:any) {
     const history = useHistory();
+    setWord('');
     Modal.info({
       title: 'Congrats!',
       visible: visibleNotification,
@@ -147,13 +153,13 @@ function LearnWords() {
         setVisibleNotification(false);
         getStatistic()
         .then((statistic:any)=>{
-          statistic.optional.errors=0;
-          statistic.optional.correct=0;
-          statistic.optional.wordsToday=0;
-          statistic.optional.newWordsToday=0;
+          statistic.optional.common.errors=0;
+          statistic.optional.common.correct=0;
+          statistic.optional.common.wordsToday=0;
+          statistic.optional.common.newWordsToday=0;
           createStatistic(statistic);
         })
-        history.push('/main-page');
+       // history.push('/main-page');
        },
     });
   }

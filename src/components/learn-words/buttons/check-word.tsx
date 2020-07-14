@@ -16,13 +16,12 @@ interface CheckProps {
   setTranspAnswer: any,
 
 }
-function errorsCount(wordObject: any,isTrain?:boolean) {
+function errorsCount(wordObject: any) {
   getStatistic()
   .then((statistic: any) => {
       statistic.optional.common.errors+=1;
       createStatistic(statistic);
     })
-  wordObject.userWord.optional.errorInGame = isTrain ? false : true;
   wordObject.userWord.optional.errors += 1;
 
   wordObject.userWord.optional.wordIndicator > 1 ?
@@ -40,12 +39,11 @@ function correctCount(wordObject: any) {
       createStatistic(statistic);
     })
   wordObject.userWord.optional.correct += 1;
+  console.log('correctttttttttttttttttttttttttttttttttttt')
   wordObject.userWord.optional.errorInGame=false;
   wordObject.userWord.optional.wordIndicator < 5 ?
-   wordObject.userWord.optional.wordIndicator++ :
-    wordObject.userWord.optional.wordIndicator;
-
-  updateWordById(wordObject._id, wordObject.userWord);
+   wordObject.userWord.optional.wordIndicator+=1 :
+   updateWordById(wordObject._id, wordObject.userWord);
 }
 
 function checkWord({
@@ -64,7 +62,7 @@ function checkWord({
       setTranspAnswer(false);
     } else if (inputWord.length !== curWord.length) {
       const newIndexes: any = [];
-      errorsCount(word,true);
+      errorsCount(word);
       curWord.split('').map((el: string, i: number) => el !== inputWord[i] && newIndexes.push(i));
       setIndexes(newIndexes);
       setInProp(false);

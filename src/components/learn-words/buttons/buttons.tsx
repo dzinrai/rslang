@@ -112,6 +112,7 @@ function Buttons({
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
         break;
       default:
+        console.log('делаем слово с репит');
         word.userWord.optional.repeat = true;
         repeatWords.push(word);
         console.log('repeat words', repeatWords);

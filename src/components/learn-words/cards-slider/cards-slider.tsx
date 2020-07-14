@@ -39,12 +39,19 @@ function CardsSlider({
 }: SliderProps) {
 
   let curword: any = {};
+
 console.log('card slider',word)
-  if (index >= maxWordsCards - 1) {
-    if (repeatWords.length) {
+console.log('card index',index)
+
+  if (index >=maxWordsCards - 1) {
+    console.log(repeatWords)
+    if (repeatWords.length&&repeatWords[0].userWord) {
       curword = repeatWords.shift();
+      console.log('слово для репита',curword)
+      
       curword.userWord.optional.repeat=false;
     } else {
+      console.log('notification')
       setItTimeToNotification(true);
     }
 
@@ -52,7 +59,7 @@ console.log('card slider',word)
     curword = words[index];
   }
 
-
+// if(!word.userWord||!curword) return null;
 
   /* eslint-disable */
   useEffect(() => {
