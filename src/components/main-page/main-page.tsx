@@ -11,6 +11,7 @@ import preloadWords from '../../services/preloadWords';
 import { preloadWordsOnBackend } from '../../services/create-user-word';
 import { getStatistic, createStatistic } from '../../services/statistic';
 import { getWordByIdFromAPI } from '../../services/getWords';
+import { getUserName } from '../../services/getUserName';
 
 function MainPage() {
   const wordsState = useContext(storeWords);
@@ -26,6 +27,7 @@ function MainPage() {
 
   useEffect(() => {
     let thisNewDay = false;
+    getUserName(dispatchWords);
     getSettings()
       .then((settingsData) => {
         const date1 = moment(moment().format('DD/MM/YY'), 'DD/MM/YY');
@@ -70,7 +72,7 @@ function MainPage() {
     <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.progressAndWord}>
-          <TodayProgress />
+          <TodayProgress name={wordsState.state.name} />
           <LastWord word={lastWord} />
         </div>
         <div className={styles.toDoAndPlan}>
