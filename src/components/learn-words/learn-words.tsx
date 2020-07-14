@@ -25,7 +25,7 @@ function LearnWords() {
   const [autoplay, setAutoplay] = useState(false);
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
-  const [maxCards, setMaxCards] = useState(0);
+  const [maxCards, setMaxCards] = useState(10);
   const [repeatTrainWords, setRepeatTrainWords] = useState([]);
 
   const [itTimeToNotification, setItTimeToNotification] = useState(false);
@@ -120,10 +120,11 @@ function LearnWords() {
           });
           break;
       }
-      setMaxCards(settings.optional.cardsPerDay);
+     
       getWordsFromBackend(filter, settings.optional.cardsPerDay)
         .then((data) => {
           setWords(data[0].paginatedResults);
+          setMaxCards(data[0].paginatedResults.length);          
         })
         .then(() => {
           setLoading(false);

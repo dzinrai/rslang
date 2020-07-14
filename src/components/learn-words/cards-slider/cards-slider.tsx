@@ -40,22 +40,22 @@ function CardsSlider({
 
   let curword: any = {};
 
-console.log('card slider',word)
+console.log('card slider word',word)
 console.log('card index',index)
 
-  if (index >=maxWordsCards - 1) {
-    console.log(repeatWords)
+  if ( index >=maxWordsCards - 1) {
+    console.log('все слова для повторения',repeatWords)
     if (repeatWords.length&&repeatWords[0].userWord) {
       curword = repeatWords.shift();
-      console.log('слово для репита',curword)
-      
+      console.log('а сейчас слово для репита',curword) ;       
       curword.userWord.optional.repeat=false;
     } else {
+      setItTimeToNotification(true) 
       console.log('notification')
-      setItTimeToNotification(true);
     }
 
   } else {
+    console.log('maxCard',maxWordsCards)
     curword = words[index];
   }
 
@@ -63,8 +63,8 @@ console.log('card index',index)
 
   /* eslint-disable */
   useEffect(() => {
-    word?setIndicator(word.userWord.optional.wordIndicator):null;
-    setWord(curword);
+    word.userWord?setIndicator(word.userWord.optional.wordIndicator):null;
+    curword?setWord(curword):null;
     setAudioWord(word.audio);
     setAudioExample(word.audioExample);
     setAudioMeaning(word.audioMeaning);

@@ -120,7 +120,7 @@ function Buttons({
         break;
     }
     updateWordById(word._id, word.userWord);
-    if (index < maxCards - 1) {
+    if (index <= maxCards - 1) {
       setIndex();
       onCorrect(false);
       setUsersWord('');
