@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
+import { getStatistic, createStatistic } from '../../../services/statistic';
 import Timer from '../sprint/timer/timer';
 import ModalWindow from '../sprint/modal-window';
 import Card from './card/card';
@@ -41,8 +43,8 @@ interface PlayProps {
 export default ({ words }: PlayProps) => {
   const [cards, setCards] = useState(generateCards(words));
   const [canFlip, setCanFlip] = useState(false);
-  const [firstCard, setFirstCard] = useState();
-  const [secondCard, setSecondCard] = useState();
+  const [firstCard, setFirstCard] = useState<any>();
+  const [secondCard, setSecondCard] = useState<any>();
   const [amountCorrect, setAmountCorrect] = useState(0);
   const [playMode, setPlayMode] = useState(false);
   const [isActive, setIsActive] = useState(true);
@@ -79,8 +81,25 @@ export default ({ words }: PlayProps) => {
         fullCorrectWordsList.current = words.filter((word: any) => correctWords.current.includes(word.id))
         setIsResultsOpen(true);
         openedResults.current = true;
+
         cards.map((card: any) => {setCanFlip(false); setCardIsFlipped(card.id, false)})
-        }
+
+        const loadStats = async () => {
+          const gettedStats = await getStatistic();
+          console.log('getted stats', gettedStats)
+          const percentCorrect = Math.round((fullCorrectWordsList.current.length*100)/words.length)
+          gettedStats.optional.common.lastWord = fullCorrectWordsList.current[fullCorrectWordsList.current.length - 1].id
+          gettedStats.optional.games.ownGame.lastPlay.push(moment().format('DD/MM/YY'))
+          gettedStats.optional.games.ownGame.percentCorrect.push(percentCorrect)
+          gettedStats.optional.games.ownGame.words.push(words.length)
+          console.log('put stats', gettedStats)
+  
+          const newStats = async (stats: any) => await createStatistic(stats)
+          newStats(gettedStats)
+  
+        };
+        loadStats();    
+      }
     });
     /* eslint-enable */
 

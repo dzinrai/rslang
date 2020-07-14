@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import moment from 'moment';
 // eslint-disable-next-line
 import { getWordsFromBackend } from './getWords';
@@ -47,14 +48,14 @@ export async function preloadWordsOnBackend(wordsPerDay: number) {
   const wordsForBackend = await getWordsFromBackend(
     nullFilter, wordsPerDay,
   );
-  wordsForBackend.forEach((oneWord: any) => {
+  wordsForBackend[0].paginatedResults.forEach((oneWord: any) => {
     createUserWord({
       userId: `${localStorage.getItem('userId')}`,
-      wordId: oneWord.id,
+      wordId: oneWord._id,
       word: {
         difficulty: 'normal',
         optional: {
-          newWord: true, views: 0, errors: 0, repeat: false, active: true, wordIndicator: 1, correct: 0, interval: 2, wordId: oneWord.id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
+          newWord: true, views: 0, errors: 0, repeat: false, active: true, wordIndicator: 1, correct: 0, interval: 2, wordId: oneWord._id, lastView: moment().format('DD/MM/YY'), nextView: moment().format('DD/MM/YY'),
         },
       },
     });

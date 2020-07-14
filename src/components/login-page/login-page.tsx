@@ -10,7 +10,7 @@ import loginUser from '../../services/login-user';
 import Context from '../../context/contextUser';
 import styles from './login-page.module.css';
 import { getStatistic, createStatistic } from '../../services/statistic';
-import { getSettings, createSettings } from '../../services/settings';
+import { getSettings } from '../../services/settings';
 
 interface LoginUser {
   email: string;
@@ -52,8 +52,7 @@ const LoginPage: React.FC = () => {
               return;
             } else {
               history.push('/main-page');
-              settings.optional.lastVisit = moment().format('DD/MM/YY');
-              createSettings(settings);
+             // createSettings(settings);
             }
           });
       })

@@ -17,7 +17,7 @@ export default () => {
       const wordsFromBackend = await getWords({
         wordsPerExampleSentenceLTE: 20, wordsPerPage: 8,
       });
-      setWords(wordsFromBackend.slice(0, 8));
+      setWords(wordsFromBackend);
       dispatchWords({ type: 'setWords', value: wordsFromBackend });
     };
     preloadWords();
