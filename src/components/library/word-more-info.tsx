@@ -21,7 +21,7 @@ function WordMoreInfo(props: WordMoreInfoProps) {
     wordId, textExample, textExampleTranslate, textMeaning, textMeaningTranslate, difficulty,
   } = props;
   const wordsState = useContext(storeWords);
-  const words = wordsState.state.allWords;
+  const words = wordsState.state.words;
   const dispatchWords = wordsState.dispatch;
   const [isTranslation, setIsTranslation] = useState(false);
   function showTranslation() {
@@ -29,11 +29,12 @@ function WordMoreInfo(props: WordMoreInfoProps) {
   }
   function toDifficulty(newDifficulty: string) {
     makeWordDifficultyTo(wordId, newDifficulty);
+    if (!words) return;
     words.forEach((wordsInContext: any, i: number) => {
       if (wordsInContext._id === wordId) {
         const newWords = [...words];
         newWords[i].userWord.difficulty = newDifficulty;
-        dispatchWords({ type: 'setAllWords', value: newWords });
+        dispatchWords({ type: 'setWords', value: newWords });
       }
     });
   }

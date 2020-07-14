@@ -8,11 +8,9 @@ import { storeWords } from '../../context/contextWords';
 
 function LibraryAllWords({ active, nonActive, hard } : any) {
   const wordsState = useContext(storeWords);
-  const { words } = wordsState.state;
+  const words = wordsState.state.words;
   if (!words) return null;
-
   /* eslint-disable */
-
   function checks(word: any) {
     if (active && hard) return word.userWord.optional.active && word.userWord.difficulty === 'hard';
     if (active) return word.userWord.optional.active;
@@ -24,7 +22,6 @@ function LibraryAllWords({ active, nonActive, hard } : any) {
     <div className={styles.container}>
       <div className={styles.libraryColumn}>
         {words.length > 0 && words.map((word: any) => (
-
           (word.userWord && checks(word) && (
           <LibraryWord
             key={`${word._id}_libraryWord`}
