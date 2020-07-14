@@ -26,13 +26,12 @@ export default ({ words }: PlayProps) => {
     const [arrayIndex, setArrayIndex] = useState<number>(0)
     const [currentCards, setCurrentCards] = useState<any>([])
     const [correctAnswer, setCorrectAnswer] = useState<any>(false)
-    const [appearCards, setAppearCards] = useState<boolean>(true)
     const [isResultsOpen, setIsResultsOpen] = useState<boolean>(false)
     const correctWords: any = useRef([])
     const fullCorrectWordsList: any = useRef([])
     const answers: any = useRef([])
     const lastWord = useRef(false)
-
+    const appearCards: boolean = true
     let cardsArrays: any = []
 
     function audioRemove() {
@@ -140,11 +139,12 @@ export default ({ words }: PlayProps) => {
   
     }
 
+    /* eslint disable*/
     useEffect(() => {
         setCurrentCards(cardsArrays[arrayIndex])
         setCurrentWord(cardsArrays[arrayIndex][randomInteger(0, 4)])
     }, [])
-
+    /* eslint enable*/
     return (
         <>
             {isResultsOpen

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './cards-for-play.css'
-import checkWord from '../../../learn-words/buttons/check-word';
 import {CSSTransition} from 'react-transition-group'
 
 interface CardsForPlayProps {
