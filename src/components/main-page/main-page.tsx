@@ -72,7 +72,7 @@ function MainPage() {
     <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.progressAndWord}>
-          <TodayProgress name={wordsState.state.name} />
+          <TodayProgress />
           <LastWord word={lastWord} />
         </div>
         <div className={styles.toDoAndPlan}>
