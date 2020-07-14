@@ -6,7 +6,7 @@ interface UserStatistic{
           wordsToday:number;
           newWordsToday:number;
           lastWord:any;
-          weekDay: string;
+          weekDay: string;//[]//[]дат//%правильных слов//
           errors:number;
           correct:number;
           dayProgress:number;// wordsToday/wordsTodayPlan

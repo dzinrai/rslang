@@ -65,17 +65,18 @@ function Buttons({
     getStatistic()
       .then((statistic: any) => {
         if (isTrain) {
-          if (word.userWord.optional.repeat === false) {
-            statistic.optional.common.wordsToday += 1;
-            getSettings()
-              .then((settings: any) => {
-                // eslint-disable-next-line
+          // if (word.userWord.optional.repeat === false) {
+          statistic.optional.common.wordsToday += 1;
+          getSettings()
+            .then((settings: any) => {
+              // eslint-disable-next-line
                 const dayProgress=(statistic.optional.common.wordsToday / settings.optional.cardsPerDay) * 100;
-                statistic.optional.common.dayProgress = (dayProgress > 100) ? 100 : dayProgress;
-                setProgress(statistic.optional.common.dayProgress);
-                createStatistic(statistic);
-              });
-          }
+              statistic.optional.common.dayProgress = (dayProgress > 100) ? 100 : dayProgress;
+              console.log('dayprogress', statistic.optional.common.dayProgress);
+              setProgress(statistic.optional.common.dayProgress);
+              createStatistic(statistic);
+            });
+          // }
           // eslint-disable-next-line
           if (!word.userWord.optional.newWord === false) { statistic.optional.common.newWordsToday += 1; }
         }
@@ -120,12 +121,13 @@ function Buttons({
         break;
     }
     updateWordById(word._id, word.userWord);
-    if (index <= maxCards - 1) {
+    if (index < maxCards - 1) {
       setIndex();
       onCorrect(false);
       setUsersWord('');
       setTranspAnswer(false);
     }
+    console.log('itTimeToNotification', itTimeToNotification);
     if ((index >= maxCards - 1) && correct && itTimeToNotification) {
       console.log('time to notification');
       setVisibleNot(true);

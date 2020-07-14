@@ -38,7 +38,7 @@ function MainPage() {
           settingsData.optional.lastVisit = moment().format('DD/MM/YY');
           createSettings(settingsData);
         }
-      })
+      })/*eslint-disable*/
       .then(() => {
         getStatistic()
           .then((statistic:any) => {
@@ -47,7 +47,14 @@ function MainPage() {
             dispatchWords({ type: 'setUserStatistic', value: statistic });
             updateLastWord(statistic.optional.common.lastWord);
             // eslint-disable-next-line
-            if (thisNewDay) statistic.optional.common.dayProgress = 0;
+            if (thisNewDay) {
+              statistic.optional.common.dayProgress = 0;
+              statistic.optional.common.wordsToday = 0;
+              statistic.optional.common.newWordsToday = 0;
+              statistic.optional.common.weekDay = moment().format('dddd');
+              statistic.optional.common.errors = 0;
+              statistic.optional.common.correct = 0;
+            }
             createStatistic(statistic);
           });
       }).catch((err) => {

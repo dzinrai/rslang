@@ -43,25 +43,27 @@ function CardsSlider({
 console.log('card slider word',word)
 console.log('card index',index)
 
-  if ( index >=maxWordsCards - 1) {
-    console.log('все слова для повторения',repeatWords)
-    if (repeatWords.length&&repeatWords[0].userWord) {
-      curword = repeatWords.shift();
-      console.log('а сейчас слово для репита',curword) ;       
-      curword.userWord.optional.repeat=false;
-    } else {
-      setItTimeToNotification(true) 
-      console.log('notification')
-    }
-
-  } else {
-    console.log('maxCard',maxWordsCards)
-    curword = words[index];
-  }
+ 
 
 // if(!word.userWord||!curword) return null;
 
   /* eslint-disable */
+  useEffect(() => {
+    if ( index >=maxWordsCards - 1) {
+      console.log('все слова для повторения',repeatWords)
+      if (repeatWords.length&&repeatWords[0].userWord) {
+        curword = repeatWords.shift();
+        console.log('а сейчас слово для репита',curword) ;       
+        curword.userWord.optional.repeat=false;
+      } else {
+        setItTimeToNotification(true) ;
+        console.log('notification')
+      }
+  
+    } else {
+      curword = words[index];
+    }},[setIndex])
+
   useEffect(() => {
     word.userWord?setIndicator(word.userWord.optional.wordIndicator):null;
     curword?setWord(curword):null;
@@ -73,25 +75,29 @@ console.log('card index',index)
   /* eslint-enable */
   return (
     <>
-      <Card
-        indicator={wordIndicator}
-        word={word}
-        setWord={setWord}
-        index={index}
-        setIndex={setIndex}
-        onCorrect={onCorrect}
-        correct={correct}
-        setUsersWord={setUsersWord}
-        usersWord={usersWord}
-        indexes={indexes}
-        setIndexes={setIndexes}
-        autoplay={autoplay}
-        setAutoplay={setAutoplay}
-        inProp={inProp}
-        setInProp={setInProp}
-        transpAnswer={transpAnswer}
-        setTranspAnswer={setTranspAnswer}
-      />
+      {' '}
+      {word.length !== 0
+        ? (
+          <Card
+            indicator={wordIndicator}
+            word={word}
+            setWord={setWord}
+            index={index}
+            setIndex={setIndex}
+            onCorrect={onCorrect}
+            correct={correct}
+            setUsersWord={setUsersWord}
+            usersWord={usersWord}
+            indexes={indexes}
+            setIndexes={setIndexes}
+            autoplay={autoplay}
+            setAutoplay={setAutoplay}
+            inProp={inProp}
+            setInProp={setInProp}
+            transpAnswer={transpAnswer}
+            setTranspAnswer={setTranspAnswer}
+          />
+        ) : null}
     </>
   );
 }
