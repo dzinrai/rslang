@@ -3,12 +3,13 @@ interface UserStatistic{
         learnedWords: number,
         optional: {
           common:{
-          wordsToday:number;
+          visitDate:any;
+          wordsToday:any;
           newWordsToday:number;
           lastWord:any;
-          weekDay: string;
+          weekDay: any;
           errors:number;
-          correct:number;
+          correct:any;
           dayProgress:number;// wordsToday/wordsTodayPlan
           //(get this one from setting's back)*100% and put it in progress rainbow line style
          // this may be week days progress

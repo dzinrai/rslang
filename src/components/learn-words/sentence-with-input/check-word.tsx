@@ -3,6 +3,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable */
 import { updateWordById } from '../../../services/getWords';
+import { getStatistic, createStatistic } from '../../../services/statistic';
 
 interface CheckProps {
   word: string,
@@ -16,26 +17,32 @@ interface CheckProps {
   wordObject: any
 }
 
-export function errorsCount(wordObject: any, isTrain?: boolean) {
-  wordObject.userWord.optional.errorInGame = isTrain ? false : true;
+export function errorsCount(wordObject: any) {
+  getStatistic()
+  .then((statistic: any) => {
+      statistic.optional.common.errors+=1;
+      createStatistic(statistic);
+    })
+  
   wordObject.userWord.optional.errors += 1;
 
   wordObject.userWord.optional.wordIndicator > 1 ?
-    wordObject.userWord.optional.wordIndicator-- :
+   wordObject.userWord.optional.wordIndicator-- :
     wordObject.userWord.optional.wordIndicator;
 
   wordObject.userWord.optional.repeat = true;
   updateWordById(wordObject._id, wordObject.userWord);
 }
 export function correctCount(wordObject: any) {
+  getStatistic()
+  .then((statistic: any) => {
+      statistic.optional.common.correct[statistic.optional.common.correct.length-1]+=1;
+      createStatistic(statistic);
+    })
   wordObject.userWord.optional.correct += 1;
-  wordObject.userWord.optional.errorInGame=false;
-
   wordObject.userWord.optional.wordIndicator < 5 ?
-    wordObject.userWord.optional.wordIndicator++ :
-    wordObject.userWord.optional.wordIndicator;
-
-  updateWordById(wordObject._id, wordObject.userWord);
+   wordObject.userWord.optional.wordIndicator+=1 :
+   updateWordById(wordObject._id, wordObject.userWord);
 }
 
 function checkWord(e: any, {
@@ -52,7 +59,7 @@ function checkWord(e: any, {
       correctCount(wordObject);
       setTranspAnswer(false);
     } else if (inputWord.length !== word.length) {
-      errorsCount(wordObject,true);
+      errorsCount(wordObject);
       const newIndexes: any = [];
       word.split('').map((el: string, i: number) => (el !== inputWord[i]) && newIndexes.push(i));
       setIndexes(newIndexes);

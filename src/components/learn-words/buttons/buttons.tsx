@@ -11,8 +11,6 @@ import { getStatistic, createStatistic } from '../../../services/statistic';
 import { getSettings } from '../../../services/settings';
 
 interface ButtonsProps {
-  setRepeatTrainWords:any,
-  repeatWords:any,
   word: any,
   setProgress: any,
   onCorrect: any,
@@ -21,6 +19,7 @@ interface ButtonsProps {
   correct: boolean,
   setIndexes: any,
   index: number,
+  setNewMaxCards: any,
   setIndex: any,
   audioWord: any,
   audioExample: any,
@@ -33,7 +32,8 @@ interface ButtonsProps {
   setVisibleNot: any,
   maxCards: number,
   notification: any,
-  itTimeToNotification:boolean
+  setNewWords: any,
+  initialWords: any,
 }
 
 function viewCount(wordObject: any) {
@@ -46,7 +46,7 @@ function viewCount(wordObject: any) {
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
   setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification, setProgress,
-  setRepeatTrainWords, itTimeToNotification, repeatWords,
+  setNewWords, initialWords, setNewMaxCards,
 }: ButtonsProps) {
   console.log(visibleNot);
   const checkProps = {
@@ -61,24 +61,24 @@ function Buttons({
     setTranspAnswer,
   };
   // eslint-disable-next-line
-  function saveLastWord(word: any, isTrain?: boolean) {
+  function saveLastWord(word: any) {
     getStatistic()
       .then((statistic: any) => {
-        if (isTrain) {
-          if (word.userWord.optional.repeat === false) {
-            statistic.optional.common.wordsToday += 1;
-            getSettings()
-              .then((settings: any) => {
-                // eslint-disable-next-line
-                const dayProgress=(statistic.optional.common.wordsToday / settings.optional.cardsPerDay) * 100;
-                statistic.optional.common.dayProgress = (dayProgress > 100) ? 100 : dayProgress;
-                setProgress(statistic.optional.common.dayProgress);
-                createStatistic(statistic);
-              });
-          }
+        if (word.userWord.optional.repeat === false) {
           // eslint-disable-next-line
-          if (!word.userWord.optional.newWord === false) { statistic.optional.common.newWordsToday += 1; }
+          statistic.optional.common.wordsToday[statistic.optional.common.wordsToday.length - 1] += 1;
+          getSettings()
+            .then((settings: any) => {
+              // eslint-disable-next-line
+              const dayProgress = ((statistic.optional.common.wordsToday[(statistic.optional.common.wordsToday.length) - 1]) / settings.optional.cardsPerDay) * 100;
+              statistic.optional.common.dayProgress = (dayProgress > 100) ? 100 : dayProgress;
+              setProgress(statistic.optional.common.dayProgress);
+            });
+          createStatistic(statistic);
         }
+        // eslint-disable-next-line
+        if (!word.userWord.optional.newWord === false) { statistic.optional.common.newWordsToday += 1; }
+
         if (word.userWord.optional.newWord === true) {
           statistic.learnedWords += 1;
         }
@@ -94,28 +94,31 @@ function Buttons({
   }
 
   function difficultyButtonClick(difficulty: string) {
-    saveLastWord(word, true);
+    saveLastWord(word);
     switch (difficulty) {
       case 'hard':
         word.userWord.difficulty = 'hard';
+        word.userWord.optional.repeat = false;
         word.userWord.optional.interval = 1;
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
         break;
       case 'normal':
         word.userWord.difficulty = 'normal';
+        word.userWord.optional.repeat = false;
         word.userWord.optional.interval = 2;
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
         break;
       case 'easy':
         word.userWord.difficulty = 'easy';
+        word.userWord.optional.repeat = false;
         word.userWord.optional.interval = +word.userWord.optional.interval * 2;
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
         break;
       default:
+        console.log('делаем слово с репит');
         word.userWord.optional.repeat = true;
-        repeatWords.push(word);
-        console.log('repeat words', repeatWords);
-        setRepeatTrainWords(repeatWords);
+        setNewWords([...initialWords, word]);
+        setNewMaxCards(maxCards + 1);
         break;
     }
     updateWordById(word._id, word.userWord);
@@ -125,11 +128,11 @@ function Buttons({
       setUsersWord('');
       setTranspAnswer(false);
     }
-    if ((index >= maxCards - 1) && correct && itTimeToNotification) {
-      console.log('time to notification');
+
+    if ((index === (maxCards - 1)) && correct) {
       setVisibleNot(true);
       getStatistic()
-        .then((statistic:any) => {
+        .then((statistic: any) => {
           notification(statistic);
         });
     }

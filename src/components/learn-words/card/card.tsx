@@ -23,18 +23,19 @@ interface CardProps {
   setInProp: any,
   transpAnswer: boolean,
   setTranspAnswer: any,
+  indicator:number,
 }
 
 function Card({
   word, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes,
-  setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer,
+  setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer, indicator,
 }: CardProps) {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.sentenceImg}>
         <div className={styles.sentensewordTranslate}>
           <div className={styles.mainSentenceContainer}>
-            <WordProgressIndicator />
+            <WordProgressIndicator rate={indicator} />
             <SentenceWithInput
               word={word.word}
               wordObject={word}

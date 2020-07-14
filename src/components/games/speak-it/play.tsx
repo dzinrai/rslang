@@ -49,12 +49,13 @@ export default () => {
       console.log('getted stats', gettedStats);
       console.log('correct and words', words, correctWords);
       const percentCorrect = Math.round((correctWords.length * 100) / words.length);
+      // eslint-disable-next-line
       if (correctWords[correctWords.length - 1]) gettedStats.optional.common.lastWord = correctWords[correctWords.length - 1].id;
       gettedStats.optional.games.speakIt.lastPlay.push(moment().format('DD/MM/YY'));
       gettedStats.optional.games.speakIt.percentCorrect.push(percentCorrect);
       gettedStats.optional.games.speakIt.words.push(words.length);
       console.log('put stats', gettedStats);
-
+      // eslint-disable-next-line
       const newStats = async (stats: any) => await createStatistic(stats);
       newStats(gettedStats);
     };
