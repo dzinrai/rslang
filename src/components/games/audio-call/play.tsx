@@ -139,12 +139,12 @@ export default ({ words }: PlayProps) => {
   
     }
 
-    /* eslint disable*/
+    /* eslint-disable*/
     useEffect(() => {
         setCurrentCards(cardsArrays[arrayIndex])
         setCurrentWord(cardsArrays[arrayIndex][randomInteger(0, 4)])
     }, [])
-    /* eslint enable*/
+    /* eslint-enable*/
     return (
         <>
             {isResultsOpen
@@ -176,9 +176,9 @@ export default ({ words }: PlayProps) => {
                         checkWord={(event: any, currentWord: string) => checkWord(event, currentWord)}
                         appearCards={appearCards}/>
                 </div>
-                {correctAnswer && !lastWord.current ? <button onClick={nextCards} className={styles.nextButton} type='button'>Next words</button> :
-                <button onClick={helpPlease} className={styles.nextButton} type='button'>Help please</button>}
-                {lastWord.current && <button onClick={showResults} className={styles.nextButton} type='button'>Show Results</button>}
+                {!correctAnswer ? <button onClick={helpPlease} className={styles.nextButton} type='button'>Help please</button> :
+                (!lastWord.current ? <button onClick={nextCards} className={styles.nextButton} type='button'>Next words</button> :
+                <button onClick={showResults} className={styles.nextButton} type='button'>Show Results</button>)}
             </div>}
 
             <div className={styles.correctWords}>

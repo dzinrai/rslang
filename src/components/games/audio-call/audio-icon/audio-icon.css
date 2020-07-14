@@ -19,6 +19,12 @@
     transition: border-color .3s linear;
 }
 
+@media (min-width: 1060px) {
+	#audioIcon {
+		margin-bottom: 107px;
+	}
+}
+
 /* #audioIcon:hover {
 	cursor: pointer;
 	border-color: white;
