@@ -15,6 +15,7 @@ import SpeakIt from '../components/games/speak-it/start-page';
 import Sprint from '../components/games/sprint/start-page';
 import Savannah from '../components/games/savannah/start-page';
 import MemoryGame from '../components/games/memory-game/start-page';
+import AudioCall from '../components/games/audio-call/start-page';
 import EnglishPuzzle from '../components/games/english-puzzle/english-puzzle';
 import StatisticPage from '../components/statistic-page/statistic-page';
 
@@ -80,6 +81,9 @@ function AppRouter() {
         </Route>
         <Route path="/mini-games/memory-game">
           <MemoryGame />
+        </Route>
+        <Route path="/mini-games/audio-call">
+          <AudioCall />
         </Route>
         <Redirect to="/" />
       </Switch>
