@@ -92,6 +92,7 @@ function SentenceWithInput({
             name=""
             id="inputWord"
             value={usersWord}
+            autoFocus
           />
         </span>
       </div>
