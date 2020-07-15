@@ -3,7 +3,7 @@ import styles from './total-statistic.module.css';
 import TotalStatisticChart from '../total-statistic-chart/total-statistic-chart';
 
 function TotalStatistic({ totalStats }: any) {
-  const [...stats] = totalStats
+  const [...stats] = totalStats;
 
   return (
     <div className={styles.container}>

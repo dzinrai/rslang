@@ -25,29 +25,29 @@ function Interval() {
         mnemonicity.
       </p>
       <p className={styles.text}>
-      For this, we developed a convenient functional 
+        For this, we developed a convenient functional
         <br />
-        for interacting with the user 
-        <br/>
+        for interacting with the user
+        <br />
         and for determining his own complexity of words.
-        <br/>
-        <br/>
-In train mode after learning the word our user 
-<br/>
-gives mark of difficulty of the word as he decided.
-<br/>
-Interval  repetition based on this data
-<br/>
-<br/>
-It's characteristic:
         <br />
-      Word is complicated: the nex repeat in next day
+        <br />
+        In train mode after learning the word our user
+        <br />
+        gives mark of difficulty of the word as he decided.
+        <br />
+        Interval  repetition based on this data
+        <br />
+        <br />
+        Its characteristic:
+        <br />
+        Word is complicated: the nex repeat in next day
         <br />
         Word do not cause difficulties: the next repeat in 1-2 days
         <br />
         User know this word perfectly: the interval initially 4 days
-        <br/>
-         and after get 2 times longer...
+        <br />
+        and after get 2 times longer...
       </p>
     </div>
   );

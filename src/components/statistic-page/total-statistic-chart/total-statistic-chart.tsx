@@ -6,7 +6,7 @@ interface TotalStatisticChartProps {
 }
 
 const TotalStatisticChart = ({ stats }: TotalStatisticChartProps) => {
-  const [...data] = stats
+  const [...data] = stats;
 
   const config = {
     width: 339,

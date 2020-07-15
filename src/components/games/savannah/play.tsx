@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, useContext, useRef
+  useEffect, useState, useContext, useRef,
 } from 'react';
 import moment from 'moment';
 import ButtonBack from '../controls/button-back/button-back';
@@ -13,7 +13,7 @@ import Lion from '../../../img/gamesImages/savannah_lion.svg';
 import Koza from '../../../img/gamesImages/savannah_koza.svg';
 import Jiraffa from '../../../img/gamesImages/savannah_jiraffa.svg';
 import Zebra from '../../../img/gamesImages/savannah_zebra.svg';
-
+/*eslint-disable*/
 export default () => {
   const arrRef = useRef<any>();
   const wordsState = useContext(storeWords);
@@ -31,7 +31,7 @@ export default () => {
     const loadStats = async () => {
       const gettedStats = await getStatistic();
       const percentCorrect = Math.round((correctWords * 100) / statistic.length);
-      if(gettedStats.optional) {
+      if (gettedStats.optional) {
         gettedStats.optional.games.savannah.lastPlay.push(moment().format('DD/MM/YY'));
         gettedStats.optional.games.savannah.percentCorrect.push(percentCorrect);
         gettedStats.optional.games.savannah.words.push(statistic.length);
@@ -49,14 +49,14 @@ export default () => {
     }
   };
   const startGame = (words: any = wordsFromBackend) => {
-    if(arrRef.current) {
-      arrRef.current.forEach((item : any) => item.className = styles.wordToCheck)
+    if (arrRef.current) {
+      arrRef.current.forEach((item : any) => item.className = styles.wordToCheck);
     }
     setCurrentWord({ info: words[pageLevel], errors: 0 });
-    if(pageLevel !== 20) {
-      setPageLevel(pageLevel + 1)
+    if (pageLevel !== 20) {
+      setPageLevel(pageLevel + 1);
     } else {
-      setPageLevel(0)
+      setPageLevel(0);
     }
     const sortWords = words.slice(pageLevel, pageLevel + 4).sort(() => Math.random() - 0.5);
     setRandomWords(sortWords);
@@ -67,7 +67,7 @@ export default () => {
       wordsPerExampleSentenceLTE: 0, wordsPerPage: 50,
     });
     await dispatchWords({ type: 'setWords', value: wordsFromBackend });
-    await setWordsFromBackend(wordsFromBackend)
+    await setWordsFromBackend(wordsFromBackend);
     await startGame(wordsFromBackend);
   };
 
@@ -119,6 +119,7 @@ export default () => {
                 key={item.id}
                 onClick={(event) => CheckWord(item.word, event)}
                 className={styles.wordToCheck}
+                 // eslint-disable-next-line
                 ref={(ref) => arrRef.current[index] = ref}
               >
                 {item.wordTranslate}
