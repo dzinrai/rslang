@@ -13,6 +13,7 @@ import { getSettings } from '../../../services/settings';
 interface ButtonsProps {
   renderWithSettings: any,
   word: any,
+  setLearned:any,
   setProgress: any,
   onCorrect: any,
   setUsersWord: any,
@@ -47,7 +48,7 @@ function viewCount(wordObject: any) {
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
   setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification, setProgress,
-  setNewWords, initialWords, setNewMaxCards, renderWithSettings,
+  setNewWords, initialWords, setNewMaxCards, renderWithSettings,setLearned,
 }: ButtonsProps) {
   console.log(visibleNot);
   const checkProps = {
@@ -74,6 +75,7 @@ function Buttons({
               const dayProgress = Math.round(((statistic.optional.common.wordsToday[(statistic.optional.common.wordsToday.length) - 1]) / settings.optional.cardsPerDay) * 100);
               statistic.optional.common.dayProgress = (dayProgress > 100) ? 100 : dayProgress;
               setProgress(statistic.optional.common.dayProgress);
+              setLearned(statistic.optional.common.wordsToday[(statistic.optional.common.wordsToday.length) - 1]);
             });
           createStatistic(statistic);
         }
