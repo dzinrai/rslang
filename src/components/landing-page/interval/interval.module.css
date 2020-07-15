@@ -1,10 +1,20 @@
 .container {
   font-family: 'Montserrat', sans-serif;
   padding: 90px 90px 180px;
-  background-image: url(../../../img/interval-page.png);
-  background-repeat: no-repeat;
   text-align: right;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
 }
+
+.container::before {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: url('../../../img/interval-page.png');
+}
+
 
 .title {
   font-weight: 800;
@@ -19,4 +29,10 @@
   font-size: 18px;
   line-height: 22px;
   color: #263655;
+}
+
+@media(max-width: 1050px) {
+  .container::before {
+    opacity: 0.4;
+  }
 }

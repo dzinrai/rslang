@@ -24,7 +24,7 @@
 
 .main {
   display: grid;
-  grid-template-columns: 1fr minmax(454px, 1fr) 1fr;
+  grid-template-columns: 1fr minmax(320px, 500px) 1fr;
 }
 
 .logo {
@@ -76,5 +76,38 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media(max-width: 680px) {
+  .contact {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .contactsContainer {
+    background-position-x: center;
+  }
+
+  .main {
+    display: block;
+  }
+
+  .logoContainer {
+    display: none;
+  }
+
+  .button {
+    display: none;
+  }
+}
+
+@media(max-width: 410px) {
+  .contactsContainer {
+    padding-top: 65px;
+  }
+
+  .contact {
+    font-size: 12px;
+  }
 }
 
