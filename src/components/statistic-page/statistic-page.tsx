@@ -41,7 +41,7 @@ function StatisticPage() {
     statsRoute.visitDate[statsLength - 1 - i] !== 'Sunday') {
       let temp = {weekDay: '', percentCorrect: 0}
       temp.weekDay = statsRoute.weekDay[statsLength - 1 - i].slice(0, 3)
-      const percentCorrect = (statsRoute.correct[statsLength - 1 - i]*100)/statsRoute.wordsToday[statsLength - 1 - i]
+      const percentCorrect = Math.round((statsRoute.correct[statsLength - 1 - i]*100)/statsRoute.wordsToday[statsLength - 1 - i])
       temp.percentCorrect = percentCorrect ? (percentCorrect > 100 ? 100 : percentCorrect) : 0
       tempWeekArray.push(temp)  
       i += 1
