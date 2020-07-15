@@ -2,7 +2,6 @@ import React, { useRef, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 import 'antd/dist/antd.css';
-import moment from 'moment';
 import { useForm } from 'react-hook-form';
 import styles from './signup-page.module.css';
 import { createSettings } from '../../services/settings';
@@ -42,7 +41,7 @@ const SignUpPage: React.FC = () => {
             optional: {
               isUserOfOurSuperDuperApp: true,
               lastVisit: '01/01/19',
-              cardsPerDay: 10,
+              cardsPerDay: 20,
               wordTranscription: true,
               spellingOutSentence: false,
               picture: true,
@@ -59,44 +58,45 @@ const SignUpPage: React.FC = () => {
           learnedWords: 0,
           optional: {
             common: {
-              wordsToday: 0,
+              visitDate: [],
+              wordsToday: [],
               newWordsToday: 0,
               dayProgress: 0,
               lastWord: {},
-              weekDay: moment().format('dddd'),
+              weekDay: [],
               errors: 0,
-              correct: 0,
+              correct: [],
             },
             games: {
               speakIt: {
-                lastPlay: '',
-                words: 0,
-                percentCorrect: 0,
+                lastPlay: [],
+                words: [],
+                percentCorrect: [],
               },
               savannah: {
-                lastPlay: '',
-                words: 0,
-                percentCorrect: 0,
+                lastPlay: [],
+                words: [],
+                percentCorrect: [],
               },
               audioCall: {
-                lastPlay: '',
-                words: 0,
-                percentCorrect: 0,
+                lastPlay: [],
+                words: [],
+                percentCorrect: [],
               },
               sprint: {
-                lastPlay: '',
-                words: 0,
-                percentCorrect: 0,
+                lastPlay: [],
+                words: [],
+                percentCorrect: [],
               },
               puzzle: {
-                lastPlay: '',
-                words: 0,
-                percentCorrect: 0,
+                lastPlay: [],
+                words: [],
+                percentCorrect: [],
               },
               ownGame: {
-                lastPlay: '',
-                words: 0,
-                percentCorrect: 0,
+                lastPlay: [],
+                words: [],
+                percentCorrect: [],
               },
             },
           },

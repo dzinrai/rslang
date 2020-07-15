@@ -26,11 +26,13 @@ function PlanForToday() {
           boldText={gamesForToday[0].boldText}
           picture={gamesForToday[0].picture}
           title={gamesForToday[0].title}
+          path="sprint"
         />
         <GameForToday
           boldText={gamesForToday[1].boldText}
           picture={gamesForToday[1].picture}
           title={gamesForToday[1].title}
+          path="puzzle"
         />
       </div>
     </div>

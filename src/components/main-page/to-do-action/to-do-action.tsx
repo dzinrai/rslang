@@ -8,7 +8,7 @@ import { ReactComponent as ToDoActionImage } from '../../../img/layer-2-main-pag
 function ToDoAction() {
   const history = useHistory();
 
-  const gameArray = ['/mini-games/speakit', '/mini-games/savannah', '/mini-games/puzzle', '/mini-games/sprint', '/mini-games/memory-game', '/mini-games/audiocall'];
+  const gameArray = ['/mini-games/speakit', '/mini-games/savannah', '/mini-games/puzzle', '/mini-games/sprint', '/mini-games/memory-game', '/mini-games/audio-call'];
 
   function randomGameClick() {
     const rand = Math.floor(Math.random() * gameArray.length);

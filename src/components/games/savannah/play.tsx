@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, useContext,
+  useEffect, useState, useContext, useRef
 } from 'react';
 import moment from 'moment';
 import ButtonBack from '../controls/button-back/button-back';
@@ -15,6 +15,7 @@ import Jiraffa from '../../../img/gamesImages/savannah_jiraffa.svg';
 import Zebra from '../../../img/gamesImages/savannah_zebra.svg';
 
 export default () => {
+  const arrRef = useRef<any>();
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
   const [statistic, setStatistic] = useState<any>([]);
@@ -23,22 +24,23 @@ export default () => {
   const [randomWords, setRandomWords] = useState<any>([]);
   const [currentWord, setCurrentWord] = useState<any>({ info: { word: '' }, errors: 0 });
   const [pageLevel, setPageLevel] = useState<number>(1);
-  const [group, setGroup] = useState<number>(0);
+  const [wordsFromBackend, setWordsFromBackend] = useState<any>([]);
   const [isResultsOpen, setIsResultsOpen] = useState(false);
   const [modalText, setModalText] = useState({ title: 'Guessed words', btn: 'Cancel' });
   const toggleModal = (isFall: boolean) => {
     const loadStats = async () => {
       const gettedStats = await getStatistic();
       const percentCorrect = Math.round((correctWords * 100) / statistic.length);
-      gettedStats.optional.games.savannah.lastPlay.push(moment().format('DD/MM/YY'));
-      gettedStats.optional.games.savannah.percentCorrect.push(percentCorrect);
-      gettedStats.optional.games.savannah.words.push(statistic.length);
-
-      const newStats = async (stats: any) => await createStatistic(stats);
-      newStats(gettedStats);
+      if(gettedStats.optional) {
+        gettedStats.optional.games.savannah.lastPlay.push(moment().format('DD/MM/YY'));
+        gettedStats.optional.games.savannah.percentCorrect.push(percentCorrect);
+        gettedStats.optional.games.savannah.words.push(statistic.length);
+        // eslint-disable-next-line
+        const newStats = async (stats: any) => await createStatistic(stats);
+        newStats(gettedStats);
+      }
     };
     loadStats();
-
     setIsFalling(isFall);
     setIsResultsOpen(!isResultsOpen);
     if (modalText.title === 'Game results') {
@@ -46,26 +48,27 @@ export default () => {
       setModalText({ title: 'Guessed words', btn: 'Cancel' });
     }
   };
-  const startGame = (words: any) => {
-    setCurrentWord({ info: words[0], errors: 0 });
-    words.sort(() => Math.random() - 0.5);
-    setRandomWords(words.sort(() => Math.random() - 0.5));
+  const startGame = (words: any = wordsFromBackend) => {
+    if(arrRef.current) {
+      arrRef.current.forEach((item : any) => item.className = styles.wordToCheck)
+    }
+    setCurrentWord({ info: words[pageLevel], errors: 0 });
+    if(pageLevel !== 20) {
+      setPageLevel(pageLevel + 1)
+    } else {
+      setPageLevel(0)
+    }
+    const sortWords = words.slice(pageLevel, pageLevel + 4).sort(() => Math.random() - 0.5);
+    setRandomWords(sortWords);
     setIsFalling(true);
   };
   const preloadWords = async () => {
-    if (group === 5) {
-      await setPageLevel(pageLevel + 1);
-      await setGroup(0);
-    } else {
-      await setGroup(group + 1);
-    }
     const wordsFromBackend = await getWords({
-      page: pageLevel, group, wordsPerExampleSentenceLTE: 0, wordsPerPage: 4,
+      wordsPerExampleSentenceLTE: 0, wordsPerPage: 50,
     });
-    const words = wordsFromBackend.slice(0, 4);
-    // console.log('words', words)
     await dispatchWords({ type: 'setWords', value: wordsFromBackend });
-    await startGame(words);
+    await setWordsFromBackend(wordsFromBackend)
+    await startGame(wordsFromBackend);
   };
 
   const CheckWord = (word: string, event: any) => {
@@ -76,12 +79,11 @@ export default () => {
     } else if (!event.currentTarget.classList.contains('error')) {
       if (word === currentWord.info.word) {
         setCorrectWords(correctWords + 1);
-        preloadWords();
         const array = statistic;
         array.push({ ...currentWord, guessed: true });
         setStatistic(array);
         setIsFalling(false);
-        document.querySelectorAll('savannah-error').forEach((item) => item.classList.remove('savannah-error'));
+        preloadWords();
       } else {
         event.currentTarget.classList.add('savannah-error');
         setCurrentWord({ ...currentWord, errors: currentWord.errors + 1 });
@@ -91,6 +93,8 @@ export default () => {
     /* eslint-disable */
   useEffect(() => {
     preloadWords();
+    arrRef.current = new Array(4);
+
   }, []);
     /* eslint-enable */
   return (
@@ -109,12 +113,13 @@ export default () => {
       {randomWords.length > 0
         ? (
           <div className={styles.wordContainer}>
-            {randomWords.map((item: any) => (
+            {randomWords.map((item: any, index: any) => (
               <div
                 role="presentation"
                 key={item.id}
                 onClick={(event) => CheckWord(item.word, event)}
                 className={styles.wordToCheck}
+                ref={(ref) => arrRef.current[index] = ref}
               >
                 {item.wordTranslate}
               </div>

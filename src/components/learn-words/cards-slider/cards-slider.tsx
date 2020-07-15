@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import Card from '../card/card';
 
 interface SliderProps {
+  renderWithSettings:any,
   maxWordsCards: number,
-  setItTimeToNotification:any,
-  repeatWords: any,
+  wordIndicator:number,
   words: any,
   word: any,
   setWord: any,
@@ -20,6 +20,7 @@ interface SliderProps {
   setAudioWord: any,
   setAudioExample: any,
   setAudioMeaning: any,
+  setIndicator:any,
   autoplay: boolean,
   setAutoplay: any,
   inProp: boolean,
@@ -32,54 +33,56 @@ function CardsSlider({
   words, word, setWord, index, setIndex, onCorrect, correct, setUsersWord,
   usersWord, indexes, setIndexes,
   setAudioWord, setAudioExample, setAudioMeaning, autoplay, setAutoplay,
-  inProp, setInProp, transpAnswer, setTranspAnswer, repeatWords, maxWordsCards, setItTimeToNotification
+  inProp, setInProp, transpAnswer, setTranspAnswer, maxWordsCards,
+ setIndicator,wordIndicator, renderWithSettings,
 }: SliderProps) {
 
-  let curword: any = {};
 
-  if (index >= maxWordsCards - 1) {
-    if (repeatWords.length) {
-      curword = repeatWords.shift();
-      curword.userWord.optional.repeat=false;
-    } else {
-      setItTimeToNotification(true);
-    }
 
-  } else {
-    curword = words[index];
-  }
+console.log('card slider word',word)
+console.log('card index',index)
 
 
 
   /* eslint-disable */
+      let curword = words[index];
+  
+   
   useEffect(() => {
-    setWord(curword);
+    word.userWord?setIndicator(word.userWord.optional.wordIndicator):null;
+    curword?setWord(curword):null;
     setAudioWord(word.audio);
     setAudioExample(word.audioExample);
     setAudioMeaning(word.audioMeaning);
-  }, [curword, word, setWord, setAudioWord, setAudioExample, setAudioMeaning]);
+  }, [curword, word,index]);
 
   /* eslint-enable */
   return (
     <>
-      <Card
-        word={word}
-        setWord={setWord}
-        index={index}
-        setIndex={setIndex}
-        onCorrect={onCorrect}
-        correct={correct}
-        setUsersWord={setUsersWord}
-        usersWord={usersWord}
-        indexes={indexes}
-        setIndexes={setIndexes}
-        autoplay={autoplay}
-        setAutoplay={setAutoplay}
-        inProp={inProp}
-        setInProp={setInProp}
-        transpAnswer={transpAnswer}
-        setTranspAnswer={setTranspAnswer}
-      />
+      {' '}
+      {word.length !== 0
+        ? (
+          <Card
+            renderWithSettings={renderWithSettings}
+            indicator={wordIndicator}
+            word={word}
+            setWord={setWord}
+            index={index}
+            setIndex={setIndex}
+            onCorrect={onCorrect}
+            correct={correct}
+            setUsersWord={setUsersWord}
+            usersWord={usersWord}
+            indexes={indexes}
+            setIndexes={setIndexes}
+            autoplay={autoplay}
+            setAutoplay={setAutoplay}
+            inProp={inProp}
+            setInProp={setInProp}
+            transpAnswer={transpAnswer}
+            setTranspAnswer={setTranspAnswer}
+          />
+        ) : null}
     </>
   );
 }

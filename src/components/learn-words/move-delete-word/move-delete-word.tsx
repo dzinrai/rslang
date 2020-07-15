@@ -2,10 +2,15 @@ import React from 'react';
 import styles from './move-delete-word.module.css';
 import { updateWordById } from '../../../services/getWords';
 /* eslint-disable */
-function MoveDeleteWord(wordObject:any) {
+interface Move {
+ wordObject:any,
+ renderWithSettings:any,
+}
+
+function MoveDeleteWord({wordObject, renderWithSettings}:Move) {
   return (
     <div className={styles.buttonsContainer}>
-      <button
+      {renderWithSettings.optional.moveToDifficult&&<button
         className={styles.moveToDifficult}
         type="button"
         onClick={() => {
@@ -14,8 +19,8 @@ function MoveDeleteWord(wordObject:any) {
         }}
       >
         Move to difficult
-      </button>
-      <button
+      </button>}
+      {renderWithSettings.optional.deleteWord&&<button
         className={styles.moveToDifficult}
         type="button"
         onClick={() => {
@@ -24,7 +29,7 @@ function MoveDeleteWord(wordObject:any) {
         }}
       >
         Delete
-      </button>
+      </button>}
     </div>
   );
 }

@@ -7,6 +7,9 @@
   overflow: hidden;
   z-index: 0;
   font-family: 'Montserrat', sans-serif;
+  background-image: url('../../../img/welcome.png');
+  background-repeat: no-repeat;
+  background-position: top right;
 }
 
 .logo {

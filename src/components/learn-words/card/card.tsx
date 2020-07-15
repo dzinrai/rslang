@@ -8,6 +8,7 @@ import MoveDeleteWord from '../move-delete-word/move-delete-word';
 
 interface CardProps {
   word: any,
+  renderWithSettings:any,
   setWord: any,
   index: number,
   setIndex: any,
@@ -23,18 +24,20 @@ interface CardProps {
   setInProp: any,
   transpAnswer: boolean,
   setTranspAnswer: any,
+  indicator:number,
 }
 
 function Card({
   word, setIndex, onCorrect, correct, setUsersWord, usersWord, indexes,
-  setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer, setTranspAnswer,
+  setIndexes, autoplay, setAutoplay, inProp, setInProp, transpAnswer,
+  setTranspAnswer, indicator, renderWithSettings,
 }: CardProps) {
   return (
     <div className={styles.cardContainer}>
       <div className={styles.sentenceImg}>
         <div className={styles.sentensewordTranslate}>
           <div className={styles.mainSentenceContainer}>
-            <WordProgressIndicator />
+            <WordProgressIndicator rate={indicator} />
             <SentenceWithInput
               word={word.word}
               wordObject={word}
@@ -56,17 +59,22 @@ function Card({
             <span className={styles.wordTranslate}>
               {word.wordTranslate}
             </span>
+            {renderWithSettings.optional.wordTranscription
+            && (
             <span className={styles.transcription}>
               {word.transcription}
             </span>
+            )}
           </div>
         </div>
         <div className={styles.imageMoveDelete}>
-          <img style={{ borderRadius: '5px' }} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} width="195" height="150" alt="" />
-          <MoveDeleteWord wordObject={word} />
+          {renderWithSettings.optional.picture
+          && <img style={{ borderRadius: '5px' }} src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${word.image}`} width="195" height="150" alt="" />}
+          <MoveDeleteWord wordObject={word} renderWithSettings={renderWithSettings} />
         </div>
       </div>
       <WordInfo
+        renderWithSettings={renderWithSettings}
         word={word.word}
         textExample={word.textExample}
         textMeaning={word.textMeaning}
