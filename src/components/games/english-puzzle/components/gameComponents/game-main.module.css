@@ -80,7 +80,11 @@
     color: #263655;
     margin-top: 20px;
 }
-
+@media (min-height: 750px) {
+    .gameContainer {
+        padding-top: 1%;
+    }
+}
 @media (min-width: 1200px) {
     .puzzleContainer {
         height: 100vh;
@@ -109,7 +113,6 @@
 }
 
 @media (max-width: 768px) {
-
 }
 
 @keyframes ChangeSize {

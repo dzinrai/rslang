@@ -9,15 +9,14 @@ import GamesStatistic from './games-statistic/games-statistic';
 import { getStatistic } from '../../services/statistic';
 
 function StatisticPage() {
-  const [totalStats, setTotalStats] = useState<any>([])
-  const [dayProgress, setDayProgress] = useState<number>(0)
-  const [weekProgress, setWeekProgress] = useState<any>([])
+  const [totalStats, setTotalStats] = useState<any>([]);
+  const [dayProgress, setDayProgress] = useState<number>(0);
+  const [weekProgress, setWeekProgress] = useState<any>([]);
   const loadStats = async () => {
     const gettedStats = await getStatistic();
-    console.log('getted', gettedStats)
-    let tempArray: any = []
-    const statsRoute = gettedStats.optional.common
-    const statsLength = statsRoute.visitDate.length
+    const tempArray: any = [];
+    const statsRoute = gettedStats.optional.common;
+    const statsLength = statsRoute.visitDate.length;
     for (let i = 0; i < statsLength; i += 1) {
       let temp = {'Correct words': 0, Date: '01/01/2020', Words: 0}
       temp['Words'] = statsRoute.wordsToday[i]
@@ -27,7 +26,7 @@ function StatisticPage() {
       tempArray.push(temp)
     }
 
-    let tempWeekArray: any = []
+    const tempWeekArray: any = [];
     if (statsRoute.visitDate[statsLength - 1] === moment().format('DD/MM/YY')) {
       let temp = {weekDay: '', percentCorrect: 0}
       temp.weekDay = statsRoute.weekDay[statsLength - 1].slice(0, 3)
@@ -47,15 +46,15 @@ function StatisticPage() {
       i += 1
     }
 
-    setWeekProgress(tempWeekArray)
-    setTotalStats(totalStats.concat(tempArray))
-    setDayProgress(statsRoute.dayProgress)
+    setWeekProgress(tempWeekArray);
+    setTotalStats(totalStats.concat(tempArray));
+    setDayProgress(statsRoute.dayProgress);
   };
   /* eslint-disable*/
   useEffect(() => {
     loadStats();    
   }, [])
-  /* eslint-enable*/
+  /* eslint-enable */
   return (
     <div className={styles.container}>
       <div className={styles.todayProgress}>

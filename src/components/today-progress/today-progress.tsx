@@ -9,7 +9,7 @@ function TodayProgress() {
   const wordsState = useContext(storeWords);
   const stateWords = wordsState.state;
   const [wordsToday, setWordsToday] = useState<number>(0);
-  const [newWordsToday, setNewWordsToday] = useState<any>([])
+  const [newWordsToday, setNewWordsToday] = useState<any>([]);
   // useEffect(() => {
   //   if (Array.isArray(stateWords.userStatistic?.optional?.common?.wordsToday)) {
   //     setWordsToday(stateWords.userStatistic?.optional?.common?.wordsToday.slice(-1));
@@ -20,17 +20,16 @@ function TodayProgress() {
 
   const loadStats = async () => {
     const gettedStats = await getStatistic();
-    const tempWordsToday = gettedStats.optional.common.wordsToday.length > 0 ? 
-    gettedStats.optional.common.wordsToday[gettedStats.optional.common.wordsToday.length - 1] : 0
-    setWordsToday(tempWordsToday)
-    setNewWordsToday(gettedStats.optional.common.newWordsToday)
-    // console.log('getted', gettedStats)
+    const tempWordsToday = gettedStats.optional.common.wordsToday.length > 0
+    // eslint-disable-next-line
+      ? gettedStats.optional.common.wordsToday[gettedStats.optional.common.wordsToday.length - 1] : 0;
+    setWordsToday(tempWordsToday);
+    setNewWordsToday(gettedStats.optional.common.newWordsToday);
   };
 
   useEffect(() => {
-    loadStats();    
-  }, [])
-
+    loadStats();
+  }, []);
 
   return (
     <div className={styles.today_progress_container}>

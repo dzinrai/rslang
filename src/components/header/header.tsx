@@ -54,7 +54,7 @@ const Header: React.FC = () => {
   return (
     <>
       <div className={styles.headerContainer}>
-        <NavLink to={isMenuShow ? 'main-page' : '/'}><img src={Logo} alt="Logo" /></NavLink>
+        <NavLink className={styles.linkLogo} to={isMenuShow ? 'main-page' : '/'}><img src={Logo} alt="Logo" /></NavLink>
         {isMenuShow
           && (
             <button type="button" className={menuButtonStyle} onClick={toggleMenu}>

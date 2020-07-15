@@ -47,10 +47,9 @@ function viewCount(wordObject: any) {
 
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
-  setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification, setProgress,
-  setNewWords, initialWords, setNewMaxCards, renderWithSettings,setLearned,
+  setInProp, setTranspAnswer, setVisibleNot, maxCards, notification, setProgress,
+  setNewWords, initialWords, setNewMaxCards, renderWithSettings, setLearned,
 }: ButtonsProps) {
-  console.log(visibleNot);
   const checkProps = {
     word,
     onCorrect,
@@ -75,6 +74,7 @@ function Buttons({
               const dayProgress = Math.round(((statistic.optional.common.wordsToday[(statistic.optional.common.wordsToday.length) - 1]) / settings.optional.cardsPerDay) * 100);
               statistic.optional.common.dayProgress = (dayProgress > 100) ? 100 : dayProgress;
               setProgress(statistic.optional.common.dayProgress);
+              // eslint-disable-next-line
               setLearned(statistic.optional.common.wordsToday[(statistic.optional.common.wordsToday.length) - 1]);
             });
           createStatistic(statistic);
@@ -118,7 +118,6 @@ function Buttons({
         word.userWord.optional.nextView = moment().add(+word.userWord.optional.interval, 'days').format('DD/MM/YY');
         break;
       default:
-        console.log('делаем слово с репит');
         word.userWord.optional.repeat = true;
         setNewWords([...initialWords, word]);
         setNewMaxCards(maxCards + 1);

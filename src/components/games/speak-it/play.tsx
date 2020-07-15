@@ -23,13 +23,14 @@ export default () => {
   const [isPlayMode, setIsPlayMode] = useState(true);
   // eslint-disable-next-line no-shadow
   const preloadWords = async () => {
+    // eslint-disable-next-line no-shadow
     const wordsFromBackend = await getWords({
       wordsPerExampleSentenceLTE: 10, wordsPerPage: 50,
     });
-    await stWordsFromBackend(wordsFromBackend)
+    await stWordsFromBackend(wordsFromBackend);
     await setWords(wordsFromBackend.slice(0, 10));
     dispatchWords({ type: 'setWords', value: wordsFromBackend });
-    setPageLevel(pageLevel + 1)
+    setPageLevel(pageLevel + 1);
   };
   const wordRef = useRef<any>([]);
   /* eslint-disable */
@@ -54,7 +55,7 @@ export default () => {
       const percentCorrect = Math.round((correctWords.length * 100) / words.length);
       // eslint-disable-next-line
       if (correctWords[correctWords.length - 1]) gettedStats.optional.common.lastWord = correctWords[correctWords.length - 1].id;
-      if(gettedStats.optional) {
+      if (gettedStats.optional) {
         gettedStats.optional.games.speakIt.lastPlay.push(moment().format('DD/MM/YY'));
         gettedStats.optional.games.speakIt.percentCorrect.push(percentCorrect);
         gettedStats.optional.games.speakIt.words.push(words.length);
@@ -72,11 +73,11 @@ export default () => {
   const newGame = () => {
     if (pageLevel !== 5) {
       setWords(wordsFromBackend.slice(pageLevel * 10, pageLevel * 10 + 10));
-      setPageLevel(pageLevel + 1)
-      console.log(pageLevel)
-      console.log(wordsFromBackend.slice(pageLevel * 10, pageLevel * 10 + 10))
+      setPageLevel(pageLevel + 1);
+      console.log(pageLevel);
+      console.log(wordsFromBackend.slice(pageLevel * 10, pageLevel * 10 + 10));
     } else {
-      setPageLevel(0)
+      setPageLevel(0);
       setWords(wordsFromBackend.slice(0, 10));
     }
     setCorrectWords([]);
