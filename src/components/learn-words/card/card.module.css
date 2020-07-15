@@ -1,0 +1,55 @@
+.mainSentenceContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 440px;
+    height: 151px;
+    border: rgba(17, 34, 86, .09) 1px solid;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.wordTranslate {
+    font-size: 18px;
+    color: #112256;
+}
+
+.transcription {
+    font-size: 14px;
+    color: #112256;
+    font-weight: 300;
+}
+
+.wordTranscriptionContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+}
+
+.sentenseTranslation {
+    display: flex;
+    flex-direction: column;
+    width: 440px;
+}
+
+.imageMoveDelete {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 215px;
+}
+
+.sentenceImg {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.cardContainer {
+    /* margin-top: 65px; */
+    padding: 35px;
+    box-shadow: -2px 6px 16px rgba(133, 133, 133, 0.21);
+    border-radius: 10px;
+    display: inline-flex;
+    flex-direction: column;
+}

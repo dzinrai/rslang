@@ -1,0 +1,22 @@
+.container {
+  font-family: 'Montserrat', sans-serif;
+  padding: 90px 90px 180px;
+  background-image: url(../../../img/interval-page.png);
+  background-repeat: no-repeat;
+  text-align: right;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 48px;
+  color: #FF645F;
+  margin-bottom: 50px;
+}
+
+.text {
+  margin-bottom: 35px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 22px;
+  color: #263655;
+}

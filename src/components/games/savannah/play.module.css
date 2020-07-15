@@ -1,0 +1,134 @@
+.falling {
+    z-index: 3;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    animation: fall 4s linear;
+    opacity: 0;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 48px;
+    color: #FF645F;
+}
+
+.fallingNone {
+    opacity: 0;
+}
+
+.wordToCheck:hover {
+    background: #EDEDED;
+    border-radius: 5px;
+}
+
+.wordToCheck {
+    z-index: 4;
+    font-weight: normal;
+    font-size: 24px;
+    padding: 8px 30px;
+    color: #263655;
+    cursor: pointer;
+    transition: .3s linear;
+}
+
+
+.wordContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 16%);
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 40vh;
+    left: 0;
+    width: 100%;
+    cursor: pointer;
+}
+
+@keyframes fall {
+    0% {
+        top: 95px;
+        opacity: 1;
+        letter-spacing: 2px;
+    }
+    90% {
+        opacity: .7;
+        letter-spacing: 2px;
+    }
+    100% {
+        top: 85vh;
+        opacity: 0;
+        letter-spacing: -27px;
+    }
+}
+
+.lion img{
+    height: 22vh;
+}
+.lion {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.animalsContainer img {
+    position: absolute;
+}
+
+.koza {
+    top: 95px;
+    right: 0;
+}
+.zebra {
+    bottom: 0;
+    right: 0;
+}
+
+.jiraffa {
+    top: 95px;
+    left: 0;
+}
+
+.correctWords {
+    z-index: 4;
+    position: absolute;
+    bottom: -10px;
+    left: 40px;
+    font-weight: 800;
+    font-size: 96px;
+    text-align: right;
+    color: #263655;
+}
+.correctWords span {
+    font-weight: 500;
+    font-size: 18px;
+    margin-left: -10px;
+}
+
+.btnResults {
+    position: absolute;
+    right: 180px;
+    bottom: 10px;
+    border-radius: 50px;
+    color: #1194C8;
+    border: 1px solid #1194C8;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    padding: 8px 35px;
+    cursor: pointer;
+}
+
+.tableContainer, .tableHeader {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 10px;
+    justify-items: center;
+}
+.tableHeader  {
+    font-weight: 800;
+}

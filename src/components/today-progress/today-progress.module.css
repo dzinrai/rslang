@@ -1,0 +1,63 @@
+.today_progress_container {
+    width: 760px;
+    height: 63px;
+    background: rgba(255, 202, 202, 0.36);
+    border-radius: 8px;
+}
+
+.lamp_img {
+    position: relative;
+    left: 320px;
+    bottom: 40px;
+}
+
+.user_name {
+    font-family: Montserrat;
+    max-width: 100px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 45px;
+    display: flex;
+    align-items: center;
+    color: #DA3F3A;
+    margin-left: 30px;
+    margin-bottom: 0px;
+}
+
+.today_description {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 5px;
+    display: flex;
+    align-items: center;
+    color: rgba(17, 34, 86, 0.88);
+    margin-left: 30px;
+    margin-bottom: 0;
+    max-width: 500px;
+}
+
+.bold_text {
+    font-weight: 600;
+    padding-left: 5px;
+}
+
+@media (max-width: 767px) {
+    .today_progress_container {
+        width: 80%;
+    }
+    .lamp_img {
+        left: 30vw;
+    }
+}
+
+@media (max-width: 767px) {
+    .lamp_img {
+        left: 20vw;
+    }
+    .today_description {
+        display: none;
+    }
+}

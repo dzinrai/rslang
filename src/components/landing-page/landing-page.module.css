@@ -1,0 +1,16 @@
+.container {
+  background-color: #FAFAFA;
+}
+
+.logo {
+  display: block;
+  font-weight: bold;
+  font-size: 36px;
+  color: #1958DB;
+  line-height: 1;
+}
+
+.logoIcon {
+  top: -12px;
+  position: absolute;
+}

@@ -1,0 +1,23 @@
+.container {
+  padding: 146px 85px 200px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 48px;
+  color: #FF645F;
+  margin-bottom: 146px;
+}
+
+.advantagesContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+@media(max-width: 900px) {
+  .advantagesContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+}
