@@ -41,6 +41,7 @@
 
 .gameImg {
     align-self: center;
+    height: 230px;
 }
 
 .gameContainer:hover .gameImg {
