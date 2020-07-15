@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Card from '../card/card';
 
 interface SliderProps {
+  renderWithSettings:any,
   maxWordsCards: number,
   wordIndicator:number,
   words: any,
@@ -33,7 +34,7 @@ function CardsSlider({
   usersWord, indexes, setIndexes,
   setAudioWord, setAudioExample, setAudioMeaning, autoplay, setAutoplay,
   inProp, setInProp, transpAnswer, setTranspAnswer, maxWordsCards,
- setIndicator,wordIndicator
+ setIndicator,wordIndicator, renderWithSettings,
 }: SliderProps) {
 
 
@@ -62,6 +63,7 @@ console.log('card index',index)
       {word.length !== 0
         ? (
           <Card
+            renderWithSettings={renderWithSettings}
             indicator={wordIndicator}
             word={word}
             setWord={setWord}

@@ -41,7 +41,7 @@ const SignUpPage: React.FC = () => {
             optional: {
               isUserOfOurSuperDuperApp: true,
               lastVisit: '01/01/19',
-              cardsPerDay: 10,
+              cardsPerDay: 20,
               wordTranscription: true,
               spellingOutSentence: false,
               picture: true,

@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './game-for-today.module.css';
 import { Link } from 'react-router-dom';
+import styles from './game-for-today.module.css';
 
 interface Props {
   boldText: string,
@@ -9,7 +9,9 @@ interface Props {
   path: string
 }
 
-function GameForToday({ boldText, picture, title, path }: Props) {
+function GameForToday({
+  boldText, picture, title, path,
+}: Props) {
   return (
     <Link to={`/mini-games/${path}`} className={styles.gameContainer}>
       <div className={styles.gameText}>

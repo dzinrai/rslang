@@ -5,6 +5,7 @@ import moment from 'moment';
 import styles from './learn-words.module.css';
 import { getWordsFromBackend } from '../../services/getWords';
 import { getSettings, UserSettings } from '../../services/settings';
+import { getStatistic } from '../../services/statistic';
 import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import CardsSlider from './cards-slider/cards-slider';
@@ -25,6 +26,7 @@ function LearnWords() {
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
   const [maxCards, setMaxCards] = useState(10);
+  const [settingsForCard, setSettings] = useState({});
 
   const [visible, setVisible] = useState(true);
   const [visibleNotification, setVisibleNotification] = useState(false);
@@ -36,9 +38,9 @@ function LearnWords() {
   /* eslint-disable */
 
   useEffect(() => {
-   // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
- 
+
   const newWord = (word1: any) => setWord(word1);
   const correctCard = (isCorrect: boolean) => setCorrect(isCorrect);
   const newUsersWord = (word1: string) => setUsersWord(word1);
@@ -46,13 +48,13 @@ function LearnWords() {
   const newAudioWord = (audio: any) => setAudioWord(audio);
   const newAudioExample = (audio: any) => setAudioExample(audio);
   const newAudioMeaning = (audio: any) => setAudioMeaning(audio);
-  const newWordIndicator=(indicator:any)=>setIndicator(indicator)
+  const newWordIndicator = (indicator: any) => setIndicator(indicator)
   const controlAutoplay = (isAutoplay: boolean) => setAutoplay(isAutoplay);
   const newInProp = (isInProp: boolean) => setInProp(isInProp);
   const newTranspAnswer = (isTranspAnswer: boolean) => setTranspAnswer(isTranspAnswer);
   const newProgress = (progress1: number) => setProgress(progress1);
-  const newWords= (words:any)=>setWords(words);
-  const newMaxCards=(cardsAmount:number)=>setMaxCards(cardsAmount);
+  const newWords = (words: any) => setWords(words);
+  const newMaxCards = (cardsAmount: number) => setMaxCards(cardsAmount);
 
   function handleOk(key: string): () => void | Promise<void> {
     return async function (): Promise<void> {
@@ -75,6 +77,7 @@ function LearnWords() {
           difficultyButtons: settingsData.optional.difficultyButtons,
         },
       };
+      setSettings(settings);
       let filter = '';
       switch (key) {
         case 'new':
@@ -117,21 +120,38 @@ function LearnWords() {
           });
           break;
       }
-     
-      getWordsFromBackend(filter, settings.optional.cardsPerDay)
-        .then((data) => {
-          setWords(data[0].paginatedResults);
-          setMaxCards(data[0].paginatedResults.length);          
-        })
-        .then(() => {
-          setLoading(false);
-          setVisible(false);
-        });
+      getStatistic().then((statistic: any) => {
+
+        let wordForCards: number = settings.optional.cardsPerDay;
+
+        if (statistic.optional.common.wordsToday.slice(-1)) {
+          wordForCards = settings.optional.cardsPerDay - statistic.optional.common.wordsToday.slice(-1);
+          wordForCards = (wordForCards <= 0) ? 0 : wordForCards;
+          if (!wordForCards || settings.optional.cardsPerDay <= statistic.optional.common.wordsToday.slice(-1)) {
+            setLoading(false);
+            setVisible(false);
+            Notification(statistic)
+          }
+        }
+        if (wordForCards) {
+          getWordsFromBackend(filter, wordForCards)
+            .then((data) => {
+              setWords(data[0].paginatedResults);
+              setMaxCards(data[0].paginatedResults.length);
+            })
+            .then(() => {
+              setLoading(false);
+              setVisible(false);
+            })
+        }
+      }
+
+      )   
     };
   }
 
-  function Notification(trainStatistic:any) {
-   
+  function Notification(trainStatistic: any) {
+
     setWord('');
     Modal.info({
       title: 'Congrats!',
@@ -139,24 +159,24 @@ function LearnWords() {
       centered: true,
       content: (
         <div className={styles.notifContainer}>
-        <div className={styles.notifTitle}>You have learned all words for today!</div>
+          <div className={styles.notifTitle}>You have learned all words for today!</div>
           <div className={styles.notifTitle}>
-          <div>Cards passed: {trainStatistic.optional.common.wordsToday[trainStatistic.optional.common.wordsToday.length-1]}</div>
-          <div> Percent of correct words: {trainStatistic.optional.common.correct[trainStatistic.optional.common.correct.length-1]/
-          (trainStatistic.optional.common.correct[trainStatistic.optional.common.correct.length-1]+trainStatistic.optional.common.errors)*100} %</div>
-          <div>New words: {trainStatistic.optional.common.newWordsToday} </div>
-           </div>
-       </div>
+            <div>Cards passed: {trainStatistic.optional.common.wordsToday[trainStatistic.optional.common.wordsToday.length - 1]}</div>
+            <div> Percent of correct words: {Math.round(trainStatistic.optional.common.correct[trainStatistic.optional.common.correct.length - 1] /
+              (trainStatistic.optional.common.correct[trainStatistic.optional.common.correct.length - 1] + trainStatistic.optional.common.errors) * 100)} %</div>
+            <div>New words: {trainStatistic.optional.common.newWordsToday} </div>
+          </div>
+        </div>
       ),
-      onOk() { 
+      onOk() {
         setVisibleNotification(false);
         history.push('/main-page');
-       },
+      },
     });
   }
 
   return (
-    
+
     <div className={styles.background}>
       <Modal
         className={styles.modal}
@@ -182,10 +202,11 @@ function LearnWords() {
           <div className={styles.cardContainer}>
             <ProgressIndicator progress={progress} />
             <CardsSlider
-            wordIndicator={wordIndicator}
-            setIndicator={newWordIndicator}
-            maxWordsCards={maxCards}
-               words={words}
+            renderWithSettings={settingsForCard}
+              wordIndicator={wordIndicator}
+              setIndicator={newWordIndicator}
+              maxWordsCards={maxCards}
+              words={words}
               word={word}
               setWord={newWord}
               index={index}
@@ -208,14 +229,16 @@ function LearnWords() {
             />
             {(autoplay && correct) && (
               <AudioAutoplay
+              renderWithSettings={settingsForCard}
                 audioWord={audioWord}
                 audioExample={audioExample}
                 audioMeaning={audioMeaning}
               />
             )}
             <Buttons
-            initialWords={words}
-            setNewWords={newWords}
+            renderWithSettings={settingsForCard}
+              initialWords={words}
+              setNewWords={newWords}
               setNewMaxCards={newMaxCards}
               setProgress={newProgress}
               word={word}

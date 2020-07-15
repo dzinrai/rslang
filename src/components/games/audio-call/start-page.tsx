@@ -27,8 +27,8 @@ export default () => {
   const blueColor = '#1194C8';
   return (
     <>
-      {!isStart &&
-        (
+      {!isStart
+        && (
           <div className={styles.gamesWrapper}>
             <img className={styles.imageSprinter} src={AudioCall} alt="Audio Call" />
             <CommonStartGameBlock setIsStart={setIsStart} color={blueColor} buttonText="start" name="Audio Call" />
