@@ -7,9 +7,9 @@ interface WeekStatisticProps {
 }
 
 function WeekStatistic({ weekProgress }: WeekStatisticProps) {
-  const [...weekStats] = weekProgress
-  console.log('weekStats', weekStats)
-  let tempStats = [
+  const [...weekStats] = weekProgress;
+  console.log('weekStats', weekStats);
+  const tempStats = [
     {
       weekDay: 'Mon',
       percentCorrect: 0,
@@ -43,7 +43,7 @@ function WeekStatistic({ weekProgress }: WeekStatisticProps) {
   tempStats.forEach((el: any) => {
     weekStats.map((el1: any) => {if (el1.weekDay === el.weekDay) el.percentCorrect = el1.percentCorrect})
   })
-  /* eslint-enable*/
+  /* eslint-enable */
   return (
     <div className={styles.container}>
       <div className={styles.sectionTitle}>Week Statistic</div>
@@ -52,7 +52,8 @@ function WeekStatistic({ weekProgress }: WeekStatisticProps) {
         <div className={styles.indicatorNice}>Nice result</div>
       </div>
       <div className={styles.dayStatContainer}>
-        {tempStats.map((el: any) => <DayStatistic key={el.weekDay} day={el.weekDay} percent={el.percentCorrect} />)}
+        { // eslint-disable-next-line
+        tempStats.map((el: any) => <DayStatistic key={el.weekDay} day={el.weekDay} percent={el.percentCorrect} />)}
       </div>
     </div>
   );

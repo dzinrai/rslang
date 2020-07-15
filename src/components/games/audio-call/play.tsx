@@ -71,7 +71,6 @@ export default ({ words }: PlayProps) => {
     if (event.currentTarget.classList.contains('card')) {
       if (word === currentWord.word) {
         correctWords.current.push(word);
-        // console.log(correctWords)
         event.currentTarget.classList.remove('card');
         event.currentTarget.classList.add('activeCard');
         console.log('index1', arrayIndex);
@@ -80,8 +79,6 @@ export default ({ words }: PlayProps) => {
         } else {
           lastWord.current = true;
         }
-        console.log('index2', arrayIndex);
-        console.log('cardsArrays', cardsArrays);
         setCorrectAnswer(true);
       } else {
         event.currentTarget.classList.remove('card');
@@ -113,7 +110,6 @@ export default ({ words }: PlayProps) => {
       setCorrectAnswer(false);
       setCurrentCards(cardsArrays[arrayIndex]);
       setCurrentWord(cardsArrays[arrayIndex][randomInteger(0, 4)]);
-      console.log('current', currentWord);
       answers.current.push(currentWord);
     }
   }
@@ -123,17 +119,15 @@ export default ({ words }: PlayProps) => {
       answers.current.push(currentWord);
     }
     fullCorrectWordsList.current = words.filter((word: any) => correctWords.current.includes(word.word));
-    console.log('answers', answers, correctWords);
     setIsResultsOpen(true);
     const loadStats = async () => {
       const gettedStats = await getStatistic();
-      console.log('getted stats', gettedStats);
       const percentCorrect = Math.round((fullCorrectWordsList.current.length * 100) / answers.current.length);
       gettedStats.optional.common.lastWord = fullCorrectWordsList.current[fullCorrectWordsList.current.length - 1].id;
       gettedStats.optional.games.audioCall.lastPlay.push(moment().format('DD/MM/YY'));
       gettedStats.optional.games.audioCall.percentCorrect.push(percentCorrect);
       gettedStats.optional.games.audioCall.words.push(answers.current.length);
-      console.log('put stats', gettedStats);
+     
 
       const newStats = async (stats: any) => await createStatistic(stats);
       newStats(gettedStats);
