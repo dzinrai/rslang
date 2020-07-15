@@ -10,6 +10,7 @@ import ProgressIndicator from './progress-indicator/progress-indicator';
 import Buttons from './buttons/buttons';
 import CardsSlider from './cards-slider/cards-slider';
 import AudioAutoplay from './audio-autoplay/audio-autoplay';
+import LearnedWords from './learned-words/learned-words';
 
 function LearnWords() {
   const history = useHistory();
@@ -35,6 +36,9 @@ function LearnWords() {
   const [progress, setProgress] = useState(0);
   const [wordIndicator, setIndicator] = useState(1);
 
+  const[allCards,setAllCards]=useState(0);
+  const [learnedWords,setLearnedWords]=useState(0);
+
   /* eslint-disable */
 
   useEffect(() => {
@@ -55,6 +59,7 @@ function LearnWords() {
   const newProgress = (progress1: number) => setProgress(progress1);
   const newWords = (words: any) => setWords(words);
   const newMaxCards = (cardsAmount: number) => setMaxCards(cardsAmount);
+  const newSetLearnedWords = (wordsss:number)=>setLearnedWords(wordsss);
 
   function handleOk(key: string): () => void | Promise<void> {
     return async function (): Promise<void> {
@@ -121,7 +126,10 @@ function LearnWords() {
           break;
       }
       getStatistic().then((statistic: any) => {
-
+        setProgress(statistic.optional.common.dayProgress);
+        setAllCards(settings.optional.cardsPerDay);
+        setLearnedWords(statistic.optional.common.wordsToday);
+        
         let wordForCards: number = settings.optional.cardsPerDay;
 
         if (statistic.optional.common.wordsToday.slice(-1)) {
@@ -201,6 +209,7 @@ function LearnWords() {
         ? (
           <div className={styles.cardContainer}>
             <ProgressIndicator progress={progress} />
+            <LearnedWords allWords={allCards}  learned={learnedWords} />
             <CardsSlider
             renderWithSettings={settingsForCard}
               wordIndicator={wordIndicator}
@@ -240,6 +249,7 @@ function LearnWords() {
               initialWords={words}
               setNewWords={newWords}
               setNewMaxCards={newMaxCards}
+              setLearned={newSetLearnedWords}
               setProgress={newProgress}
               word={word}
               onCorrect={correctCard}
