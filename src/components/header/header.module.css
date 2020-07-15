@@ -13,6 +13,10 @@
     overflow-x: hidden;
     margin-bottom: 5px;
 }
+.linkLogo {
+    position: relative;
+    z-index: 1;
+}
 
 .menuButton {
     z-index: 11;
