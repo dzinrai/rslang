@@ -38,7 +38,7 @@ const DailyWords: React.FC<{
     <div className={styles.container}>
       <p className={styles.header}>Daily Learn Words</p>
       <SettingSlider
-        name="Daily Learn Words"
+        name="Daily New Words"
         count={countOfDailyWords}
         changed={(value: number) => changeDailyWords(value)}
       />
