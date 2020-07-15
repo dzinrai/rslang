@@ -7,13 +7,19 @@ interface LearnedProps {
 }
 
 function LearnedWords({
-    learned, allWords,
+  learned, allWords,
 }: LearnedProps) {
-    return (
+  return (
 
-        <span className={styles.learned}>
-            Learned {learned} cards out of {allWords}
-        </span>)
+    <span className={styles.learned}>
+      Learned
+      {' '}
+      {learned}
+      {' '}
+      cards out of
+      {allWords}
+    </span>
+  );
 }
 
 export default LearnedWords;
