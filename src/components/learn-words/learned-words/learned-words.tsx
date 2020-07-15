@@ -12,7 +12,7 @@ function LearnedWords({
     return (
 
         <span className={styles.learned}>
-            Learned {learned} cards out of {allWords}
+            Learned{' '}{learned}{' '}cards out of{' '}{allWords}
         </span>)
 }
 
