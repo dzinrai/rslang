@@ -20,7 +20,7 @@ function StatisticPage() {
     for (let i = 0; i < statsLength; i += 1) {
       let temp = {'Correct words': 0, Date: '01/01/2020', Words: 0}
       temp['Words'] = statsRoute.wordsToday[i]
-      const percentCorrect = (statsRoute.correct[i]*100)/statsRoute.wordsToday[i]
+      const percentCorrect = Math.round((statsRoute.correct[i]*100)/statsRoute.wordsToday[i])
       temp['Correct words'] = percentCorrect ? (percentCorrect > 100 ? 100 : percentCorrect) : 0
       temp['Date'] = statsRoute.visitDate[i]
       tempArray.push(temp)
@@ -30,7 +30,7 @@ function StatisticPage() {
     if (statsRoute.visitDate[statsLength - 1] === moment().format('DD/MM/YY')) {
       let temp = {weekDay: '', percentCorrect: 0}
       temp.weekDay = statsRoute.weekDay[statsLength - 1].slice(0, 3)
-      const percentCorrect = (statsRoute.correct[statsLength - 1]*100)/statsRoute.wordsToday[statsLength - 1]
+      const percentCorrect = Math.round((statsRoute.correct[statsLength - 1]*100)/statsRoute.wordsToday[statsLength - 1])
       temp.percentCorrect = percentCorrect ? (percentCorrect > 100 ? 100 : percentCorrect) : 0
       tempWeekArray.push(temp)  
     }
@@ -40,7 +40,7 @@ function StatisticPage() {
     statsRoute.visitDate[statsLength - 1 - i] !== 'Sunday') {
       let temp = {weekDay: '', percentCorrect: 0}
       temp.weekDay = statsRoute.weekDay[statsLength - 1 - i].slice(0, 3)
-      const percentCorrect = (statsRoute.correct[statsLength - 1 - i]*100)/statsRoute.wordsToday[statsLength - 1 - i]
+      const percentCorrect = Math.round((statsRoute.correct[statsLength - 1 - i]*100)/statsRoute.wordsToday[statsLength - 1 - i])
       temp.percentCorrect = percentCorrect ? (percentCorrect > 100 ? 100 : percentCorrect) : 0
       tempWeekArray.push(temp)  
       i += 1

@@ -18,3 +18,12 @@
 .weekStatistic { grid-area: 2 / 1 / 9 / 2; }
 .totalStatistic { grid-area: 1 / 3 / 5 / 4; }
 .gamesStatistic { grid-area: 5 / 2 / 9 / 4; }
+
+@media (max-width: 1170px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+}
