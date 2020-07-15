@@ -19,15 +19,15 @@ function Contacts() {
         <div className={styles.contactsContainer}>
           <p className={styles.contact}>
             <span className={styles.caption}>Telegram:</span>
-            {' +375(29) 333-33-33'}
+            +375(29) 333-33-33
           </p>
           <p className={styles.contact}>
             <span className={styles.caption}>Discord:</span>
-            {' discord.com/channels'}
+            discord.com/channels
           </p>
           <p className={styles.contact}>
-            <span className={styles.caption}>Email:</span>
-            {' rs-lang@gmail.com'}
+            <span className={styles.caption}>Github:</span>
+            <a href="https://github.com/MetaVII/rslang" >metavii/rslang</a>
           </p>
         </div>
         <button className={styles.button} type="button">
