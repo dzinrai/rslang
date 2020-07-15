@@ -1,7 +1,6 @@
 .falling {
     z-index: 3;
     position: absolute;
-    top: 95px;
     left: 0;
     width: 100%;
     text-align: center;
@@ -14,8 +13,6 @@
 }
 
 .fallingNone {
-    /*animation: no-fall 1s linear;*/
-    top: 95px;
     opacity: 0;
 }
 
@@ -64,16 +61,7 @@
         letter-spacing: -27px;
     }
 }
-@keyframes no-fall {
-    from {
-        font-size: 36px;
-        opacity: 1;
-    }
-    to {
-        font-size: 360px;
-        opacity: 0;
-    }
-}
+
 
 .lion img{
     height: 22vh;
