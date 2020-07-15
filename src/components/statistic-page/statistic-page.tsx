@@ -47,7 +47,6 @@ function StatisticPage() {
       i += 1
     }
 
-    console.log('time', (moment("15/07/20", "DD/MM/YY").fromNow()))
     setWeekProgress(tempWeekArray)
     setTotalStats(totalStats.concat(tempArray))
     setDayProgress(statsRoute.dayProgress)

@@ -15,13 +15,6 @@ function TotalWordsToday({ dayProgress }: TotalWordsTodayProps) {
       <div className={styles.chartContainer}>
         <TotalWordsTodayChart dayProgress={dayProgress} />
       </div>
-      {/* <div className={styles.textContainer}>
-        Only
-        {' '}
-        <b>{leftWords}</b>
-        {' '}
-        words left to repeat
-      </div> */}
     </div>
   );
 }
