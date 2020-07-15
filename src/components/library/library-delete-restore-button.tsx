@@ -13,7 +13,7 @@ interface DeleteRestoreBtnProps {
 
 function DeleteRestoreBtn({ isDeletedPage, word }: DeleteRestoreBtnProps) {
   const wordsState = useContext(storeWords);
-  const words = wordsState.state.words;
+  const { words } = wordsState.state;
   const dispatchWords = wordsState.dispatch;
 
   const handleClick = () => {

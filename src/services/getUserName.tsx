@@ -15,3 +15,4 @@ export async function getUserName(dispatchWords: any) {
   dispatchWords({ type: 'setName', value: name });
   return content;
 }
+export default getUserName;

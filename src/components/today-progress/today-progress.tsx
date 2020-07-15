@@ -38,9 +38,17 @@ function TodayProgress() {
         <h3 className={styles.user_name}>{!stateWords?.name ? 'User' : toFromUpperCaseString(stateWords?.name)}</h3>
         <p className={styles.today_description}>
           Today you have learned
-          <span className={styles.bold_text}>{wordsToday} words</span>
+          <span className={styles.bold_text}>
+            {stateWords.userStatistic?.learnedWords ?? 0}
+            {' '}
+            words
+          </span>
           , including
-          <span className={styles.bold_text}>{newWordsToday} new words</span>
+          <span className={styles.bold_text}>
+            {todayWords}
+            {' '}
+            new words
+          </span>
           .
         </p>
       </span>

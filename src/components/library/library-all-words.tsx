@@ -8,7 +8,7 @@ import { storeWords } from '../../context/contextWords';
 
 function LibraryAllWords({ active, nonActive, hard } : any) {
   const wordsState = useContext(storeWords);
-  const words = wordsState.state.words;
+  const { words } = wordsState.state;
   if (!words) return null;
   /* eslint-disable */
   function checks(word: any) {
