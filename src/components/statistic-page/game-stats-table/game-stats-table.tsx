@@ -23,7 +23,7 @@ function GameStatsPage({ data, title }: GameStatsProps) {
   }
   const newdataSource = [];
 
-  if (title === 'English Puzzle') {
+  if (title === 'English Puzzle' && datesArray) {
     for (let i = 0; i < datesArray.length; i += 1) {
       const obj = {
         key: '', date: '', totalWords: 0, correctWords: '',
