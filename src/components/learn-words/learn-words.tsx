@@ -36,8 +36,8 @@ function LearnWords() {
   const [progress, setProgress] = useState(0);
   const [wordIndicator, setIndicator] = useState(1);
 
-  const[allCards,setAllCards]=useState(0);
-  const [learnedWords,setLearnedWords]=useState(0);
+  const [allCards, setAllCards] = useState(0);
+  const [learnedWords, setLearnedWords] = useState(0);
 
   /* eslint-disable */
 

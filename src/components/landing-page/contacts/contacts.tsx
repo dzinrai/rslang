@@ -27,7 +27,7 @@ function Contacts() {
           </p>
           <p className={styles.contact}>
             <span className={styles.caption}>Github:</span>
-            <a href="https://github.com/MetaVII/rslang" >metavii/rslang</a>
+            <a href="https://github.com/MetaVII/rslang">metavii/rslang</a>
           </p>
         </div>
         <button className={styles.button} type="button">

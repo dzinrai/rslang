@@ -15,9 +15,9 @@ function GameForToday({
   return (
     <Link to={`/mini-games/${path}`} className={styles.gameContainer}>
       <div className={styles.gameText}>
-      
+
         <span style={{ fontWeight: 600 }}>{boldText}</span>
-       
+
       </div>
       <div className={styles.gameImg}><img src={picture} alt="" /></div>
       <div className={styles.gameTitle}>{title}</div>
