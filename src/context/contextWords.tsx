@@ -18,7 +18,7 @@ const initialState = {
     },
   },
   userStatistic: {},
-  name: ''
+  name: '',
 };
 
 const storeWords = createContext<any>(undefined);

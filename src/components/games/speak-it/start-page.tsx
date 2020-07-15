@@ -4,7 +4,6 @@ import CommonStartGameBlock from '../common-start-game-block';
 import Megaphone from '../../../img/megaphone.svg';
 import Play from './play';
 
-
 export default () => {
   const [isStart, setIsStart] = useState<boolean>(false);
   const blueColor = '#1194C8';

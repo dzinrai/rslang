@@ -26,6 +26,7 @@ function LearnWords() {
   const [inProp, setInProp] = useState(true);
   const [transpAnswer, setTranspAnswer] = useState(false);
   const [maxCards, setMaxCards] = useState(10);
+  const [settingsForCard, setSettings] = useState({});
 
   const [visible, setVisible] = useState(true);
   const [visibleNotification, setVisibleNotification] = useState(false);
@@ -76,6 +77,7 @@ function LearnWords() {
           difficultyButtons: settingsData.optional.difficultyButtons,
         },
       };
+      setSettings(settings);
       let filter = '';
       switch (key) {
         case 'new':
@@ -144,7 +146,7 @@ function LearnWords() {
         }
       }
 
-      ) 
+      )   
     };
   }
 
@@ -160,8 +162,8 @@ function LearnWords() {
           <div className={styles.notifTitle}>You have learned all words for today!</div>
           <div className={styles.notifTitle}>
             <div>Cards passed: {trainStatistic.optional.common.wordsToday[trainStatistic.optional.common.wordsToday.length - 1]}</div>
-            <div> Percent of correct words: {trainStatistic.optional.common.correct[trainStatistic.optional.common.correct.length - 1] /
-              (trainStatistic.optional.common.correct[trainStatistic.optional.common.correct.length - 1] + trainStatistic.optional.common.errors) * 100} %</div>
+            <div> Percent of correct words: {Math.round(trainStatistic.optional.common.correct[trainStatistic.optional.common.correct.length - 1] /
+              (trainStatistic.optional.common.correct[trainStatistic.optional.common.correct.length - 1] + trainStatistic.optional.common.errors) * 100)} %</div>
             <div>New words: {trainStatistic.optional.common.newWordsToday} </div>
           </div>
         </div>
@@ -200,6 +202,7 @@ function LearnWords() {
           <div className={styles.cardContainer}>
             <ProgressIndicator progress={progress} />
             <CardsSlider
+            renderWithSettings={settingsForCard}
               wordIndicator={wordIndicator}
               setIndicator={newWordIndicator}
               maxWordsCards={maxCards}
@@ -226,12 +229,14 @@ function LearnWords() {
             />
             {(autoplay && correct) && (
               <AudioAutoplay
+              renderWithSettings={settingsForCard}
                 audioWord={audioWord}
                 audioExample={audioExample}
                 audioMeaning={audioMeaning}
               />
             )}
             <Buttons
+            renderWithSettings={settingsForCard}
               initialWords={words}
               setNewWords={newWords}
               setNewMaxCards={newMaxCards}

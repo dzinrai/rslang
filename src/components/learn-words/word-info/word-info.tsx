@@ -4,6 +4,7 @@ import { ReactComponent as Trans } from '../../../img/btnTranslate.svg';
 
 interface InfoSentences {
   word: string,
+  renderWithSettings: any,
   textExample: string,
   textMeaning: string,
   textExampleTranslate: string,
@@ -17,7 +18,7 @@ interface InfoSentences {
 function WordInfo(props: InfoSentences) {
   const {
     word, textExample, textMeaning, textExampleTranslate, textMeaningTranslate,
-    correct,
+    correct, renderWithSettings,
   } = props;
 
   const [isTranslation, setIsTranslation] = useState(false);
@@ -44,16 +45,19 @@ function WordInfo(props: InfoSentences) {
 
   return (
     <div className={styles.infoContainer}>
-
-      <div className={styles.textExample}>
-        {isTranslation ? textExampleTranslate : (word
-          && (correct ? showedWord(textExample, 'b') : hiddenWord(textExample, 'b')))}
-      </div>
+      {renderWithSettings.optional.sentenceExample
+        && (
+        <div className={styles.textExample}>
+          {isTranslation ? textExampleTranslate : (word
+            && (correct ? showedWord(textExample, 'b') : hiddenWord(textExample, 'b')))}
+        </div>
+        )}
       <div className={styles.meaningContainer}>
         <div className={styles.textMeaning}>
           {isTranslation ? textMeaningTranslate : (word
             && (correct ? showedWord(textMeaning, 'i') : hiddenWord(textMeaning, 'i')))}
         </div>
+        {renderWithSettings.optional.translateDescription && (
         <button
           className={styles.switchShowBtn}
           type="button"
@@ -61,6 +65,7 @@ function WordInfo(props: InfoSentences) {
         >
           <Trans />
         </button>
+        )}
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ function WordMoreInfo(props: WordMoreInfoProps) {
     wordId, textExample, textExampleTranslate, textMeaning, textMeaningTranslate, difficulty,
   } = props;
   const wordsState = useContext(storeWords);
-  const words = wordsState.state.words;
+  const { words } = wordsState.state;
   const dispatchWords = wordsState.dispatch;
   const [isTranslation, setIsTranslation] = useState(false);
   function showTranslation() {

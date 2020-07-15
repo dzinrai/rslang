@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import ReactAudioPlayer from 'react-audio-player';
-
+/*eslint-disable*/
 interface AudioProps {
+  renderWithSettings:any,
     audioWord: any,
     audioExample: any,
     audioMeaning: any
 }
 
-function AudioAutoplay({ audioWord, audioExample, audioMeaning }: AudioProps) {
+function AudioAutoplay({
+  audioWord, audioExample, audioMeaning, renderWithSettings,
+}: AudioProps) {
   const [nextAudio, setNextAudio] = useState(0);
 
   return (
@@ -16,8 +19,9 @@ function AudioAutoplay({ audioWord, audioExample, audioMeaning }: AudioProps) {
         src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audioWord}`}
         autoPlay
         controls={false}
-        onEnded={() => setNextAudio(nextAudio + 1)}
+        onEnded={() => setNextAudio(renderWithSettings.optional.spellingOutSentence ? (nextAudio + 1) : 0)}
       />
+
       {(nextAudio === 1) && (
         <ReactAudioPlayer
           src={`https://raw.githubusercontent.com/dzinrai/rslang-data/master/${audioExample}`}

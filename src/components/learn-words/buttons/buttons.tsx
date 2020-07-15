@@ -11,6 +11,7 @@ import { getStatistic, createStatistic } from '../../../services/statistic';
 import { getSettings } from '../../../services/settings';
 
 interface ButtonsProps {
+  renderWithSettings: any,
   word: any,
   setProgress: any,
   onCorrect: any,
@@ -46,7 +47,7 @@ function viewCount(wordObject: any) {
 function Buttons({
   word, onCorrect, setUsersWord, usersWord, correct, setIndexes, index, setIndex,
   setInProp, setTranspAnswer, visibleNot, setVisibleNot, maxCards, notification, setProgress,
-  setNewWords, initialWords, setNewMaxCards,
+  setNewWords, initialWords, setNewMaxCards, renderWithSettings,
 }: ButtonsProps) {
   console.log(visibleNot);
   const checkProps = {
@@ -70,7 +71,7 @@ function Buttons({
           getSettings()
             .then((settings: any) => {
               // eslint-disable-next-line
-              const dayProgress = ((statistic.optional.common.wordsToday[(statistic.optional.common.wordsToday.length) - 1]) / settings.optional.cardsPerDay) * 100;
+              const dayProgress = Math.round(((statistic.optional.common.wordsToday[(statistic.optional.common.wordsToday.length) - 1]) / settings.optional.cardsPerDay) * 100);
               statistic.optional.common.dayProgress = (dayProgress > 100) ? 100 : dayProgress;
               setProgress(statistic.optional.common.dayProgress);
             });
@@ -142,12 +143,12 @@ function Buttons({
     setUsersWord(word.word);
     onCorrect(true);
   }
-
+/*eslint-disable*/
   return (
     <>
       <div className={styles.buttonsContainer}>
         {correct
-          ? (
+          ? (renderWithSettings.optional.difficultyButtons ? (
             <>
               <div className={styles.buttonsInfo}>Indicate difficulty level</div>
               <div className={styles.levelButtons}>
@@ -172,6 +173,14 @@ function Buttons({
               </div>
               <Button type="primary" icon={<HistoryOutlined />} size="large" shape="circle" onClick={() => difficultyButtonClick('repeat')} />
             </>
+          ) : (
+            <Button
+              onClick={() => difficultyButtonClick('normal')}
+              className={styles.buttonNormal}
+            >
+              Next
+            </Button>
+          )
           )
           : (
             <>
@@ -184,13 +193,16 @@ function Buttons({
                 style={{ width: '50px', height: '50px', marginBottom: '12px' }}
               />
               <div>
-                <button
-                  className={styles.showResults}
-                  type="button"
-                  onClick={() => showResultsClick()}
-                >
-                  Show Results
-                </button>
+                {renderWithSettings.optional.showResultButton
+                  && (
+                    <button
+                      className={styles.showResults}
+                      type="button"
+                      onClick={() => showResultsClick()}
+                    >
+                      Show Results
+                    </button>
+                  )}
               </div>
             </>
           )}
