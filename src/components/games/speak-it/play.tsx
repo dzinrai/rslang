@@ -18,21 +18,24 @@ export default () => {
   const wordsState = useContext(storeWords);
   const dispatchWords = wordsState.dispatch;
   const [words, setWords] = useState<any>([]);
-  const [pageLevel, setPageLevel] = useState<number>(1);
+  const [wordsFromBackend, stWordsFromBackend] = useState<any>([]);
+  const [pageLevel, setPageLevel] = useState<number>(0);
   const [isPlayMode, setIsPlayMode] = useState(true);
   // eslint-disable-next-line no-shadow
-  const preloadWords = async (pageLevel : number) => {
+  const preloadWords = async () => {
     const wordsFromBackend = await getWords({
-      page: pageLevel, group: 0, wordsPerExampleSentenceLTE: 10, wordsPerPage: 10,
+      wordsPerExampleSentenceLTE: 10, wordsPerPage: 50,
     });
-    setWords(wordsFromBackend);
+    await stWordsFromBackend(wordsFromBackend)
+    await setWords(wordsFromBackend.slice(0, 10));
     dispatchWords({ type: 'setWords', value: wordsFromBackend });
+    setPageLevel(pageLevel + 1)
   };
   const wordRef = useRef<any>([]);
   /* eslint-disable */
   useEffect(() => {
     wordRef.current = new Array(words.length);
-    preloadWords(pageLevel);
+    preloadWords();
   }, []);
   /* eslint-enable */
   const [correctWords, setCorrectWords] = useState<any>([]);
@@ -51,13 +54,15 @@ export default () => {
       const percentCorrect = Math.round((correctWords.length * 100) / words.length);
       // eslint-disable-next-line
       if (correctWords[correctWords.length - 1]) gettedStats.optional.common.lastWord = correctWords[correctWords.length - 1].id;
-      gettedStats.optional.games.speakIt.lastPlay.push(moment().format('DD/MM/YY'));
-      gettedStats.optional.games.speakIt.percentCorrect.push(percentCorrect);
-      gettedStats.optional.games.speakIt.words.push(words.length);
-      console.log('put stats', gettedStats);
-      // eslint-disable-next-line
-      const newStats = async (stats: any) => await createStatistic(stats);
-      newStats(gettedStats);
+      if(gettedStats.optional) {
+        gettedStats.optional.games.speakIt.lastPlay.push(moment().format('DD/MM/YY'));
+        gettedStats.optional.games.speakIt.percentCorrect.push(percentCorrect);
+        gettedStats.optional.games.speakIt.words.push(words.length);
+        console.log('put stats', gettedStats);
+        // eslint-disable-next-line
+        const newStats = async (stats: any) => await createStatistic(stats);
+        newStats(gettedStats);
+      }
     };
     loadStats();
 
@@ -66,13 +71,20 @@ export default () => {
     if (isPlayMode) setIsPlayMode(false);
   };
   const newGame = () => {
-    setPageLevel(pageLevel + 1);
+    if (pageLevel !== 5) {
+      setWords(wordsFromBackend.slice(pageLevel * 10, pageLevel * 10 + 10));
+      setPageLevel(pageLevel + 1)
+      console.log(pageLevel)
+      console.log(wordsFromBackend.slice(pageLevel * 10, pageLevel * 10 + 10))
+    } else {
+      setPageLevel(0)
+      setWords(wordsFromBackend.slice(0, 10));
+    }
     setCorrectWords([]);
     // eslint-disable-next-line array-callback-return
     wordRef.current.map((item: any) => {
       item.classList.remove('disable');
     });
-    preloadWords(pageLevel + 1);
     toggleModal();
     setIsPlayMode(true);
   };
@@ -110,7 +122,7 @@ export default () => {
         <div className={`${styles.wordsContainer} ${!isPlayMode && styles.clickable}`}>
           {words.map((word : any, index: any) => (
             <div
-              key={`id__${word}`}
+              key={`id__${word.word}`}
               className={styles.wordElement}
               ref={(el) => { wordRef.current[index] = el; }}
               data-word={word.word}
