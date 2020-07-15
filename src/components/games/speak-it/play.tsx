@@ -58,7 +58,6 @@ export default () => {
         gettedStats.optional.games.speakIt.lastPlay.push(moment().format('DD/MM/YY'));
         gettedStats.optional.games.speakIt.percentCorrect.push(percentCorrect);
         gettedStats.optional.games.speakIt.words.push(words.length);
-        console.log('put stats', gettedStats);
         // eslint-disable-next-line
         const newStats = async (stats: any) => await createStatistic(stats);
         newStats(gettedStats);
