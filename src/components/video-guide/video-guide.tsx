@@ -23,7 +23,7 @@ const VideoGuide: React.FC<{
     ]}
   >
     <YouTube
-      video="ZuuVjuLNvFY"
+      video="I9iGlaDEVV8"
       width={640}
       height={480}
       paused={!visible}
