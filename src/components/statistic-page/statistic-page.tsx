@@ -22,7 +22,7 @@ function StatisticPage() {
       let temp = {'Correct words': 0, Date: '01/01/2020', Words: 0}
       temp['Words'] = statsRoute.wordsToday[i]
       const percentCorrect = (statsRoute.correct[i]*100)/statsRoute.wordsToday[i]
-      temp['Correct words'] = percentCorrect > 100 ? 100 : percentCorrect
+      temp['Correct words'] = percentCorrect ? (percentCorrect > 100 ? 100 : percentCorrect) : 0
       temp['Date'] = statsRoute.visitDate[i]
       tempArray.push(temp)
     }
@@ -32,7 +32,7 @@ function StatisticPage() {
       let temp = {weekDay: '', percentCorrect: 0}
       temp.weekDay = statsRoute.weekDay[statsLength - 1].slice(0, 3)
       const percentCorrect = (statsRoute.correct[statsLength - 1]*100)/statsRoute.wordsToday[statsLength - 1]
-      temp.percentCorrect = percentCorrect > 100 ? 100 : percentCorrect
+      temp.percentCorrect = percentCorrect ? (percentCorrect > 100 ? 100 : percentCorrect) : 0
       tempWeekArray.push(temp)  
     }
 
@@ -42,7 +42,7 @@ function StatisticPage() {
       let temp = {weekDay: '', percentCorrect: 0}
       temp.weekDay = statsRoute.weekDay[statsLength - 1 - i].slice(0, 3)
       const percentCorrect = (statsRoute.correct[statsLength - 1 - i]*100)/statsRoute.wordsToday[statsLength - 1 - i]
-      temp.percentCorrect = percentCorrect > 100 ? 100 : percentCorrect
+      temp.percentCorrect = percentCorrect ? (percentCorrect > 100 ? 100 : percentCorrect) : 0
       tempWeekArray.push(temp)  
       i += 1
     }
