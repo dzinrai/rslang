@@ -27,6 +27,7 @@ export default ({ words }: PlayProps) => {
     const [currentCards, setCurrentCards] = useState<any>([])
     const [correctAnswer, setCorrectAnswer] = useState<any>(false)
     const [isResultsOpen, setIsResultsOpen] = useState<boolean>(false)
+    const wasMistake: any = useRef(false)
     const correctWords: any = useRef([])
     const fullCorrectWordsList: any = useRef([])
     const answers: any = useRef([])
@@ -67,7 +68,7 @@ export default ({ words }: PlayProps) => {
     function checkWord(event: any, word: string) {
         if (event.currentTarget.classList.contains('card')) {
             if (word === currentWord.word) {
-                correctWords.current.push(word)
+                if (!wasMistake.current) correctWords.current.push(word)
                 // console.log(correctWords)
                 event.currentTarget.classList.remove('card')
                 event.currentTarget.classList.add('activeCard')
@@ -81,6 +82,7 @@ export default ({ words }: PlayProps) => {
                 console.log('cardsArrays', cardsArrays)
                 setCorrectAnswer(true)
             } else {
+                wasMistake.current = true
                 event.currentTarget.classList.remove('card')
                 event.currentTarget.classList.add('inactiveCard')
             }    
@@ -106,6 +108,7 @@ export default ({ words }: PlayProps) => {
 
     function nextCards() {
         if (arrayIndex <= 9 && !lastWord.current) {
+            wasMistake.current = false
             setCorrectAnswer(false)
             setCurrentCards(cardsArrays[arrayIndex])
             setCurrentWord(cardsArrays[arrayIndex][randomInteger(0, 4)])    

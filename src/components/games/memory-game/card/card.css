@@ -1,4 +1,4 @@
-.card-container, .card, .card .side {
+.card-container, .card1, .card1 .side {
 	width: 180px;
 	height: 150px;
 	background-color: transparent;
@@ -6,7 +6,7 @@
 }
 
 @media (max-width: 460px) {
-	.card-container, .card, .card .side {
+	.card-container, .card1, .card1 .side {
 	width: 130px;
 	height: 100px
 	}
@@ -17,7 +17,7 @@
 	perspective: 600px;
 }
 
-.card {
+.card1 {
 	display: flex;
     justify-content: center;
     align-items: center;
@@ -29,24 +29,24 @@
 }
 
 @media (max-width: 991.98px) {
-	.card {
+	.card1 {
 		border-radius: 5px;
 	}
 }
 
-.card .side {
+.card1 .side {
 	-webkit-backface-visibility: hidden;
 	backface-visibility: hidden;
 	border-radius: 13px;
 }
 
 @media (max-width: 991.98px) {
-	.card .side {
+	.card1 .side {
 		border-radius: 4.33333px;
 	}
 }
 
-.card .back {
+.card1 .back {
 	transform: rotateY(180deg);
 	position: absolute;
 	top: 0;
@@ -56,7 +56,7 @@
 	background-size: 56px 56px;
 }
 
-.card .back::before, .card .back::after {
+.card1 .back::before, .card1 .back::after {
 	border-radius: 13px;
 	content: "";
 	position: absolute;
@@ -69,25 +69,25 @@
 }
 
 @media (max-width: 991.98px) {
-	.card .back::before, .card .back::after {
+	.card1 .back::before, .card1 .back::after {
 		border-radius: 4.33333px;
 	}
 }
 
-.card .back::after {
+.card1 .back::after {
 	opacity: 0;
 	transition: opacity 0.4s;
 }
 
-.card-container:hover .card {
+.card-container:hover .card1 {
 	box-shadow: 0 0 10px rgba(0, 190, 133, 0.6);
 }
 
-.card-container:hover .card .back::after {
+.card-container:hover .card1 .back::after {
 	opacity: .5;
 }
 
-.card.flipped {
+.card1.flipped {
 	transform: rotateY(180deg);
 }
 

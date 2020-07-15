@@ -2,22 +2,26 @@ import React from 'react';
 import TotalWordsTodayChart from '../total-words-today-chart/total-words-today-chart';
 import styles from './total-words-today.module.css';
 
-function TotalWordsToday() {
+interface TotalWordsTodayProps {
+  dayProgress: number
+}
+
+function TotalWordsToday({ dayProgress }: TotalWordsTodayProps) {
   const leftWords = 5;
 
   return (
     <div className={styles.container}>
       <div className={styles.sectionTitle}>Total words learned today</div>
       <div className={styles.chartContainer}>
-        <TotalWordsTodayChart />
+        <TotalWordsTodayChart dayProgress={dayProgress} />
       </div>
-      <div className={styles.textContainer}>
+      {/* <div className={styles.textContainer}>
         Only
         {' '}
         <b>{leftWords}</b>
         {' '}
         words left to repeat
-      </div>
+      </div> */}
     </div>
   );
 }

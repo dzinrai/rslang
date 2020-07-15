@@ -88,6 +88,7 @@ export default ({ words }: PlayProps) => {
           const gettedStats = await getStatistic();
           console.log('getted stats', gettedStats)
           const percentCorrect = Math.round((fullCorrectWordsList.current.length*100)/words.length)
+          if (fullCorrectWordsList.current.length > 0) 
           gettedStats.optional.common.lastWord = fullCorrectWordsList.current[fullCorrectWordsList.current.length - 1].id
           gettedStats.optional.games.ownGame.lastPlay.push(moment().format('DD/MM/YY'))
           gettedStats.optional.games.ownGame.percentCorrect.push(percentCorrect)

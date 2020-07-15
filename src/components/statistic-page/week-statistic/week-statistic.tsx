@@ -2,37 +2,47 @@ import React from 'react';
 import DayStatistic from '../day-statistic/day-statistic';
 import styles from './week-statistic.module.css';
 
-function WeekStatistic() {
-  const testStats = [
+interface WeekStatisticProps {
+  weekProgress: any
+}
+
+function WeekStatistic({ weekProgress }: WeekStatisticProps) {
+  const [...weekStats] = weekProgress
+  console.log('weekStats', weekStats)
+  let tempStats = [
     {
-      day: 'Mon',
-      progressPercent: 15,
+      weekDay: 'Mon',
+      percentCorrect: 0,
     },
     {
-      day: 'Tue',
-      progressPercent: 30,
+      weekDay: 'Tue',
+      percentCorrect: 0,
     },
     {
-      day: 'Wed',
-      progressPercent: 0,
+      weekDay: 'Wed',
+      percentCorrect: 0,
     },
     {
-      day: 'Thu',
-      progressPercent: 40,
+      weekDay: 'Thu',
+      percentCorrect: 0,
     },
     {
-      day: 'Fri',
-      progressPercent: 75,
+      weekDay: 'Fri',
+      percentCorrect: 0,
     },
     {
-      day: 'Sat',
-      progressPercent: 10,
+      weekDay: 'Sat',
+      percentCorrect: 0,
     },
     {
-      day: 'Sun',
-      progressPercent: 90,
+      weekDay: 'Sun',
+      percentCorrect: 0,
     },
   ];
+
+  tempStats.forEach((el: any) => {
+    weekStats.map((el1: any) => {if (el1.weekDay === el.weekDay) el.percentCorrect = el1.percentCorrect})
+  })
 
   return (
     <div className={styles.container}>
@@ -42,7 +52,7 @@ function WeekStatistic() {
         <div className={styles.indicatorNice}>Nice result</div>
       </div>
       <div className={styles.dayStatContainer}>
-        {testStats.map((el) => <DayStatistic day={el.day} percent={el.progressPercent} />)}
+        {tempStats.map((el: any) => <DayStatistic key={el.weekDay} day={el.weekDay} percent={el.percentCorrect} />)}
       </div>
     </div>
   );
