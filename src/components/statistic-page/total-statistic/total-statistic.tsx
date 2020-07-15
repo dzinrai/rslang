@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import styles from './total-statistic.module.css';
 import TotalStatisticChart from '../total-statistic-chart/total-statistic-chart';
 

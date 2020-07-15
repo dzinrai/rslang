@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import styles from './statistic-page.module.css';
 import TodayProgress from '../today-progress';
@@ -51,11 +51,11 @@ function StatisticPage() {
     setTotalStats(totalStats.concat(tempArray))
     setDayProgress(statsRoute.dayProgress)
   };
-
+  /* eslint-disable*/
   useEffect(() => {
     loadStats();    
   }, [])
-
+  /* eslint-enable*/
   return (
     <div className={styles.container}>
       <div className={styles.todayProgress}>

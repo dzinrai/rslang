@@ -39,11 +39,11 @@ function WeekStatistic({ weekProgress }: WeekStatisticProps) {
       percentCorrect: 0,
     },
   ];
-
+  /* eslint-disable*/
   tempStats.forEach((el: any) => {
     weekStats.map((el1: any) => {if (el1.weekDay === el.weekDay) el.percentCorrect = el1.percentCorrect})
   })
-
+  /* eslint-enable*/
   return (
     <div className={styles.container}>
       <div className={styles.sectionTitle}>Week Statistic</div>

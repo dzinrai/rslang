@@ -7,8 +7,6 @@ interface TotalWordsTodayProps {
 }
 
 function TotalWordsToday({ dayProgress }: TotalWordsTodayProps) {
-  const leftWords = 5;
-
   return (
     <div className={styles.container}>
       <div className={styles.sectionTitle}>Total words learned today</div>
