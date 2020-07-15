@@ -5,11 +5,16 @@
   grid-template-columns: minmax(auto, 320px) minmax(auto, 268px) 1fr;
   position: relative;
   overflow: hidden;
-  z-index: 0;
+  z-index: 1;
   font-family: 'Montserrat', sans-serif;
-  background-image: url('../../../img/welcome.png');
-  background-repeat: no-repeat;
-  background-position: top right;
+}
+
+.container::before {
+  z-index: -1;
+  position: absolute;
+  right: 0;
+  top: 0;
+  content: url('../../../img/welcome.png');
 }
 
 .logo {
@@ -79,4 +84,16 @@
 .header {
   position: relative;
   margin-bottom: 0;
+}
+
+@media(max-width: 1090px) {
+  .container::before {
+    opacity: 0.4;
+  }
+}
+
+@media(max-width: 380px) {
+  .title {
+    font-size: 48px;
+  }
 }

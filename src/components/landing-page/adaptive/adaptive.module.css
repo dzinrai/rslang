@@ -1,10 +1,17 @@
 .container {
   padding: 148px 102px 520px 10px;
   text-align: end;
-  background-image: url('../../../img/adaptive-page.png');
-  background-repeat: no-repeat;
-  background-size: contain;
-  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.container::before {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: url('../../../img/adaptive-page.png');
 }
 
 .title {
@@ -20,4 +27,10 @@
   line-height: 29px;
   color: #FF645F;
   margin-bottom: 0;
+}
+
+@media(max-width: 890px) {
+  .container::before {
+    opacity: 0.4;
+  }
 }
