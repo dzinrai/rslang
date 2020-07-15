@@ -6,7 +6,7 @@ interface Props {
   boldText: string,
   picture: string,
   title: string,
-  path: string
+  path: string,
 }
 
 function GameForToday({
@@ -15,11 +15,9 @@ function GameForToday({
   return (
     <Link to={`/mini-games/${path}`} className={styles.gameContainer}>
       <div className={styles.gameText}>
-        Learn
-        {' '}
+      
         <span style={{ fontWeight: 600 }}>{boldText}</span>
-        {' '}
-        in this game
+       
       </div>
       <div className={styles.gameImg}><img src={picture} alt="" /></div>
       <div className={styles.gameTitle}>{title}</div>
