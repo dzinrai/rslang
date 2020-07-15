@@ -21,3 +21,10 @@
   width: 90%;
   margin-top: 17px;
 }
+
+@media (max-width: 1235px) {
+  .container {
+    margin: auto;
+    width: 100%;
+  }
+}
