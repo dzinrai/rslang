@@ -39,13 +39,13 @@ function TodayProgress() {
         <p className={styles.today_description}>
           Today you have learned
           <span className={styles.bold_text}>
-            {stateWords.userStatistic?.learnedWords ?? 0}
+            {wordsToday}
             {' '}
             words
           </span>
           , including
           <span className={styles.bold_text}>
-            {todayWords}
+            {newWordsToday}
             {' '}
             new words
           </span>
