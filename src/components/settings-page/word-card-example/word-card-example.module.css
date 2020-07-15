@@ -70,3 +70,23 @@
   margin-top: 20px;
   height: 22px;
 }
+
+@media (max-width: 1235px) {
+  .container {
+    margin: auto;
+    width: 100%;
+  }
+  .mainSentenceContainer, .sentenceTranslation {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .mainSentenceContainer, .sentenceTranslation {
+    max-width: 300px;
+  }
+  .sentenceImg {
+    /* flex-direction: column; */
+    justify-content: center;
+  }
+}

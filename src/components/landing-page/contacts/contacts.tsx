@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import VideoGuide from '../../video-guide';
 import { ReactComponent as Logo } from '../../../img/logo.svg';
 import { ReactComponent as Arrow } from '../../../img/arrow-right.svg';
 
 import styles from './contacts.module.css';
 
 function Contacts() {
+  const [visible, setVisible] = useState(false);
+
+  function clickArrowButton(): void {
+    const value = visible;
+
+    setVisible(!value);
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.row}>
@@ -30,7 +39,8 @@ function Contacts() {
             <a href="https://github.com/MetaVII/rslang">metavii/rslang</a>
           </p>
         </div>
-        <button className={styles.button} type="button">
+        <VideoGuide visible={visible} onOk={clickArrowButton} />
+        <button className={styles.button} type="button" onClick={clickArrowButton}>
           <Arrow />
         </button>
       </div>
