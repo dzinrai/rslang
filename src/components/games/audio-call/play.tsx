@@ -23,6 +23,7 @@ interface PlayProps {
 }
 
 export default ({ words }: PlayProps) => {
+
   const [currentWord, setCurrentWord] = useState<any>(null);
   const [arrayIndex, setArrayIndex] = useState<number>(0);
   const [currentCards, setCurrentCards] = useState<any>([]);
@@ -57,6 +58,7 @@ export default ({ words }: PlayProps) => {
     }
   };
 
+
   for (let i = 0; i < 50; i += 5) {
     const tempArray: any = [];
     for (let j = 0; j < 5; j += 1) {
@@ -87,6 +89,7 @@ export default ({ words }: PlayProps) => {
       }
     }
   }
+
 
   function helpPlease() {
     setCorrectAnswer(true);

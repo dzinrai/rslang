@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Area } from '@ant-design/charts';
 
 interface TotalStatisticChartProps {
-  testStats: any
+  stats: any
 }
 
-const TotalStatisticChart = ({ testStats }: TotalStatisticChartProps) => {
-  const [data, setData] = useState([]);
-  /*eslint-disable*/
-  useEffect(() => {
-    setData(testStats);
-  }, []);
-  /* eslint-enable */
+const TotalStatisticChart = ({ stats }: TotalStatisticChartProps) => {
+  const [...data] = stats
+
   const config = {
     width: 339,
     height: 292,

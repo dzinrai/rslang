@@ -13,7 +13,7 @@ export default function Card({
 }: CardProps) {
   return (
     <button className="card-container" onClick={onClick} type="button">
-      <div className={`card${isFlipped ? ' flipped' : ''}`}>
+      <div className={`card1${isFlipped ? ' flipped' : ''}`}>
         {imageURL ? <img className="side front" src={imageURL} alt="" /> : <div className="word">{word}</div>}
         <div className="side back" />
       </div>

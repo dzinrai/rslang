@@ -1,7 +1,11 @@
 import React from 'react';
 import { Liquid } from '@ant-design/charts';
 
-const TotalWordsTodayChart: React.FC = () => {
+interface TotalWordsTodayChartProps {
+  dayProgress: number
+}
+
+const TotalWordsTodayChart = ({ dayProgress }: TotalWordsTodayChartProps) => {
   const config = {
     width: 150,
     height: 150,
@@ -12,8 +16,8 @@ const TotalWordsTodayChart: React.FC = () => {
       stroke: '#2F80ED',
     },
     min: 0,
-    max: 3600,
-    value: 2500,
+    max: 100,
+    value: dayProgress,
     statistic: {
       formatter: (value: number) => `${((100 * value) / 3600).toFixed(1)} %`,
       style: {
